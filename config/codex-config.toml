@@ -1,0 +1,14 @@
+[tui]
+screen_reader_detection_done = true
+
+[plugins."engram@engram"]
+enabled = true
+
+[mcp_servers.engram]
+command = "/home/jd/.local/bin/engram"
+args = ["mcp", "--tools=agent"]
+
+[marketplaces.engram]
+source_type = "git"
+source = "https://github.com/Gentleman-Programming/engram.git"
+ref = "v3.6.0"

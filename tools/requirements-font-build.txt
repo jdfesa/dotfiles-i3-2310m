@@ -1,0 +1,2 @@
+# Administration host only; not required on the laptop.
+fonttools==4.66.1

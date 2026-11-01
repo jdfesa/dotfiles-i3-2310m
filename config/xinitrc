@@ -1,0 +1,4 @@
+#!/bin/sh
+# Use Debian's session hooks (including the systemd user D-Bus environment).
+export XDG_CURRENT_DESKTOP=i3
+exec /etc/X11/Xsession /usr/bin/i3

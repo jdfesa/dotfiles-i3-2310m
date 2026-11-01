@@ -1,0 +1,30 @@
+Super + Enter                 Kitty terminal
+Super + Space                 Apps launcher; type Power for the power menu
+Super + Shift + P             Power menu; Power off first, confirmations default to Yes
+Super + N                     Wi-Fi networks; arrows, Tab, Enter, Escape
+Super + A                     Audio mixer (external adapter required)
+Super + U                     Available updates (read-only local APT cache)
+Super + Shift + Enter / B     Helium browser
+Super + K                     This help; Escape closes
+Super + W / Q                 Close window
+Super + arrows                Focus window
+Super + Shift + arrows        Move window
+Super + 1..9 / 0              Workspaces 1..10
+Super + Shift + number        Send window to workspace
+Super + F                     Fullscreen
+Super + T                     Toggle floating/tiled
+Super + J                     Toggle horizontal/vertical split
+Super + L                     Cycle split/tabbed/stacking
+Super + Tab                   Focus floating/tiled layer
+Super + S                     Show/hide scratchpad
+Super + Alt + S               Send window to scratchpad
+Super + R                     Resize; arrows; Enter/Escape returns
+Super + B / V                 Next split horizontal/vertical
+Super + Ctrl + W / S          Tabbed/stacking layout
+Super + Ctrl + L              Lock; password + Enter unlocks
+Super + Shift + C / R         Reload config/restart i3
+Super + Shift + E             Exit; Y confirms, N/Escape cancels
+Ctrl + Shift + C / V          Copy/paste in Kitty
+Ctrl + L                      Helium address bar
+Ctrl + T / W                  New/close browser tab
+Ctrl + Tab / Ctrl+Shift+Tab   Next/previous browser tab

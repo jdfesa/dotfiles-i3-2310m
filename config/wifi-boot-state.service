@@ -1,0 +1,19 @@
+[Unit]
+Description=Record Wi-Fi block state once at boot (temporary diagnostic)
+After=NetworkManager.service
+
+[Service]
+Type=oneshot
+User=jd
+ExecStart=/usr/sbin/rfkill --output ID,TYPE,DEVICE,SOFT,HARD list
+ExecStart=/usr/bin/nmcli radio
+TimeoutStartSec=10s
+Restart=no
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

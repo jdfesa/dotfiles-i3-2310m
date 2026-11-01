@@ -1,0 +1,29 @@
+configuration {
+    modi: "drun,run,window";
+    font: "JetBrainsMono Nerd Font Mono 11";
+    show-icons: false;
+    terminal: "kitty";
+    drun-display-format: "{name}";
+    display-drun: "Apps";
+    display-run: "Run";
+    display-window: "Windows";
+}
+@theme "default"
+* {
+    background: #1e1e2e;
+    foreground: #cdd6f4;
+    selected-normal-background: #45475a;
+    selected-normal-foreground: #b4befe;
+    normal-background: #1e1e2e;
+    normal-foreground: #cdd6f4;
+    alternate-normal-background: #181825;
+    alternate-normal-foreground: #cdd6f4;
+    border-color: #b4befe;
+    separatorcolor: #45475a;
+}
+window {
+    width: 60%;
+}
+listview {
+    lines: 8;
+}

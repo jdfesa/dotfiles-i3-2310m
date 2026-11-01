@@ -1,0 +1,4 @@
+# NetworkManager manages Ethernet and Wi-Fi; ifupdown only keeps loopback.
+source /etc/network/interfaces.d/*
+auto lo
+iface lo inet loopback

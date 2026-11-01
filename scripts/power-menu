@@ -1,0 +1,101 @@
+#!/bin/sh
+# On-demand Rofi power menu; no resident process.
+set -eu
+export LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+
+usage() {
+    printf '%s\n' 'Usage: power-menu' '       power-menu --preview' '       power-menu --dry-run "Cancel|Lock|Suspend|Log out|Reboot|Power off"'
+}
+
+dry_run=0
+preview=0
+choice=
+case $# in
+    0) ;;
+    1)
+        [ "$1" = --preview ] || { usage >&2; exit 2; }
+        dry_run=1
+        preview=1
+        ;;
+    2)
+        [ "$1" = --dry-run ] || { usage >&2; exit 2; }
+        dry_run=1
+        choice=$2
+        ;;
+    *) usage >&2; exit 2 ;;
+esac
+
+require() {
+    command -v "$1" >/dev/null 2>&1 || {
+        printf 'power-menu: required command not found: %s\n' "$1" >&2
+        exit 127
+    }
+}
+
+select_from_menu() {
+    prompt=$1
+    lines=$2
+    message=$3
+    shift 3
+    # Never accept arbitrary shell text. Escape/cancel returns an empty choice.
+    printf '%s\n' "$@" | rofi -dmenu -i -no-custom -no-sort -selected-row 0 \
+        -l "$lines" -p "$prompt" -mesg "$message" || true
+}
+
+confirm() {
+    if [ "$dry_run" -eq 1 ] && [ "$preview" -eq 0 ]; then
+        printf '[dry-run] confirmation required (default Yes): %s\n' "$1"
+        return 0
+    fi
+    answer=$(select_from_menu "$1" 2 'Save your work first. Escape cancels.' Yes No)
+    [ "$answer" = Yes ] || exit 0
+}
+
+run() {
+    if [ "$dry_run" -eq 1 ]; then
+        printf '[dry-run]'
+        for argument in "$@"; do printf ' %s' "$argument"; done
+        printf '\n'
+        return 0
+    fi
+    "$@"
+}
+
+power_action() {
+    [ "$dry_run" -eq 1 ] || require kitty
+    run kitty --class BGH-Power --title 'Power action' -e "$HOME/scripts/power-action.sh" "$1"
+}
+
+if [ "$dry_run" -ne 1 ] || [ "$preview" -eq 1 ]; then
+    require rofi
+    message='Choose an action. Save your work first. Escape cancels.'
+    [ "$preview" -eq 0 ] || message='Preview only: no action will be executed.'
+    choice=$(select_from_menu Power 6 "$message" \
+        'Power off' Reboot Suspend 'Log out' Lock Cancel)
+fi
+
+case $choice in
+    Cancel|'') exit 0 ;;
+    Lock)
+        [ "$dry_run" -eq 1 ] || require i3lock
+        run i3lock -c 1e1e2e
+        ;;
+    Suspend)
+        confirm 'Suspend?'
+        power_action suspend
+        ;;
+    'Log out')
+        [ "$dry_run" -eq 1 ] || require i3-msg
+        confirm 'Log out of i3?'
+        run i3-msg exit
+        ;;
+    Reboot)
+        confirm 'Reboot?'
+        power_action reboot
+        ;;
+    'Power off')
+        confirm 'Power off?'
+        power_action poweroff
+        ;;
+    *) printf 'power-menu: unknown selection: %s\n' "$choice" >&2; exit 2 ;;
+esac

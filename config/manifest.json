@@ -1,0 +1,197 @@
+[
+  {
+    "source": "config/grub-lid.cfg",
+    "destination": "/etc/default/grub.d/60-bgh-lid.cfg",
+    "mode": 420
+  },
+  {
+    "source": "config/i3-config",
+    "destination": "/home/jd/.config/i3/config",
+    "mode": 420
+  },
+  {
+    "source": "config/i3status-config",
+    "destination": "/home/jd/.config/i3status/config",
+    "mode": 420
+  },
+  {
+    "source": "config/xinitrc",
+    "destination": "/home/jd/.xinitrc",
+    "mode": 420
+  },
+  {
+    "source": "config/profile",
+    "destination": "/home/jd/.profile",
+    "mode": 420
+  },
+  {
+    "source": "config/network-interfaces",
+    "destination": "/etc/network/interfaces",
+    "mode": 420
+  },
+  {
+    "source": "config/networkmanager.conf",
+    "destination": "/etc/NetworkManager/conf.d/20-network-ownership.conf",
+    "mode": 420
+  },
+  {
+    "source": "config/locale",
+    "destination": "/etc/default/locale",
+    "mode": 420
+  },
+  {
+    "source": "config/helium.list",
+    "destination": "/etc/apt/sources.list.d/helium.list",
+    "mode": 420
+  },
+  {
+    "source": "config/kitty.conf",
+    "destination": "/home/jd/.config/kitty/kitty.conf",
+    "mode": 420
+  },
+  {
+    "source": "config/rofi-config.rasi",
+    "destination": "/home/jd/.config/rofi/config.rasi",
+    "mode": 420
+  },
+  {
+    "source": "config/keybindings-help.txt",
+    "destination": "/home/jd/.config/i3/keybindings-help.txt",
+    "mode": 420
+  },
+  {
+    "source": "config/mimeapps.list",
+    "destination": "/home/jd/.config/mimeapps.list",
+    "mode": 420
+  },
+  {
+    "source": "scripts/status-bar.sh",
+    "destination": "/home/jd/scripts/status-bar.sh",
+    "mode": 493
+  },
+  {
+    "source": "scripts/status-clicks.py",
+    "destination": "/home/jd/scripts/status-clicks.py",
+    "mode": 493
+  },
+  {
+    "source": "scripts/open-networks.sh",
+    "destination": "/home/jd/scripts/open-networks.sh",
+    "mode": 493
+  },
+  {
+    "source": "scripts/open-mixer.sh",
+    "destination": "/home/jd/scripts/open-mixer.sh",
+    "mode": 493
+  },
+  {
+    "source": "scripts/open-updates.sh",
+    "destination": "/home/jd/scripts/open-updates.sh",
+    "mode": 493
+  },
+  {
+    "source": "config/bgh-status-icons.ttf",
+    "destination": "/home/jd/.local/share/fonts/bgh-status-icons.ttf",
+    "mode": 420
+  },
+  {
+    "source": "config/weather.json",
+    "destination": "/home/jd/.config/i3/weather.json",
+    "mode": 420
+  },
+  {
+    "source": "scripts/update-weather.py",
+    "destination": "/home/jd/scripts/update-weather.py",
+    "mode": 493
+  },
+  {
+    "source": "config/weather-refresh.service",
+    "destination": "/home/jd/.config/systemd/user/weather-refresh.service",
+    "mode": 420
+  },
+  {
+    "source": "config/weather-refresh.timer",
+    "destination": "/home/jd/.config/systemd/user/weather-refresh.timer",
+    "mode": 420
+  },
+  {
+    "source": "scripts/update-packages.py",
+    "destination": "/home/jd/scripts/update-packages.py",
+    "mode": 493
+  },
+  {
+    "source": "config/packages-refresh.service",
+    "destination": "/home/jd/.config/systemd/user/packages-refresh.service",
+    "mode": 420
+  },
+  {
+    "source": "config/packages-refresh.timer",
+    "destination": "/home/jd/.config/systemd/user/packages-refresh.timer",
+    "mode": 420
+  },
+  {
+    "source": "config/fonts/JetBrainsMonoNerdFontMono-Regular.ttf",
+    "destination": "/home/jd/.local/share/fonts/JetBrainsMonoNerdFontMono-Regular.ttf",
+    "mode": 420
+  },
+  {
+    "source": "config/fonts/JetBrainsMonoNerdFontMono-Bold.ttf",
+    "destination": "/home/jd/.local/share/fonts/JetBrainsMonoNerdFontMono-Bold.ttf",
+    "mode": 420
+  },
+  {
+    "source": "config/fonts/OFL.txt",
+    "destination": "/home/jd/.local/share/fonts/bgh-font-licenses/OFL.txt",
+    "mode": 420
+  },
+  {
+    "source": "config/fonts/UPSTREAM.md",
+    "destination": "/home/jd/.local/share/fonts/bgh-font-licenses/UPSTREAM.md",
+    "mode": 420
+  },
+  {
+    "source": "scripts/power-menu",
+    "destination": "/home/jd/scripts/power-menu",
+    "mode": 493
+  },
+  {
+    "source": "scripts/power-action.sh",
+    "destination": "/home/jd/scripts/power-action.sh",
+    "mode": 493
+  },
+  {
+    "source": "config/bgh-power-menu.desktop",
+    "destination": "/home/jd/.local/share/applications/bgh-power-menu.desktop",
+    "mode": 420
+  },
+  {
+    "source": "scripts/README.md",
+    "destination": "/home/jd/scripts/README.md",
+    "mode": 420
+  },
+  {
+    "source": "config/codex-config.toml",
+    "destination": "/home/jd/.codex/config.toml",
+    "mode": 384
+  },
+  {
+    "source": "config/codex-agents.md",
+    "destination": "/home/jd/.codex/AGENTS.md",
+    "mode": 384
+  },
+  {
+    "source": "config/codex-rtk.md",
+    "destination": "/home/jd/.codex/RTK.md",
+    "mode": 384
+  },
+  {
+    "source": "config/codex-hooks.json",
+    "destination": "/home/jd/.codex/hooks.json",
+    "mode": 384
+  },
+  {
+    "source": "config/rtk-config.toml",
+    "destination": "/home/jd/.config/rtk/config.toml",
+    "mode": 384
+  }
+]

@@ -1,0 +1,4 @@
+# No outbound telemetry. Operational defaults remain upstream defaults.
+[telemetry]
+enabled = false
+consent_given = false
