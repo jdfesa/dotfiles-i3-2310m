@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def documents():
     paths = list(ROOT.glob("*.md"))
-    for folder in ("config", "scripts", "tools"):
+    for folder in ("docs", "config", "scripts", "tools"):
         paths.extend((ROOT / folder).rglob("*.md"))
     # Upstream attribution is preserved verbatim, not edited as project prose.
     return [p for p in paths if p != ROOT / "config/fonts/UPSTREAM.md"]
@@ -20,20 +20,37 @@ class DocumentationTests(unittest.TestCase):
         text = (ROOT / "README.md").read_text()
         for term in ("Dotfiles", "scripts", "configuration", "2011", "i3-2310M",
                      "Debian", "config/README.md", "scripts/README.md",
-                     "restore-guide.md", "TODO.md", "## Contents", "## Documentation",
+                     "docs/restore-guide.md", "TODO.md", "## Contents", "## Documentation",
                      "## License"):
             self.assertIn(term.casefold(), text.casefold())
         self.assertLessEqual(len(text.split()), 300)
+        tree = re.search(r"```text\n(.*?)\n```", text, re.S)
+        self.assertIsNotNone(tree)
+        directories = re.findall(r"^[├└]── ([a-z][a-z0-9-]*/)", tree.group(1), re.M)
+        self.assertEqual(set(directories),
+                         {"config/", "docs/", "licenses/", "scripts/", "tests/", "tools/"})
+        for directory in directories:
+            self.assertTrue((ROOT / directory).is_dir())
         for duplicate in ("Fn + F11", "No incluir contraseñas", "una CLI no garantiza",
                           "Estado y límites", "--dry-run", "configuraciones",
                           "Documentación", "Licencia", "Directorio"):
             self.assertNotIn(duplicate, text)
 
+    def test_topic_guides_live_under_docs(self):
+        self.assertEqual({p.name for p in ROOT.glob("*.md")},
+                         {"README.md", "AGENTS.md", "CHANGELOG.md", "TODO.md"})
+        guides = set((ROOT / "docs").rglob("*.md"))
+        self.assertTrue(guides)
+        self.assertTrue(guides.issubset(set(documents())))
+        for name in ("dependencies.md", "restore-guide.md", "repository-layout.md",
+                     "third-party-notices.md"):
+            self.assertIn(ROOT / "docs" / name, guides)
+
     def test_project_filenames_use_kebab_case_with_python_test_exception(self):
         conventional = {"README.md", "AGENTS.md", "CHANGELOG.md", "TODO.md", "LICENSE",
                         ".gitignore"}
         paths = list(ROOT.iterdir())
-        for folder in ("config", "scripts", "tools", "tests"):
+        for folder in ("docs", "config", "scripts", "tools", "tests"):
             paths.extend((ROOT / folder).rglob("*"))
         for path in paths:
             if not path.is_file() or path.name in conventional:
@@ -82,7 +99,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_licenses_preserve_original_and_third_party_scope(self):
         self.assertTrue((ROOT / "LICENSE").read_text().startswith("MIT License\n"))
-        notices = (ROOT / "third-party-notices.md").read_text()
+        notices = (ROOT / "docs/third-party-notices.md").read_text()
         for name in ("config/profile", "GPL-2.0-or-later", "SIL OFL"):
             self.assertIn(name, notices)
         self.assertIn("SIL OPEN FONT LICENSE", (ROOT / "config/fonts/OFL.txt").read_text())

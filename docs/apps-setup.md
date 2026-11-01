@@ -70,7 +70,7 @@ Respaldar `mimeapps.list` antes de restaurar: puede contener handlers adicionale
 ## Fonts
 
 Sólo JetBrains Mono Nerd Font Mono **Regular/Bold** y `BGH Status Icons`.
-Procedencia, hashes y licencias en [config/fonts/README.md](config/fonts/README.md).
+Procedencia, hashes y licencias en [config/fonts/README.md](../config/fonts/README.md).
 Regular se utiliza en barra (10), Rofi/Kitty (11); Bold no se fuerza en la barra.
 
 ```sh

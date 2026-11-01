@@ -54,7 +54,7 @@ systemctl --user start packages-refresh.service
 ```
 
 La lista Super+U también es de sólo lectura. Fuentes y ciclo de vida:
-[scripts/README.md](scripts/README.md).
+[scripts/README.md](../scripts/README.md).
 
 ## Troubleshooting
 

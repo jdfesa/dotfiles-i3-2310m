@@ -3,7 +3,7 @@
 
 Run as the target user on the laptop. Never handles credentials or user data.
 Existing differing binaries are not overwritten. Integration is a separate,
-reviewed step documented in development-tools.md.
+reviewed step documented in docs/development-tools.md.
 """
 import hashlib
 import io

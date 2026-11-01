@@ -2,7 +2,7 @@
 
 Fuentes de los archivos administrados. Este proyecto es la **fuente de verdad**; `/home/jd/setup-guide` es copia secundaria. Editar local primero, revisar destino remoto, respaldar, desplegar, validar y comparar hashes. No contiene secretos Wi-Fi ni claves privadas.
 
-Mapa legible; la misma lista para verificaciones está en `manifest.json`, con fuentes relativas a la raíz del proyecto. Los scripts se explican en `../scripts/README.md` y se instalan en `/home/jd/scripts/`. Estado de coincidencia comprobada en `../mirror-status.md`.
+Mapa legible; la misma lista para verificaciones está en `manifest.json`, con fuentes relativas a la raíz del proyecto. Los scripts se explican en `../scripts/README.md` y se instalan en `/home/jd/scripts/`. Estado de coincidencia comprobada en [Verification status](../docs/mirror-status.md).
 
 | Fuente local desde raíz del proyecto | Destino real en portátil | Modo |
 |---|---|---|
@@ -51,7 +51,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 - `wifi-boot-state.service` es referencia diagnóstica inactiva, fuera del
   manifiesto: no instalar/habilitar al restaurar.
 - `grub-lid.cfg` requiere instalación root y regenerar/validar GRUB; no copiar
-  un grub.cfg generado. [Diagnóstico](../boot-troubleshooting.md).
+  un grub.cfg generado. [Diagnóstico](../docs/boot-troubleshooting.md).
 - `helium-signing-key.asc` es clave pública: convertir a keyring binario y
   comparar fingerprint oficial, no hash entre formatos.
 - `login-autostart.sh` es el fragmento ya incluido en `profile`, no otro
@@ -79,4 +79,4 @@ python3 tools/verify-mirror.py --remote
 
 El verificador imprime SHA256; comparar también permisos/propietarios por
 separado. No aplicar configuración de red desde la única conexión remota.
-[Restauración](../restore-guide.md) · [Estado](../mirror-status.md)
+[Restauración](../docs/restore-guide.md) · [Estado](../docs/mirror-status.md)

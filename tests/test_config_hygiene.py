@@ -50,7 +50,7 @@ class ConfigurationHygieneTests(unittest.TestCase):
                     "config/codex-config.toml", "config/codex-hooks.json",
                     "config/rtk-config.toml", "config/helium-signing-key.asc",
                     "tools/install-user-tools.py", "scripts/power-menu", "LICENSE",
-                    "third-party-notices.md", "dependencies.md", "licenses/GPL-2.0.txt",
+                    "docs/third-party-notices.md", "docs/dependencies.md", "licenses/GPL-2.0.txt",
                     "tools/README.md"]
         with tempfile.TemporaryDirectory(prefix="i3-ignore-test-") as tmp:
             # This disposable fixture is not the project and has no commits/remotes.

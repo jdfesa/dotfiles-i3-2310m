@@ -8,6 +8,10 @@
 - Root README.md is fully English. All documentation titles/subtitles and
   filenames are English; other guide bodies remain Spanish. Adopt English
   progressively for broader accessibility.
+- Topic guides and third-party notices belong in docs/. Keep README.md,
+  AGENTS.md, CHANGELOG.md, TODO.md and LICENSE in the root; component READMEs
+  stay alongside their sources. Guide command examples run from the repository
+  root unless stated otherwise.
 - Project-owned multi-word filenames and scripts use lowercase kebab-case.
   Preserve conventional tool filenames (README.md, AGENTS.md, CHANGELOG.md,
   TODO.md, LICENSE), vendor assets/notices and Python test_*.py modules for
@@ -56,7 +60,8 @@
 
 - Authenticated tty1 login starts i3; no display manager, autologin, full desktop
   or compositor without explicit approval. Super+Space launcher, Super+Enter
-  terminal, top bar; update keybindings.md and visible help for binding changes.
+  terminal, top bar; update docs/keybindings.md and visible help for binding
+  changes.
 - Compact opaque Catppuccin Mocha; JetBrainsMono Nerd Font Mono Regular
   throughout the bar. Bold is installed but not forced. Show existing workspaces.
 - i3status tick 10 s; traffic uses counter deltas on that tick. No additional

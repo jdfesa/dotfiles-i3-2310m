@@ -27,7 +27,7 @@ sí es residente; los menús y refrescos no tienen bucles permanentes.
 | `packages-refresh.service` / `.timer` | Mismos nombres | Primer refresco ~1 min; cada 6 h |
 
 Servicios acotados a 30 s, Nice=10, umask 0077 y NoNewPrivileges.
-Los temporizadores se habilitan en [restore-guide.md](../restore-guide.md).
+Los temporizadores se habilitan en [restore-guide.md](../docs/restore-guide.md).
 `config/wifi-boot-state.service` es referencia **inactiva**, no un servicio normal.
 Herramientas manuales en [tools/README.md](../tools/README.md).
 
@@ -49,7 +49,7 @@ Guardar trabajo antes de abrirlo. Escape, No y Cancel no ejecutan acciones.
   No force, -i, check-inhibitors=no ni acceso directo a sysfs. Se respetan
   inhibidores; otras sesiones pueden impedir una acción normal.
 - Polkitd es un servicio estándar adicional de autorización, no una optimización
-  de CPU. Dependencia/origen en [dependencies.md](../dependencies.md).
+  de CPU. Dependencia/origen en [dependencies.md](../docs/dependencies.md).
 
 Pruebas sin acciones reales:
 
@@ -73,6 +73,6 @@ Editar fuentes, respaldar destinos, instalar y comparar contenidos/permisos.
 Para revertir, restaurar el archivo correspondiente de un backup privado y
 actualizar la fuente; no desactivar protecciones para recuperar una acción.
 
-[Barra](../status-bar.md) · [Recuperación](../restore-guide.md) ·
+[Barra](../docs/status-bar.md) · [Recuperación](../docs/restore-guide.md) ·
 [Rofi dmenu](https://manpages.debian.org/trixie/rofi/rofi-dmenu.5.en.html) ·
 [systemctl v257](https://www.freedesktop.org/software/systemd/man/257/systemctl.html)

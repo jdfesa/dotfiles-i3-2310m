@@ -8,7 +8,7 @@ de aplicaciones. Los hashes se generan, no se duplican en tablas históricas.
 
 ## Local validation — 2026-11-01
 
-- **59/59 pruebas offline**: configuración, caches, clicks, ciclo de vida de
+- **60/60 pruebas offline**: configuración, caches, clicks, ciclo de vida de
   procesos, menús y documentación.
 - Sintaxis shell validada individualmente para inicio, helpers y diagnóstico
   de energía. Fuentes/destinos del manifiesto y enlaces Markdown presentes.
@@ -32,11 +32,13 @@ de aplicaciones. Los hashes se generan, no se duplican en tablas históricas.
 
 ## Pending deployment
 
-Sincronización secundaria pendiente; SSH no disponible en la comprobación.
-No hay una nueva validación de igualdad remota para esta revisión.
+Sincronización secundaria pendiente desde la última comprobación sin SSH.
+No se desplegó esta reorganización ni se verificó igualdad remota.
 
 Revisar/respaldar antes de sincronizar:
 - Guías, licencia y avisos de terceros.
+- Nueva estructura `docs/` y enlaces; retirar guías antiguas de la copia
+  secundaria sólo tras verificar/resguardar cualquier diferencia.
 - `scripts/README.md`, también instalado en `~/scripts/README.md`.
 - Comentarios de `config/i3-config` y `scripts/power-menu`.
 - Redacción equivalente de `config/codex-agents.md`.
@@ -56,4 +58,4 @@ python3 tools/verify-mirror.py --remote
 ```
 
 El verificador sólo da SHA256; comprobar propietario/modo con `stat` y el
-manifiesto. Restauración limpia y pruebas físicas pendientes: [TODO.md](TODO.md).
+manifiesto. Restauración limpia y pruebas físicas pendientes: [TODO.md](../TODO.md).

@@ -3,9 +3,11 @@
 ## Scope
 
 Restauración manual de configuración administrada, no del sistema completo.
-Revisar [dependencias](dependencies.md), [manifiesto](config/README.md) y
+Revisar [dependencias](dependencies.md), [manifiesto](../config/README.md) y
 [estado verificado](mirror-status.md). La restauración completa en una instalación
 limpia todavía no está probada.
+
+Ejecutar los ejemplos desde la raíz del repositorio, no desde `docs/`.
 
 No se recuperan desde aquí contraseñas, perfiles Wi-Fi con PSK, claves SSH,
 sesiones Codex, memorias Engram, historiales o bases de datos personales.

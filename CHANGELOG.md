@@ -1,13 +1,16 @@
 # Changelog
 
 Cambios de configuración y comprobaciones relevantes. El estado vigente está
-en las guías; versiones de referencia en [dependencies.md](dependencies.md).
+en las guías; versiones de referencia en [dependencies.md](docs/dependencies.md).
 No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-01
 
 ### Documentation
 
+- Guías temáticas y avisos de terceros trasladados a `docs/`; enlaces e
+  inventario actualizados y árbol resumido en README. Regresión de estructura
+  añadida: 60/60 pruebas locales.
 - Reorganizadas guías como objetivo, instalación, operación, validación y
   recuperación; eliminadas narración, datos de conexión locales y referencias
   temporales ambiguas.
@@ -23,13 +26,13 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
   de entorno, enlaces, inventario, licencias y nomenclatura. 59/59 tests
   locales correctos; la última ejecución Debian anterior tenía 52/52.
 - Esta revisión documental no modifica opciones funcionales de la sesión;
-  sincronización y estado de verificación en `mirror-status.md`.
+  sincronización y estado de verificación en `docs/mirror-status.md`.
 
 ### Changed
 
 - Cuenta/grupo/home `joe`→`jd` conservando UID/GID 1000 y grupos. Reparados
   cinco enlaces absolutos Codex/timers y prefijos de configuración administrada;
-  preferencias de aplicaciones preservadas. Recuperación: `user-migration.md`.
+  preferencias de aplicaciones preservadas. Recuperación: `docs/user-migration.md`.
 - Power menu: Power off primero, Yes preseleccionado en todas las confirmaciones.
   Acciones como cuenta local mediante logind/Polkit, sin sudo ni contraseña;
   se conservan inhibidores, `--no-ask-password` y guardia systemd >=257.

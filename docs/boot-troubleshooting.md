@@ -60,7 +60,7 @@ de daño físico; comandos de desbloqueo software no garantizan resolverlo.
 - No hay un control WLAN de plataforma verificado. No aplicar blacklists o
   atribuir el fallo a la pila RTC sin evidencia.
 
-Investigación diferida en [TODO.md](TODO.md), sin capturadores residentes ni
+Investigación diferida en [TODO.md](../TODO.md), sin capturadores residentes ni
 nuevos ciclos o ingeniería inversa por defecto.
 
 Referencias: [ACPI lid](https://www.kernel.org/doc/html/v6.12/firmware-guide/acpi/acpi-lid.html),

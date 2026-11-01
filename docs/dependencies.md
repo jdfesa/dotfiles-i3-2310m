@@ -75,4 +75,4 @@ implícita de una utilidad. Revisar necesidad, compatibilidad y coste de fondo.
 Las actualizaciones son una operación administrativa explícita. Mantener
 repositorios, firmware, kernel y navegador; el contador de la barra sólo muestra
 candidatos de los índices locales. Tras un cambio de versión, registrar la
-comprobación relevante en `CHANGELOG.md` y actualizar este inventario.
+comprobación relevante en [CHANGELOG.md](../CHANGELOG.md) y actualizar este inventario.

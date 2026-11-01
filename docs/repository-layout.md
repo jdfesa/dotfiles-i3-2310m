@@ -7,10 +7,11 @@ no una copia completa del home ni de `/etc`.
 
 | Ruta | Responsabilidad |
 |---|---|
-| `README.md` | Objetivo, hardware, acceso a las guías y límites |
-| `dependencies.md` | Paquetes, versiones comprobadas y procedencia |
+| `README.md` | Objetivo, hardware y acceso a las guías |
+| `AGENTS.md` | Criterios de trabajo y convenciones |
 | `CHANGELOG.md` / `TODO.md` | Cambios técnicos / trabajo pendiente |
-| Guías temáticas | Instalación, uso, comprobación y recuperación |
+| `LICENSE` | Licencia del material propio |
+| `docs/` | Guías temáticas, dependencias y avisos de terceros |
 | `config/` | Configuración y manifiesto de destinos/modos |
 | `scripts/` | Ejecutables usados por i3, desktop entries o timers |
 | `tools/` | Utilidades manuales; no se instalan en el arranque |
@@ -20,6 +21,8 @@ no una copia completa del home ni de `/etc`.
 `config/manifest.json` contiene fuentes relativas a esta raíz y destinos reales.
 Los scripts se instalan en `/home/jd/scripts/`. `/home/jd/setup-guide` es una
 copia secundaria revisada: no se utiliza automáticamente como fuente runtime.
+Los ejemplos y rutas de fuentes parten de la raíz del repositorio, salvo
+indicación contraria. Los README de componentes permanecen junto a sus fuentes.
 
 ## Changes
 
