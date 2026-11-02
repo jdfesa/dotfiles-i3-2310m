@@ -23,6 +23,9 @@
   Use CHANGELOG.md for technical changes and TODO.md for pending work. No chat
   narrative, third-person references to the repository maintainer or exhaustive
   vulnerability diary. Brief kernel/security limits are sufficient.
+- Record durable project decisions in this file when established. Keep version
+  inventories, verification results and actual pending work in their topic
+  guides, CHANGELOG.md and TODO.md; do not accumulate operational history here.
 - README.md is a short entry point: repository contents, specific target machine
   and navigation. Keep working criteria here, pending work in TODO.md and details
   in their topic guides. Link to a single source instead of duplicating status,
@@ -103,6 +106,11 @@
 
 ## Security, tools and validation
 
+- Use umask 022 for Git updates and new public sources; Git does not track
+  644 versus 664. Verify source/target modes and owners after checkout, especially
+  for symlinks. Normalize only reviewed public files according to the manifest;
+  never apply a broad chmod to private files or authentication directories.
+
 - Verify SSH identity against trusted known_hosts or the physical console.
   DHCP addresses are not permanent; do not publish installation-specific LAN
   endpoints, SSH fingerprints, SSIDs or private administration-host paths.
@@ -132,3 +140,24 @@
   Keep tests non-destructive and store generated material outside the tree.
 - Follow the Engram memory protocol; persist durable decisions and session
   summaries outside the published configuration.
+
+## Productivity tools
+
+- Use Yazi for general file management and Debian Neovim for editing. Yazi uses
+  its official signed stable APT repository, scoped to that package; avoid local
+  compilation and installing all optional/recommended integrations by default.
+- Neovim is a small user-owned modular Lua configuration, not a distribution or
+  generated MiniMax setup. Keep native options, keymaps and autocommands separate
+  from extensions; grow native/filetype settings according to concrete needs.
+- mini.files is the only initially enabled MINI module, installed standalone
+  from its pinned official release with help/license preserved. No plugin-manager
+  bootstrap, downloads or automatic updates from init.lua or editor startup.
+- Yazi keeps normal previews to text/directories and disables media preloading.
+  mini.files starts without preview or an icon-provider plugin and uses its
+  non-permanent deletion mode; its trash is not a versioned backup.
+- Add modules, LSP servers, watchers or media helpers only for an identified
+  workflow, with explicit resource review; do not add them merely because they
+  exist. Package APIs must match the installed Neovim version.
+- Keep installation, keybindings, recovery and current state in
+  docs/editor-and-files.md; pinned code hashes belong to the installer and
+  verified versions to docs/dependencies.md, not duplicated inventories here.

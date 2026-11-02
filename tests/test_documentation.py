@@ -16,6 +16,14 @@ def documents():
 
 
 class DocumentationTests(unittest.TestCase):
+    def test_durable_productivity_decisions_live_in_agent_instructions(self):
+        text = (ROOT / "AGENTS.md").read_text()
+        for term in ("Record durable project decisions", "## Productivity tools",
+                     "Debian Neovim", "Yazi", "modular Lua", "mini.files",
+                     "only initially enabled", "umask 022", "editor startup",
+                     "docs/editor-and-files.md"):
+            self.assertIn(term, text)
+
     def test_readme_is_a_brief_entrypoint_with_topic_links(self):
         text = (ROOT / "README.md").read_text()
         for term in ("Dotfiles", "scripts", "configuration", "2011", "i3-2310M",

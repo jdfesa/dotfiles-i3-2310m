@@ -30,6 +30,8 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 - Corregido modo664 heredado del checkout en las seis fuentes enlazadas: modo644
   verificado. Documentadas máscara022 y normalización acotada; Git no versiona
   esos bits. Añadida regresión que rechaza escritura de grupo en fuentes.
+- Decisiones duraderas de herramientas, base Lua, extensiones, fuentes y permisos
+  explicitadas en AGENTS.md; regresión documental separada del inventario de versiones.
 
 ### Development
 
