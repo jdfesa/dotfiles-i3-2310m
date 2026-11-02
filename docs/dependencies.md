@@ -30,7 +30,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | Codex CLI | 0.165.0, Linux x64 musl | Instalador oficial standalone |
 | RTK / Engram | 1.1.0 / 3.6.0 | Binarios de publicaciones oficiales |
 | Plugin Engram | 0.1.5, tag v3.6.0 | Marketplace oficial fijado |
-| Neovim / runtime | 0.10.4-8 | Debian; comprobado 2026-11-02 |
+| Neovim / runtime | 0.12.6 | Archivo oficial Linux x86_64, SHA256 verificado; comprobado 2026-11-02; Debian 0.10.4-8 sólo para recuperación |
 | Yazi / Ya | 26.9.1-1 / 26.9.1 | APT oficial stable firmado; comprobado 2026-11-02 |
 | mini.files | v0.18.0, commit a5689dae6b732955e33eec225b798d6815063179 | Módulo oficial standalone, hashes fijados en tools/install-mini-files.py |
 
@@ -78,7 +78,7 @@ queda deshabilitado. No se midió aquí carga sostenida de CPU.
   separada de la configuración.
 - [RTK/Engram](development-tools.md): URLs y SHA256 fijados en
   `tools/install-user-tools.py`; sin compilación local.
-- [Editor y archivos](editor-and-files.md): Neovim Debian, Yazi APT stable
+- [Editor y archivos](editor-and-files.md): Neovim estable oficial, Yazi APT stable
   firmado y sólo mini.files fijado, sin recomendaciones ni descargas al inicio.
 
 No añadir un escritorio, compositor, toolchain o servicio sólo como dependencia

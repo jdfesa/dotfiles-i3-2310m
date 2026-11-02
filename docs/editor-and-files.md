@@ -71,7 +71,10 @@ No ejecutar estos pasos automáticamente durante login o arranque de Neovim.
 
 ### Debian packages
 
-Neovim procede de Debian. Yazi usa su
+Neovim activo procede del archivo estable oficial, no del paquete Debian;
+ver [Neovim installation](neovim-installation.md) para instalación, actualización
+manual, alternativas y recuperación. Se conserva el paquete Debian como respaldo.
+Yazi usa su
 [APT oficial stable](https://github.com/yazi-rs/builds), autenticado por clave
 Ed25519 con fingerprint público:
 
@@ -92,15 +95,14 @@ sudo install -o root -g root -m 644 config/yazi/apt/yazi.pref /etc/apt/preferenc
 # Refresco explícito limitado al origen nuevo; conserva los otros índices.
 sudo apt-get update -o Dir::Etc::sourcelist=sources.list.d/yazi.list \
   -o Dir::Etc::sourceparts=- -o APT::Get::List-Cleanup=0
-apt-get -s --no-install-recommends --no-upgrade install neovim yazi
-sudo apt-get install --no-install-recommends --no-upgrade neovim yazi
+apt-get -s --no-install-recommends --no-upgrade install yazi
+sudo apt-get install --no-install-recommends --no-upgrade yazi
 ```
 
-La instalación comprobada añadió once paquetes, 18.3 MB de descarga y 69.6 MB
-de disco según APT, sin upgrades/remociones. `file` ya estaba instalado. No se
-instalaron recomendaciones multimedia/búsqueda/portapapeles. Debian seleccionó
-Neovim para las alternativas automáticas vi/vim/ex/view/vimdiff; no se añadieron
-aliases ni se cambió explícitamente `$EDITOR`.
+La instalación APT inicial, incluido el Neovim Debian de recuperación, añadió
+once paquetes sin recomendaciones multimedia/búsqueda/portapapeles. `file` ya
+estaba instalado. vi/vim/ex/view/vimdiff seleccionan ahora el Neovim oficial;
+no se añaden aliases ni se cambia `$EDITOR` o la alternativa global `editor`.
 
 ### mini.files
 
@@ -117,8 +119,9 @@ nvim --headless -u NONE -i NONE -n \
 ```
 
 También admite `--apply --archive /ruta/archivo.tar.gz`, con las mismas
-comprobaciones. No usar `vim.pack`: requiere Neovim >=0.12, no la versión
-Debian comprobada. No hacen falta lazy.nvim, mini.deps ni un instalador en init.lua.
+comprobaciones. Aunque Neovim actual incluye `vim.pack`, no se introduce otro
+gestor para un único módulo fijado. No hacen falta lazy.nvim, mini.deps ni un
+instalador en init.lua.
 
 ### User links
 

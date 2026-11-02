@@ -143,9 +143,16 @@
 
 ## Productivity tools
 
-- Use Yazi for general file management and Debian Neovim for editing. Yazi uses
-  its official signed stable APT repository, scoped to that package; avoid local
-  compilation and installing all optional/recommended integrations by default.
+- Use Yazi for general file management and official stable Neovim for editing.
+  Install a versioned, SHA256-verified upstream prebuilt archive under root-owned
+  /opt; select it through /usr/local/bin/nvim and the existing vi/vim/ex/view/vimdiff
+  alternatives, preserving their mode flags. Keep the Debian package only as an
+  explicit recovery path. Updates are manual: review release compatibility and
+  hashes, validate on the laptop, then record the verified version; no compilation
+  or automatic latest/nightly downloads. APT does not update this upstream copy.
+  Yazi uses its official signed stable APT repository, scoped to that package;
+  avoid local compilation and installing all optional/recommended integrations
+  by default.
 - Do not install Zed on this Intel HD 3000 target: there is no hardware Vulkan
   device available. Do not bypass that limit with CPU-rendered graphics; revisit
   only with a newly agreed scope or compatible hardware. OpenGL acceleration or

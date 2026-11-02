@@ -19,11 +19,21 @@ class DocumentationTests(unittest.TestCase):
     def test_durable_productivity_decisions_live_in_agent_instructions(self):
         text = (ROOT / "AGENTS.md").read_text()
         for term in ("Record durable project decisions", "## Productivity tools",
-                     "Debian Neovim", "Yazi", "modular Lua", "mini.files",
+                     "official stable Neovim", "SHA256-verified", "root-owned",
+                     "APT does not update", "Yazi", "modular Lua", "mini.files",
                      "only initially enabled", "umask 022", "editor startup",
                      "docs/editor-and-files.md", "Do not install Zed",
                      "Intel HD 3000", "hardware Vulkan"):
             self.assertIn(term, text)
+
+    def test_neovim_upstream_installation_is_pinned_and_recoverable(self):
+        text = (ROOT / "docs/neovim-installation.md").read_text()
+        for term in ("v0.12.6", "nvim-linux-x86_64.tar.gz",
+                     "474430d53e6264f6d6dd18db42d6dc9df3a1b56ca9e88a325bbf860e1a811d87",
+                     "sha256sum --check", "update-alternatives", "--remove",
+                     "-e", "-R", "-d", "/usr/local/bin/nvim", "## Recovery"):
+            self.assertIn(term, text)
+        self.assertIn("neovim-installation.md", (ROOT / "docs/editor-and-files.md").read_text())
 
     def test_readme_is_a_brief_entrypoint_with_topic_links(self):
         text = (ROOT / "README.md").read_text()
