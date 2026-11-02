@@ -14,7 +14,7 @@ Debian 13 with i3 on Xorg.
 ├── licenses/     # Third-party license texts
 ├── scripts/      # Session, status bar, and menu scripts
 ├── tests/        # Automated regression tests
-├── tools/        # Installation, verification, and diagnostics
+├── tools/        # Installation, verification, and diagnostics.
 ├── .gitignore
 ├── AGENTS.md
 ├── CHANGELOG.md
