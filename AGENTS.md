@@ -21,8 +21,9 @@
 - Documentation must be concise and reproducible: current state, rationale,
   dependencies/origins/verified versions, installation, checks and recovery.
   Use CHANGELOG.md for technical changes and TODO.md for pending work. No chat
-  narrative, third-person references to the repository maintainer or exhaustive
-  vulnerability diary. Brief kernel/security limits are sufficient.
+  narrative, personal account history, third-person references to the repository
+  maintainer or exhaustive vulnerability diary. Brief kernel/security limits
+  are sufficient.
 - Record durable project decisions in this file when established. Keep version
   inventories, verification results and actual pending work in their topic
   guides, CHANGELOG.md and TODO.md; do not accumulate operational history here.
@@ -131,6 +132,13 @@
   plugin, not whole hidden directories. No cloud/boot service without approval;
   the official loopback-only helper may run with Codex. Preserve active chats;
   tests sending memories to a model need explicit privacy-safe scope.
+- Keep the on-demand Codex launcher separate from official standalone packages.
+  Recover only a verified dangling runtime socket alias under the vendor startup
+  lock; preserve live servers, credentials and chats.
+- For Codex authentication, confirm the intended source account and destination
+  and verify the effective backend account after coordinated reloads. Login status
+  or connectivity alone is insufficient; keep the cache persistent and private,
+  never in Git or startup copy jobs.
 - Administration-host shell commands must start with rtk; use its supported raw
   passthrough (0.43: proxy). Laptop RTK 1.1.0 uses bypass; do not mix versions.
 - Validate i3 with i3 -C, shell files with sh -n and GUI applications with their

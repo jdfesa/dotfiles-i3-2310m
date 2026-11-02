@@ -2,6 +2,8 @@
 
 ## Publication and reproducibility
 
+- [ ] Verificar arranque de Codex y conservación de la cuenta tras un reinicio
+  local coordinado. [Codex CLI](docs/codex-setup.md).
 - [ ] Comprobar desbloqueo del keyring tras el próximo login físico coordinado;
   autenticación HTTPS/push ya verificados. [Git workflow](docs/git-workflow.md).
 

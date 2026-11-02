@@ -42,6 +42,13 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ### Development
 
+- Añadido lanzador Codex bajo demanda, modo755, para recuperar el alias obsoleto
+  de un socket temporal. Validación bajo lock, sockets activos preservados y
+  paquetes oficiales separados; instalación y recuperación en
+  [Codex CLI](docs/codex-setup.md).
+- 12 regresiones del lanzador correctas en ambos sistemas. Documentadas la
+  persistencia privada de autenticación y la verificación de cuenta efectiva
+  tras recargar el backend, sin incorporar credenciales al proyecto.
 - Documentada identidad pública Git con correo noreply, comprobación de autoría,
   recuperación y flujo manual commit/push/pull mediante GitHub. Autenticación y
   despliegue separados; sin incluir credenciales ni rutas de conexión.

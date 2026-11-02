@@ -1,11 +1,13 @@
 # Runtime scripts
 
 Fuentes ejecutadas por i3, el lanzador o timers. Se instalan en
-`/home/jd/scripts/`, modo 755; este README se instala 644.
+`/home/jd/scripts/`, modo 755; este README se instala 644. Excepción:
+`scripts/codex-launch.py` se instala en `~/.local/bin/codex`, modo 755.
 El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 
 | Fuente relativa al proyecto | Uso / ciclo de vida |
 |---|---|
+| `scripts/codex-launch.py` | Ejecuta el standalone oficial; recupera sólo su alias de socket obsoleto bajo lock; bajo demanda |
 | `scripts/power-menu` | Rofi de energía, Super+Shift+P o entrada Power; bajo demanda |
 | `scripts/power-action.sh` | Auxiliar logind/Polkit en Kitty tras confirmar; bajo demanda |
 | `scripts/status-bar.sh` | Selecciona sensor/audio y ejecuta i3status al iniciar barra |

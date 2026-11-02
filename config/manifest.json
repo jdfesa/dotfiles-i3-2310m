@@ -1,5 +1,10 @@
 [
   {
+    "source": "scripts/codex-launch.py",
+    "destination": "/home/jd/.local/bin/codex",
+    "mode": 493
+  },
+  {
     "source": "config/grub-lid.cfg",
     "destination": "/etc/default/grub.d/60-bgh-lid.cfg",
     "mode": 420
