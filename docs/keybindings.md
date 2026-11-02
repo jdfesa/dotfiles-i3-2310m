@@ -63,6 +63,10 @@ No se implementaron el menú de administración, portapapeles universal, fondos,
 
 ## Sources and maintenance
 
+Los atajos internos nuevos de Neovim/mini.files están en
+[Editor and file management](editor-and-files.md). No añaden bindings globales
+de i3 ni cambian la ayuda de la sesión.
+
 - Fuente ejecutable: `config/i3-config`.
 - Ayuda visible con Super + K: `config/keybindings-help.txt`; actualizarla junto con esta guía.
 - Referencia de preferencias: [Omarchy applications bindings](https://github.com/omacom/omarchy/blob/quattro/default/hypr/bindings/applications.lua), [Omarchy window bindings](https://github.com/omacom/omarchy/blob/quattro/default/hypr/bindings/tiling.lua).

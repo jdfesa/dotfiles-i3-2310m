@@ -1,0 +1,7 @@
+Package: yazi
+Pin: origin "yazi-rs.github.io"
+Pin-Priority: 500
+
+Package: *
+Pin: origin "yazi-rs.github.io"
+Pin-Priority: -1

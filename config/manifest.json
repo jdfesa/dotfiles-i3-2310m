@@ -208,5 +208,56 @@
     "source": "config/xsession-keyring.sh",
     "destination": "/etc/X11/Xsession.d/95keyring-secrets",
     "mode": 420
+  },
+  {
+    "source": "config/nvim/init.lua",
+    "destination": "/home/jd/.config/nvim/init.lua",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/nvim/lua/config/options.lua",
+    "destination": "/home/jd/.config/nvim/lua/config/options.lua",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/nvim/lua/config/keymaps.lua",
+    "destination": "/home/jd/.config/nvim/lua/config/keymaps.lua",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/nvim/lua/config/autocmds.lua",
+    "destination": "/home/jd/.config/nvim/lua/config/autocmds.lua",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/nvim/lua/config/mini.lua",
+    "destination": "/home/jd/.config/nvim/lua/config/mini.lua",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/yazi/yazi.toml",
+    "destination": "/home/jd/.config/yazi/yazi.toml",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/yazi/apt/yazi.list",
+    "destination": "/etc/apt/sources.list.d/yazi.list",
+    "mode": 420
+  },
+  {
+    "source": "config/yazi/apt/yazi.pref",
+    "destination": "/etc/apt/preferences.d/yazi",
+    "mode": 420
+  },
+  {
+    "source": "config/yazi/apt/yazi-keyring.gpg",
+    "destination": "/usr/share/keyrings/yazi-keyring.gpg",
+    "mode": 420
   }
 ]

@@ -2,8 +2,9 @@
 
 ## Scope and documentation
 
-- This tree is the source of truth for managed configuration on the BGH A470,
-  not a full home or /etc mirror. The target is 2011 i3-2310M/Sandy Bridge,
+- GitHub is the source of truth for versioned managed configuration on the BGH
+  A470; both machines use working copies, not a full home or /etc mirror.
+  The target is 2011 i3-2310M/Sandy Bridge,
   Debian 13 amd64, 8 GB RAM and a 120 GB SATA SSD.
 - Root README.md is fully English. All documentation titles/subtitles and
   filenames are English; other guide bodies remain Spanish. Adopt English
@@ -36,8 +37,18 @@
 - Config/desktop sources belong in config/, runtime scripts in scripts/ and
   manual development tools in tools/. Explain scripts and map full source paths,
   real destinations and modes in config/manifest.json.
-- /home/jd/setup-guide is a secondary copy, not the only documentation.
-  Current account/home is jd /home/jd. General symlink migration is pending.
+- Group new application sources under config/<component>/, including vendor APT
+  metadata under that component's apt/ directory; do not add loose application
+  files directly to config/. Keep common inventories there. Track migration of
+  legacy flat sources separately with reference/manifest checks; do not mix
+  configuration with caches, downloaded plugins or runtime state.
+- /home/jd/setup-guide is a generated current snapshot, never a divergent editing
+  tree or a collection of old guides. Synchronize versioned sources through
+  GitHub commit/push/pull; use SSH for administration/deployment and necessary
+  private local-network transfers. Validate primarily on the laptop, where the
+  configuration executes. Current account/home is jd /home/jd; general symlink
+  migration is pending. Keep recovery baselines private outside active trees,
+  not obsolete versions in them; remove superseded temporary material after checks.
 - No repository creation, folder rename, commit, push or visibility change
   without explicit authorization; publication requires agreement on final state.
 
@@ -51,8 +62,9 @@
    root ownership and regular installation, never links into a writable home.
 5. Validate syntax and behavior in the existing session. Preserve applications,
    tty2+, SSH and the disable-autostart escape hatch; do not start X from SSH/root.
-6. Compare contents/hashes, permissions and owners; update guides/CHANGELOG
-   with verified results and pending tests. Sync the secondary copy when possible.
+6. Compare contents/hashes, permissions and owners on the laptop; update current
+   guides/CHANGELOG and regenerate the secondary snapshot from the clean committed
+   checkout. Reconcile obsolete secondary content instead of leaving parallel states.
 7. Future user symlinks need laptop-resident targets, per-file conflict checks,
    dry-run and rollback. Review mimeapps/Codex divergences before migration.
 

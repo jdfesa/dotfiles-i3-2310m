@@ -6,12 +6,14 @@
   autenticación HTTPS/push ya verificados. [Git workflow](docs/git-workflow.md).
 
 - [ ] Probar restauración completa sobre una instalación limpia.
-- [ ] Preparar instalador de archivos de usuario con dry-run, conflictos, backup
-  privado y rollback; migrar a symlinks sólo después de validar.
+- [ ] Ampliar la migración de enlaces a componentes anteriores tras revisar
+  diferencias; el auxiliar con dry-run/backup/rollback sólo gestiona los seis
+  archivos nuevos de [editor/files](docs/editor-and-files.md).
+- [ ] Agrupar fuentes heredadas sueltas de `config/` por componente; actualizar
+  referencias/manifiesto y probar sin cambiar destinos a ciegas. Las nuevas
+  herramientas ya usan carpetas propias.
 - [ ] Revisar diferencias preservadas de `mimeapps.list` y Codex sin importar
   credenciales, rutas efímeras o preferencias privadas.
-- [ ] Sincronizar la revisión documental y los comentarios pendientes con la
-  portátil cuando SSH esté disponible; verificar antes posibles cambios remotos.
 
 ## Hardware and session
 
@@ -27,7 +29,10 @@
 
 ## Productivity and resources
 
-- [ ] Seleccionar editor, herramientas TUI y stacks según proyectos concretos.
+- [x] Instalar Neovim/Yazi y base Lua modular con sólo mini.files.
+  [Estado y operación](docs/editor-and-files.md).
+- [ ] Seleccionar herramientas/stacks adicionales según proyectos concretos.
+- [ ] Comprobar comodidad visual y uso diario de Neovim/Yazi en la terminal local.
 - [ ] Medir carga de CPU, memoria y respuesta con tareas representativas antes
   de incorporar LSP, watchers, contenedores u otros servicios.
 - [ ] Comparar alternativas cuando exista un problema medido; no asumir que una

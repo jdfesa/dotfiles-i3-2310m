@@ -1,6 +1,10 @@
 # Managed configuration mirror
 
-Fuentes de los archivos administrados. Este proyecto es la **fuente de verdad**; `/home/jd/setup-guide` es copia secundaria. Editar local primero, revisar destino remoto, respaldar, desplegar, validar y comparar hashes. No contiene secretos Wi-Fi ni claves privadas.
+Fuentes de los archivos administrados, versionadas mediante **GitHub**. Cada
+máquina tiene una copia de trabajo; `/home/jd/setup-guide` es un snapshot
+secundario generado del commit vigente, no otro árbol editable. Editar fuente,
+revisar destino, respaldar, desplegar y validar principalmente en la portátil.
+No contiene secretos Wi-Fi ni claves privadas.
 
 Mapa legible; la misma lista para verificaciones está en `manifest.json`, con fuentes relativas a la raíz del proyecto. Los scripts se explican en `../scripts/README.md` y se instalan en `/home/jd/scripts/`. Estado de coincidencia comprobada en [Verification status](../docs/mirror-status.md).
 
@@ -48,6 +52,15 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/codex-rtk.md` | `/home/jd/.codex/RTK.md` | `600` |
 | `config/codex-hooks.json` | `/home/jd/.codex/hooks.json` | `600` |
 | `config/rtk-config.toml` | `/home/jd/.config/rtk/config.toml` | `600` |
+| `config/nvim/init.lua` | `/home/jd/.config/nvim/init.lua` | `644`, enlace |
+| `config/nvim/lua/config/options.lua` | `/home/jd/.config/nvim/lua/config/options.lua` | `644`, enlace |
+| `config/nvim/lua/config/keymaps.lua` | `/home/jd/.config/nvim/lua/config/keymaps.lua` | `644`, enlace |
+| `config/nvim/lua/config/autocmds.lua` | `/home/jd/.config/nvim/lua/config/autocmds.lua` | `644`, enlace |
+| `config/nvim/lua/config/mini.lua` | `/home/jd/.config/nvim/lua/config/mini.lua` | `644`, enlace |
+| `config/yazi/yazi.toml` | `/home/jd/.config/yazi/yazi.toml` | `644`, enlace |
+| `config/yazi/apt/yazi.list` | `/etc/apt/sources.list.d/yazi.list` | `644` (root) |
+| `config/yazi/apt/yazi.pref` | `/etc/apt/preferences.d/yazi` | `644` (root) |
+| `config/yazi/apt/yazi-keyring.gpg` | `/usr/share/keyrings/yazi-keyring.gpg` | `644` (root) |
 
 ## Special cases
 
@@ -72,7 +85,11 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 
 Archivos de sesión propiedad de jd; archivos de sistema root:root. El manifiesto
 expresa permisos en decimal: 420=644, 493=755, 384=600.
-La instalación actual usa copias, no una migración general a symlinks.
+Los componentes anteriores usan copias. Sólo Neovim/Yazi tienen seis enlaces
+por archivo; `deployment=symlink` los identifica explícitamente y el modo se
+comprueba sobre la fuente. [Instalación y rollback](../docs/editor-and-files.md).
+Cada herramienta nueva tiene carpeta propia; la reorganización de fuentes
+heredadas se mantiene en [TODO](../TODO.md).
 
 ## Verification
 

@@ -8,6 +8,9 @@ enlazan a i3 ni se habilitan en el arranque. No confundirlas con `scripts/`.
 | `tools/verify-mirror.py` | Imprime SHA256 de fuentes; `--remote` lee destinos del manifiesto. No comprueba propietario/modo |
 | `tools/verify-power-session.sh` | Terminal física: autorización y systemctl sólo --dry-run, con inhibidor block temporal 8 s; sin lock/energía real |
 | `tools/install-user-tools.py` | Instala RTK/Engram oficiales fijados, Linux amd64 sin root; no reemplaza binarios distintos |
+| `tools/install-mini-files.py` | Dry-run por defecto; instala sólo módulo/ayuda/licencia fijados; `--check` sin red; no reemplaza diferencias |
+| `tools/link-user-config.py` | Dry-run por defecto; sólo entradas `deployment=symlink`, backup privado externo y rollback; nunca root/sistema |
+| `tools/sync-secondary.py` | Snapshot sólo del commit limpio; dry-run, backup externo y comparación exacta; retira documentación/metadatos obsoletos, rechaza extras desconocidos |
 | `tools/build-status-icons.py` | Genera cinco glifos Wi-Fi originales con fontTools; sólo entorno de desarrollo |
 | `tools/capture-bar.py` | X11: PPM de los 32 píxeles superiores en stdout; guardar captura fuera del árbol |
 | `tools/probe-wifi-keys.py` | Captura acotada y filtrada Fn/F11/radio; requiere coordinación y acceso explícito a dispositivos; sin inyección |
@@ -36,3 +39,6 @@ En un host de administración con RTK, usar el passthrough de su versión
 Las pruebas de energía usan comandos simulados; las de clima/paquetes incluyen
 fallos sintéticos esperados. Los tests no prueban un formateo/restauración completo.
 Mantener descargas, registros, imágenes y resultados privados fuera del proyecto.
+
+Instalación, uso y recuperación de los dos auxiliares nuevos:
+[Editor and file management](../docs/editor-and-files.md).

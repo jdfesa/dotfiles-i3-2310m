@@ -6,6 +6,28 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-02
 
+### Productivity
+
+- Instalados Neovim Debian 0.10.4-8 y Yazi/Ya 26.9.1 desde APT oficial stable
+  firmado, limitado al paquete yazi. Once paquetes nuevos, 18.3 MB de descarga
+  y 69.6 MB de disco; sin recomendaciones, upgrades, compilación o servicios.
+- Base Lua propia separada en opciones/atajos/autocomandos/MINI, colores Mocha
+  nativos y sólo mini.files v0.18.0 fijado a commit y hashes. Sin proveedores de
+  iconos, LSP ni descargas al inicio; preview desactivado y borrado a su papelera.
+- Yazi abre texto con Neovim, conserva previews de texto/directorios y desactiva
+  precargas/media. Configuración por herramienta bajo config/nvim y config/yazi;
+  metadatos APT bajo config/yazi/apt. Organización heredada pendiente separada.
+- Seis enlaces de usuario con dry-run, detección de conflictos y rollback
+  privado; tres instalaciones APT regulares root:root644. 45/51 destinos
+  coincidentes y seis diferencias anteriores preservadas.
+- Añadidas 25 regresiones de instalación/configuración, rollback, snapshot y
+  TUI con fixtures aislados; arranque de la configuración instalada validado.
+  [Guía de instalación, operación y recuperación](docs/editor-and-files.md).
+  Uso visual local, rendimiento representativo y restauración limpia pendientes.
+- Flujo versionado mediante GitHub y snapshot secundario generado desde el commit
+  limpio; auxiliar con backup externo y comprobación exacta retira copias obsoletas
+  y metadatos, sin acumular versiones paralelas. Estado de validación en la guía.
+
 ### Development
 
 - Documentada identidad pública Git con correo noreply, comprobación de autoría,

@@ -9,6 +9,7 @@ de los materiales de terceros siguientes.
 | `config/profile` | Modelo de inicio Debian base-files con fragmento i3 añadido; conservar GPL-2.0-or-later, no relicenciar el archivo completo como MIT |
 | `config/codex-rtk.md` | Texto generado por RTK 1.1.0; conservar su marcador de procedencia |
 | `config/helium-signing-key.asc` | Clave pública de proveedor para verificar el repositorio APT; no es código propio ni una credencial privada |
+| `config/yazi/apt/yazi-keyring.gpg` | Clave pública oficial de yazi-rs/builds; fingerprint y verificación en la guía de editor/archivos, no es una credencial privada |
 
 - Fuentes: [OFL.txt](../config/fonts/OFL.txt),
   [UPSTREAM.md](../config/fonts/UPSTREAM.md) y
@@ -21,6 +22,9 @@ de los materiales de terceros siguientes.
 - `BGH Status Icons` y su generador son material propio bajo MIT.
 - Los binarios de Codex, RTK, Engram y Helium y el plugin Engram no se incluyen:
   se reinstalan desde sus proveedores y mantienen sus condiciones respectivas.
+- Neovim/Yazi y mini.files tampoco se incluyen. Neovim conserva su licencia
+  de distribución; Yazi y mini.files son MIT. El instalador de mini.files
+  conserva LICENSE junto al módulo y la ayuda. [Procedencia y comprobaciones](editor-and-files.md).
 
 Las referencias visuales/atajos no incorporan servicios o scripts de otros
 escritorios. Conservar los avisos de cualquier componente adicional que se

@@ -1,0 +1,18 @@
+# Text/directory previews only; no media decoding or speculative preloads.
+[mgr]
+sort_by = "natural"
+sort_dir_first = true
+show_hidden = false
+show_symlink = true
+
+[opener]
+edit = [{ run = 'nvim -- %s', block = true, desc = "Neovim", for = "unix" }]
+
+[plugin]
+preloaders = []
+previewers = [
+  { mime = "folder/*", run = "folder" },
+  { mime = "text/*", run = "code" },
+  { mime = "application/{json,ndjson,javascript,xml,toml,yaml,sql}", run = "code" },
+  { url = "*", run = "noop" },
+]

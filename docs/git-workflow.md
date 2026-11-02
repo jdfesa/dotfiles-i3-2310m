@@ -2,9 +2,12 @@
 
 ## Scope
 
-GitHub es la referencia compartida del historial; cada máquina mantiene su copia
-de trabajo. La sincronización es manual mediante commit/push/pull, sin servicios
-ni polling. Git 2.47.3 comprobado en Debian 13.
+GitHub es la fuente de verdad de lo versionado y el puente entre máquinas; cada
+una mantiene su copia de trabajo. La sincronización es manual mediante
+commit/push/pull, sin servicios ni polling. SSH administra/despliega en la
+portátil y transfiere material privado necesario por la red local, no sustituye
+ese puente con copias paralelas de fuentes públicas. La validación principal
+se realiza en la portátil. Git 2.47.3 comprobado en Debian 13.
 
 ## Author identity
 
@@ -136,9 +139,16 @@ En la otra máquina, revisar el estado y ejecutar `git pull --ff-only`.
 Si hay divergencia o rechazo, detenerse y revisar; no forzar el push ni
 sobrescribir cambios para igualar las copias.
 
+Tras validar el checkout vigente en la portátil, regenerar su copia secundaria
+con el [procedimiento de snapshot](repository-layout.md#secondary-snapshot).
+No editarla ni conservar allí guías/estados anteriores. Un respaldo privado de
+recuperación se mantiene fuera de los árboles activos, no como otra fuente.
+
 Git sincroniza las fuentes, no sustituye su [despliegue validado](restore-guide.md).
-Los enlaces de usuario siguen pendientes; los archivos de sistema se instalan
-por separado. Un pull no recarga aplicaciones automáticamente.
+La migración general de enlaces sigue pendiente; Neovim/Yazi usan ya el
+[despliegue acotado](editor-and-files.md). Los archivos de sistema se instalan
+por separado. Un pull puede cambiar directamente un archivo enlazado; revisar
+los cambios antes y recargar sólo la aplicación afectada, no la sesión completa.
 
 ## Publication checks
 
