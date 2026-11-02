@@ -121,9 +121,15 @@ Antes de editar en cualquiera de las máquinas, revisar el estado y actualizar
 desde GitHub. Con cambios locales pendientes, preservarlos antes del pull:
 
 ```sh
+umask 022
 git status --short --branch
 git pull --ff-only
 ```
+
+Git versiona el bit ejecutable, no la diferencia entre 644 y 664. Usar máscara
+022 al crear/actualizar fuentes públicas y comprobar modos después del checkout;
+las fuentes enlazadas deben conservar los modos del manifiesto. Procedimiento
+de normalización acotado en [User links](editor-and-files.md#user-links).
 
 Ejemplo para un cambio revisado únicamente en README:
 

@@ -118,6 +118,13 @@ class UserLinkTests(unittest.TestCase):
         self.assertFalse(self.target.exists())
         self.assertFalse(self.backup.exists())
 
+    def test_group_writable_source_is_rejected_until_mode_is_corrected(self):
+        self.source.chmod(0o664)
+        with self.assertRaisesRegex(ValueError, "source owner/mode"):
+            self.plan()
+        self.source.chmod(0o644)
+        self.assertEqual(self.plan()[0]["action"], "create")
+
     def test_backup_inside_repo_is_rejected(self):
         with self.assertRaisesRegex(ValueError, "outside the working tree"):
             LINKS.apply(self.plan(), self.root, self.home, self.root / "backup")

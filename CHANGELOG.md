@@ -20,13 +20,16 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 - Seis enlaces de usuario con dry-run, detección de conflictos y rollback
   privado; tres instalaciones APT regulares root:root644. 45/51 destinos
   coincidentes y seis diferencias anteriores preservadas.
-- Añadidas 25 regresiones de instalación/configuración, rollback, snapshot y
+- Añadidas regresiones de instalación/configuración, rollback, snapshot y
   TUI con fixtures aislados; arranque de la configuración instalada validado.
   [Guía de instalación, operación y recuperación](docs/editor-and-files.md).
   Uso visual local, rendimiento representativo y restauración limpia pendientes.
 - Flujo versionado mediante GitHub y snapshot secundario generado desde el commit
   limpio; auxiliar con backup externo y comprobación exacta retira copias obsoletas
   y metadatos, sin acumular versiones paralelas. Estado de validación en la guía.
+- Corregido modo664 heredado del checkout en las seis fuentes enlazadas: modo644
+  verificado. Documentadas máscara022 y normalización acotada; Git no versiona
+  esos bits. Añadida regresión que rechaza escritura de grupo en fuentes.
 
 ### Development
 

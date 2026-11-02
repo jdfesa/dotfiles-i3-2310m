@@ -45,6 +45,7 @@ No guardar logs, secretos, historiales o memorias en el árbol.
 Desde el checkout limpio de la portátil actualizado mediante GitHub:
 
 ```sh
+umask 022
 git pull --ff-only
 python3 tools/sync-secondary.py                     # revisar cambios y retiros
 backup="$HOME/.local/state/bgh-config-backups/secondary-$(date -u +%Y%m%dT%H%M%SZ)"

@@ -113,6 +113,9 @@ Debian comprobada. No hacen falta lazy.nvim, mini.deps ni un instalador en init.
 los seis archivos nuevos. El resto del manifiesto permanece intacto.
 
 ```sh
+umask 022
+# Tras revisar las fuentes públicas, normalizar también un checkout anterior.
+chmod 644 config/nvim/init.lua config/nvim/lua/config/*.lua config/yazi/yazi.toml
 python3 tools/link-user-config.py                    # revisar el plan completo
 backup="$HOME/.local/state/bgh-config-backups/productivity-$(date -u +%Y%m%dT%H%M%SZ)"
 python3 tools/link-user-config.py --apply --backup-dir "$backup"
@@ -121,6 +124,8 @@ python3 tools/link-user-config.py                    # todos unchanged
 
 Rechaza fuentes/destinos inseguros, padres enlazados, archivos diferentes y
 enlaces distintos/rotos. Una copia regular idéntica puede migrarse tras backup.
+También rechaza una fuente con modo incorrecto: Git no conserva los bits de
+lectura/escritura 644 frente a 664. No omitir esta comprobación después de un pull.
 El directorio de respaldo debe ser nuevo, externo y privado; el journal600
 registra destinos ausentes o copias anteriores. No sustituye una revisión de
 preferencias de aplicaciones. Los enlaces tienen modo de sistema 777; el
