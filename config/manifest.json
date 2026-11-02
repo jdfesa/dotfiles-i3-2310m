@@ -193,5 +193,20 @@
     "source": "config/rtk-config.toml",
     "destination": "/home/jd/.config/rtk/config.toml",
     "mode": 384
+  },
+  {
+    "source": "config/login-keyring.pam",
+    "destination": "/etc/pam.d/login-keyring",
+    "mode": 420
+  },
+  {
+    "source": "config/keyring-secrets-only.conf",
+    "destination": "/etc/systemd/user/gnome-keyring-daemon.service.d/10-secrets-only.conf",
+    "mode": 420
+  },
+  {
+    "source": "config/xsession-keyring.sh",
+    "destination": "/etc/X11/Xsession.d/95keyring-secrets",
+    "mode": 420
   }
 ]

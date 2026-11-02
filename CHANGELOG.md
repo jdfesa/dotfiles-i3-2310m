@@ -4,6 +4,26 @@ Cambios de configuración y comprobaciones relevantes. El estado vigente está
 en las guías; versiones de referencia en [dependencies.md](docs/dependencies.md).
 No representa una reproducción byte a byte del sistema ni un benchmark.
 
+## 2026-11-02
+
+### Development
+
+- Documentada identidad pública Git con correo noreply, comprobación de autoría,
+  recuperación y flujo manual commit/push/pull mediante GitHub. Autenticación y
+  despliegue separados; sin incluir credenciales ni rutas de conexión.
+- Identidad global de autor y committer verificada en Debian como cuenta de
+  sesión; archivo Git privado modo600. HTTPS autenticado mediante gh y depósito
+  Login cifrado; helper oficial, push desde Debian y pull desde otra copia
+  comprobados. Desbloqueo tras próximo login físico todavía pendiente.
+- Añadidos hooks opcionales PAM/Xsession y servicio sólo secrets como archivos
+  root:root644, incluidos en el manifiesto. Deshabilitado el agente SSH extra de
+  gcr4; conservado OpenSSH. Backups privados y checks de parser/servicio correctos.
+- 66/66 pruebas offline correctas; 36/42 destinos coinciden completamente y
+  se conservan las seis diferencias previas de configuración/documentación.
+- Control obligatorio antes de cada push: exclusiones reales, archivos ya
+  seguidos, allowlist/contenido del índice y commits salientes. Añadidas
+  regresiones de publicación y exclusiones de depósitos privados.
+
 ## 2026-11-01
 
 ### Documentation

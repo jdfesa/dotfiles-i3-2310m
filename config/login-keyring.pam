@@ -1,0 +1,4 @@
+# Optional hooks for password-authenticated local login.
+# Include each type after its corresponding common stack in /etc/pam.d/login.
+auth optional pam_gnome_keyring.so
+session optional pam_gnome_keyring.so auto_start

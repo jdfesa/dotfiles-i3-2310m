@@ -95,8 +95,16 @@
   DHCP addresses are not permanent; do not publish installation-specific LAN
   endpoints, SSH fingerprints, SSIDs or private administration-host paths.
 - Keep sudo password-protected; no password rotation or access-method changes
-  without coordination. Never store credentials, private keys, nmconnection
-  profiles, Codex auth, memories/SQLite, RTK history, logs or private backups here.
+  without coordination. Never track or publish credentials, private keys,
+  nmconnection profiles, Codex auth, keyrings, memories/SQLite, RTK history or logs.
+  Necessary local-only material may stay in ignored private/ with restrictive
+  permissions; transfer reviewed private files between working copies by SSH,
+  never GitHub. Keep destination backups outside the worktree; do not bulk-import
+  private authentication directories.
+- Before every push, test real ignore matching, check tracked-but-ignored files,
+  review an explicit staged allowlist and exact contents, and audit all outgoing
+  commits for secrets. Ignore rules do not remove tracked data or history; stop
+  publication on any unresolved finding. Never force-add private material.
 - Public vendor keys and non-secret repository config may be mirrored with
   verified origins. MIT covers original material; preserve third-party licenses.
 - Keep RTK/Engram integration minimal and additive. Recreate the pinned official

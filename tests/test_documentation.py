@@ -97,6 +97,26 @@ class DocumentationTests(unittest.TestCase):
             if path.is_file() and path.name != "README.md":
                 self.assertIn("scripts/" + path.name, inventory)
 
+    def test_git_workflow_separates_author_identity_and_authentication(self):
+        text = (ROOT / "docs/git-workflow.md").read_text()
+        for term in ('git config --global user.name', 'git config --global user.email',
+                     '@users.noreply.github.com', 'git var GIT_AUTHOR_IDENT',
+                     'git var GIT_COMMITTER_IDENT', 'git pull --ff-only',
+                     'git push --dry-run origin main', '## Authentication',
+                     '## Recovery', 'gh auth login', 'gh auth setup-git', 'keyring'):
+            self.assertIn(term, text)
+        self.assertIn('docs/git-workflow.md', (ROOT / "README.md").read_text())
+
+    def test_publication_requires_ignore_index_and_outgoing_history_review(self):
+        instructions = (ROOT / "AGENTS.md").read_text()
+        for term in ('Before every push', 'tracked-but-ignored', 'staged allowlist',
+                     'outgoing', 'Never force-add'):
+            self.assertIn(term, instructions)
+        guide = (ROOT / "docs/git-workflow.md").read_text()
+        for term in ('## Publication checks', 'git ls-files -ci --exclude-standard',
+                     'git diff --cached', 'origin/main..HEAD'):
+            self.assertIn(term, guide)
+
     def test_licenses_preserve_original_and_third_party_scope(self):
         self.assertTrue((ROOT / "LICENSE").read_text().startswith("MIT License\n"))
         notices = (ROOT / "docs/third-party-notices.md").read_text()

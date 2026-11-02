@@ -45,13 +45,17 @@ class ConfigurationHygieneTests(unittest.TestCase):
                    ".engram/engram.db", "nested/.engram/export.json", "history.jsonl",
                    "downloads/tool.tar.gz", "logs/session.log", ".env", "key.pem",
                    "wifi.nmconnection", "nested/.aws/credentials", ".ssh/authorized_keys",
-                   "stats.sqlite-wal", "engram-export.json"]
+                   "stats.sqlite-wal", "engram-export.json", ".config/gh/hosts.yml",
+                   ".local/share/keyrings/login.keyring", ".git-credentials",
+                   "private/local-only.json", "login.keyring", "user.keystore",
+                   "nested/.config/gh/hosts.yml", "nested/.git-credentials"]
         retained = ["README.md", "AGENTS.md", ".gitignore", "config/manifest.json",
                     "config/codex-config.toml", "config/codex-hooks.json",
                     "config/rtk-config.toml", "config/helium-signing-key.asc",
                     "tools/install-user-tools.py", "scripts/power-menu", "LICENSE",
                     "docs/third-party-notices.md", "docs/dependencies.md", "licenses/GPL-2.0.txt",
-                    "tools/README.md"]
+                    "tools/README.md", "config/login-keyring.pam",
+                    "config/keyring-secrets-only.conf", "config/xsession-keyring.sh"]
         with tempfile.TemporaryDirectory(prefix="i3-ignore-test-") as tmp:
             # This disposable fixture is not the project and has no commits/remotes.
             subprocess.run(prefix + ["git", "-C", tmp, "init", "-q"], env=env, check=True)

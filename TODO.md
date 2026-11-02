@@ -2,6 +2,9 @@
 
 ## Publication and reproducibility
 
+- [ ] Comprobar desbloqueo del keyring tras el próximo login físico coordinado;
+  autenticación HTTPS/push ya verificados. [Git workflow](docs/git-workflow.md).
+
 - [ ] Probar restauración completa sobre una instalación limpia.
 - [ ] Preparar instalador de archivos de usuario con dry-run, conflictos, backup
   privado y rollback; migrar a symlinks sólo después de validar.

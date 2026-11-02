@@ -11,6 +11,9 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/i3status-config` | `/home/jd/.config/i3status/config` | `644` |
 | `config/xinitrc` | `/home/jd/.xinitrc` | `644` |
 | `config/profile` | `/home/jd/.profile` | `644` |
+| `config/login-keyring.pam` | `/etc/pam.d/login-keyring` | `644` (root) |
+| `config/keyring-secrets-only.conf` | `/etc/systemd/user/gnome-keyring-daemon.service.d/10-secrets-only.conf` | `644` (root) |
+| `config/xsession-keyring.sh` | `/etc/X11/Xsession.d/95keyring-secrets` | `644` (root) |
 | `config/network-interfaces` | `/etc/network/interfaces` | `644` |
 | `config/networkmanager.conf` | `/etc/NetworkManager/conf.d/20-network-ownership.conf` | `644` |
 | `config/locale` | `/etc/default/locale` | `644` |
@@ -47,6 +50,10 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/rtk-config.toml` | `/home/jd/.config/rtk/config.toml` | `600` |
 
 ## Special cases
+
+- Keyring: fragmento PAM opcional incluido desde login, inicialización Xsession
+  y servicio sólo secrets; instalación/rollback en [Git workflow](../docs/git-workflow.md).
+  No copiar contraseñas, tokens o depósitos privados al manifiesto.
 
 - `wifi-boot-state.service` es referencia diagnóstica inactiva, fuera del
   manifiesto: no instalar/habilitar al restaurar.

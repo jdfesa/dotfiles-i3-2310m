@@ -27,6 +27,9 @@ sesiones Codex, memorias Engram, historiales o bases de datos personales.
 5. Leer las diferencias de mimeapps/Codex antes de restaurar sus fuentes mínimas;
    no reemplazar preferencias adicionales sin revisión.
 
+La identidad y autenticación Git se reconstruyen por separado siguiendo
+[Git workflow](git-workflow.md); los tokens y el keyring no se restauran desde GitHub.
+
 ## Staged deployment
 
 Los campos `source` del manifiesto son relativos a la raíz; `destination` es

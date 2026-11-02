@@ -19,6 +19,11 @@ core
 **/.codex/
 **/auth.json
 **/auth.json.*
+**/.config/gh/
+**/keyrings/
+*.keyring
+*.keystore
+**/.git-credentials
 # Private agent state and databases; keep reviewed config/ sources instead.
 **/.engram/
 **/.rtk/

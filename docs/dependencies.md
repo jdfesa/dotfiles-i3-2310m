@@ -21,6 +21,9 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | polkitd | 126-2 | Debian, política login1 estándar |
 | ALSA utils / xdg-utils | 1.2.14-1 / 1.2.1-2 | Debian |
 | Git | 1:2.47.3-0+deb13u1 | Debian |
+| GitHub CLI | 2.46.0-3 | Debian; comprobado 2026-11-02 |
+| GNOME Keyring / módulo PAM | 48.0-1 / 48.0-1 | Debian; comprobado 2026-11-02 |
+| libsecret-tools | 0.21.7-1 | Debian; comprobado 2026-11-02 |
 | curl / jq | 8.14.1-2+deb13u5 / 1.7.1-6+deb13u4 | Debian |
 | Helium | 0.19.2.1-1 | APT oficial Helium, canal stable |
 | JetBrains Mono Nerd Font | Nerd Fonts 3.5.1, base 2.304 | Publicación oficial; sólo Regular/Bold |
@@ -58,6 +61,12 @@ sudo apt-get install --no-install-recommends \
 `mesa-utils` proporciona `glxinfo` para comprobar gráficos; no se necesita en
 cada inicio. La generación de la fuente de iconos es opcional y usa
 `tools/requirements-font-build.txt` en un entorno de desarrollo, no en la sesión.
+
+La autenticación Git usa además los paquetes de [Git workflow](git-workflow.md).
+Instalación comprobada sin recomendaciones: 22 paquetes nuevos, 17.1 MB de
+descarga y 79.4 MB adicionales; sin upgrades, compilación ni escritorio completo.
+El servicio de secretos es local a la cuenta; el agente SSH adicional de gcr4
+queda deshabilitado. No se midió aquí carga sostenida de CPU.
 
 ## External packages
 

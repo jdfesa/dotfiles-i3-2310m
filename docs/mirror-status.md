@@ -2,9 +2,25 @@
 
 ## Scope
 
-`config/manifest.json` contiene **39 destinos administrados**. Todas las
+`config/manifest.json` contiene **42 destinos administrados**. Todas las
 fuentes existen en el árbol; no incluye todas las preferencias ni datos privados
 de aplicaciones. Los hashes se generan, no se duplican en tablas históricas.
+
+## Git authentication — 2026-11-02
+
+- 66/66 pruebas offline correctas y diff sin errores de whitespace.
+- 36/42 destinos coinciden en contenido, modo y propietario; seis diferencias
+  previas preservadas, sin importar preferencias privadas de aplicaciones.
+- Identidad noreply efectiva y helper HTTPS de gh verificados en Debian.
+- Token guardado en keyring; sin token en texto plano en la configuración gh.
+- Escritura/lectura sintética cifrada comprobada y elemento de prueba retirado.
+- Tres nuevas fuentes de sistema coinciden en contenido, modo644 y root:root;
+  directorio de drop-in755. Parser PAM, shell y comando efectivo sólo secrets
+  correctos; agente SSH adicional inactivo y OpenSSH conservado.
+- Commit/push real desde la portátil y pull fast-forward desde otra copia
+  correctos. No se cerró sesión ni se reinició para estas comprobaciones.
+- Desbloqueo automático tras nueva entrada física pendiente de coordinación;
+  no se infiere del parser o de la sesión ya desbloqueada.
 
 ## Local validation — 2026-11-01
 

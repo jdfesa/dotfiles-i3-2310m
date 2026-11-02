@@ -2,8 +2,9 @@
 
 ## Sources and destinations
 
-Este árbol es la fuente de verdad de la configuración administrada del BGH A470,
-no una copia completa del home ni de `/etc`.
+GitHub conserva la referencia compartida de este árbol de configuración
+administrada del BGH A470; cada máquina mantiene una copia de trabajo.
+No es una copia completa del home ni de `/etc`.
 
 | Ruta | Responsabilidad |
 |---|---|
@@ -31,6 +32,9 @@ indicación contraria. Los README de componentes permanecen junto a sus fuentes.
 3. Instalar con propietario/modo del manifiesto; sudo sólo para archivos de sistema.
 4. Validar sintaxis y comportamiento sin interrumpir aplicaciones o acceso remoto.
 5. Comparar hashes, registrar el resultado técnico y sincronizar la copia secundaria.
+
+Para sincronizar cambios entre máquinas mediante commit/push/pull, seguir
+[Git workflow](git-workflow.md).
 
 No guardar logs, secretos, historiales o memorias en el árbol.
 
