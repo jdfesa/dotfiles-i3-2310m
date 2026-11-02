@@ -8,6 +8,8 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ### Productivity
 
+- Zed descartado para la HD 3000: Vulkan sólo expone el renderizador CPU llvmpipe.
+  Sin instalación, cambios de drivers o fallback forzado; criterio en AGENTS.md.
 - Instalados Neovim Debian 0.10.4-8 y Yazi/Ya 26.9.1 desde APT oficial stable
   firmado, limitado al paquete yazi. Once paquetes nuevos, 18.3 MB de descarga
   y 69.6 MB de disco; sin recomendaciones, upgrades, compilación o servicios.

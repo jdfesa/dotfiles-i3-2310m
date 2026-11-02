@@ -21,7 +21,8 @@ class DocumentationTests(unittest.TestCase):
         for term in ("Record durable project decisions", "## Productivity tools",
                      "Debian Neovim", "Yazi", "modular Lua", "mini.files",
                      "only initially enabled", "umask 022", "editor startup",
-                     "docs/editor-and-files.md"):
+                     "docs/editor-and-files.md", "Do not install Zed",
+                     "Intel HD 3000", "hardware Vulkan"):
             self.assertIn(term, text)
 
     def test_readme_is_a_brief_entrypoint_with_topic_links(self):

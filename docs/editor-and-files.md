@@ -18,6 +18,19 @@ Neovim y Yazi instalados el **2026-11-02**; versiones y procedencia en
 - Sin servicios, watchers, actualizaciones ni descargas al iniciar el editor.
   El perfil y las asociaciones globales de aplicaciones no se modifican.
 
+## Graphics compatibility
+
+Zed no se instala en esta portátil. La Intel HD 3000 (Sandy Bridge) no aparece
+como dispositivo Vulkan; la consulta local del **2026-11-02** sólo enumeró
+`llvmpipe`, de tipo CPU. Tener el loader/ICD de Vulkan instalado o acelerar
+OpenGL no proporciona por sí mismo una GPU Vulkan compatible.
+
+[Zed usa Vulkan para su interfaz en Linux](https://zed.dev/docs/linux#graphics-issues).
+No se fuerza renderizado por CPU ni se cambian drivers para eludir esta
+limitación: se conserva el presupuesto de CPU para el trabajo y el navegador.
+No se descargó/instaló Zed ni se creó configuración vacía; reconsiderar sólo
+ante un alcance nuevo o hardware compatible.
+
 ## Layout
 
 Fuentes desde la raíz del repositorio; destinos/modos en
