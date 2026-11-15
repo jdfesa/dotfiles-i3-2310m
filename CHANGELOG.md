@@ -8,6 +8,12 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ### Status bar
 
+- Incorporada Propo Regular de Nerd Fonts v3.5.1 como único TTF adicional,
+  verificado por SHA256 y avisos oficiales conservados. Iconos de clima,
+  métricas y audio a tamaño 12; texto Mono 10 y Wi-Fi BGH 12 conservados.
+  Clima con sol/luna/nube sólidos, área de audio 24 y separación posterior 4.
+  Verificados fontconfig, glifos y renderizado compacto/expandido sin recortes;
+  instalación y recuperación actualizadas en [Status bar](docs/status-bar.md).
 - Añadido chevrón para expandir/contraer tráfico, RAM, CPU, temperatura y disco.
   Inicio compacto; datos esenciales y bloques con urgencia explícita visibles.
   Redibujo de la última muestra en memoria, sin nuevos procesos, dependencias,

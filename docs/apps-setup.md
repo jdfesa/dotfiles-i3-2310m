@@ -69,9 +69,10 @@ Respaldar `mimeapps.list` antes de restaurar: puede contener handlers adicionale
 
 ## Fonts
 
-Sólo JetBrains Mono Nerd Font Mono **Regular/Bold** y `BGH Status Icons`.
+JetBrains Mono Nerd Font Mono **Regular/Bold**, **Propo Regular** y `BGH Status Icons`.
 Procedencia, hashes y licencias en [config/fonts/README.md](../config/fonts/README.md).
-Regular se utiliza en barra (10), Rofi/Kitty (11); Bold no se fuerza en la barra.
+Mono Regular se utiliza en el texto de barra (10), Rofi/Kitty (11);
+Propo Regular en iconos de barra (12). Bold no se fuerza en la barra.
 
 ```sh
 install -d "$HOME/.local/share/fonts/bgh-font-licenses"
@@ -79,6 +80,7 @@ install -m 644 config/fonts/*.ttf config/bgh-status-icons.ttf "$HOME/.local/shar
 install -m 644 config/fonts/OFL.txt config/fonts/UPSTREAM.md "$HOME/.local/share/fonts/bgh-font-licenses/"
 fc-cache "$HOME/.local/share/fonts"
 fc-match 'JetBrainsMono Nerd Font Mono'
+fc-match 'JetBrainsMono Nerd Font Propo'
 ```
 
 Si i3bar conserva cajas en lugar de iconos, renovar i3 con `i3-msg restart`

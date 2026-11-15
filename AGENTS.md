@@ -141,8 +141,9 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   escritorio completo ni compositor sin aprobación explícita. Super+Space abre
   el lanzador; Super+Enter, la terminal; barra superior. Actualizar
   docs/keybindings.md y la ayuda visible al cambiar atajos.
-- Catppuccin Mocha compacto y opaco; JetBrainsMono Nerd Font Mono Regular en toda
-  la barra. Bold está instalada, pero no se fuerza. Mostrar escritorios existentes.
+- Catppuccin Mocha compacto y opaco; texto de barra JetBrainsMono Nerd Font Mono
+  Regular 10 e iconos de clima/métricas/audio Propo Regular 12. Wi-Fi conserva
+  BGH Status Icons 12. Bold está instalada, pero no se fuerza. Mostrar escritorios existentes.
 - Tick de i3status de 10 s; tráfico por diferencias de contadores en ese ciclo.
   Sin sondeo adicional de alta frecuencia. status-clicks.py es residente y
   funciona por eventos.

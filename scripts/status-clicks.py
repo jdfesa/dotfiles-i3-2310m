@@ -15,13 +15,21 @@ TEXT = "#cdd6f4"
 RED = "#f38ba8"
 YELLOW = "#f9e2af"
 LAVENDER = "#b4befe"
-WEATHER_ICONS = {"☀": "\ue30d", "☾": "\ue32b", "☁": "\ue312", "≋": "\ue313",
-                 "☂": "\ue318", "❄": "\ue31a", "ϟ": "\ue31d"}
+ICON_FONT = "JetBrainsMono Nerd Font Propo 12"
+WEATHER_ICONS = {"☀": "\uf185", "☾": "\uf186", "☁": "\uf0c2", "≋": "\ue313",
+                 "☂": "\ue318", "❄": "\U000f0598", "ϟ": "\U000f0593", "?": "\ue370"}
 SECONDARY_BLOCKS = frozenset(("traffic", "memory", "cpu_usage", "cpu_temperature", "disk_info"))
 
 
 def labeled(icon, text, color):
-    return f'<span foreground="{color}">{icon}</span> {html.escape(text)}'
+    return f'<span font_desc="{ICON_FONT}" foreground="{color}">{icon}</span> {html.escape(text)}'
+
+
+def format_weather(text):
+    match = re.fullmatch(r"(~?)([☀☾☁≋☂❄ϟ?])\s+(.+)", text)
+    if match:
+        return match[1] + labeled(WEATHER_ICONS[match[2]], match[3], TEXT)
+    return html.escape(text)
 
 
 class Traffic:
@@ -77,13 +85,12 @@ def adapt_status(blocks, traffic=None):
             volume = re.fullmatch(r"(muted )?(\d+)%", text.strip())
             if volume:
                 icon = "\ueee8" if volume[1] else "\uf028" if int(volume[2]) > 50 else "\uf027" if int(volume[2]) else "\uf026"
-                block["full_text"] = f'<span foreground="{YELLOW}">{icon}</span>'
+                block["full_text"] = f'<span font_desc="{ICON_FONT}" foreground="{YELLOW}">{icon}</span>'
             else:
                 block["full_text"] = labeled("\ueee8", "No audio", "#7f849c")
-            block["min_width"], block["align"] = 28, "center"
+            block["min_width"], block["align"] = 24, "center"
         elif name == "read_file" and block.get("instance", "").endswith("/weather.txt"):
-            text = re.sub(r"[☀☾☁≋☂❄ϟ]", lambda m: WEATHER_ICONS[m[0]], text)
-            block["full_text"] = html.escape(text)
+            block["full_text"] = format_weather(text)
         elif name == "read_file" and block.get("instance", "").endswith("/updates.txt"):
             block["full_text"] = labeled("\U000f03d7", text, "#f5c2e7")
         elif name == "tztime":
@@ -92,7 +99,7 @@ def adapt_status(blocks, traffic=None):
         block["markup"] = "pango"
         block["short_text"] = block["full_text"]
         block["separator"] = False
-        block["separator_block_width"] = 12
+        block["separator_block_width"] = 4 if name == "volume" else 12
     if traffic is not None:
         blocks.insert(1, {"name": "traffic", "instance": "wlp2s0", "full_text": traffic.sample(),
                           "color": "#7f849c", "separator": False, "separator_block_width": 12})

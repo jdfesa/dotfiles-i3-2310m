@@ -2,9 +2,17 @@
 
 ## Appearance
 
-i3bar superior, opaca y compacta, Catppuccin Mocha; **JetBrainsMono Nerd Font
-Mono Regular 10**. Sin blur/compositor. Sólo workspaces existentes, manteniendo
+i3bar superior, opaca y compacta, Catppuccin Mocha; texto **JetBrainsMono Nerd Font
+Mono Regular 10**, iconos de clima/métricas/audio **Propo Regular 12**.
+Sin blur/compositor. Sólo workspaces existentes, manteniendo
 los diez accesibles por teclado. Textos en inglés, hora 24 h y temperaturas °C.
+
+Los pictogramas Propo conservan su proporción sin comprimirse en una celda Mono.
+Clima usa sol/luna/nube sólidos y conserva °C, `~` de caché y `--°C` sin datos.
+Wi-Fi mantiene BGH Status Icons 12 y la batería su formato nativo. Audio tiene
+área mínima de 24 píxeles y separación posterior de 4; Wi-Fi conserva 28 y 12.
+Procedencia, tamaño y hash de la única fuente añadida en
+[Proportional icons](../config/fonts/README.md#proportional-icons).
 
 | Bloque | Dato / acción |
 |---|---|
@@ -72,10 +80,11 @@ La lista Super+U también es de sólo lectura. Fuentes y ciclo de vida:
 
 ## Installation and recovery
 
-Usa i3bar/i3status, Python 3 estándar y la fuente ya instalada; procedencia y
-versiones en [Dependencies](dependencies.md). Los destinos existentes del
-[Manifest](../config/manifest.json) no cambian. Desde la raíz, como `jd`,
-respaldar sólo los dos archivos afectados fuera del repositorio:
+Usa i3bar/i3status y Python 3 estándar; procedencia y versiones en
+[Dependencies](dependencies.md). En una instalación nueva, instalar primero las
+fuentes Mono, BGH y sus licencias según [Fonts](apps-setup.md#fonts).
+El [manifest.json](../config/manifest.json) añade sólo el TTF Propo regular, sin enlaces.
+Desde la raíz, como `jd`, respaldar los archivos afectados fuera del repositorio:
 
 ```sh
 umask 022
@@ -83,7 +92,10 @@ mkdir -p "$HOME/.local/state/bgh-config-backups"
 backup=$(mktemp -d "$HOME/.local/state/bgh-config-backups/bar-XXXXXXXX")
 (umask 077
  cp -- "$HOME/scripts/status-clicks.py" "$backup/status-clicks.py"
- cp -- "$HOME/.config/i3/keybindings-help.txt" "$backup/keybindings-help.txt")
+ cp -- "$HOME/.config/i3/keybindings-help.txt" "$backup/keybindings-help.txt"
+ if [ -e "$HOME/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf" ]; then
+     cp -- "$HOME/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf" "$backup/propo.ttf"
+ fi)
 ```
 
 Con el respaldo comprobado, validar e instalar las fuentes. No reemplazar
@@ -95,19 +107,27 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_status*
 i3 -C -c "$HOME/.config/i3/config"
 install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
 install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
+install -m 644 config/fonts/jetbrains-mono-nerd-font-propo-regular.ttf "$HOME/.local/share/fonts/"
+fc-cache "$HOME/.local/share/fonts"
+fc-match 'JetBrainsMono Nerd Font Propo'
 cmp scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
 cmp config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
-stat -c '%a %U:%G %n' "$HOME/scripts/status-clicks.py" "$HOME/.config/i3/keybindings-help.txt"
+cmp config/fonts/jetbrains-mono-nerd-font-propo-regular.ttf "$HOME/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf"
+stat -c '%a %U:%G %n' "$HOME/scripts/status-clicks.py" "$HOME/.config/i3/keybindings-help.txt" \
+  "$HOME/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf"
 i3-msg restart
 ```
 
-Esperado: `jd:jd`, modos 755 y 644. El restart de i3 renueva el adaptador y
+Esperado: `jd:jd`, adaptador 755, ayuda y TTF 644; fontconfig debe resolver
+Propo al TTF instalado. El restart de i3 renueva el adaptador y
 conserva las ventanas. Comprobar ambos estados con el chevrón y la ayuda con
 Super+K. Un reload puede conservar el proceso anterior.
 
-Para revertir, seleccionar el respaldo privado revisado e instalar sus dos
-archivos con los mismos modos; ejecutar `i3-msg restart`. La recuperación no
-requiere cerrar la sesión ni restaurar otros archivos de configuración.
+Para revertir, seleccionar el respaldo privado revisado e instalar el adaptador
+y la ayuda con sus modos anteriores. Restaurar `propo.ttf` al destino si existía;
+si antes estaba ausente, retirar sólo el TTF añadido después de restaurar el
+adaptador. Ejecutar `fc-cache "$HOME/.local/share/fonts"` e `i3-msg restart`.
+La recuperación no requiere cerrar la sesión ni restaurar otros archivos.
 
 ## Verification
 
@@ -115,7 +135,9 @@ Comprobado en la portátil el 2026-11-15: expansión y contracción mediante
 eventos de clic X11 en i3bar, renderizado de ambos estados y conservación de las
 ventanas al reiniciar i3. Tres ciclos de ocultar/mostrar la barra pausaron y
 reanudaron los mismos tres procesos del grupo productor. La barra quedó visible
-y contraída. Contenido, propietario y modos de los dos destinos contrastados.
+y contraída. Propo resuelve al TTF instalado y cubre todos los pictogramas usados;
+ambos estados se renderizan sin recortes en la franja de 1366 × 24 píxeles.
+Contenido, propietario y modos de adaptador, ayuda y TTF contrastados.
 Suite completa desde una exportación limpia del índice: 112 pruebas correctas;
 validaciones `i3 -C` y `sh -n` correctas.
 

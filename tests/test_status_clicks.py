@@ -28,7 +28,8 @@ class StatusTests(unittest.TestCase):
 
     def test_weather_icon_replaced_without_location(self):
         block = {"name": "read_file", "instance": "/home/jd/.cache/i3/weather.txt", "full_text": "~☾ 15°C"}
-        self.assertEqual(status.adapt_status([block])[0]["full_text"], "~\ue32b 15°C")
+        self.assertEqual(status.adapt_status([block])[0]["full_text"],
+                         '~<span font_desc="JetBrainsMono Nerd Font Propo 12" foreground="#cdd6f4">\uf186</span> 15°C')
 
     def test_volume_and_missing_hardware(self):
         for text, expected in (("80%", "\uf028"), ("30%", "\uf027"), ("0%", "\uf026"),
@@ -114,7 +115,9 @@ class CollapsibleMetricsTests(unittest.TestCase):
         self.assertEqual([b["name"] for b in frame],
                          ["read_file", "stats_toggle", "read_file", "volume",
                           "wireless", "battery", "tztime", "future_block"])
-        self.assertEqual(frame[0]["full_text"], "~\ue32b 15°C")
+        self.assertTrue(frame[0]["full_text"].startswith("~"))
+        self.assertIn("\uf186", frame[0]["full_text"])
+        self.assertIn("15°C", frame[0]["full_text"])
         self.assertEqual(frame[2]["full_text"].split()[-1], "?")
         self.assertIn("No audio", frame[3]["full_text"])
         self.assertEqual(frame[5]["full_text"], "No battery")

@@ -26,7 +26,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | libsecret-tools | 0.21.7-1 | Debian; comprobado 2026-11-02 |
 | curl / jq | 8.14.1-2+deb13u5 / 1.7.1-6+deb13u4 | Debian |
 | Helium | 0.19.2.1-1 | APT oficial Helium, canal stable |
-| JetBrains Mono Nerd Font | Nerd Fonts 3.5.1, base 2.304 | Publicación oficial; sólo Regular/Bold |
+| JetBrains Mono Nerd Font | Nerd Fonts 3.5.1, base 2.304 | Publicación oficial; Mono Regular/Bold y Propo Regular; Propo comprobada 2026-11-15 |
 | Codex CLI | 0.165.0, Linux x64 musl | Instalador oficial standalone |
 | RTK / Engram | 1.1.0 / 3.6.0 | Binarios de publicaciones oficiales |
 | Plugin Engram | 0.1.5, tag v3.6.0 | Marketplace oficial fijado |
