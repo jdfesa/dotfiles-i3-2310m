@@ -18,8 +18,8 @@
   archivos APT son regulares root:root644. El TTF Propo añadido es regular
   jd:jd644; los siete destinos con diferencias existentes se conservan.
 - Se mantienen preferencias de mimeapps/Codex fuera del baseline público mínimo.
-  Las otras diferencias existentes son comentarios/documentación de i3,
-  power-menu, README de scripts y lanzador Codex. No se reemplazan preferencias para forzar hashes.
+  También difieren i3, power-menu, README de scripts y lanzador Codex.
+  No se reemplazan archivos ajenos a la barra para forzar hashes.
 - La batería cubre configuración, instalación, rollback, snapshot secundario,
   arranque Yazi en pseudoterminal y operaciones mini.files en fixtures aislados.
   La ejecución con el módulo instalado se realiza en Debian; el host de
