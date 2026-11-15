@@ -20,6 +20,8 @@ for_window [class="^BGH-Networks$"] floating enable, resize set 760 520, move po
 for_window [class="^BGH-Mixer$"] floating enable, resize set 760 520, move position center
 for_window [class="^BGH-Updates$"] floating enable, resize set 850 520, move position center
 for_window [class="^BGH-Power$"] floating enable, resize set 760 360, move position center
+for_window [class="^BGH-Calendar$" instance="^bgh-calendar$"] floating enable, move position center
+for_window [class="^BGH-Resources$" instance="^bgh-resources$"] floating enable, resize set 960 560, move position center
 
 # Applications and session controls.
 bindsym $mod+Return exec --no-startup-id kitty

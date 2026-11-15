@@ -18,14 +18,14 @@ Procedencia, tamaño y hash de la única fuente añadida en
 |---|---|
 | Clima | Icono de condición + temperatura; sin ciudad |
 | ↑ / ↓ | Tráfico `wlp2s0` por diferencia de contadores; K=KiB/s, M=MiB/s |
-| RAM / CPU | Uso RAM según MemAvailable / uso CPU agregado |
+| RAM / CPU | Uso RAM según MemAvailable / uso CPU agregado; clic CPU abre/cierra btop |
 | Temperatura | Sensor CPU coretemp/x86_pkg_temp; no temperatura exterior |
 | Disco | Espacio disponible de `/`; G=GiB |
 | Paquetes | Candidatos APT locales; click o Super+U abre lista |
 | Audio | Nivel/mute si existe mixer; si no, `No audio`; click/Super+A |
 | Wi-Fi | Sólo icono por calidad, sin SSID/cifra; click/Super+N |
 | Batería | Estado real; `No battery` si no existe dispositivo |
-| Reloj | Fecha en inglés y hora local |
+| Reloj | Fecha en inglés y hora local; clic abre/cierra calendario |
 
 Falta de audio/batería no se representa como 0%. Tarjeta/mixer externos y
 reproducción siguen pendientes. Redes se abre con `nmtui-connect` en Kitty;
@@ -44,6 +44,15 @@ sensores ni releer contadores. Las métricas siguen actualizándose cada 10 s
 estando ocultas, conservando el intervalo de las tasas de tráfico. No añade
 dependencias, procesos residentes, timers ni archivos de estado. La contracción
 reduce ocupación visual; no demuestra menor uso de CPU.
+
+## On-demand panels
+
+Clic izquierdo en el reloj alterna el calendario; en CPU, btop. Expandir las
+métricas con el chevrón para acceder a CPU. Cada panel tiene identidad propia
+y se coloca bajo el bloque pulsado, limitado a la pantalla. Apertura/cierre
+por eventos, sin cambiar el tick de 10 s ni SIGSTOP/SIGCONT.
+Dependencias, operación, muestra de recursos y recuperación en
+[Status panels](status-panels.md).
 
 ## Scheduled work and events
 
@@ -83,7 +92,7 @@ La lista Super+U también es de sólo lectura. Fuentes y ciclo de vida:
 Usa i3bar/i3status y Python 3 estándar; procedencia y versiones en
 [Dependencies](dependencies.md). En una instalación nueva, instalar primero las
 fuentes Mono, BGH y sus licencias según [Fonts](apps-setup.md#fonts).
-El [manifest.json](../config/manifest.json) añade sólo el TTF Propo regular, sin enlaces.
+El TTF Propo es un archivo regular en [manifest.json](../config/manifest.json), sin enlaces.
 Desde la raíz, como `jd`, respaldar los archivos afectados fuera del repositorio:
 
 ```sh
@@ -138,8 +147,8 @@ reanudaron los mismos tres procesos del grupo productor. La barra quedó visible
 y contraída. Propo resuelve al TTF instalado y cubre todos los pictogramas usados;
 ambos estados se renderizan sin recortes en la franja de 1366 × 24 píxeles.
 Contenido, propietario y modos de adaptador, ayuda y TTF contrastados.
-Suite completa desde una exportación limpia del índice: 112 pruebas correctas;
-validaciones `i3 -C` y `sh -n` correctas.
+Validaciones `i3 -C` y `sh -n` correctas; suite completa y estado de destinos
+en [Verification status](mirror-status.md).
 
 Las pruebas de estado cubren datos esenciales/ausentes, urgencia explícita,
 muestreo sólo por tick, clics inválidos y redibujo inmediato con el productor

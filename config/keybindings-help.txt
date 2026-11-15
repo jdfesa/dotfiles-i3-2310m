@@ -7,6 +7,8 @@ Super + U                     Available updates (read-only local APT cache)
 Super + Shift + Enter / B     Helium browser
 Super + K                     This help; Escape closes
 Bar chevron (before packages) Left click: expand/collapse system metrics
+Clock in bar                  Left click: open/close calendar; Esc closes
+CPU icon (expand metrics)     Left click: open/close btop; Q closes
 Super + W / Q                 Close window
 Super + arrows                Focus window
 Super + Shift + arrows        Move window

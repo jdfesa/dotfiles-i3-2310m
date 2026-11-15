@@ -20,10 +20,10 @@
 - [x] Añadir métricas contraíbles con redibujo desde memoria, datos esenciales,
   urgencias explícitas, tick de 10 s y SIGSTOP/SIGCONT conservados.
   [Status bar](docs/status-bar.md#collapsible-metrics).
-- [ ] Evaluar clic en CPU para abrir/cerrar sólo su monitor identificado, bajo
-  demanda. Comparar herramientas disponibles y medir su coste mientras está abierto.
-- [ ] Añadir consulta de calendario bajo demanda, comparando una opción de
-  terminal con una ventana GTK si reutiliza dependencias instaladas.
+- [x] Abrir/cerrar btop identificado al pulsar CPU, bajo demanda y con una
+  muestra acotada de coste. [Status panels](docs/status-panels.md).
+- [x] Consultar un calendario GTK3 al pulsar el reloj, reutilizando la biblioteca
+  existente y con sus bindings declarados. [Status panels](docs/status-panels.md).
 - [ ] Verificar los datos nativos de batería y evaluar detalles bajo demanda;
   distinguir carga, salud y datos ausentes sin agregar consultas periódicas.
 - [ ] Tras verificar hardware y permisos, añadir controles puntuales de brillo;

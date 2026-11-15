@@ -17,6 +17,8 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | i3-wm / i3status | 4.24-1 / 2.15-2 | Debian |
 | Mesa / OpenGL observado | 25.0.7 / core 3.3 acelerado | Debian / i915 |
 | Kitty | 0.41.1-2+deb13u2 | Debian |
+| btop | 1.3.2-0.1 | Debian; comprobado 2026-11-15 |
+| GTK3 / Python GI | 3.24.49-3 / 3.50.0-4+b1 | Debian; gir1.2-gtk-3.0 3.24.49-3; comprobados 2026-11-15 |
 | Rofi | 1.7.5-0.1+b2 | Debian |
 | polkitd | 126-2 | Debian, política login1 estándar |
 | ALSA utils / xdg-utils | 1.2.14-1 / 1.2.1-2 | Debian |
@@ -35,6 +37,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | mini.files | v0.18.0, commit a5689dae6b732955e33eec225b798d6815063179 | Módulo oficial standalone, hashes fijados en tools/install-mini-files.py |
 
 Python 3 de Debian ejecuta la barra y los refrescos con biblioteca estándar.
+El calendario usa `python3-gi` y `gir1.2-gtk-3.0`; btop abre sólo bajo demanda.
 `xfce4-terminal` y `dmenu`/`suckless-tools` permanecen instalados como
 alternativas, pero no son procesos de inicio ni requisitos del lanzador Rofi.
 

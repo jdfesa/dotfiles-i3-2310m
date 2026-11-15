@@ -74,6 +74,7 @@ def adapt_status(blocks, traffic=None):
             block["min_width"], block["align"] = 28, "center"
             block["color"] = RED if value is None or value <= 25 else YELLOW if value <= 50 else "#f2cdcd"
         elif name == "cpu_usage":
+            block["instance"] = "aggregate"
             block["full_text"] = labeled("\uf2db", "CPU " + text, YELLOW)
         elif name == "cpu_temperature":
             block["full_text"] = labeled("\U000f050f", text, "#fab387")
@@ -135,6 +136,18 @@ class StatusView:
         return blocks
 
 
+def popup_anchor(event):
+    x, y, dx, dy, width, height = (event.get(key) for key in
+                                  ("x", "y", "relative_x", "relative_y", "width", "height"))
+    if not all(type(n) is int for n in (x, y, dx, dy, width, height)):
+        return None
+    if not (-32768 <= x <= 32767 and -32768 <= y <= 32767 and
+            1 <= width <= 32767 and 1 <= height <= 256 and 0 <= dx < width and 0 <= dy < height):
+        return None
+    center, bottom = x - dx + width // 2, y - dy + height
+    return (center, bottom) if all(-32768 <= n <= 32767 for n in (center, bottom)) else None
+
+
 def handle_click(event, view=None):
     if type(event.get("button")) is not int or event["button"] != 1:
         return False
@@ -150,6 +163,12 @@ def handle_click(event, view=None):
         helper = "open-mixer.sh"
     elif event.get("name") == "read_file" and event.get("instance") == str(Path.home() / ".cache/i3/updates.txt"):
         helper = "open-updates.sh"
+    elif (event.get("name"), event.get("instance")) in (("tztime", "local"), ("cpu_usage", "aggregate")):
+        panel = "calendar" if event["name"] == "tztime" else "resources"
+        helper = "status-panel.py " + panel
+        anchor = popup_anchor(event)
+        if anchor is not None:
+            helper += f" {anchor[0]} {anchor[1]}"
     if helper:
         # Only allowlisted helper names; never interpret event strings/SSID.
         subprocess.run(["i3-msg", f"exec --no-startup-id ~/scripts/{helper}"],

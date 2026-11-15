@@ -75,6 +75,32 @@ class StatusTests(unittest.TestCase):
             status.handle_click({"name": "volume", "instance": "default.Master.0", "button": 1})
         self.assertEqual(run.call_args.args[0], ["i3-msg", "exec --no-startup-id ~/scripts/open-mixer.sh"])
 
+    def test_clock_and_cpu_clicks_only_launch_allowlisted_panels(self):
+        for name, instance, panel in (("tztime", "local", "calendar"), ("cpu_usage", "aggregate", "resources")):
+            with self.subTest(panel=panel), patch.object(status.subprocess, "run") as run:
+                status.handle_click({"name": name, "instance": instance, "button": 1,
+                                     "x": 1310, "y": 12, "relative_x": 30, "relative_y": 12,
+                                     "width": 80, "height": 24})
+                self.assertEqual(run.call_args.args[0],
+                                 ["i3-msg", f"exec --no-startup-id ~/scripts/status-panel.py {panel} 1320 24"])
+
+    def test_panel_clicks_reject_wrong_identity_and_do_not_interpret_coordinates(self):
+        with patch.object(status.subprocess, "run") as run:
+            for name, instance, button in (("tztime", "other", 1), ("cpu_usage", "other", 1),
+                                           ("tztime", "local", 3), ("cpu_usage", "aggregate", True)):
+                status.handle_click({"name": name, "instance": instance, "button": button})
+            run.assert_not_called()
+            status.handle_click({"name": "tztime", "instance": "local", "button": 1,
+                                 "x": "$(touch /tmp/not-a-command)", "y": 0})
+            self.assertEqual(run.call_args.args[0],
+                             ["i3-msg", "exec --no-startup-id ~/scripts/status-panel.py calendar"])
+
+    def test_anchor_handles_negative_monitor_coordinates_and_invalid_dimensions(self):
+        event = {"x": -100, "y": 12, "relative_x": 20, "relative_y": 12, "width": 80, "height": 24}
+        self.assertEqual(status.popup_anchor(event), (-80, 24))
+        for changes in ({"width": 0}, {"height": 257}, {"relative_x": 80}, {"x": True}, {"y": 32767}):
+            self.assertIsNone(status.popup_anchor(dict(event, **changes)))
+
     def test_missing_volume_block_is_honest(self):
         blocks = status.adapt_status([{"name": "wireless", "instance": "wlp2s0", "full_text": "60%"}])
         self.assertEqual(blocks[0]["name"], "volume")

@@ -50,6 +50,10 @@ El chevrón antes del contador de paquetes muestra u oculta las métricas
 secundarias con un clic izquierdo. La barra inicia contraída; bloques visibles
 y funcionamiento en [Status bar](status-bar.md#collapsible-metrics).
 
+El clic izquierdo en el reloj abre/cierra el calendario; en CPU, btop. El bloque
+CPU aparece al expandir las métricas. Controles y recuperación en
+[Status panels](status-panels.md).
+
 ## Session and applications
 
 | Atajo | Acción |

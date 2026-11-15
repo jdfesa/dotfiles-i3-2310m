@@ -150,6 +150,10 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Las métricas secundarias empiezan contraídas; el chevrón redibuja la muestra
   guardada en memoria, sin consultas ni procesos adicionales. Conservar bloques
   marcados como urgentes y datos esenciales; operación en docs/status-bar.md.
+- El reloj alterna un calendario GTK3 y CPU alterna btop en una ventana Kitty
+  exclusiva. Auxiliar breve por eventos IPC, identidades exactas y lock por
+  panel; no cerrar ventanas ajenas ni añadir sondeos. btop refresca cada 2 s
+  sólo mientras está abierto; detalles en docs/status-panels.md.
 - Clima: coordenadas públicas del centro de Orán, sin geolocalización automática;
   sólo icono/temperatura, refresco cada 30 min mediante servicio breve/cache,
   indicando honestamente los datos desactualizados.

@@ -12,6 +12,8 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/power-action.sh` | Auxiliar logind/Polkit en Kitty tras confirmar; bajo demanda |
 | `scripts/status-bar.sh` | Selecciona sensor/audio y ejecuta i3status al iniciar barra |
 | `scripts/status-clicks.py` | Adaptador residente de i3bar; clicks, iconos y tráfico |
+| `scripts/status-panel.py` | Abre/cierra calendario o btop identificados; IPC breve por evento, sin sondeo |
+| `scripts/calendar-popup.py` | Calendario GTK3 de sólo lectura; vive sólo mientras está abierto |
 | `scripts/open-networks.sh` | nmtui-connect en Kitty flotante; click/Super+N |
 | `scripts/open-mixer.sh` | Panel ALSA si hay dispositivo; click/Super+A |
 | `scripts/open-updates.sh` | Lista APT local de sólo lectura; click/Super+U |
