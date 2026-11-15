@@ -24,8 +24,10 @@
   muestra acotada de coste. [Status panels](docs/status-panels.md).
 - [x] Consultar un calendario GTK3 al pulsar el reloj, reutilizando la biblioteca
   existente y con sus bindings declarados. [Status panels](docs/status-panels.md).
-- [ ] Verificar los datos nativos de batería y evaluar detalles bajo demanda;
-  distinguir carga, salud y datos ausentes sin agregar consultas periódicas.
+- [ ] Con la batería instalada, comprobar nivel, carga, descarga, reposo y
+  completa reales. Los [Battery icons](docs/status-bar.md#battery-icons) se
+  validaron con datos simulados; evaluar detalles bajo demanda sólo si hacen
+  falta, distinguiendo carga, salud y ausencia sin más consultas periódicas.
 - [ ] Tras verificar hardware y permisos, añadir controles puntuales de brillo;
   evaluar un deslizador sólo si aporta utilidad frente a teclas o rueda.
 - [ ] Si hacen falta varias distribuciones, añadir selector XKB para Xorg

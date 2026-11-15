@@ -142,7 +142,7 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   el lanzador; Super+Enter, la terminal; barra superior. Actualizar
   docs/keybindings.md y la ayuda visible al cambiar atajos.
 - Catppuccin Mocha compacto y opaco; texto de barra JetBrainsMono Nerd Font Mono
-  Regular 10 e iconos de clima/métricas/audio Propo Regular 12. Wi-Fi conserva
+  Regular 10 e iconos de clima/métricas/audio/batería Propo Regular 12. Wi-Fi conserva
   BGH Status Icons 12. Bold está instalada, pero no se fuerza. Mostrar escritorios existentes.
 - Tick de i3status de 10 s; tráfico por diferencias de contadores en ese ciclo.
   Sin sondeo adicional de alta frecuencia. status-clicks.py es residente y
@@ -150,6 +150,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Las métricas secundarias empiezan contraídas; el chevrón redibuja la muestra
   guardada en memoria, sin consultas ni procesos adicionales. Conservar bloques
   marcados como urgentes y datos esenciales; operación en docs/status-bar.md.
+- Batería del equipo: iconos de ausencia, carga con rayo, nivel en descarga,
+  completa con marca y reposo con pausa; porcentaje sólo cuando es válido.
+  Consumir estados nativos de i3status, sin inferir carga por estar en CA ni
+  confundir baterías HID con la del equipo. Sin lector ni sondeo adicionales;
+  conservar avisos nativos de nivel bajo. Operación en docs/status-bar.md.
 - El reloj alterna un calendario GTK3 y CPU alterna btop en una ventana Kitty
   exclusiva. Auxiliar breve por eventos IPC, identidades exactas y lock por
   panel; no cerrar ventanas ajenas ni añadir sondeos. btop refresca cada 2 s

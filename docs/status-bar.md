@@ -3,13 +3,13 @@
 ## Appearance
 
 i3bar superior, opaca y compacta, Catppuccin Mocha; texto **JetBrainsMono Nerd Font
-Mono Regular 10**, iconos de clima/métricas/audio/Bluetooth/trackpad **Propo Regular 12**.
+Mono Regular 10**, iconos de clima/métricas/audio/batería/Bluetooth/trackpad **Propo Regular 12**.
 Sin blur/compositor. Sólo workspaces existentes, manteniendo
 los diez accesibles por teclado. Textos en inglés, hora 24 h y temperaturas °C.
 
 Los pictogramas Propo conservan su proporción sin comprimirse en una celda Mono.
 Clima usa sol/luna/nube sólidos y conserva °C, `~` de caché y `--°C` sin datos.
-Wi-Fi mantiene BGH Status Icons 12 y la batería su formato nativo. Audio tiene
+Wi-Fi mantiene BGH Status Icons 12; batería conserva la lectura nativa con iconos Propo. Audio tiene
 área mínima de 24 píxeles y separación posterior de 4; Wi-Fi conserva 28 y 12.
 Procedencia, tamaño y hash de la única fuente añadida en
 [Proportional icons](../config/fonts/README.md#proportional-icons).
@@ -25,12 +25,75 @@ Procedencia, tamaño y hash de la única fuente añadida en
 | Audio | Icono y porcentaje/mute de la salida USB; `No audio` si falta, `Audio ?` si no se puede leer; clic/Super+A abre deslizador |
 | Wi-Fi | Sólo icono por calidad, sin SSID/cifra; click/Super+N |
 | Bluetooth / trackpad | Estado del adaptador y batería inalámbrica; clic en el icono del trackpad abre [Trackpad speed](bluetooth-setup.md#pointer-speed) |
-| Batería | Estado real; `No battery` si no existe dispositivo |
+| Batería | Icono de ausencia, carga, descarga, completa, reposo o estado desconocido; porcentaje válido |
 | Reloj | Fecha en inglés y hora local; clic abre/cierra calendario |
 
 Falta de audio/batería no se representa como 0%. Detección y control de salida
 en [USB audio](audio-setup.md). Redes se abre con `nmtui-connect` en Kitty;
 mantiene la autorización normal de NetworkManager.
+
+## Battery icons
+
+El bloque de batería sustituye la leyenda `No battery` por una batería con cruz,
+sin porcentaje ficticio. Reutiliza i3status y la fuente Propo ya instalada.
+No consulta otro lector ni añade procesos, dependencias, avisos o sondeos.
+
+| State | Presentation |
+|---|---|
+| `absent` | Batería tachada gris, sin texto ni porcentaje |
+| `charging` | Batería con rayo y nivel por tramos de 10 %, en verde; porcentaje |
+| `discharging` | Batería con nivel por tramos de 10 %; porcentaje |
+| `full` | Batería con marca de verificación verde; porcentaje informado |
+| `idle` | Batería con nivel y pausa amarilla; no afirma carga activa |
+| `unknown` | Batería con interrogación; conserva el porcentaje válido si existe |
+
+Se respeta el estado del driver: 100 % no implica por sí solo `full`, y estar
+conectado a CA no demuestra carga activa. i3status convierte **Not charging**
+en `idle`; no se usan estados del trackpad u otras baterías HID como batería
+del equipo. La configuración conserva su selección nativa `BAT*`, el tick de
+10 s, `last_full_capacity` y el umbral de batería baja. En descarga, el icono
+es rojo por debajo de 15 % y amarillo por debajo de 30 %; se conservan color
+y urgencia nativos. Datos malformados muestran interrogación, sin inventar 0 %.
+
+`absent` es la salida `format_down` de i3status: también puede indicar que no
+dispone de lectura. En la portátil sin batería no hay dispositivo `BAT*`;
+esa ausencia está comprobada. Carga, descarga, completa y reposo sólo se
+validan con datos simulados hasta poder colocar la batería físicamente.
+
+Para actualizar esta presentación, revisar y respaldar privadamente los dos
+destinos del [Manifest](../config/manifest.json), fuera del checkout. Instalar
+adaptador y configuración nativa juntos, tras reconciliar diferencias:
+
+```sh
+umask 022
+python3 -m unittest discover -s tests -p test_battery_status.py
+python3 -m unittest discover -s tests -p 'test_status*.py'
+i3status -c config/i3status-config --run-once
+install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
+install -m 644 config/i3status-config "$HOME/.config/i3status/config"
+cmp scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
+cmp config/i3status-config "$HOME/.config/i3status/config"
+i3-msg restart
+```
+
+Ambos archivos deben ser jd:jd, modos755/644 respectivamente. El restart
+conserva ventanas. Para revertir sólo los iconos, restaurar esos dos archivos
+desde su respaldo, comprobar contenidos/modos y renovar i3. No cambiar fuentes,
+servicios ni estado de energía para esta presentación.
+
+### Battery verification — 2026-11-15
+
+- Ausencia real representada por el icono tachado en i3bar de 1366×24, sin
+  leyenda ni porcentaje, sin recortes. Los 26 glifos existen en Propo; vista
+  previa de carga, descarga, completa, reposo y desconocido inspeccionada.
+- Siete escenarios de archivos temporales pasaron por i3status 2.15 y el
+  adaptador. Se comprobaron también límites/errores del porcentaje, urgencia
+  conservada y carga a 100 % distinta de estado completo. Suite general en
+  [Verification status](mirror-status.md).
+- Dos archivos instalados con respaldo privado, contenidos y modos755/644
+  jd:jd comprobados. Ventanas conservadas al renovar i3; el anclaje de audio
+  por teclado se recalcula con el nuevo ancho del bloque. Sin nuevas fuentes,
+  consultas o procesos. Los estados con batería instalada siguen sin prueba física.
 
 ## Collapsible metrics
 
