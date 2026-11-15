@@ -29,5 +29,5 @@ conserva Mono 10 y Wi-Fi su fuente específica. No cambia Rofi ni Kitty.
   con nombre kebab-case. Añadido y contrastado con el tag el 2026-11-15.
 - `OFL.txt` y `UPSTREAM.md` coinciden byte por byte con los avisos de ese tag.
 - Destino regular, propietario `jd:jd`, modo 644, declarado en
-  [Manifest](../manifest.json). Instalación y recuperación en
+  [manifest.json](../manifest.json). Instalación y recuperación en
   [Status bar](../../docs/status-bar.md#installation-and-recovery).
