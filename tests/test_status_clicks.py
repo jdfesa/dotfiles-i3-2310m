@@ -61,6 +61,14 @@ class StatusTests(unittest.TestCase):
         result = status.adapt_status([{"name": "memory", "full_text": "<unsafe>"}])
         self.assertIn("&lt;unsafe&gt;", result[0]["full_text"])
 
+    def test_cpu_and_memory_keep_values_without_text_labels(self):
+        blocks = status.adapt_status([{"name": "cpu_usage", "full_text": "12%"},
+                                      {"name": "memory", "full_text": "1.4G"}])
+        cpu, memory = blocks[:2]
+        self.assertEqual(cpu["full_text"], status.labeled("\uf2db", "12%", status.YELLOW))
+        self.assertEqual(memory["full_text"], status.labeled("\uefc5", "1.4G", status.RED))
+        self.assertEqual(cpu["instance"], "aggregate")
+
     def test_wifi_click_launches_fixed_helper(self):
         with patch.object(status.subprocess, "run") as run:
             status.handle_click({"name": "wireless", "instance": "wlp2s0", "button": 1,

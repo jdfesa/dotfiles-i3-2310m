@@ -97,11 +97,11 @@ def adapt_status(blocks, traffic=None, peripherals=None):
             block["color"] = RED if value is None or value <= 25 else YELLOW if value <= 50 else "#f2cdcd"
         elif name == "cpu_usage":
             block["instance"] = "aggregate"
-            block["full_text"] = labeled("\uf2db", "CPU " + text, YELLOW)
+            block["full_text"] = labeled("\uf2db", text, YELLOW)
         elif name == "cpu_temperature":
             block["full_text"] = labeled("\U000f050f", text, "#fab387")
         elif name == "memory":
-            block["full_text"] = labeled("\uefc5", "RAM " + text, RED)
+            block["full_text"] = labeled("\uefc5", text, RED)
         elif name == "disk_info":
             block["full_text"] = labeled("\uf0a0", text.replace(" GB", "G"), "#a6e3a1")
         elif name == "volume":

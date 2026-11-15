@@ -6,6 +6,11 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Status bar and trackpad
+
+- Retiradas las etiquetas CPU y RAM de la barra; se conservan los pictogramas,
+  los valores y el clic del bloque CPU para btop.
+
 ### Graphical tools
 
 - Instalado Thunar sin recomendaciones de Xfce. Lanzador Rofi con Adwaita

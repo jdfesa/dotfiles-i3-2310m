@@ -18,7 +18,7 @@ Procedencia, tamaño y hash de la única fuente añadida en
 |---|---|
 | Clima | Icono de condición + temperatura; sin ciudad |
 | ↑ / ↓ | Tráfico `wlp2s0` por diferencia de contadores; K=KiB/s, M=MiB/s |
-| RAM / CPU | Uso RAM según MemAvailable / uso CPU agregado; clic CPU abre/cierra btop |
+| RAM / CPU | Iconos sin etiquetas, con uso de RAM según MemAvailable y uso de CPU agregado; clic en el icono CPU abre/cierra btop |
 | Temperatura | Sensor CPU coretemp/x86_pkg_temp; no temperatura exterior |
 | Disco | Espacio disponible de `/`; G=GiB |
 | Paquetes | Candidatos APT locales; click o Super+U abre lista |
