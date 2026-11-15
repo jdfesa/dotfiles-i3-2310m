@@ -57,6 +57,10 @@ CPU aparece al expandir las métricas. Controles y recuperación en
 El clic izquierdo en el icono del trackpad alterna [Trackpad speed](bluetooth-setup.md#pointer-speed);
 Enter aplica y cierra; Escape cancela.
 
+Tres dedos a la izquierda cambian al siguiente escritorio existente de la
+pantalla enfocada; a la derecha, al anterior. Se aplica al terminar el gesto,
+sólo en el Magic Trackpad 2. [Trackpad gestures](trackpad-gestures.md).
+
 ## Session and applications
 
 | Atajo | Acción |

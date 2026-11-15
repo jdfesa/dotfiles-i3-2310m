@@ -14,6 +14,7 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/status-clicks.py` | Adaptador residente de i3bar; clicks, iconos y tráfico |
 | `scripts/bluetooth-status.py` | Módulo del adaptador: estado BlueZ en cada tick y lector HID breve cada 5 min; sin servicio propio |
 | `scripts/open-trackpad-speed.py` | Panel GTK3 bajo demanda que ajusta sólo la velocidad del Magic Trackpad 2 Bluetooth en Xorg |
+| `scripts/trackpad-gestures.py` | Un residente por pantalla X: espera gestos XInput 2.4 del Magic Trackpad 2, sin sondeo; [Trackpad gestures](../docs/trackpad-gestures.md) |
 | `scripts/status-panel.py` | Alterna calendario, btop y velocidad del trackpad por identidad; IPC breve por evento, sin sondeo |
 | `scripts/calendar-popup.py` | Calendario GTK3 de sólo lectura; vive sólo mientras está abierto |
 | `scripts/open-networks.sh` | nmtui-connect en Kitty flotante; click/Super+N |
@@ -23,7 +24,8 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/update-packages.py` | Oneshot del timer APT; simulación local cada 6 h |
 
 `status-bar.sh` no mantiene un shell adicional tras exec. El adaptador Python
-sí es residente; los menús y refrescos no tienen bucles permanentes.
+sí es residente; el auxiliar de gestos espera eventos de Xorg. Los menús y
+refrescos no tienen bucles permanentes.
 
 ## Services and triggers
 

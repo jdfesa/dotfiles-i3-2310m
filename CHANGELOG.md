@@ -6,6 +6,16 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Trackpad gestures
+
+- Añadidos deslizamientos de tres dedos: izquierda al siguiente escritorio
+  existente de la pantalla enfocada, derecha al anterior, al terminar el gesto.
+  Auxiliar XInput 2.4 con bibliotecas existentes, selección por HID/driver y
+  altas/bajas por eventos; sin paquetes nuevos, sondeo, permisos evdev ni servicio.
+  Captura sólo swipes del Magic Trackpad 2; pinzas, clics, scroll y velocidad
+  conservados. Instalación, pruebas y recuperación en
+  [Trackpad gestures](docs/trackpad-gestures.md).
+
 ### Status bar and trackpad
 
 - Retiradas las etiquetas CPU y RAM de la barra; se conservan los pictogramas,

@@ -24,6 +24,9 @@ for_window [class="^BGH-Calendar$" instance="^bgh-calendar$"] floating enable, m
 for_window [class="^BGH-Trackpad-Speed$" instance="^bgh-trackpad-speed$"] floating enable
 for_window [class="^BGH-Resources$" instance="^bgh-resources$"] floating enable, resize set 960 560, move position center
 
+# One blocking XInput listener per display; no input-device permissions needed.
+exec --no-startup-id ~/scripts/trackpad-gestures.py
+
 # Applications and session controls.
 bindsym $mod+Return exec --no-startup-id kitty
 bindsym $mod+space exec --no-startup-id rofi -show drun

@@ -131,6 +131,9 @@ Una lectura fresca de hasta 15 % activa urgencia si no se está cargando.
 
 ## Pointer speed
 
+Los deslizamientos de tres dedos para cambiar de escritorio se configuran en
+[Trackpad gestures](trackpad-gestures.md), por separado del enlace Bluetooth.
+
 Clic izquierdo sobre el bloque del trackpad (icono o batería) alterna **Trackpad
 speed** bajo el bloque, con el estilo del calendario. Elegir desde **Slowest**
 hasta **Fastest** con las flechas o el ratón; Enter o **Apply** aplica y cierra.
