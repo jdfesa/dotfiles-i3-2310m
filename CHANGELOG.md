@@ -6,6 +6,18 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Graphical tools
+
+- Instalado Thunar sin recomendaciones de Xfce. Lanzador Rofi con Adwaita
+  oscuro sólo para Thunar, comprobado en una ventana Xorg/i3; Yazi conserva
+  su función en terminal. Sin cambio global de GTK ni nuevas asociaciones
+  configuradas.
+- Instalado Visual Studio Code estable bajo demanda desde el origen firmado de
+  Microsoft, con pin limitado a `code`. CLI y archivo de prueba en Xorg/i3
+  comprobados sin cambiar sandbox, editor predeterminado, extensiones o arranque.
+  Instalación y recuperación
+  en [Editor and file management](docs/editor-and-files.md#graphical-tools).
+
 ### Bluetooth
 
 - Detectados CSR USB y Magic Trackpad 2; completados emparejamiento, confianza
