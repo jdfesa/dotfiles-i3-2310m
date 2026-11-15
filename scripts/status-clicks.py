@@ -17,6 +17,7 @@ YELLOW = "#f9e2af"
 LAVENDER = "#b4befe"
 WEATHER_ICONS = {"☀": "\ue30d", "☾": "\ue32b", "☁": "\ue312", "≋": "\ue313",
                  "☂": "\ue318", "❄": "\ue31a", "ϟ": "\ue31d"}
+SECONDARY_BLOCKS = frozenset(("traffic", "memory", "cpu_usage", "cpu_temperature", "disk_info"))
 
 
 def labeled(icon, text, color):
@@ -98,9 +99,43 @@ def adapt_status(blocks, traffic=None):
     return blocks
 
 
-def handle_click(event):
+class StatusView:
+    """Keep a formatted sample so clicks redraw without sampling or processes."""
+    def __init__(self):
+        self.expanded = False
+        self.snapshot = None
+
+    def update(self, blocks, traffic=None):
+        self.snapshot = adapt_status([dict(block) for block in blocks], traffic)
+        return self.render()
+
+    def render(self):
+        if self.snapshot is None:
+            return None
+        blocks = [block for block in self.snapshot
+                  if self.expanded or block.get("name") not in SECONDARY_BLOCKS
+                  or block.get("urgent") is True]
+        index = next((i for i, block in enumerate(blocks)
+                      if (block.get("name") == "read_file" and
+                          block.get("instance", "").endswith("/updates.txt")) or
+                      block.get("name") in ("volume", "wireless", "battery", "tztime")), len(blocks))
+        chevron = "\uf053" if self.expanded else "\uf054"
+        blocks.insert(index, {"name": "stats_toggle", "instance": "secondary",
+                              "full_text": chevron, "short_text": chevron,
+                              "color": LAVENDER, "min_width": 28, "align": "center",
+                              "markup": "pango", "separator": False,
+                              "separator_block_width": 12})
+        return blocks
+
+
+def handle_click(event, view=None):
     if type(event.get("button")) is not int or event["button"] != 1:
-        return
+        return False
+    if event.get("name") == "stats_toggle" and event.get("instance") == "secondary":
+        if view is not None:
+            view.expanded = not view.expanded
+            return True
+        return False
     helper = None
     if event.get("name") == "wireless" and event.get("instance") == "wlp2s0":
         helper = "open-networks.sh"
@@ -113,6 +148,7 @@ def handle_click(event):
         subprocess.run(["i3-msg", f"exec --no-startup-id ~/scripts/{helper}"],
                        stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, timeout=3, check=True)
+    return False
 
 
 def main(run_once=False):
@@ -135,6 +171,13 @@ def main(run_once=False):
         poller.register(sys.stdin, selectors.EVENT_READ, "click")
     first = True
     traffic = Traffic()
+    view = StatusView()
+
+    def emit(blocks):
+        nonlocal first
+        print(("" if first else ",") + json.dumps(blocks, ensure_ascii=False), flush=True)
+        first = False
+
     try:
         while True:
             for key, _ in poller.select():
@@ -157,12 +200,14 @@ def main(run_once=False):
                         continue
                     if key.data == "click" and isinstance(value, dict):
                         try:
-                            handle_click(value)
+                            if handle_click(value, view):
+                                frame = view.render()
+                                if frame is not None:
+                                    emit(frame)
                         except (OSError, subprocess.TimeoutExpired, subprocess.CalledProcessError):
                             print("Could not open status panel", file=sys.stderr)
                     elif key.data == "status" and isinstance(value, list):
-                        print(("" if first else ",") + json.dumps(adapt_status(value, traffic), ensure_ascii=False), flush=True)
-                        first = False
+                        emit(view.update(value, traffic))
     finally:
         poller.close()
         if child.poll() is None:

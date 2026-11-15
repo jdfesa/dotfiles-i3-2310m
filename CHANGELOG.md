@@ -6,6 +6,18 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Status bar
+
+- Añadido chevrón para expandir/contraer tráfico, RAM, CPU, temperatura y disco.
+  Inicio compacto; datos esenciales y bloques con urgencia explícita visibles.
+  Redibujo de la última muestra en memoria, sin nuevos procesos, dependencias,
+  sondeos ni estado persistente; tick de 10 s y SIGSTOP/SIGCONT conservados.
+- Comprobados ambos estados en i3bar mediante clics X11 y tres ciclos de pausa/
+  reanudación del grupo productor. Despliegue de adaptador/ayuda como jd con
+  respaldo privado, contenidos y modos contrastados, conservando las ventanas.
+  Pruebas de estado y ciclo de vida ampliadas; instalación y rollback en
+  [Status bar](docs/status-bar.md).
+
 ### Documentation
 
 - Fijado español para el cuerpo de la documentación, incluidos AGENTS.md y

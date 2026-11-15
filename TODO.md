@@ -16,9 +16,9 @@
 
 ## Priority 2 — Session and status bar
 
-- [ ] Evaluar métricas contraíbles en la barra, conservando datos esenciales,
-  urgencias, tick de 10 s y SIGSTOP/SIGCONT. Redibujar desde memoria;
-  ocultar métricas no demuestra menor consumo de CPU.
+- [x] Añadir métricas contraíbles con redibujo desde memoria, datos esenciales,
+  urgencias explícitas, tick de 10 s y SIGSTOP/SIGCONT conservados.
+  [Status bar](docs/status-bar.md#collapsible-metrics).
 - [ ] Evaluar clic en CPU para abrir/cerrar sólo su monitor identificado, bajo
   demanda. Comparar herramientas disponibles y medir su coste mientras está abierto.
 - [ ] Añadir consulta de calendario bajo demanda, comparando una opción de
