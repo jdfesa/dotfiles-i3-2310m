@@ -62,7 +62,7 @@ i3 -C -c config/i3-config
 
 Después de reconciliar diferencias, instalar `config/i3-config` como
 `~/.config/i3/config` y `config/keybindings-help.txt` como
-`~/.config/i3/keybindings-help.txt`, ambos644 y jd:jd. La línea nueva es:
+`~/.config/i3/keybindings-help.txt`, ambos modo644 y jd:jd. La línea nueva es:
 
 ```text
 exec --no-startup-id ~/scripts/trackpad-gestures.py
@@ -76,7 +76,7 @@ i3-msg reload
 i3-msg 'exec --no-startup-id ~/scripts/trackpad-gestures.py'
 ```
 
-Una selección X11 privada evita duplicar auxiliares en ese display. Comparar
+Una selección X11 propia evita duplicar auxiliares en ese display. Comparar
 contenidos, propietario y modos con el manifiesto antes de dar el despliegue
 por válido.
 
@@ -107,6 +107,27 @@ Pruebas offline desde el checkout:
 ```sh
 python3 -m unittest discover -s tests -p test_trackpad_gestures.py
 ```
+
+## Current verification — 2026-11-15
+
+- Parsers de i3 de fuente y destino correctos; XInput 2.4 y un Magic Trackpad 2
+  Bluetooth con clase de gestos detectados. Instalados auxiliar755 y configuración/
+  ayuda644, jd:jd, con respaldo privado. Conservados dos comentarios locales
+  anteriores en i3 y el README runtime divergente; auxiliar y ayuda coinciden
+  con sus fuentes, configuración equivalente salvo esos comentarios.
+- Prueba física en `--dry-run` registró ambos comandos. En modo normal se
+  comprobaron cambios en ambos sentidos al terminar el gesto, con puntero,
+  clics y scroll de dos dedos conservados. Inicio duplicado descartado y parada/
+  reactivación comprobadas; queda un único auxiliar normal, sin proceso de prueba.
+- 160 pruebas offline en exportación limpia: 159 correctas y una omitida,
+  incluidas 11 regresiones de gestos, hardware, cancelación y reutilización de IDs.
+  Consulta nativa de un ID retirado controlada sin terminar el proceso.
+- Muestra en reposo de 30 s del auxiliar instalado en modo de prueba:
+  0 ticks de CPU con resolución de 100 Hz, RSS de 15364 KiB y sin cambios
+  de contexto adicionales. Ningún descriptor abierto sobre evdev. Es una
+  muestra acotada; no mide consumo sostenido ni compara herramientas.
+- No se probaron reconexión física ni un nuevo login. Altas/bajas y recuperación
+  ante IDs retirados tienen cobertura sintética; no sustituyen esa prueba real.
 
 ## Recovery
 
