@@ -16,6 +16,9 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
   sintéticos de i3status para los estados sin hardware; comprobación física
   con batería instalada pendiente. Operación en
   [Battery icons](docs/status-bar.md#battery-icons).
+- Desplegados adaptador e i3status con respaldo privado; ausencia real renderizada
+  sin recortes y anclaje de audio conservado con el nuevo ancho. Verificados los
+  glifos instalados y siete escenarios nativos simulados; sin colocar la batería.
 
 ### USB audio volume
 

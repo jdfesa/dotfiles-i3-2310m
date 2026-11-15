@@ -81,6 +81,20 @@ conserva ventanas. Para revertir sólo los iconos, restaurar esos dos archivos
 desde su respaldo, comprobar contenidos/modos y renovar i3. No cambiar fuentes,
 servicios ni estado de energía para esta presentación.
 
+### Battery verification — 2026-11-15
+
+- Ausencia real representada por el icono tachado en i3bar de 1366×24, sin
+  leyenda ni porcentaje, sin recortes. Los 26 glifos existen en Propo; vista
+  previa de carga, descarga, completa, reposo y desconocido inspeccionada.
+- Siete escenarios de archivos temporales pasaron por i3status 2.15 y el
+  adaptador. Se comprobaron también límites/errores del porcentaje, urgencia
+  conservada y carga a 100 % distinta de estado completo. Suite general en
+  [Verification status](mirror-status.md).
+- Dos archivos instalados con respaldo privado, contenidos y modos755/644
+  jd:jd comprobados. Ventanas conservadas al renovar i3; el anclaje de audio
+  por teclado se recalcula con el nuevo ancho del bloque. Sin nuevas fuentes,
+  consultas o procesos. Los estados con batería instalada siguen sin prueba física.
+
 ## Collapsible metrics
 
 La barra inicia contraída. El chevrón antes del contador de paquetes alterna
