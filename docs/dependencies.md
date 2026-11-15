@@ -37,6 +37,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | RTK / Engram | 1.1.0 / 3.6.0 | Binarios de publicaciones oficiales |
 | Plugin Engram | 0.1.5, tag v3.6.0 | Marketplace oficial fijado |
 | Neovim / runtime | 0.12.6 | Archivo oficial Linux x86_64, SHA256 verificado; comprobado 2026-11-02; Debian 0.10.4-8 sólo para recuperación |
+| Visual Studio Code | 1.146.0-1794340865 | APT oficial de Microsoft, canal stable amd64; comprobado 2026-11-15 |
 | Yazi / Ya | 26.9.1-1 / 26.9.1 | APT oficial stable firmado; comprobado 2026-11-02 |
 | mini.files | v0.18.0, commit a5689dae6b732955e33eec225b798d6815063179 | Módulo oficial standalone, hashes fijados en tools/install-mini-files.py |
 
@@ -92,6 +93,8 @@ queda deshabilitado. No se midió aquí carga sostenida de CPU.
   `tools/install-user-tools.py`; sin compilación local.
 - [Editor y archivos](editor-and-files.md): Neovim estable oficial, Yazi APT stable
   firmado y sólo mini.files fijado, sin recomendaciones ni descargas al inicio.
+- [Visual Studio Code](editor-and-files.md#visual-studio-code): APT estable
+  firmado de Microsoft, restringido a `code`.
 
 No añadir un escritorio, compositor, toolchain o servicio sólo como dependencia
 implícita de una utilidad. Revisar necesidad, compatibilidad y coste de fondo.

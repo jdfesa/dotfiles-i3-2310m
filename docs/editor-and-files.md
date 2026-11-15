@@ -15,9 +15,9 @@ Neovim y Yazi instalados el **2026-11-02**; versiones y procedencia en
   ajustarla. No hay LSP, proveedores de iconos ni otros módulos MINI activos.
 - Seis archivos de usuario enlazados individualmente a fuentes residentes en
   la portátil. APT usa tres archivos regulares root:root644, nunca enlaces.
-- Neovim/Yazi no añaden servicios, watchers ni descargas al inicio.
-  [Thunar](#thunar) es una alternativa gráfica bajo demanda, sin configurar
-  asociaciones MIME ni alterar el tema GTK de otras aplicaciones.
+- Neovim/Yazi no añaden servicios, watchers ni descargas al inicio. Thunar y
+  Visual Studio Code son [alternativas gráficas](#graphical-tools); no reemplazan
+  las alternativas del editor ni se fijan asociaciones MIME nuevas.
 
 ## Graphics compatibility
 
@@ -59,6 +59,36 @@ una ventana real y `thunar --version`; no iniciar con `--daemon`.
 Para revertir, restaurar el lanzador previo o retirar sólo la copia de usuario
 si antes no existía. Thunar vuelve a su lanzador Debian. La desinstalación es
 independiente; revisar `apt-get -s remove thunar`, sin autoremove a ciegas.
+
+### Visual Studio Code
+
+El paquete `code` proviene del [APT oficial estable de Microsoft](https://code.visualstudio.com/docs/setup/linux).
+Se usa amd64 y pin sólo para `code`, no para Insiders ni para otros paquetes.
+La huella de la [clave pública](https://learn.microsoft.com/en-us/linux/packages)
+se contrastó con la firma real de `InRelease`:
+`BC52 8686 B50D 79E3 39D3 721C EB3E 94AD BE12 29CF`.
+Respaldar destinos existentes en privado antes de instalar archivos de sistema.
+
+```sh
+gpg --show-keys --with-fingerprint config/vscode/apt/microsoft.asc
+sudo install -o root -g root -m 644 config/vscode/apt/microsoft.asc /etc/apt/keyrings/bgh-vscode.asc
+sudo install -o root -g root -m 644 config/vscode/apt/vscode.sources /etc/apt/sources.list.d/vscode.sources
+sudo install -o root -g root -m 644 config/vscode/apt/vscode.pref /etc/apt/preferences.d/vscode
+sudo apt-get -o Dir::Etc::sourcelist=/etc/apt/sources.list.d/vscode.sources \
+  -o Dir::Etc::sourceparts=- -o APT::Get::List-Cleanup=false \
+  -o APT::Update::Error-Mode=any update
+apt-cache policy code code-insiders
+apt-get -s install --no-install-recommends code
+printf '%s\n' 'code code/add-microsoft-repo boolean false' | sudo debconf-set-selections
+sudo apt-get install --no-install-recommends code
+```
+
+El ajuste de debconf evita que el paquete gestione otra copia del origen.
+Abrir `code --version` y probar **Visual Studio Code** como usuario normal en i3.
+No se configura inicio automático, cuenta, extensiones ni flags que desactiven
+el sandbox o la aceleración. Ajustes, proyectos y datos de extensión no forman
+parte del espejo. Para retirar el origen, restaurar o retirar sólo sus tres
+archivos según el respaldo; simular la retirada de `code` por separado.
 
 ## Layout
 

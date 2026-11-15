@@ -70,6 +70,9 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/yazi/apt/yazi.list` | `/etc/apt/sources.list.d/yazi.list` | `644` (root) |
 | `config/yazi/apt/yazi.pref` | `/etc/apt/preferences.d/yazi` | `644` (root) |
 | `config/yazi/apt/yazi-keyring.gpg` | `/usr/share/keyrings/yazi-keyring.gpg` | `644` (root) |
+| `config/vscode/apt/microsoft.asc` | `/etc/apt/keyrings/bgh-vscode.asc` | `644` (root) |
+| `config/vscode/apt/vscode.sources` | `/etc/apt/sources.list.d/vscode.sources` | `644` (root) |
+| `config/vscode/apt/vscode.pref` | `/etc/apt/preferences.d/vscode` | `644` (root) |
 
 ## Special cases
 

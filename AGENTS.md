@@ -260,9 +260,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   APT no actualiza esta copia del proveedor. Yazi usa su repositorio APT stable
   oficial firmado, limitado a ese paquete; evitar compilación local y no instalar
   por defecto todas las integraciones opcionales/recomendadas.
-- Thunar es una alternativa gráfica bajo demanda. Reutiliza GTK3 con tema oscuro
-  sólo en su lanzador, sin instalar Xfce completo ni servicios opcionales ni
-  fijar asociaciones MIME. Yazi conserva su función en terminal.
+- Thunar y Visual Studio Code son alternativas gráficas bajo demanda; no fijar
+  asociaciones MIME ni cambiar los editores predeterminados. Thunar reutiliza GTK3
+  con tema oscuro sólo en su lanzador; no instalar XFCE completo ni servicios
+  opcionales por defecto. VS Code usa el repositorio oficial estable firmado
+  limitado a `code`; mantener sandbox, sin autostart ni extensiones de oficio.
 - No instalar Zed en esta Intel HD 3000: no hay dispositivo Vulkan de hardware.
   No eludir ese límite renderizando con CPU; reconsiderar sólo con nuevo alcance
   acordado o hardware compatible. La aceleración OpenGL o un cargador Vulkan

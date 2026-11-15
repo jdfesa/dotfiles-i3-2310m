@@ -215,6 +215,21 @@
     "mode": 420
   },
   {
+    "source": "config/vscode/apt/microsoft.asc",
+    "destination": "/etc/apt/keyrings/bgh-vscode.asc",
+    "mode": 420
+  },
+  {
+    "source": "config/vscode/apt/vscode.sources",
+    "destination": "/etc/apt/sources.list.d/vscode.sources",
+    "mode": 420
+  },
+  {
+    "source": "config/vscode/apt/vscode.pref",
+    "destination": "/etc/apt/preferences.d/vscode",
+    "mode": 420
+  },
+  {
     "source": "scripts/README.md",
     "destination": "/home/jd/scripts/README.md",
     "mode": 420
