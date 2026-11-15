@@ -28,6 +28,9 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/mimeapps.list` | `/home/jd/.config/mimeapps.list` | `644` |
 | `scripts/status-bar.sh` | `/home/jd/scripts/status-bar.sh` | `755` |
 | `scripts/status-clicks.py` | `/home/jd/scripts/status-clicks.py` | `755` |
+| `scripts/status-panel.py` | `/home/jd/scripts/status-panel.py` | `755` |
+| `scripts/calendar-popup.py` | `/home/jd/scripts/calendar-popup.py` | `755` |
+| `config/calendar/calendar.css` | `/home/jd/.config/calendar/calendar.css` | `644` |
 | `scripts/open-networks.sh` | `/home/jd/scripts/open-networks.sh` | `755` |
 | `scripts/open-mixer.sh` | `/home/jd/scripts/open-mixer.sh` | `755` |
 | `scripts/open-updates.sh` | `/home/jd/scripts/open-updates.sh` | `755` |

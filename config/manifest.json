@@ -80,6 +80,21 @@
     "mode": 493
   },
   {
+    "source": "scripts/status-panel.py",
+    "destination": "/home/jd/scripts/status-panel.py",
+    "mode": 493
+  },
+  {
+    "source": "scripts/calendar-popup.py",
+    "destination": "/home/jd/scripts/calendar-popup.py",
+    "mode": 493
+  },
+  {
+    "source": "config/calendar/calendar.css",
+    "destination": "/home/jd/.config/calendar/calendar.css",
+    "mode": 420
+  },
+  {
     "source": "scripts/open-networks.sh",
     "destination": "/home/jd/scripts/open-networks.sh",
     "mode": 493
