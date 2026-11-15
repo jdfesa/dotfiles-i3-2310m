@@ -85,6 +85,11 @@
     "mode": 493
   },
   {
+    "source": "scripts/open-trackpad-speed.py",
+    "destination": "/home/jd/scripts/open-trackpad-speed.py",
+    "mode": 493
+  },
+  {
     "source": "config/bluetooth/vendor/magic-trackpad-battery",
     "destination": "/home/jd/.local/lib/bgh-bluetooth/magic-trackpad-battery",
     "mode": 420

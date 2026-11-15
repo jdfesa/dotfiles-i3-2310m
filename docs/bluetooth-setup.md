@@ -129,6 +129,35 @@ y cada 5 min; la barra no espera su respuesta. Si sigue pendiente después de
 adicional; cache y estado viven en memoria. El chevrón redibuja sin consultas.
 Una lectura fresca de hasta 15 % activa urgencia si no se está cargando.
 
+## Pointer speed
+
+Clic izquierdo sobre el bloque del trackpad (icono o batería) alterna **Trackpad
+speed** bajo el bloque, con el estilo del calendario. Elegir desde **Slowest**
+hasta **Fastest** con las flechas o el ratón; Enter o **Apply** aplica y cierra.
+**Default** vuelve al valor del driver. Un segundo clic en el bloque,
+**Close** o Escape cierra sin aplicar. Sólo se ajusta `libinput Accel Speed`
+del Magic Trackpad 2 por Bluetooth, no el perfil
+de aceleración, el panel interno ni el ratón. El cambio es para la conexión
+actual en Xorg: al reconectar o reiniciar X, libinput vuelve a su valor inicial.
+
+Instalar [xinput de Debian](https://manpages.debian.org/trixie/xinput/xinput.1.en.html),
+sin recomendaciones. Comparte GTK3, CSS y posicionamiento con el calendario
+(véase [Status panels](status-panels.md)). No requiere sudo al abrir el panel
+ni sondeo adicional.
+
+```sh
+apt-get -s install --no-install-recommends xinput
+sudo apt-get install --no-install-recommends xinput
+```
+
+El auxiliar comprueba el HID Bluetooth y el nodo XInput antes de cualquier
+escritura. Si se pierde la conexión con el menú abierto, no cambia otro
+dispositivo. En la portátil se verificó el cambio `+0.00 → +0.25` y se
+restauró el valor inicial. Para comprobarlo, abrir el menú con el trackpad
+conectado, seleccionar un nivel y comparar el valor actual al reabrir. Para retirar
+el control, seleccionar **Default** y restaurar adaptador y auxiliar según
+el respaldo.
+
 ## Indicator installation and recovery
 
 Como `jd`, respaldar primero los destinos existentes en un directorio privado
@@ -143,6 +172,7 @@ install -m 755 scripts/bluetooth-status.py "$HOME/scripts/bluetooth-status.py"
 install -m 644 config/bluetooth/vendor/magic-trackpad-battery \
   "$HOME/.local/lib/bgh-bluetooth/magic-trackpad-battery"
 install -m 644 config/bluetooth/vendor/LICENSE "$HOME/.local/lib/bgh-bluetooth/LICENSE"
+install -m 755 scripts/open-trackpad-speed.py "$HOME/scripts/open-trackpad-speed.py"
 install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
 udevadm verify config/bluetooth/72-bgh-magic-trackpad.rules
 sudo install -o root -g root -m 644 config/bluetooth/72-bgh-magic-trackpad.rules \
@@ -170,7 +200,7 @@ Para revertir, restaurar primero el adaptador anterior y reiniciar i3. Restaurar
 la regla previa desde su respaldo; si estaba ausente, retirar sólo la regla
 añadida. Recargar reglas y coordinar desconexión/reconexión sólo del trackpad
 para recrear su nodo sin la ACL añadida. Restaurar
-o retirar únicamente los tres archivos de usuario adicionales según el registro
+o retirar únicamente los archivos de usuario adicionales según el registro
 previo. La reversión de los indicadores conserva el emparejamiento.
 
 ## Current verification — 2026-11-15

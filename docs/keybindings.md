@@ -54,6 +54,9 @@ El clic izquierdo en el reloj abre/cierra el calendario; en CPU, btop. El bloque
 CPU aparece al expandir las métricas. Controles y recuperación en
 [Status panels](status-panels.md).
 
+El clic izquierdo en el icono del trackpad alterna [Trackpad speed](bluetooth-setup.md#pointer-speed);
+Enter aplica y cierra; Escape cancela.
+
 ## Session and applications
 
 | Atajo | Acción |

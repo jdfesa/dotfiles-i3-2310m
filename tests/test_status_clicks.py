@@ -61,6 +61,14 @@ class StatusTests(unittest.TestCase):
         result = status.adapt_status([{"name": "memory", "full_text": "<unsafe>"}])
         self.assertIn("&lt;unsafe&gt;", result[0]["full_text"])
 
+    def test_cpu_and_memory_keep_values_without_text_labels(self):
+        blocks = status.adapt_status([{"name": "cpu_usage", "full_text": "12%"},
+                                      {"name": "memory", "full_text": "1.4G"}])
+        cpu, memory = blocks[:2]
+        self.assertEqual(cpu["full_text"], status.labeled("\uf2db", "12%", status.YELLOW))
+        self.assertEqual(memory["full_text"], status.labeled("\uefc5", "1.4G", status.RED))
+        self.assertEqual(cpu["instance"], "aggregate")
+
     def test_wifi_click_launches_fixed_helper(self):
         with patch.object(status.subprocess, "run") as run:
             status.handle_click({"name": "wireless", "instance": "wlp2s0", "button": 1,
@@ -75,8 +83,20 @@ class StatusTests(unittest.TestCase):
             status.handle_click({"name": "volume", "instance": "default.Master.0", "button": 1})
         self.assertEqual(run.call_args.args[0], ["i3-msg", "exec --no-startup-id ~/scripts/open-mixer.sh"])
 
+    def test_trackpad_click_launches_only_the_fixed_speed_menu(self):
+        event = {"name": "trackpad", "instance": "battery", "button": 1}
+        with patch.object(status.subprocess, "run") as run:
+            for other in (dict(event, button=4), dict(event, button=True), dict(event, instance="other"),
+                          dict(event, name="bluetooth")):
+                self.assertFalse(status.handle_click(other))
+            run.assert_not_called()
+            self.assertFalse(status.handle_click(dict(event, x="unsafe")))
+            self.assertEqual(run.call_args.args[0],
+                             ["i3-msg", "exec --no-startup-id ~/scripts/status-panel.py trackpad"])
+
     def test_clock_and_cpu_clicks_only_launch_allowlisted_panels(self):
-        for name, instance, panel in (("tztime", "local", "calendar"), ("cpu_usage", "aggregate", "resources")):
+        for name, instance, panel in (("tztime", "local", "calendar"), ("cpu_usage", "aggregate", "resources"),
+                                      ("trackpad", "battery", "trackpad")):
             with self.subTest(panel=panel), patch.object(status.subprocess, "run") as run:
                 status.handle_click({"name": name, "instance": instance, "button": 1,
                                      "x": 1310, "y": 12, "relative_x": 30, "relative_y": 12,

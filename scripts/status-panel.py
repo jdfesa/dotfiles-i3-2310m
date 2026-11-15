@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Toggle two fixed i3 panels; short-lived IPC subscription, no polling."""
+"""Toggle fixed i3 panels; short-lived IPC subscription, no polling."""
 import argparse
 import fcntl
 import json
@@ -14,7 +14,8 @@ import sys
 import time
 
 PANELS = {"calendar": ("BGH-Calendar", "bgh-calendar"),
-          "resources": ("BGH-Resources", "bgh-resources")}
+          "resources": ("BGH-Resources", "bgh-resources"),
+          "trackpad": ("BGH-Trackpad-Speed", "bgh-trackpad-speed")}
 HEADER = struct.Struct("=6sII")
 WINDOW_EVENT = 0x80000003
 
@@ -99,10 +100,11 @@ def container_id(panel):
 
 
 def launch_command(name):
-    if name == "calendar":
-        source = Path.home() / "scripts/calendar-popup.py"
+    gtk_helpers = {"calendar": "calendar-popup.py", "trackpad": "open-trackpad-speed.py"}
+    if name in gtk_helpers:
+        source = Path.home() / "scripts" / gtk_helpers[name]
         if not os.access(source, os.X_OK):
-            raise RuntimeError("Calendar helper is not installed.")
+            raise RuntimeError(f"{name.capitalize()} helper is not installed.")
         return [str(source)]
     if name != "resources":
         raise ValueError("Unknown panel")

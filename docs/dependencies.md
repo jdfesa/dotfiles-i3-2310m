@@ -16,6 +16,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | rfkill | 2.41.5-0+deb13u1 | Debian |
 | BlueZ | 5.82-1.1 | Debian; bluetoothctl y servicio existentes, comprobados 2026-11-15 |
 | libinput / Xorg libinput | 1.28.1-1+deb13u1 / 1.5.0-1 | Debian; Magic Trackpad 2 USB/Bluetooth comprobado 2026-11-15 |
+| xinput | 1.6.4-1 | Debian; ajuste de velocidad del Magic Trackpad 2 en Xorg |
 | Magic Trackpad battery reader | commit 09e72af43a803575ae537b161e6504e1f8130d76 | mmarfil/magic-trackpad-battery, MIT; fuente fijada y licencia en config/bluetooth/vendor/ |
 | i3-wm / i3status | 4.24-1 / 2.15-2 | Debian |
 | Mesa / OpenGL observado | 25.0.7 / core 3.3 acelerado | Debian / i915 |

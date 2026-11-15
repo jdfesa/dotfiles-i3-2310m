@@ -1,4 +1,4 @@
-#bgh-calendar {
+#bgh-calendar, #bgh-trackpad-speed {
     background-color: #1e1e2e;
     color: #cdd6f4;
     font-family: "JetBrainsMono Nerd Font Mono";
@@ -15,7 +15,7 @@
 #bgh-calendar calendar:selected { background-color: #b4befe; color: #1e1e2e; }
 #bgh-calendar calendar:indeterminate { color: #6c7086; }
 
-#bgh-calendar button {
+#bgh-calendar button, #bgh-trackpad-speed button {
     background-image: none;
     background-color: #313244;
     color: #cdd6f4;
@@ -26,6 +26,18 @@
 }
 
 #bgh-calendar button:hover,
-#bgh-calendar button:focus { border-color: #b4befe; }
-#calendar-title { color: #b4befe; font-weight: bold; }
-#calendar-hint { color: #a6adc8; font-size: 8pt; }
+#bgh-calendar button:focus,
+#bgh-trackpad-speed button:hover,
+#bgh-trackpad-speed button:focus { border-color: #b4befe; }
+#calendar-title, #trackpad-speed-title { color: #b4befe; font-weight: bold; }
+#calendar-hint, #trackpad-speed-hint { color: #a6adc8; font-size: 8pt; }
+
+#bgh-trackpad-speed list {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    border: 1px solid #45475a;
+}
+
+#bgh-trackpad-speed row { padding: 5px 10px; }
+#bgh-trackpad-speed row:hover { background-color: #313244; }
+#bgh-trackpad-speed row:selected { background-color: #b4befe; color: #1e1e2e; }

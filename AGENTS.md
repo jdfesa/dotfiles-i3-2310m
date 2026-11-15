@@ -175,6 +175,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   HID del proveedor fijado cada 5 min en un proceso breve. Cache sólo en memoria,
   sin root ni servicio/timer adicional; acceso hidraw limitado por uaccess a la
   sesión local activa y al HID exacto del Trackpad 2.
+- El icono del trackpad alterna un panel GTK3 bajo el bloque, con el tema del
+  calendario, para la velocidad del Magic Trackpad 2 Bluetooth en Xorg.
+  Verificar HID y nodo XInput de nuevo antes de escribir; no tocar otros
+  dispositivos ni el perfil de aceleración. El ajuste sólo dura la conexión
+  actual, sin servicio para reaplicarlo.
 - Menú de energía: Power off primero y Yes seleccionado en todas las
   confirmaciones; disponibles Escape/No/Cancel. Autorización de sesión local
   activa mediante logind/polkitd estándar, sin fallback sudo, políticas amplias
