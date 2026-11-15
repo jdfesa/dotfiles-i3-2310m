@@ -23,6 +23,20 @@ Falta de audio/batería no se representa como 0%. Tarjeta/mixer externos y
 reproducción siguen pendientes. Redes se abre con `nmtui-connect` en Kitty;
 mantiene la autorización normal de NetworkManager.
 
+## Collapsible metrics
+
+La barra inicia contraída. El chevrón antes del contador de paquetes alterna
+con un clic izquierdo: `›` expande y `‹` contrae tráfico, RAM, CPU, temperatura
+y disco. Clima, paquetes, audio, Wi-Fi, batería y reloj permanecen visibles.
+Un bloque marcado por el productor con `urgent: true` también permanece visible.
+
+El estado vive sólo en memoria y vuelve a contraído cuando se reinicia el
+adaptador. El clic redibuja la última muestra sin ejecutar comandos, consultar
+sensores ni releer contadores. Las métricas siguen actualizándose cada 10 s
+estando ocultas, conservando el intervalo de las tasas de tráfico. No añade
+dependencias, procesos residentes, timers ni archivos de estado. La contracción
+reduce ocupación visual; no demuestra menor uso de CPU.
+
 ## Scheduled work and events
 
 1. `status-bar.sh` selecciona sensor/audio al iniciar y ejecuta i3status.
@@ -55,6 +69,60 @@ systemctl --user start packages-refresh.service
 
 La lista Super+U también es de sólo lectura. Fuentes y ciclo de vida:
 [scripts/README.md](../scripts/README.md).
+
+## Installation and recovery
+
+Usa i3bar/i3status, Python 3 estándar y la fuente ya instalada; procedencia y
+versiones en [Dependencies](dependencies.md). Los destinos existentes del
+[Manifest](../config/manifest.json) no cambian. Desde la raíz, como `jd`,
+respaldar sólo los dos archivos afectados fuera del repositorio:
+
+```sh
+umask 022
+mkdir -p "$HOME/.local/state/bgh-config-backups"
+backup=$(mktemp -d "$HOME/.local/state/bgh-config-backups/bar-XXXXXXXX")
+(umask 077
+ cp -- "$HOME/scripts/status-clicks.py" "$backup/status-clicks.py"
+ cp -- "$HOME/.config/i3/keybindings-help.txt" "$backup/keybindings-help.txt")
+```
+
+Con el respaldo comprobado, validar e instalar las fuentes. No reemplazar
+`~/.config/i3/config`: esta mejora no modifica bindings ni la configuración
+nativa de la barra.
+
+```sh
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_status*.py' -q
+i3 -C -c "$HOME/.config/i3/config"
+install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
+install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
+cmp scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
+cmp config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
+stat -c '%a %U:%G %n' "$HOME/scripts/status-clicks.py" "$HOME/.config/i3/keybindings-help.txt"
+i3-msg restart
+```
+
+Esperado: `jd:jd`, modos 755 y 644. El restart de i3 renueva el adaptador y
+conserva las ventanas. Comprobar ambos estados con el chevrón y la ayuda con
+Super+K. Un reload puede conservar el proceso anterior.
+
+Para revertir, seleccionar el respaldo privado revisado e instalar sus dos
+archivos con los mismos modos; ejecutar `i3-msg restart`. La recuperación no
+requiere cerrar la sesión ni restaurar otros archivos de configuración.
+
+## Verification
+
+Comprobado en la portátil el 2026-11-15: expansión y contracción mediante
+eventos de clic X11 en i3bar, renderizado de ambos estados y conservación de las
+ventanas al reiniciar i3. Tres ciclos de ocultar/mostrar la barra pausaron y
+reanudaron los mismos tres procesos del grupo productor. La barra quedó visible
+y contraída. Contenido, propietario y modos de los dos destinos contrastados.
+Suite completa desde una exportación limpia del índice: 112 pruebas correctas;
+validaciones `i3 -C` y `sh -n` correctas.
+
+Las pruebas de estado cubren datos esenciales/ausentes, urgencia explícita,
+muestreo sólo por tick, clics inválidos y redibujo inmediato con el productor
+inactivo, incluso después de SIGSTOP/SIGCONT. No equivalen a una restauración
+limpia ni a una medida de consumo sostenido.
 
 ## Troubleshooting
 

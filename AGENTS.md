@@ -146,6 +146,9 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Tick de i3status de 10 s; tráfico por diferencias de contadores en ese ciclo.
   Sin sondeo adicional de alta frecuencia. status-clicks.py es residente y
   funciona por eventos.
+- Las métricas secundarias empiezan contraídas; el chevrón redibuja la muestra
+  guardada en memoria, sin consultas ni procesos adicionales. Conservar bloques
+  marcados como urgentes y datos esenciales; operación en docs/status-bar.md.
 - Clima: coordenadas públicas del centro de Orán, sin geolocalización automática;
   sólo icono/temperatura, refresco cada 30 min mediante servicio breve/cache,
   indicando honestamente los datos desactualizados.

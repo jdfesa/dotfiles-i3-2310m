@@ -46,6 +46,10 @@ La navegación usa flechas; J/K/L quedan reservadas para división, ayuda y layo
 
 Click izquierdo en Wi-Fi, audio o contador de paquetes abre el mismo panel que Super + N, A o U. No hay acción automática de actualización; cambiar a una red nueva podría requerir autorización administrativa. La lista de redes no es un medidor de distancia: el icono refleja calidad de enlace.
 
+El chevrón antes del contador de paquetes muestra u oculta las métricas
+secundarias con un clic izquierdo. La barra inicia contraída; bloques visibles
+y funcionamiento en [Status bar](status-bar.md#collapsible-metrics).
+
 ## Session and applications
 
 | Atajo | Acción |
