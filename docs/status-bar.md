@@ -92,7 +92,7 @@ La lista Super+U también es de sólo lectura. Fuentes y ciclo de vida:
 Usa i3bar/i3status y Python 3 estándar; procedencia y versiones en
 [Dependencies](dependencies.md). En una instalación nueva, instalar primero las
 fuentes Mono, BGH y sus licencias según [Fonts](apps-setup.md#fonts).
-El [manifest.json](../config/manifest.json) añade sólo el TTF Propo regular, sin enlaces.
+El TTF Propo es un archivo regular en [manifest.json](../config/manifest.json), sin enlaces.
 Desde la raíz, como `jd`, respaldar los archivos afectados fuera del repositorio:
 
 ```sh
@@ -147,8 +147,8 @@ reanudaron los mismos tres procesos del grupo productor. La barra quedó visible
 y contraída. Propo resuelve al TTF instalado y cubre todos los pictogramas usados;
 ambos estados se renderizan sin recortes en la franja de 1366 × 24 píxeles.
 Contenido, propietario y modos de adaptador, ayuda y TTF contrastados.
-Suite completa desde una exportación limpia del índice: 112 pruebas correctas;
-validaciones `i3 -C` y `sh -n` correctas.
+Validaciones `i3 -C` y `sh -n` correctas; suite completa y estado de destinos
+en [Verification status](mirror-status.md).
 
 Las pruebas de estado cubren datos esenciales/ausentes, urgencia explícita,
 muestreo sólo por tick, clics inválidos y redibujo inmediato con el productor
