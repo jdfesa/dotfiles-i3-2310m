@@ -210,6 +210,11 @@
     "mode": 420
   },
   {
+    "source": "config/thunar/thunar.desktop",
+    "destination": "/home/jd/.local/share/applications/thunar.desktop",
+    "mode": 420
+  },
+  {
     "source": "scripts/README.md",
     "destination": "/home/jd/scripts/README.md",
     "mode": 420

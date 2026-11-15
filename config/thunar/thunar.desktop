@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Thunar File Manager
+Comment=Browse files and folders
+TryExec=/usr/bin/thunar
+Exec=env GTK_THEME=Adwaita:dark /usr/bin/thunar %U
+Icon=org.xfce.thunar
+Terminal=false
+StartupNotify=true
+DBusActivatable=false
+Categories=System;Core;GTK;FileTools;FileManager;
+MimeType=inode/directory;

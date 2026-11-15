@@ -6,6 +6,13 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Graphical tools
+
+- Instalado Thunar sin recomendaciones de Xfce. Lanzador Rofi con Adwaita
+  oscuro sólo para Thunar, comprobado en una ventana Xorg/i3; Yazi conserva
+  su función en terminal. Sin cambio global de GTK ni nuevas asociaciones
+  configuradas.
+
 ### Bluetooth
 
 - Detectados CSR USB y Magic Trackpad 2; completados emparejamiento, confianza
