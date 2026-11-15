@@ -22,9 +22,45 @@ class StatusTests(unittest.TestCase):
                 self.assertNotIn(quality, wifi["full_text"])
                 self.assertEqual(wifi["markup"], "pango")
 
-    def test_absent_battery_stays_english(self):
-        blocks = [{"name": "battery", "full_text": "No battery"}]
-        self.assertEqual(status.adapt_status(blocks)[0]["full_text"], "No battery")
+    def test_absent_battery_is_an_icon_without_a_fake_percentage(self):
+        blocks = [{"name": "battery", "full_text": "absent"}]
+        block = status.adapt_status(blocks)[0]
+        self.assertIn(status.BATTERY_ABSENT, block["full_text"])
+        self.assertNotIn("%", block["full_text"])
+        self.assertNotIn("No battery", block["full_text"])
+        self.assertEqual((block["min_width"], block["align"]), (24, "center"))
+
+    def test_battery_states_keep_native_status_separate_from_percentage(self):
+        for text, icon in (("charging 65%", status.BATTERY_CHARGING_LEVELS[6]),
+                           ("charging 100%", status.BATTERY_CHARGING_LEVELS[10]),
+                           ("full 100%", status.BATTERY_FULL),
+                           ("discharging 100%", status.BATTERY_LEVELS[10]),
+                           ("discharging 65%", status.BATTERY_LEVELS[6]),
+                           ("idle 65%", status.BATTERY_LEVELS[6] + " " + status.BATTERY_IDLE_MARK),
+                           ("discharging 0%", status.BATTERY_LEVELS[0]),
+                           ("unknown 65%", status.BATTERY_UNKNOWN)):
+            with self.subTest(text=text):
+                formatted = status.format_battery(text)
+                self.assertIn(icon, formatted)
+                self.assertTrue(formatted.endswith(text.split()[-1]))
+
+    def test_invalid_battery_telemetry_never_invents_level_or_state(self):
+        for text in ("", None, "charging", "charging -1%", "full 101%", "idle nan%", "charging <bad>"):
+            with self.subTest(text=text):
+                formatted = status.format_battery(text)
+                self.assertIn(status.BATTERY_UNKNOWN, formatted)
+                self.assertNotIn("%", formatted)
+                self.assertNotIn("<bad>", formatted)
+
+    def test_low_battery_keeps_native_urgency_and_survives_compact_view(self):
+        block = dict(name="battery", full_text="discharging 14%", color=status.RED, urgent=True)
+        frame = status.StatusView().update([block])
+        result = next(item for item in frame if item["name"] == "battery")
+        self.assertTrue(result["urgent"])
+        self.assertEqual(result["color"], status.RED)
+        self.assertIn(status.RED, result["full_text"])
+        self.assertIn("14%", result["full_text"])
+        self.assertNotIn(status.RED, status.format_battery("charging 14%"))
 
     def test_weather_icon_replaced_without_location(self):
         block = {"name": "read_file", "instance": "/home/jd/.cache/i3/weather.txt", "full_text": "~☾ 15°C"}
@@ -170,7 +206,7 @@ class CollapsibleMetricsTests(unittest.TestCase):
             {"name": "read_file", "instance": "/fixture/updates.txt", "full_text": "?"},
             {"name": "volume", "instance": "usb-output", "full_text": "absent"},
             {"name": "wireless", "instance": "wlp2s0", "full_text": "down"},
-            {"name": "battery", "full_text": "No battery"},
+            {"name": "battery", "full_text": "absent"},
             {"name": "tztime", "full_text": "Sun Nov 15 12:00"},
         ]
         self.traffic = Mock()
@@ -188,7 +224,7 @@ class CollapsibleMetricsTests(unittest.TestCase):
         self.assertIn("15°C", frame[0]["full_text"])
         self.assertEqual(frame[2]["full_text"].split()[-1], "?")
         self.assertIn("No audio", frame[3]["full_text"])
-        self.assertEqual(frame[5]["full_text"], "No battery")
+        self.assertIn(status.BATTERY_ABSENT, frame[5]["full_text"])
         self.assertEqual(frame[1]["full_text"], "\uf054")
 
     def test_toggle_redraws_same_sample_without_io_or_mutating_input(self):

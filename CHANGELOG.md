@@ -6,6 +6,17 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Battery icons
+
+- Sustituida la leyenda No battery por una batería tachada. Estados nativos
+  separados para carga con rayo, descarga/nivel, completa con marca, reposo
+  con pausa y desconocido con interrogación; porcentaje sólo si es válido.
+  Iconos de la fuente existente, sin procesos, dependencias o sondeos nuevos.
+- Conservados umbral/urgencias nativos y tick de 10 s. Pruebas con archivos
+  sintéticos de i3status para los estados sin hardware; comprobación física
+  con batería instalada pendiente. Operación en
+  [Battery icons](docs/status-bar.md#battery-icons).
+
 ### USB audio volume
 
 - Sustituida la detección de audio sólo al arrancar y el mixer fijo Master por

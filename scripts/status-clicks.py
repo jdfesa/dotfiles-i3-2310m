@@ -19,6 +19,16 @@ LAVENDER = "#b4befe"
 ICON_FONT = "JetBrainsMono Nerd Font Propo 12"
 WEATHER_ICONS = {"☀": "\uf185", "☾": "\uf186", "☁": "\uf0c2", "≋": "\ue313",
                  "☂": "\ue318", "❄": "\U000f0598", "ϟ": "\U000f0593", "?": "\ue370"}
+BATTERY_ABSENT = "\U000f17e9"
+BATTERY_UNKNOWN = "\U000f0091"
+BATTERY_FULL = "\U000f17e2"
+BATTERY_LEVELS = ("\U000f008e", "\U000f007a", "\U000f007b", "\U000f007c",
+                  "\U000f007d", "\U000f007e", "\U000f007f", "\U000f0080",
+                  "\U000f0081", "\U000f0082", "\U000f0079")
+BATTERY_CHARGING_LEVELS = ("\U000f089f", "\U000f089c", "\U000f0086", "\U000f0087",
+                           "\U000f0088", "\U000f089d", "\U000f0089", "\U000f089e",
+                           "\U000f008a", "\U000f008b", "\U000f0085")
+BATTERY_IDLE_MARK = "\uf04c"
 SECONDARY_BLOCKS = frozenset(("traffic", "memory", "cpu_usage", "cpu_temperature", "disk_info"))
 PANELS = {("tztime", "local"): "calendar", ("cpu_usage", "aggregate"): "resources",
           ("trackpad", "battery"): "trackpad", ("volume", "usb-output"): "audio"}
@@ -33,6 +43,29 @@ def format_weather(text):
     if match:
         return match[1] + labeled(WEATHER_ICONS[match[2]], match[3], TEXT)
     return html.escape(text)
+
+
+def format_battery(text):
+    text = text.strip() if isinstance(text, str) else ""
+    if text == "absent":
+        return labeled(BATTERY_ABSENT, "", "#7f849c").rstrip()
+    match = re.fullmatch(r"(charging|discharging|full|idle|unknown) ([0-9]{1,3})%", text)
+    if match is None or int(match[2]) > 100:
+        return labeled(BATTERY_UNKNOWN, "", YELLOW).rstrip()
+    state, percentage = match[1], int(match[2])
+    if state == "charging":
+        icon, color = BATTERY_CHARGING_LEVELS[percentage // 10], "#a6e3a1"
+    elif state == "full":
+        icon, color = BATTERY_FULL, "#a6e3a1"
+    elif state == "unknown":
+        icon, color = BATTERY_UNKNOWN, YELLOW
+    elif state == "idle":
+        icon, color = BATTERY_LEVELS[percentage // 10] + " " + BATTERY_IDLE_MARK, YELLOW
+    else:
+        icon = BATTERY_LEVELS[percentage // 10]
+        color = RED if state == "discharging" and percentage < 15 else (
+            YELLOW if state == "discharging" and percentage < 30 else TEXT)
+    return labeled(icon, f"{percentage}%", color)
 
 
 class Traffic:
@@ -121,6 +154,9 @@ def adapt_status(blocks, traffic=None, peripherals=None, audio=None):
                 block["full_text"] = labeled(icon, volume[2] + "%", YELLOW)
             else:
                 block["full_text"] = labeled("\ueee8", "No audio" if text == "absent" else "Audio ?", "#7f849c")
+            block["min_width"], block["align"] = 24, "center"
+        elif name == "battery":
+            block["full_text"] = format_battery(text)
             block["min_width"], block["align"] = 24, "center"
         elif name == "read_file" and block.get("instance", "").endswith("/weather.txt"):
             block["full_text"] = format_weather(text)

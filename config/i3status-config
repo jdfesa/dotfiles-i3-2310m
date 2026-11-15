@@ -52,12 +52,14 @@ wireless wlp2s0 {
 
 battery all {
     format = "%status %percentage"
-    format_down = "No battery"
+    # Internal states; status-clicks.py renders icons without extra sampling.
+    format_down = "absent"
     format_percentage = "%.0f%s"
-    status_chr = "BAT+"
-    status_bat = "BAT"
-    status_full = "BAT"
-    status_unk = "BAT?"
+    status_chr = "charging"
+    status_bat = "discharging"
+    status_full = "full"
+    status_idle = "idle"
+    status_unk = "unknown"
     last_full_capacity = true
     low_threshold = 15
     threshold_type = "percentage"
