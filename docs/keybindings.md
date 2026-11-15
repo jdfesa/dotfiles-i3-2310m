@@ -47,7 +47,8 @@ La navegación usa flechas; J/K/L quedan reservadas para división, ayuda y layo
 Click izquierdo en Wi-Fi, audio o contador de paquetes abre el mismo panel que Super + N, A o U. No hay acción automática de actualización; cambiar a una red nueva podría requerir autorización administrativa. La lista de redes no es un medidor de distancia: el icono refleja calidad de enlace.
 
 El panel de [USB audio](audio-setup.md) aplica el volumen inmediatamente;
-**Mute** controla el silencio de salida. Cerrar no revierte los cambios.
+**Mute** controla el silencio de salida. Clic y Super+A lo abren bajo el mismo
+bloque de la barra; cerrar no revierte los cambios.
 
 El chevrón antes del contador de paquetes muestra u oculta las métricas
 secundarias con un clic izquierdo. La barra inicia contraída; bloques visibles

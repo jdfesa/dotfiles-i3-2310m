@@ -47,6 +47,8 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 Python 3 de Debian ejecuta la barra y los refrescos con biblioteca estándar.
 El [volumen USB](audio-setup.md) usa libasound mediante ctypes en el tick
 existente; su deslizador reutiliza GTK3 sólo mientras está abierto.
+Su posición por teclado usa libX11 existente y `gir1.2-pango-1.0`, dependencia
+ya presente de GTK3, sólo bajo demanda.
 El calendario usa `python3-gi` y `gir1.2-gtk-3.0`; btop abre sólo bajo demanda.
 Bluetooth usa BlueZ y los controladores nativos del kernel/libinput;
 instalación y emparejamiento en [Bluetooth and Magic Trackpad 2](bluetooth-setup.md).

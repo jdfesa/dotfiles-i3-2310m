@@ -3,7 +3,8 @@
 ## Volume control
 
 La barra muestra el icono y porcentaje de la salida USB. Clic izquierdo o
-Super+A abre/cierra **USB audio volume**. Arrastrar el deslizador o usar las
+Super+A abre/cierra **USB audio volume**, siempre bajo su bloque en la barra,
+también al usar el teclado. Arrastrar el deslizador o usar las
 flechas aplica inmediatamente de 0 a 100 %; **Mute** controla el silencio.
 Escape o **Close** cierra sin deshacer cambios. Abrir el panel o conectar el
 adaptador no cambia volumen ni mute. Subir desde cero no desmutea automáticamente.
@@ -23,6 +24,9 @@ reportados `8086:0808`, driver nativo `snd-usb-audio`. Su control de salida es
 [`usb-audio.json`](../config/audio/usb-audio.json) contiene sólo esos datos,
 sin número de serie, puerto USB ni índice de tarjeta persistente. Las tarjetas
 pueden cambiar de número al reconectar.
+La selección no fija puerto, ruta USB ni hub: sirve al mover el adaptador
+entre puertos compatibles. Si se mueve con el panel abierto, cerrarlo y
+reabrirlo para enlazar el nuevo dispositivo, sin reutilizar el descriptor anterior.
 
 `audio-control.py` identifica USB/driver en sysfs, abre su control ALSA y
 revalida ruta/inodo antes de cada escritura. Un descriptor abierto permanece
@@ -38,6 +42,14 @@ No se añaden paquetes en la portátil, servidores de audio, procesos por muestr
 daemons o timers. Cada tick abre/lee/cierra el mixer; el panel mantiene sólo
 su descriptor mientras está abierto. El panel no sondea ni reproduce sonidos.
 
+Para Super+A, el adaptador conserva el tramo de audio de la última muestra
+visible en una propiedad del servidor X11, sin escribir archivos ni historiales.
+Sólo publica si cambia ese tramo; el chevrón no vuelve a consultar datos.
+Al abrir, el auxiliar mide texto con Pango y la fuente/DPI actuales de i3bar,
+busca la barra de la pantalla enfocada y aplica el mismo anclaje que un clic.
+Pango se carga sólo en ese auxiliar breve, no en el productor residente. Si no
+hay barra/muestra disponible, no abre el panel en otra posición.
+
 Para otro adaptador, verificar primero su VID/PID, driver y control de salida
 de reproducción; actualizar el perfil y reiniciar el adaptador de la barra.
 No elegir por el número de tarjeta ni usar un control de micrófono como salida.
@@ -50,8 +62,8 @@ de instalar. Fuentes, destinos completos y modos en el
 [Manifest](../config/manifest.json). En una instalación nueva, revisar primero:
 
 ```sh
-apt-get -s install --no-install-recommends python3 libasound2t64 alsa-utils python3-gi gir1.2-gtk-3.0
-sudo apt-get install --no-install-recommends python3 libasound2t64 alsa-utils python3-gi gir1.2-gtk-3.0
+apt-get -s install --no-install-recommends python3 libasound2t64 libx11-6 alsa-utils python3-gi gir1.2-gtk-3.0 gir1.2-pango-1.0
+sudo apt-get install --no-install-recommends python3 libasound2t64 libx11-6 alsa-utils python3-gi gir1.2-gtk-3.0 gir1.2-pango-1.0
 ```
 
 Con el respaldo comprobado, instalar los componentes juntos:
@@ -59,7 +71,7 @@ Con el respaldo comprobado, instalar los componentes juntos:
 ```sh
 umask 022
 install -d -m 755 "$HOME/scripts" "$HOME/.config/audio" "$HOME/.config/calendar" "$HOME/.config/i3" "$HOME/.config/i3status"
-install -m 755 scripts/audio-control.py scripts/audio-volume.py scripts/open-mixer.sh scripts/status-panel.py scripts/status-clicks.py scripts/status-bar.sh "$HOME/scripts/"
+install -m 755 scripts/audio-control.py scripts/audio-volume.py scripts/audio-position.py scripts/open-mixer.sh scripts/status-panel.py scripts/status-clicks.py scripts/status-bar.sh "$HOME/scripts/"
 install -m 644 config/audio/usb-audio.json "$HOME/.config/audio/usb-audio.json"
 install -m 644 config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
 install -m 644 config/i3status-config "$HOME/.config/i3status/config"
@@ -113,7 +125,7 @@ coste sostenido de CPU.
 Cerrar sólo el panel de audio y restaurar desde el respaldo los scripts,
 perfil, i3status, regla i3, CSS y ayuda afectados. Mantener el adaptador de barra
 y su configuración i3status de la misma revisión. Retirar sólo los dos scripts
-nuevos y el perfil si antes no existían. Validar i3 y renovar con
+nuevos, el módulo de posición y el perfil si antes no existían. Validar i3 y renovar con
 `i3-msg restart`; no retirar bibliotecas compartidas, cambiar servicios o tocar
 otras tarjetas. Los cambios de volumen aplicados son estado ALSA del dispositivo;
 cerrar/restaurar archivos no los revierte ni garantiza persistencia al reconectar.
@@ -124,3 +136,4 @@ cerrar/restaurar archivos no los revierte ni garantiza persistencia al reconecta
 - [ALSA simple mixer API](https://www.alsa-project.org/alsa-doc/alsa-lib/mixer_8h.html).
 - [amixer](https://manpages.debian.org/trixie/alsa-utils/amixer.1.en.html).
 - [GTK3 Scale](https://docs.gtk.org/gtk3/class.Scale.html).
+- [i3bar text widths and positioning](https://github.com/i3/i3/blob/4.24/i3bar/src/xcb.c).

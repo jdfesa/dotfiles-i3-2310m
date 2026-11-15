@@ -17,6 +17,10 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
   captura o ganancia automática. Identidad/driver y generación de tarjeta
   revalidados antes de escribir; apertura/conexión sin escrituras. Procedimiento
   y recuperación en [USB audio](docs/audio-setup.md).
+- Super+A sitúa el panel bajo el mismo bloque de audio que el clic, desde la
+  muestra visible guardada en memoria X11 y medición Pango bajo demanda. Sin
+  sondeo, archivos de estado ni carga de GTK/Pango en el productor de barra.
+  El perfil USB permite cambiar de puerto/hub sin fijar el índice de tarjeta.
 
 ### Trackpad gestures
 

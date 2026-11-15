@@ -165,7 +165,9 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Audio USB usa ALSA/libasound existente, con perfil público de VID/PID,
   driver snd-usb-audio y control de reproducción verificado. La barra consulta
   conexión/volumen en el tick de 10 s; clic o Super+A alterna un deslizador GTK3
-  bajo demanda. Revalidar tarjeta e identidad antes de escribir; no tocar
+  bajo su bloque también mediante teclado. Anclaje desde la muestra visible en
+  memoria X11 y Pango sólo bajo demanda, sin archivos de estado. No fijar puerto
+  USB/hub ni número de tarjeta. Revalidar tarjeta e identidad antes de escribir; no tocar
   micrófono/captura ni cambiar volumen o mute al abrir/conectar. Sin servidores
   de audio, sondeo adicional ni servicio propio. No audio sólo si falta el
   adaptador; errores/ambigüedad muestran Audio ?. Operación en docs/audio-setup.md.

@@ -2,6 +2,7 @@
 """Toggle fixed i3 panels; short-lived IPC subscription, no polling."""
 import argparse
 import fcntl
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -128,7 +129,8 @@ def open_panel(name, anchor=None):
         ipc = IPC(stream)
         if not ipc.request(2, '["window"]').get("success"):
             raise RuntimeError("i3 window subscription failed")
-        existing = find_panel(ipc.request(4), identity)
+        tree = ipc.request(4)
+        existing = find_panel(tree, identity)
         if existing is not None:
             panel, _ = existing
             cid = container_id(panel)
@@ -139,6 +141,11 @@ def open_panel(name, anchor=None):
                 event = ipc.next_window()
                 if event.get("change") == "close" and event.get("container", {}).get("id") == cid:
                     return
+        if name == "audio" and anchor is None:
+            spec = importlib.util.spec_from_file_location("audio_position", Path(__file__).with_name("audio-position.py"))
+            position = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(position)
+            anchor = position.keyboard_anchor(ipc, tree)
         output = choose_output(ipc.request(3), *anchor) if anchor is not None else None
         command = launch_command(name)
         subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,

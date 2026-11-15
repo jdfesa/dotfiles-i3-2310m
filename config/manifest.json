@@ -145,6 +145,11 @@
     "mode": 493
   },
   {
+    "source": "scripts/audio-position.py",
+    "destination": "/home/jd/scripts/audio-position.py",
+    "mode": 493
+  },
+  {
     "source": "config/audio/usb-audio.json",
     "destination": "/home/jd/.config/audio/usb-audio.json",
     "mode": 420

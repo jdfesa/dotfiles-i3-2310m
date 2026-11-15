@@ -218,6 +218,13 @@ def main(run_once=False):
     audio_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(audio_module)
     audio = audio_module.AudioStatus()
+    spec = importlib.util.spec_from_file_location("audio_position", Path(__file__).with_name("audio-position.py"))
+    position_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(position_module)
+    try:
+        position = None if run_once else position_module.PositionMemory()
+    except OSError:
+        position = None
     source = Path.home() / "scripts/status-bar.sh"
     child = subprocess.Popen([str(source)] + (["--run-once"] if run_once else []),
                              stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, bufsize=0)
@@ -241,6 +248,8 @@ def main(run_once=False):
 
     def emit(blocks):
         nonlocal first
+        if position is not None:
+            position.publish(blocks)
         print(("" if first else ",") + json.dumps(blocks, ensure_ascii=False), flush=True)
         first = False
 
@@ -275,6 +284,8 @@ def main(run_once=False):
                     elif key.data == "status" and isinstance(value, list):
                         emit(view.update(value, traffic, peripherals, audio))
     finally:
+        if position is not None:
+            position.close()
         peripherals.close()
         poller.close()
         if child.poll() is None:

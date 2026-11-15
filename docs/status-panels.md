@@ -15,7 +15,8 @@
 
 Cada clic alterna sólo el panel correspondiente. Un lock independiente descarta
 activaciones simultáneas mientras abre/cierra. Las ventanas se colocan bajo el
-bloque pulsado y se limitan al monitor; sin coordenadas válidas se centran.
+bloque pulsado y se limitan al monitor; sin coordenadas válidas se centran,
+salvo audio: Super+A calcula su bloque actual y siempre lo coloca debajo.
 El calendario es de sólo lectura: no agenda eventos ni consulta servicios.
 
 `status-panel.py` consulta i3 y espera eventos de ventana con un plazo total de
