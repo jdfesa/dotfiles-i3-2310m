@@ -63,7 +63,7 @@ run() {
 
 power_action() {
     [ "$dry_run" -eq 1 ] || require kitty
-    run kitty --class BGH-Power --title 'Power action' -e "$HOME/scripts/power-action.sh" "$1"
+    run kitty --class BGH-Power --title 'Power action' --override=tab_bar_min_tabs=2 -e "$HOME/scripts/power-action.sh" "$1"
 }
 
 if [ "$dry_run" -ne 1 ] || [ "$preview" -eq 1 ]; then

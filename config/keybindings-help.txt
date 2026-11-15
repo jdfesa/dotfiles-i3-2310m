@@ -26,6 +26,9 @@ Super + Ctrl + L              Lock; password + Enter unlocks
 Super + Shift + C / R         Reload config/restart i3
 Super + Shift + E             Exit; Y confirms, N/Escape cancels
 Ctrl + Shift + C / V          Copy/paste in Kitty
+Ctrl + Shift + T              New Kitty tab in current directory
+Ctrl + Shift + Q              Close current Kitty tab
+Ctrl + Shift + Left / Right   Previous/next Kitty tab
 Ctrl + L                      Helium address bar
 Ctrl + T / W                  New/close browser tab
 Ctrl + Tab / Ctrl+Shift+Tab   Next/previous browser tab

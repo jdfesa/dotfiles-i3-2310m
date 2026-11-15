@@ -6,4 +6,4 @@ runtime="${XDG_RUNTIME_DIR:-$HOME/.cache/i3}"
 mkdir -p "$runtime"
 # Avoid duplicate dialogs after rapid clicks; keep the lock while Kitty runs.
 exec flock -n "$runtime/bgh-network-menu.lock" \
-    kitty --class BGH-Networks --title 'Wi-Fi networks' -e nmtui-connect
+    kitty --class BGH-Networks --title 'Wi-Fi networks' --override=tab_bar_min_tabs=2 -e nmtui-connect

@@ -59,6 +59,9 @@ y funcionamiento en [Status bar](status-bar.md#collapsible-metrics).
 | Super + Shift + R | Reiniciar i3 conservando ventanas |
 | Super + Shift + E | Salir: Y confirma; N/Esc cancela |
 | Ctrl + Shift + C / V | Copiar/pegar en Kitty |
+| Ctrl + Shift + T | Nueva pestaña de Kitty en el directorio actual |
+| Ctrl + Shift + Q | Cerrar pestaña activa de Kitty; si es la última, cerrar esa ventana |
+| Ctrl + Shift + Izquierda / Derecha | Pestaña anterior/siguiente de Kitty |
 | Ctrl + L | Direcciones en Helium |
 | Ctrl + T / W | Abrir/cerrar pestaña del navegador |
 | Ctrl + Tab / Ctrl + Shift + Tab | Siguiente/anterior pestaña del navegador |
@@ -70,6 +73,9 @@ No se implementaron el menú de administración, portapapeles universal, fondos,
 Los atajos internos nuevos de Neovim/mini.files están en
 [Editor and file management](editor-and-files.md). No añaden bindings globales
 de i3 ni cambian la ayuda de la sesión.
+
+Las etiquetas de directorio, aplicación y recuperación de la terminal están en
+[Kitty setup](kitty-setup.md).
 
 - Fuente ejecutable: `config/i3-config`.
 - Ayuda visible con Super + K: `config/keybindings-help.txt`; actualizarla junto con esta guía.

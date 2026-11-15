@@ -5,8 +5,9 @@
 - [ ] Usar el navegador predeterminado XDG en Super+Shift+B; revisar el alias
   Super+Shift+Enter y actualizar configuración, ayuda y
   [Keybindings](docs/keybindings.md).
-- [ ] Añadir pestañas de Kitty en el directorio actual con Ctrl+Shift+T y título
-  de directorio, conservando los ajustes locales de fuente y repintado.
+- [x] Añadir pestañas de Kitty en el directorio actual con Ctrl+Shift+T/Q y
+  título de directorio; fuente y repintado conservados.
+  [Kitty setup](docs/kitty-setup.md).
 - [ ] Mejorar el panel de redes: enfocar la instancia abierta, acceso desde el
   lanzador y distinguir cancelación de fallos del proceso hijo de Kitty.
   Mantener NetworkManager y consultas sólo bajo demanda.
