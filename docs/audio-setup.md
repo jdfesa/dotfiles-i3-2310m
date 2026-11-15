@@ -120,6 +120,26 @@ Las pruebas sintéticas cubren selección, controles de reproducción, errores,
 ambigüedad e IDs reutilizados; no demuestran audición, reinstalación limpia ni
 coste sostenido de CPU.
 
+## Current verification — 2026-11-15
+
+- Detectado el USB con `Speaker` estéreo, rango ALSA0…151. Lectura inicial
+  17 % y cambio manual a 30 % contrastados con amixer; volumen audible y Mute
+  comprobados localmente. Micrófono, captura y AGC conservaron sus valores.
+- Barra con porcentaje real, sin errores del mixer Master. Clic y Super+A
+  alternan el panel bajo audio; anclaje de teclado `(986,24)` y ventana
+  360×233 en `(806,28)` comprobados en la pantalla de 1366×768.
+- Reconexión real en otro puerto USB y mediante hub: porcentaje recuperado y
+  ajuste de volumen confirmado, sin reiniciar la barra. Perfil sin puerto ni
+  número de tarjeta fijo; reapertura del panel enlaza la nueva conexión.
+- Doce archivos de usuario instalados, con respaldo privado, contenidos,
+  propietario y modos contrastados; dos comentarios anteriores de i3 y el
+  README runtime divergente conservados. Parsers i3/shell/GTK y 17 regresiones
+  específicas de audio/posición correctos; suite e inventario general en
+  [Verification status](mirror-status.md).
+- Sin paquetes, servidores de audio ni procesos residentes nuevos. El panel
+  no sondea; la barra mantiene su tick de 10 s y SIGSTOP/SIGCONT. No se midió
+  consumo sostenido ni se probó una reinstalación limpia.
+
 ## Recovery
 
 Cerrar sólo el panel de audio y restaurar desde el respaldo los scripts,

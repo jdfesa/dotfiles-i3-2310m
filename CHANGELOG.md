@@ -21,6 +21,10 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
   muestra visible guardada en memoria X11 y medición Pango bajo demanda. Sin
   sondeo, archivos de estado ni carga de GTK/Pango en el productor de barra.
   El perfil USB permite cambiar de puerto/hub sin fijar el índice de tarjeta.
+- Despliegue con respaldo privado y diferencias locales conservadas. Volumen
+  audible, mute, posición del teclado y reconexión en otro puerto/hub comprobados;
+  17 regresiones de audio/posición y suite completa correctas. Estado y alcance
+  en [USB audio](docs/audio-setup.md#current-verification--2026-11-15).
 
 ### Trackpad gestures
 

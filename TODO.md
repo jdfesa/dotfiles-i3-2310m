@@ -73,7 +73,8 @@
   No repetir ciclos ni ingeniería inversa sin nuevo alcance.
 - [ ] Probar recuperación física por Ethernet.
 - [ ] Validar cierre/reapertura de tapa y bloqueo previo a suspensión automática.
-- [ ] Verificar adaptador de audio externo, tarjeta/mixer y reproducción.
+- [x] Verificar adaptador USB, salida Speaker, reproducción y volumen/mute;
+  conexión en otros puertos y hub. [USB audio](docs/audio-setup.md).
 - [ ] Revisar brillo y pila RTC.
 - [ ] Coordinar prueba física de apagar/reiniciar/suspender/reanudar; dry-run no
   equivale a comprobar esas acciones.

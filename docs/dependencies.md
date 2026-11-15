@@ -24,6 +24,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | Kitty | 0.41.1-2+deb13u2 | Debian |
 | btop | 1.3.2-0.1 | Debian; comprobado 2026-11-15 |
 | GTK3 / Python GI | 3.24.49-3 / 3.50.0-4+b1 | Debian; gir1.2-gtk-3.0 3.24.49-3; comprobados 2026-11-15 |
+| Pango / PangoCairo bindings | 1.56.3-1 | Debian; gir1.2-pango-1.0 y libpangocairo-1.0-0 existentes, posición del audio bajo demanda |
 | Rofi | 1.7.5-0.1+b2 | Debian |
 | Thunar | 4.20.2-1+deb13u1 | Debian; modo oscuro en i3 comprobado 2026-11-15 |
 | polkitd | 126-2 | Debian, política login1 estándar |
