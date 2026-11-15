@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Event-driven i3status adapter with local traffic and fixed click actions."""
 import html
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -60,7 +61,28 @@ class Traffic:
         return f"↑{self.rate((sent - previous[2]) / seconds)} ↓{self.rate((received - previous[1]) / seconds)}/s"
 
 
-def adapt_status(blocks, traffic=None):
+def peripheral_blocks(state):
+    adapter = state["adapter"]
+    icon = "\U000f00b1" if adapter == "connected" else "\U000f00af" if adapter == "on" else "\U000f00b2"
+    color = "#89b4fa" if adapter in ("on", "connected") else RED if adapter == "absent" else "#7f849c"
+    bluetooth = {"name": "bluetooth", "instance": "adapter", "min_width": 24, "align": "center",
+                 "full_text": labeled(icon, "?" if adapter == "unknown" else "", color).rstrip()}
+    percentage = state["percentage"]
+    text = "off" if not state["connected"] else "--%" if percentage is None else f"{percentage}%"
+    if state["stale"]:
+        text = "~" + text
+    if state["charging"]:
+        text += "+"
+    low = percentage is not None and percentage <= 15 and not state["stale"]
+    trackpad = {"name": "trackpad", "instance": "battery", "urgent": low and not state["charging"],
+                "full_text": labeled("\U000f07f8", text, RED if low else "#a6e3a1" if state["connected"] else "#7f849c")}
+    return [bluetooth, trackpad]
+
+
+def adapt_status(blocks, traffic=None, peripherals=None):
+    if peripherals is not None:
+        index = next((i for i, block in enumerate(blocks) if block.get("name") in ("battery", "tztime")), len(blocks))
+        blocks[index:index] = peripheral_blocks(peripherals.sample())
     if not any(block.get("name") == "volume" for block in blocks):
         index = next((i for i, block in enumerate(blocks) if block.get("name") == "wireless"), len(blocks))
         blocks.insert(index, {"name": "volume", "instance": "default.Master.0", "full_text": "unavailable"})
@@ -113,8 +135,8 @@ class StatusView:
         self.expanded = False
         self.snapshot = None
 
-    def update(self, blocks, traffic=None):
-        self.snapshot = adapt_status([dict(block) for block in blocks], traffic)
+    def update(self, blocks, traffic=None, peripherals=None):
+        self.snapshot = adapt_status([dict(block) for block in blocks], traffic, peripherals)
         return self.render()
 
     def render(self):
@@ -178,6 +200,10 @@ def handle_click(event, view=None):
 
 
 def main(run_once=False):
+    spec = importlib.util.spec_from_file_location("bluetooth_status", Path(__file__).with_name("bluetooth-status.py"))
+    bluetooth = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(bluetooth)
+    peripherals = bluetooth.BluetoothStatus()
     source = Path.home() / "scripts/status-bar.sh"
     child = subprocess.Popen([str(source)] + (["--run-once"] if run_once else []),
                              stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, bufsize=0)
@@ -233,8 +259,9 @@ def main(run_once=False):
                         except (OSError, subprocess.TimeoutExpired, subprocess.CalledProcessError):
                             print("Could not open status panel", file=sys.stderr)
                     elif key.data == "status" and isinstance(value, list):
-                        emit(view.update(value, traffic))
+                        emit(view.update(value, traffic, peripherals))
     finally:
+        peripherals.close()
         poller.close()
         if child.poll() is None:
             child.send_signal(signal.SIGCONT)

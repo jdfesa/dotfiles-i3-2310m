@@ -14,6 +14,9 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | NetworkManager | 1.52.1 | Debian |
 | firmware-realtek | 20250410-2 | Debian, non-free-firmware |
 | rfkill | 2.41.5-0+deb13u1 | Debian |
+| BlueZ | 5.82-1.1 | Debian; bluetoothctl y servicio existentes, comprobados 2026-11-15 |
+| libinput / Xorg libinput | 1.28.1-1+deb13u1 / 1.5.0-1 | Debian; Magic Trackpad 2 USB/Bluetooth comprobado 2026-11-15 |
+| Magic Trackpad battery reader | commit 09e72af43a803575ae537b161e6504e1f8130d76 | mmarfil/magic-trackpad-battery, MIT; fuente fijada y licencia en config/bluetooth/vendor/ |
 | i3-wm / i3status | 4.24-1 / 2.15-2 | Debian |
 | Mesa / OpenGL observado | 25.0.7 / core 3.3 acelerado | Debian / i915 |
 | Kitty | 0.41.1-2+deb13u2 | Debian |
@@ -38,6 +41,11 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 
 Python 3 de Debian ejecuta la barra y los refrescos con biblioteca estándar.
 El calendario usa `python3-gi` y `gir1.2-gtk-3.0`; btop abre sólo bajo demanda.
+Bluetooth usa BlueZ y los controladores nativos del kernel/libinput;
+instalación y emparejamiento en [Bluetooth and Magic Trackpad 2](bluetooth-setup.md).
+Sus indicadores usan `libsystemd0` existente mediante ctypes y la biblioteca
+estándar; no requieren UPower, python3-dbus, pip, Blueman ni el daemon/timer
+del proveedor.
 `xfce4-terminal` y `dmenu`/`suckless-tools` permanecen instalados como
 alternativas, pero no son procesos de inicio ni requisitos del lanzador Rofi.
 

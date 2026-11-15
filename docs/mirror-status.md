@@ -4,6 +4,8 @@
 
 - Neovim estable oficial, Yazi APT stable firmado y sólo mini.files fijado instalados.
   [Versiones](dependencies.md) y [operación/recuperación](editor-and-files.md).
+- Magic Trackpad 2 emparejado por Bluetooth con CSR USB y pila Debian existente;
+  entrada inalámbrica confirmada localmente. [Bluetooth and Magic Trackpad 2](bluetooth-setup.md).
 - Barra contraíble y tipografía Propo verificadas en i3/Xorg;
   [Status bar](status-bar.md#verification). Calendario y btop bajo demanda en
   [Status panels](status-panels.md). Suite completa: 127 pruebas correctas.

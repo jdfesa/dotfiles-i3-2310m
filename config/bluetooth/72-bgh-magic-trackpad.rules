@@ -1,0 +1,4 @@
+# Based on mmarfil/magic-trackpad-battery (MIT; see vendor/LICENSE).
+# Grant only the active local seat access to the Bluetooth Magic Trackpad 2.
+# Apply before 73-seat-late.rules; keep every other hidraw device restricted.
+SUBSYSTEM=="hidraw", KERNEL=="hidraw*", KERNELS=="0005:004C:0265.*", DRIVERS=="magicmouse", ENV{ID_SEAT}="seat0", TAG+="uaccess"
