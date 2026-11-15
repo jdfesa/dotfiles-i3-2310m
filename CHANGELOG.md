@@ -4,6 +4,29 @@ Cambios de configuración y comprobaciones relevantes. El estado vigente está
 en las guías; versiones de referencia en [dependencies.md](docs/dependencies.md).
 No representa una reproducción byte a byte del sistema ni un benchmark.
 
+## 2026-11-15
+
+### Documentation
+
+- Fijado español para el cuerpo de la documentación, incluidos AGENTS.md y
+  TODO.md; README principal, encabezados, navegación, nombres, interfaz y ayuda
+  en inglés. Commits y PR íntegramente en inglés; identificadores técnicos intactos.
+- Traducido el cuerpo de AGENTS.md conservando los contratos operativos y de
+  seguridad; ajustadas las etiquetas documentales de TODO y las comprobaciones
+  existentes que dependían del texto inglés.
+
+### Planning
+
+- Ampliado TODO con tareas de flujo cotidiano, sesión i3/Xorg y herramientas
+  opcionales para el BGH. Conservados los pendientes anteriores.
+- Documentado trabajo por prioridad/componente con revisión de dependencias,
+  procesos y sondeos, y validación del rendimiento mediante mediciones locales.
+  Sin instalaciones, despliegues ni cambios de la sesión.
+- Establecido flujo habitual por ramas, commits modulares Conventional Commits
+  y PR en inglés para revisión; integración sólo tras aprobación explícita.
+  Actualizada la guía Git para evitar publicación directa en main y exigir
+  fuentes/manifiesto, dependencias, instalación, validación y rollback reproducibles.
+
 ## 2026-11-02
 
 ### Productivity

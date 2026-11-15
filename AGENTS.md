@@ -2,181 +2,260 @@
 
 ## Scope and documentation
 
-- GitHub is the source of truth for versioned managed configuration on the BGH
-  A470; both machines use working copies, not a full home or /etc mirror.
-  The target is 2011 i3-2310M/Sandy Bridge,
-  Debian 13 amd64, 8 GB RAM and a 120 GB SATA SSD.
-- Root README.md is fully English. All documentation titles/subtitles and
-  filenames are English; other guide bodies remain Spanish. Adopt English
-  progressively for broader accessibility.
-- Topic guides and third-party notices belong in docs/. Keep README.md,
-  AGENTS.md, CHANGELOG.md, TODO.md and LICENSE in the root; component READMEs
-  stay alongside their sources. Guide command examples run from the repository
-  root unless stated otherwise.
-- Project-owned multi-word filenames and scripts use lowercase kebab-case.
-  Preserve conventional tool filenames (README.md, AGENTS.md, CHANGELOG.md,
-  TODO.md, LICENSE), vendor assets/notices and Python test_*.py modules for
-  standard unittest discovery.
-- All visible system, application, menu, bar and help text is English (en_US.UTF-8).
-- Documentation must be concise and reproducible: current state, rationale,
-  dependencies/origins/verified versions, installation, checks and recovery.
-  Use CHANGELOG.md for technical changes and TODO.md for pending work. No chat
-  narrative, personal account history, third-person references to the repository
-  maintainer or exhaustive vulnerability diary. Brief kernel/security limits
-  are sufficient.
-- Record durable project decisions in this file when established. Keep version
-  inventories, verification results and actual pending work in their topic
-  guides, CHANGELOG.md and TODO.md; do not accumulate operational history here.
-- README.md is a short entry point: repository contents, specific target machine
-  and navigation. Keep working criteria here, pending work in TODO.md and details
-  in their topic guides. Link to a single source instead of duplicating status,
-  procedures or lists. Do not add generic warnings or defensive caveats to the
-  overview; include a constraint only where it affects a concrete operation.
-- Low CPU work, stability and productivity are primary selection criteria.
-  Prefer the lightest adequate compatible tool; console/TUI only when genuinely
-  advantageous. Avoid unnecessary daemons, polling, effects and large local
-  compilations. Do not claim performance gains without representative measures.
-  RAM/SSD are not unlimited; never weaken security for optimization.
-  The browser remains part of the workload; select other tools around those limits.
-- Config/desktop sources belong in config/, runtime scripts in scripts/ and
-  manual development tools in tools/. Explain scripts and map full source paths,
-  real destinations and modes in config/manifest.json.
-- Group new application sources under config/<component>/, including vendor APT
-  metadata under that component's apt/ directory; do not add loose application
-  files directly to config/. Keep common inventories there. Track migration of
-  legacy flat sources separately with reference/manifest checks; do not mix
-  configuration with caches, downloaded plugins or runtime state.
-- /home/jd/setup-guide is a generated current snapshot, never a divergent editing
-  tree or a collection of old guides. Synchronize versioned sources through
-  GitHub commit/push/pull; use SSH for administration/deployment and necessary
-  private local-network transfers. Validate primarily on the laptop, where the
-  configuration executes. Current account/home is jd /home/jd; general symlink
-  migration is pending. Keep recovery baselines private outside active trees,
-  not obsolete versions in them; remove superseded temporary material after checks.
-- No repository creation, folder rename, commit, push or visibility change
-  without explicit authorization; publication requires agreement on final state.
+- GitHub es la fuente de verdad de la configuración gestionada y versionada del
+  BGH A470; cada máquina mantiene una copia de trabajo, no un espejo completo del
+  home o de /etc. El destino es i3-2310M/Sandy Bridge de 2011, Debian 13 amd64,
+  8 GB de RAM y SSD SATA de 120 GB.
+- Las guías temáticas y avisos de terceros van en docs/. Mantener README.md,
+  AGENTS.md, CHANGELOG.md, TODO.md y LICENSE en la raíz; los README de componentes
+  permanecen junto a sus fuentes. Salvo indicación contraria, ejecutar los ejemplos
+  desde la raíz del repositorio.
+- La documentación debe ser concisa y reproducible: estado actual, fundamento,
+  dependencias/procedencia/versiones verificadas, instalación, comprobaciones y
+  recuperación. Usar CHANGELOG.md para cambios técnicos y TODO.md para pendientes.
+  No incluir narración de chats, historiales personales de cuentas, referencias
+  en tercera persona a quien mantiene el repositorio ni diarios exhaustivos de
+  vulnerabilidades. Bastan límites breves de kernel y seguridad.
+- Mantener planes y guías autocontenidos: documentar tareas, comportamiento y
+  requisitos de este proyecto. La investigación de implementación no forma parte
+  del inventario publicado.
+- Registrar las decisiones duraderas del proyecto en este archivo cuando se
+  establezcan. Mantener inventarios de versiones, resultados de verificación y
+  pendientes reales en las guías temáticas, CHANGELOG.md y TODO.md; no acumular
+  historial operativo aquí.
+- README.md es una entrada breve: contenido del repositorio, máquina destino y
+  navegación. Mantener criterios de trabajo aquí, pendientes en TODO.md y detalles
+  en sus guías. Enlazar una sola fuente en vez de duplicar estados, procedimientos
+  o listas. No añadir advertencias genéricas ni salvedades defensivas al resumen;
+  incluir una restricción sólo donde afecte una operación concreta.
+- El bajo consumo de CPU, la estabilidad y la productividad son prioritarios.
+  Preferir la herramienta compatible más ligera que resuelva la necesidad;
+  consola/TUI sólo cuando aporte una ventaja real. Evitar daemons, sondeos,
+  efectos y compilaciones locales grandes innecesarios. No afirmar mejoras sin
+  medidas representativas. RAM/SSD son limitados; nunca debilitar la seguridad
+  para optimizar. El navegador forma parte de la carga de trabajo: elegir las
+  demás herramientas considerando esos límites.
+- Las fuentes de configuración/escritorio van en config/, los scripts de
+  ejecución en scripts/ y las herramientas manuales de desarrollo en tools/.
+  Explicar los scripts y registrar rutas completas de origen, destinos reales
+  y modos en config/manifest.json.
+- Agrupar las fuentes nuevas bajo config/<component>/, incluidos los metadatos
+  APT del proveedor en su subdirectorio apt/; no añadir archivos de aplicaciones
+  sueltos directamente en config/. Mantener allí los inventarios comunes.
+  Gestionar por separado la migración de fuentes heredadas sueltas mediante
+  comprobaciones de referencias/manifiesto; no mezclar configuración con caches,
+  plugins descargados ni estado de ejecución.
+- /home/jd/setup-guide es un snapshot actual generado, nunca un árbol de edición
+  divergente ni una colección de guías antiguas. Sincronizar las fuentes versionadas
+  mediante GitHub commit/push/pull; usar SSH para administración/despliegue y
+  transferencias privadas necesarias en la red local. Validar principalmente en
+  la portátil, donde se ejecuta la configuración. Cuenta/home actuales: jd /home/jd;
+  la migración general de enlaces sigue pendiente. Conservar las bases de
+  recuperación privadas fuera de los árboles activos, no versiones obsoletas
+  dentro; retirar material temporal superado tras comprobarlo.
+- El trabajo solicitado autoriza el flujo de ramas/commits/pull requests descrito
+  abajo. Integrar requiere aprobación explícita; nunca hacer merge automático.
+  Crear repositorios, renombrar carpetas, cambiar visibilidad o reescribir historial
+  requiere autorización explícita separada.
+
+## Language and naming
+
+- Redactar en español el cuerpo de la documentación, tanto el contenido actual
+  como las nuevas aportaciones de TODO.md y AGENTS.md. Usar contenido íntegramente
+  en inglés sólo en los archivos indicados explícitamente.
+- El README.md principal de la raíz es una excepción: todo su contenido, incluido
+  el cuerpo, se redacta en inglés.
+- Redactar en inglés todos los títulos y subtítulos de la documentación, incluidos
+  los encabezados de sección y subsección.
+- Usar etiquetas de navegación y textos de enlaces a documentos en inglés, según
+  el título o nombre real del destino. Si la etiqueta es un nombre de archivo,
+  respetar su escritura exacta, mayúsculas y extensión. Los destinos deben coincidir
+  con las rutas reales, también en sistemas que distinguen mayúsculas de minúsculas.
+- Mantener en inglés todos los textos visibles del sistema, aplicaciones, menús,
+  barra, ayuda de línea de comandos y ayuda de interfaz (en_US.UTF-8).
+- Nombrar archivos, scripts y directorios propios en inglés y en kebab-case:
+  minúsculas separadas por guiones medios, sin espacios, guiones bajos ni camelCase.
+  Ejemplos: restore-guide.md, open-networks.sh y window-tools/.
+- Exceptuar los nombres convencionales README.md, AGENTS.md, CHANGELOG.md, TODO.md,
+  LICENSE y los nombres exactos exigidos por herramientas. Conservar recursos y
+  avisos de proveedores, y módulos Python test_*.py para descubrimiento estándar
+  con unittest. No crear archivos ajenos a la estructura sólo por esta excepción.
+- Conservar sin traducir comandos, rutas, identificadores, nombres propios y
+  valores técnicos requeridos por el software. Estas reglas no implican renombrados
+  masivos de archivos existentes.
+- Los mensajes de commit y el contenido completo de los PR se redactan en inglés
+  según Git conventions; los archivos del diff conservan sus reglas de idioma.
+
+## Git conventions
+
+- Antes de editar, crear una rama de trabajo desde una base revisada y actualizada;
+  nunca implementar ni hacer commits directamente en main. Nombrar las ramas en
+  inglés como type/description-in-kebab-case (feat/, fix/, docs/, chore/), sin
+  prefijos de herramientas. Revisar primero los cambios existentes y conservar
+  el trabajo en curso.
+- Hacer un commit por bloque coherente y validado, preparando el índice con una
+  lista explícita de archivos permitidos. Redactar asunto y cuerpo íntegramente
+  en inglés con Conventional Commits: type(scope): description; el ámbito es
+  opcional. No mezclar cambios ajenos ni dejar todos los commits para el final.
+- Tras validar y comprobar la publicación, hacer push de la rama y preparar un
+  pull request contra main para revisión. Redactar título, encabezados y cuerpo
+  del PR íntegramente en inglés, con título Conventional Commits. Explicar el
+  comportamiento resultante, comprobaciones y límites relevantes de restauración/
+  despliegue. Preparar el PR no autoriza integrarlo.
+- La autorización habitual cubre crear ramas, hacer commits y publicar ramas del
+  trabajo solicitado; no volver a pedirla en cada paso. Nunca hacer push directo
+  a main ni force-push. Véase docs/git-workflow.md.
 
 ## Change workflow
 
-1. Inspect actual destinations and preserve existing changes. If unreachable,
-   make only clearly marked local changes; do not claim deployment or equality.
-2. Edit local source first; review a non-secret baseline for newly managed files.
-3. Back up destinations privately outside this tree before deployment.
-4. Deploy user files as jd; system files separately with authorized sudo,
-   root ownership and regular installation, never links into a writable home.
-5. Validate syntax and behavior in the existing session. Preserve applications,
-   tty2+, SSH and the disable-autostart escape hatch; do not start X from SSH/root.
-6. Compare contents/hashes, permissions and owners on the laptop; update current
-   guides/CHANGELOG and regenerate the secondary snapshot from the clean committed
-   checkout. Reconcile obsolete secondary content instead of leaving parallel states.
-7. Future user symlinks need laptop-resident targets, per-file conflict checks,
-   dry-run and rollback. Review mimeapps/Codex divergences before migration.
+Trabajar una prioridad y un componente por vez. Revisar dependencias, procesos
+residentes y sondeos para este hardware y Xorg/i3 antes de añadir tareas a TODO.md.
+Validar las afirmaciones de rendimiento con medidas representativas en la portátil.
+
+1. Inspeccionar los destinos reales y conservar los cambios existentes. Si no son
+   accesibles, hacer sólo cambios locales claramente identificados; no afirmar
+   que hubo despliegue ni igualdad.
+2. Editar primero las fuentes locales; revisar una base sin secretos para archivos
+   recién gestionados. Cada componente debe poder reproducirse tras reinstalar:
+   declarar dependencias y procedencia, destinos/modos, instalación, validación y
+   rollback en su guía y manifiesto. No depender de cambios manuales sin documentar
+   ni de estado privado de ejecución.
+3. Respaldar los destinos en privado fuera de este árbol antes del despliegue.
+4. Desplegar archivos de usuario como jd; los del sistema por separado con sudo
+   autorizado, propiedad de root e instalación regular, nunca enlaces al home
+   escribible.
+5. Validar sintaxis y comportamiento en la sesión existente. Conservar aplicaciones,
+   tty2+, SSH y la salida de recuperación disable-autostart; no iniciar X desde
+   SSH/root.
+6. Comparar contenidos/hashes, permisos y propietarios en la portátil; actualizar
+   guías/CHANGELOG y regenerar el snapshot secundario desde el checkout limpio
+   confirmado en Git. Reconciliar contenido secundario obsoleto sin dejar estados
+   paralelos.
+7. Los futuros enlaces de usuario requieren destinos en la portátil, comprobación
+   de conflictos por archivo, dry-run y rollback. Revisar divergencias de mimeapps/
+   Codex antes de migrar.
 
 ## Runtime contract
 
-- Authenticated tty1 login starts i3; no display manager, autologin, full desktop
-  or compositor without explicit approval. Super+Space launcher, Super+Enter
-  terminal, top bar; update docs/keybindings.md and visible help for binding
-  changes.
-- Compact opaque Catppuccin Mocha; JetBrainsMono Nerd Font Mono Regular
-  throughout the bar. Bold is installed but not forced. Show existing workspaces.
-- i3status tick 10 s; traffic uses counter deltas on that tick. No additional
-  high-frequency polling. status-clicks.py is resident and event-driven.
-- Weather: public Oran city-centre coordinates, no automatic geolocation;
-  icon/temperature only, refresh 30 min via short service/cache, honest stale data.
-- APT counter: local simulated metadata every 6 h; no automatic apt update,
-  upgrade or installation. Fixed event-driven click helpers; no shell interpolation.
-- Wi-Fi block: level icon only, no SSID/numeric quality. Click and Super+N use
-  the same English network list; preserve NetworkManager authorization.
-- Audio hardware verification is deferred. Show No audio when absent; do not
-  install audio servers or continue diagnostics without coordinated adapter test.
-- Power menu: Power off first, Yes selected in all confirmations; Escape/No/Cancel
-  available. Active local session authorization through logind/standard polkitd,
-  no sudo fallback, custom broad policy or NOPASSWD. Require Can*=yes,
-  --no-ask-password and check-inhibitors=auto with systemd>=257 guard.
-  Suspend locks first. No forced/ignore-inhibitor actions.
-- Never test real lock/logout/suspend/reboot/poweroff or disrupt network without
-  coordination. Use real dry-run/inhibitor checks from the local session;
-  SSH is not an equivalent policy context. Automatic lid/idle locking is pending.
-- Keep i3bar SIGSTOP/SIGCONT defaults; signals address the complete process group.
-  A reload may retain the old adapter; restart i3 preserving windows if required.
-- Helium uses its official signed APT stable repository; preserve sandbox.
-  Verify GPU/CPU compatibility, never hide it with permanent software rendering.
-- Wi-Fi hard block remains unresolved; final bounded capture is complete.
-  No further boot cycles, Fn replay, blacklist or EC/firmware work by default.
+- El login autenticado en tty1 inicia i3; no añadir display manager, autologin,
+  escritorio completo ni compositor sin aprobación explícita. Super+Space abre
+  el lanzador; Super+Enter, la terminal; barra superior. Actualizar
+  docs/keybindings.md y la ayuda visible al cambiar atajos.
+- Catppuccin Mocha compacto y opaco; JetBrainsMono Nerd Font Mono Regular en toda
+  la barra. Bold está instalada, pero no se fuerza. Mostrar escritorios existentes.
+- Tick de i3status de 10 s; tráfico por diferencias de contadores en ese ciclo.
+  Sin sondeo adicional de alta frecuencia. status-clicks.py es residente y
+  funciona por eventos.
+- Clima: coordenadas públicas del centro de Orán, sin geolocalización automática;
+  sólo icono/temperatura, refresco cada 30 min mediante servicio breve/cache,
+  indicando honestamente los datos desactualizados.
+- Contador APT: simulación con metadatos locales cada 6 h; sin apt update,
+  upgrade ni instalación automáticos. Acciones de clic fijas por eventos,
+  sin interpolación de shell.
+- Bloque Wi-Fi: sólo icono de nivel, sin SSID ni calidad numérica. El clic y
+  Super+N abren la misma lista en inglés; conservar la autorización de NetworkManager.
+- La verificación de audio está aplazada. Mostrar No audio si no hay hardware;
+  no instalar servidores de audio ni continuar diagnósticos sin una prueba
+  coordinada del adaptador.
+- Menú de energía: Power off primero y Yes seleccionado en todas las
+  confirmaciones; disponibles Escape/No/Cancel. Autorización de sesión local
+  activa mediante logind/polkitd estándar, sin fallback sudo, políticas amplias
+  propias ni NOPASSWD. Exigir Can*=yes, --no-ask-password y check-inhibitors=auto
+  con comprobación de systemd>=257. Suspender bloquea primero. Sin acciones
+  forzadas ni que ignoren inhibidores.
+- Nunca probar bloqueo/logout/suspensión/reinicio/apagado reales ni interrumpir
+  la red sin coordinación. Usar dry-run y comprobaciones reales de inhibidores
+  desde la sesión local; SSH no es un contexto de autorización equivalente.
+  El bloqueo automático por tapa/inactividad sigue pendiente.
+- Conservar SIGSTOP/SIGCONT predeterminados de i3bar; las señales abarcan todo
+  el grupo de procesos. Un reload puede conservar el adaptador anterior;
+  reiniciar i3 preservando ventanas si hace falta.
+- Helium usa el repositorio APT stable oficial firmado; conservar el sandbox.
+  Verificar compatibilidad GPU/CPU, sin ocultar límites mediante renderizado
+  permanente por software.
+- El hard block Wi-Fi sigue sin resolver; la captura final acotada está completa.
+  No repetir ciclos de arranque, eventos Fn, blacklist ni trabajos de EC/firmware
+  por defecto.
 
 ## Security, tools and validation
 
-- Use umask 022 for Git updates and new public sources; Git does not track
-  644 versus 664. Verify source/target modes and owners after checkout, especially
-  for symlinks. Normalize only reviewed public files according to the manifest;
-  never apply a broad chmod to private files or authentication directories.
-
-- Verify SSH identity against trusted known_hosts or the physical console.
-  DHCP addresses are not permanent; do not publish installation-specific LAN
-  endpoints, SSH fingerprints, SSIDs or private administration-host paths.
-- Keep sudo password-protected; no password rotation or access-method changes
-  without coordination. Never track or publish credentials, private keys,
-  nmconnection profiles, Codex auth, keyrings, memories/SQLite, RTK history or logs.
-  Necessary local-only material may stay in ignored private/ with restrictive
-  permissions; transfer reviewed private files between working copies by SSH,
-  never GitHub. Keep destination backups outside the worktree; do not bulk-import
-  private authentication directories.
-- Before every push, test real ignore matching, check tracked-but-ignored files,
-  review an explicit staged allowlist and exact contents, and audit all outgoing
-  commits for secrets. Ignore rules do not remove tracked data or history; stop
-  publication on any unresolved finding. Never force-add private material.
-- Public vendor keys and non-secret repository config may be mirrored with
-  verified origins. MIT covers original material; preserve third-party licenses.
-- Keep RTK/Engram integration minimal and additive. Recreate the pinned official
-  plugin, not whole hidden directories. No cloud/boot service without approval;
-  the official loopback-only helper may run with Codex. Preserve active chats;
-  tests sending memories to a model need explicit privacy-safe scope.
-- Keep the on-demand Codex launcher separate from official standalone packages.
-  Recover only a verified dangling runtime socket alias under the vendor startup
-  lock; preserve live servers, credentials and chats.
-- For Codex authentication, confirm the intended source account and destination
-  and verify the effective backend account after coordinated reloads. Login status
-  or connectivity alone is insufficient; keep the cache persistent and private,
-  never in Git or startup copy jobs.
-- Administration-host shell commands must start with rtk; use its supported raw
-  passthrough (0.43: proxy). Laptop RTK 1.1.0 uses bypass; do not mix versions.
-- Validate i3 with i3 -C, shell files with sh -n and GUI applications with their
-  parsers plus bounded real-window checks. Use Mod1 for Alt. Font cache/render
-  changes may need i3 restart, never a logout/reboot solely to refresh fonts.
-- Tests do not prove clean-system restoration or sustained CPU performance.
-  Keep tests non-destructive and store generated material outside the tree.
-- Follow the Engram memory protocol; persist durable decisions and session
-  summaries outside the published configuration.
+- Usar umask 022 para actualizaciones Git y fuentes públicas nuevas; Git no
+  distingue 644 de 664. Verificar modos y propietarios de fuentes/destinos tras
+  el checkout, especialmente en enlaces. Normalizar sólo archivos públicos
+  revisados según el manifiesto; nunca aplicar chmod masivo a archivos privados
+  ni directorios de autenticación.
+- Verificar la identidad SSH contra known_hosts confiable o la consola física.
+  Las direcciones DHCP no son permanentes; no publicar direcciones LAN específicas
+  de la instalación, huellas SSH, SSID ni rutas privadas de la máquina de administración.
+- Mantener sudo protegido con contraseña; no rotar contraseñas ni cambiar métodos
+  de acceso sin coordinación. Nunca versionar ni publicar credenciales, claves
+  privadas, perfiles nmconnection, autenticación Codex, keyrings, memorias/SQLite,
+  historial RTK ni logs. El material local necesario puede quedar en private/
+  ignorado, con permisos restrictivos; transferir archivos privados revisados
+  entre copias por SSH, nunca GitHub. Mantener backups de destinos fuera del
+  árbol de trabajo; no importar directorios completos de autenticación privada.
+- Antes de cada push, probar exclusiones reales, detectar archivos ya versionados
+  pero ignorados, revisar la lista explícita del índice y su contenido exacto,
+  y auditar todos los commits salientes en busca de secretos. Las exclusiones
+  no eliminan datos versionados ni historial; detener la publicación ante
+  hallazgos sin resolver. Nunca forzar la inclusión de material privado.
+- Se pueden conservar claves públicas de proveedores y configuración sin secretos
+  con procedencia verificada. MIT cubre el material original; conservar licencias
+  de terceros.
+- Mantener mínima y aditiva la integración RTK/Engram. Recrear el plugin oficial
+  fijado, no directorios ocultos completos. Sin nube ni servicios de arranque
+  sin aprobación; el auxiliar oficial limitado a loopback puede ejecutarse con
+  Codex. Conservar chats activos; las pruebas que envían memorias a un modelo
+  requieren un alcance explícito seguro para la privacidad.
+- Mantener el lanzador Codex bajo demanda separado de los paquetes oficiales
+  independientes. Recuperar sólo un alias verificado de socket de ejecución
+  colgante bajo el lock de arranque del proveedor; conservar servidores activos,
+  credenciales y chats.
+- Para autenticación Codex, confirmar la cuenta de origen prevista y el destino;
+  verificar la cuenta efectiva del backend tras recargas coordinadas. El estado
+  de login o la conectividad por sí solos no bastan; conservar la cache persistente
+  y privada, nunca en Git ni en tareas de copia al iniciar.
+- Los comandos de shell de administración empiezan con rtk; usar su passthrough
+  compatible (0.43: proxy). RTK 1.1.0 de la portátil usa bypass; no mezclar versiones.
+- Validar i3 con i3 -C, archivos shell con sh -n y aplicaciones gráficas con sus
+  parsers más pruebas acotadas de ventanas reales. Usar Mod1 para Alt. Los cambios
+  de cache/renderizado de fuentes pueden necesitar reiniciar i3, nunca logout/
+  reinicio del equipo sólo para refrescar fuentes.
+- Las pruebas no demuestran restauración limpia ni rendimiento sostenido de CPU.
+  Mantenerlas no destructivas y guardar material generado fuera del árbol.
+- Seguir el protocolo de memoria Engram; persistir decisiones duraderas y resúmenes
+  fuera de la configuración publicada.
 
 ## Productivity tools
 
-- Use Yazi for general file management and official stable Neovim for editing.
-  Install a versioned, SHA256-verified upstream prebuilt archive under root-owned
-  /opt; select it through /usr/local/bin/nvim and the existing vi/vim/ex/view/vimdiff
-  alternatives, preserving their mode flags. Keep the Debian package only as an
-  explicit recovery path. Updates are manual: review release compatibility and
-  hashes, validate on the laptop, then record the verified version; no compilation
-  or automatic latest/nightly downloads. APT does not update this upstream copy.
-  Yazi uses its official signed stable APT repository, scoped to that package;
-  avoid local compilation and installing all optional/recommended integrations
-  by default.
-- Do not install Zed on this Intel HD 3000 target: there is no hardware Vulkan
-  device available. Do not bypass that limit with CPU-rendered graphics; revisit
-  only with a newly agreed scope or compatible hardware. OpenGL acceleration or
-  an installed Vulkan loader alone does not prove Vulkan GPU compatibility.
-- Neovim is a small user-owned modular Lua configuration, not a distribution or
-  generated MiniMax setup. Keep native options, keymaps and autocommands separate
-  from extensions; grow native/filetype settings according to concrete needs.
-- mini.files is the only initially enabled MINI module, installed standalone
-  from its pinned official release with help/license preserved. No plugin-manager
-  bootstrap, downloads or automatic updates from init.lua or editor startup.
-- Yazi keeps normal previews to text/directories and disables media preloading.
-  mini.files starts without preview or an icon-provider plugin and uses its
-  non-permanent deletion mode; its trash is not a versioned backup.
-- Add modules, LSP servers, watchers or media helpers only for an identified
-  workflow, with explicit resource review; do not add them merely because they
-  exist. Package APIs must match the installed Neovim version.
-- Keep installation, keybindings, recovery and current state in
-  docs/editor-and-files.md; pinned code hashes belong to the installer and
-  verified versions to docs/dependencies.md, not duplicated inventories here.
+- Usar Yazi para gestión general de archivos y Neovim estable oficial para edición.
+  Instalar el archivo precompilado del proveedor, versionado y verificado con SHA256,
+  bajo /opt propiedad de root; seleccionarlo mediante /usr/local/bin/nvim y las
+  alternativas vi/vim/ex/view/vimdiff existentes, conservando sus flags de modo.
+  Mantener el paquete Debian sólo como vía explícita de recuperación. Actualizar
+  manualmente: revisar compatibilidad y hashes, validar en la portátil y registrar
+  la versión comprobada; sin compilación ni descargas automáticas latest/nightly.
+  APT no actualiza esta copia del proveedor. Yazi usa su repositorio APT stable
+  oficial firmado, limitado a ese paquete; evitar compilación local y no instalar
+  por defecto todas las integraciones opcionales/recomendadas.
+- No instalar Zed en esta Intel HD 3000: no hay dispositivo Vulkan de hardware.
+  No eludir ese límite renderizando con CPU; reconsiderar sólo con nuevo alcance
+  acordado o hardware compatible. La aceleración OpenGL o un cargador Vulkan
+  instalado por sí solos no prueban compatibilidad Vulkan de la GPU.
+- Neovim usa una configuración Lua modular pequeña y propia, no una distribución
+  ni una configuración generada por MiniMax. Separar opciones nativas, keymaps y
+  autocomandos de las extensiones; ampliar ajustes nativos/por tipo de archivo
+  según necesidades concretas.
+- mini.files es el único módulo MINI habilitado inicialmente, instalado por
+  separado desde su versión oficial fijada, con ayuda y licencia conservadas.
+  Sin bootstrap de gestor de plugins, descargas ni actualizaciones automáticas
+  desde init.lua o al iniciar el editor.
+- Yazi limita los previews normales a texto/directorios y desactiva la precarga
+  multimedia. mini.files inicia sin preview ni proveedor de iconos, con borrado
+  no permanente; su papelera no es un backup versionado.
+- Añadir módulos, servidores LSP, watchers o auxiliares multimedia sólo para un
+  flujo identificado y con revisión explícita de recursos, no porque existan.
+  Las API de paquetes deben corresponder a la versión instalada de Neovim.
+- Mantener instalación, atajos, recuperación y estado actual en
+  docs/editor-and-files.md; los hashes fijados del código pertenecen al instalador
+  y las versiones verificadas a docs/dependencies.md, sin duplicar inventarios aquí.

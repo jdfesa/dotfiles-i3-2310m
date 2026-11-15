@@ -1,5 +1,53 @@
 # Technical TODO
 
+## Priority 1 — Desktop workflow
+
+- [ ] Usar el navegador predeterminado XDG en Super+Shift+B; revisar el alias
+  Super+Shift+Enter y actualizar configuración, ayuda y
+  [Keybindings](docs/keybindings.md).
+- [ ] Añadir pestañas de Kitty en el directorio actual con Ctrl+Shift+T y título
+  de directorio, conservando los ajustes locales de fuente y repintado.
+- [ ] Mejorar el panel de redes: enfocar la instancia abierta, acceso desde el
+  lanzador y distinguir cancelación de fallos del proceso hijo de Kitty.
+  Mantener NetworkManager y consultas sólo bajo demanda.
+- [ ] Reunir las comprobaciones de estructura, enlaces documentales, exclusiones
+  e historial en una validación manual, reutilizando pruebas existentes y
+  [Publication checks](docs/git-workflow.md#publication-checks).
+
+## Priority 2 — Session and status bar
+
+- [ ] Evaluar métricas contraíbles en la barra, conservando datos esenciales,
+  urgencias, tick de 10 s y SIGSTOP/SIGCONT. Redibujar desde memoria;
+  ocultar métricas no demuestra menor consumo de CPU.
+- [ ] Evaluar clic en CPU para abrir/cerrar sólo su monitor identificado, bajo
+  demanda. Comparar herramientas disponibles y medir su coste mientras está abierto.
+- [ ] Añadir consulta de calendario bajo demanda, comparando una opción de
+  terminal con una ventana GTK si reutiliza dependencias instaladas.
+- [ ] Verificar los datos nativos de batería y evaluar detalles bajo demanda;
+  distinguir carga, salud y datos ausentes sin agregar consultas periódicas.
+- [ ] Tras verificar hardware y permisos, añadir controles puntuales de brillo;
+  evaluar un deslizador sólo si aporta utilidad frente a teclas o rueda.
+- [ ] Si hacen falta varias distribuciones, añadir selector XKB para Xorg
+  que refleje el estado real por eventos, sin polling.
+- [ ] Añadir captura de región al portapapeles con herramientas X11 bajo demanda,
+  sin archivos persistentes automáticos ni historial del portapapeles.
+- [ ] Implementar bloqueo por inactividad y previo a suspensión con i3lock,
+  respetando logind e inhibidores. Revisar dependencias de avisos y coordinar
+  las pruebas de [Hardware and session](#hardware-and-session).
+
+## Priority 3 — Optional productivity tools
+
+- [ ] Evaluar mejoras concretas de historial y completado antes de cambiar shell;
+  conservar inicio autenticado de i3 en tty1, SSH y recuperación.
+  Historial y caches privados fuera del repositorio.
+- [ ] Comparar prompt nativo con Starship mínimo; medir arranque y repintado
+  en proyectos representativos antes de añadir módulos Git o de lenguajes.
+- [ ] Evaluar Zathura bajo demanda para lectura PDF y copia de texto/enlaces.
+  Mantener Yazi con previews de texto/directorios y precargas desactivadas;
+  revisar por separado el coste de cualquier preview adicional.
+- [ ] Definir perfiles de desarrollo según proyectos concretos, con dependencias
+  directas, instalación y recuperación documentadas, sin autostart de servicios.
+
 ## Publication and reproducibility
 
 - [ ] Verificar arranque de Codex y conservación de la cuenta tras un reinicio
@@ -10,7 +58,7 @@
 - [ ] Probar restauración completa sobre una instalación limpia.
 - [ ] Ampliar la migración de enlaces a componentes anteriores tras revisar
   diferencias; el auxiliar con dry-run/backup/rollback sólo gestiona los seis
-  archivos nuevos de [editor/files](docs/editor-and-files.md).
+  archivos nuevos de [Editor and file management](docs/editor-and-files.md).
 - [ ] Agrupar fuentes heredadas sueltas de `config/` por componente; actualizar
   referencias/manifiesto y probar sin cambiar destinos a ciegas. Las nuevas
   herramientas ya usan carpetas propias.
@@ -32,7 +80,7 @@
 ## Productivity and resources
 
 - [x] Instalar Neovim/Yazi y base Lua modular con sólo mini.files.
-  [Estado y operación](docs/editor-and-files.md).
+  [Editor and file management](docs/editor-and-files.md).
 - [ ] Seleccionar herramientas/stacks adicionales según proyectos concretos.
 - [ ] Comprobar comodidad visual y uso diario de Neovim/Yazi en la terminal local.
 - [ ] Medir carga de CPU, memoria y respuesta con tareas representativas antes
