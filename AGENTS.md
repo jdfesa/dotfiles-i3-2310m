@@ -165,6 +165,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - La verificación de audio está aplazada. Mostrar No audio si no hay hardware;
   no instalar servidores de audio ni continuar diagnósticos sin una prueba
   coordinada del adaptador.
+- Bluetooth/Magic Trackpad 2 usa BlueZ, btusb, hid_magicmouse y libinput de Debian;
+  sin gestor gráfico ni agente/daemon de gestos adicional. Emparejar sólo el
+  dispositivo identificado, detener el escaneo y cerrar el agente temporal.
+  Claves de enlace y direcciones permanecen privadas; operación en
+  docs/bluetooth-setup.md.
 - Menú de energía: Power off primero y Yes seleccionado en todas las
   confirmaciones; disponibles Escape/No/Cancel. Autorización de sesión local
   activa mediante logind/polkitd estándar, sin fallback sudo, políticas amplias

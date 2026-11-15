@@ -28,7 +28,8 @@ Debian 13 with i3 on Xorg.
 - **Configuration:** [files and destinations](config/README.md), [scripts](scripts/README.md), and [tools](tools/README.md).
 - **Installation:** [dependencies](docs/dependencies.md) and [restoration](docs/restore-guide.md).
 - **Desktop:** [i3](docs/i3-setup.md), [applications](docs/apps-setup.md),
-  [network](docs/wifi-setup.md), [keybindings](docs/keybindings.md), and [status bar](docs/status-bar.md).
+  [network](docs/wifi-setup.md), [Bluetooth and Magic Trackpad 2](docs/bluetooth-setup.md),
+  [keybindings](docs/keybindings.md), and [status bar](docs/status-bar.md).
 - **Development:** [editor and files](docs/editor-and-files.md), [Git](docs/git-workflow.md),
   [Codex](docs/codex-setup.md), and [RTK/Engram](docs/development-tools.md).
 - **Maintenance:** [verification](docs/mirror-status.md),

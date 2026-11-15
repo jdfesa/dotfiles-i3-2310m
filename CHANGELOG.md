@@ -6,6 +6,16 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Bluetooth
+
+- Detectados CSR USB y Magic Trackpad 2; completados emparejamiento, confianza
+  y conexión con BlueZ existente, sin instalar paquetes ni cambiar servicios.
+  Verificados controlador nativo/libinput en Xorg y movimiento, clic izquierdo/
+  derecho y scroll sin cable. Agente temporal cerrado, escaneo detenido y
+  emparejamiento nuevo desactivado; guía de instalación/recuperación en
+  [Bluetooth and Magic Trackpad 2](docs/bluetooth-setup.md), sin publicar claves
+  ni identificadores privados.
+
 ### Status panels
 
 - Clic en el reloj abre/cierra calendario GTK3 con navegación de meses y Today;
