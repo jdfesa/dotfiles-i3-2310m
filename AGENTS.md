@@ -53,14 +53,41 @@
   configuration executes. Current account/home is jd /home/jd; general symlink
   migration is pending. Keep recovery baselines private outside active trees,
   not obsolete versions in them; remove superseded temporary material after checks.
-- No repository creation, folder rename, commit, push or visibility change
-  without explicit authorization; publication requires agreement on final state.
+- Requested work authorizes the branch/commit/pull-request workflow below.
+  Integration requires explicit approval; never merge automatically. Repository
+  creation, folder renames, visibility changes and history rewrites require
+  separate explicit authorization.
+
+## Git conventions
+
+- Before editing, create a work branch from an up-to-date reviewed base; never
+  implement or commit directly on main. Name branches `type/description-in-kebab-case`
+  in English (`feat/`, `fix/`, `docs/`, `chore/`); do not use tool-name prefixes.
+  Inspect existing changes first and preserve work already in progress.
+- Commit each coherent validated block on its work branch, staging an explicit
+  allowlist. Use English Conventional Commits: `type(scope): description`, with
+  optional scope. Do not mix unrelated changes or defer all commits to the end.
+- After validation and publication checks, push the work branch and prepare a
+  pull request against main for review. Use English throughout the PR and a
+  Conventional Commits title; explain resulting behavior, checks and relevant
+  restoration/deployment limits. PR preparation does not authorize integration.
+- Routine branch creation, commits and branch publication for requested work
+  follow this standing authorization; do not ask again for each step. Never
+  push directly to main or force-push. See docs/git-workflow.md.
 
 ## Change workflow
+
+Work on one priority and component at a time. Treat other machines' dotfiles as
+references: select useful behavior, adapt it to this hardware and Xorg/i3, and
+review dependencies, resident processes and polling before adding it to TODO.md.
+Source-machine measurements do not establish performance on this laptop.
 
 1. Inspect actual destinations and preserve existing changes. If unreachable,
    make only clearly marked local changes; do not claim deployment or equality.
 2. Edit local source first; review a non-secret baseline for newly managed files.
+   Keep each component reproducible after reinstall: declare dependencies and
+   origins, destinations/modes, installation, validation and rollback in its guide
+   and manifest. Do not rely on undocumented manual changes or private runtime state.
 3. Back up destinations privately outside this tree before deployment.
 4. Deploy user files as jd; system files separately with authorized sudo,
    root ownership and regular installation, never links into a writable home.

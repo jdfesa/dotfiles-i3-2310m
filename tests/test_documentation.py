@@ -121,7 +121,7 @@ class DocumentationTests(unittest.TestCase):
         for term in ('git config --global user.name', 'git config --global user.email',
                      '@users.noreply.github.com', 'git var GIT_AUTHOR_IDENT',
                      'git var GIT_COMMITTER_IDENT', 'git pull --ff-only',
-                     'git push --dry-run origin main', '## Authentication',
+                     'git push --dry-run origin HEAD', '## Authentication',
                      '## Recovery', 'gh auth login', 'gh auth setup-git', 'keyring'):
             self.assertIn(term, text)
         self.assertIn('docs/git-workflow.md', (ROOT / "README.md").read_text())

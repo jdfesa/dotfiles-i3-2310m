@@ -102,12 +102,12 @@ Después de confirmar el backend cifrado:
 
 ```sh
 gh auth setup-git --hostname github.com
-git push --dry-run origin main
+git push --dry-run origin HEAD
 ```
 
-Un push real de un cambio revisado verifica el flujo completo; el dry-run
-no actualiza refs remotas. La sesión web y la identidad de autor por sí solas
-no autentican Git.
+Ejecutar el dry-run desde una rama de trabajo. Un push real de esa rama con un
+cambio revisado verifica el flujo completo; el dry-run no actualiza refs remotas.
+La sesión web y la identidad de autor por sí solas no autentican Git.
 
 `~/.config/gh/` conserva metadatos y `~/.local/share/keyrings/` el almacén privado;
 no se publican ni se importan directorios de autenticación completos. Los
@@ -115,35 +115,72 @@ archivos locales ignorados necesarios se transfieren por SSH según una lista
 revisada; GitHub sólo sincroniza lo versionado. `.gitignore` no cifra archivos
 ni elimina secretos ya seguidos o presentes en el historial.
 
-## Synchronization
+## Branches, commits and pull requests
 
-Antes de editar en cualquiera de las máquinas, revisar el estado y actualizar
-desde GitHub. Con cambios locales pendientes, preservarlos antes del pull:
+Cada bloque de trabajo empieza en una rama propia, con base revisada y
+actualizada desde GitHub. Los cambios solicitados autorizan crear la rama,
+hacer commits y publicarla para preparar el PR; integrar en `main` requiere
+aprobación explícita. No trabajar, hacer commits ni push directamente en `main`.
+
+Usar nombres en inglés `type/description-in-kebab-case`, por ejemplo
+`feat/kitty-tabs`, `fix/network-panel` o `docs/refine-readme`; sin prefijos de
+herramientas. Revisar primero el estado: preservar cambios pendientes sin
+descartarlos, ocultarlos automáticamente ni cambiar de rama sobre archivos
+enlazados activos sin evaluar su efecto. Con el checkout limpio y seguro:
 
 ```sh
 umask 022
 git status --short --branch
+git switch main
 git pull --ff-only
+git switch -c docs/refine-readme
 ```
+
+Si ya hay una rama de trabajo para el mismo bloque, continuar en ella tras
+revisar su estado/base; no crear ramas paralelas para la misma tarea.
 
 Git versiona el bit ejecutable, no la diferencia entre 644 y 664. Usar máscara
 022 al crear/actualizar fuentes públicas y comprobar modos después del checkout;
 las fuentes enlazadas deben conservar los modos del manifiesto. Procedimiento
 de normalización acotado en [User links](editor-and-files.md#user-links).
 
-Ejemplo para un cambio revisado únicamente en README:
+Hacer un commit por cada bloque coherente y validado, sin mezclar cambios ajenos
+ni acumular todos los commits para el final. Asunto y cuerpo en inglés con
+Conventional Commits: `type(scope): description`, con scope opcional.
+Ejemplo para un cambio únicamente en README, después de validar y completar
+[Publication checks](#publication-checks) sobre la lista exacta:
 
 ```sh
 git diff --check
 git diff -- README.md
 git add -- README.md
 git commit -m "docs: refine README punctuation"
-git push origin main
+git push -u origin docs/refine-readme
 ```
 
-En la otra máquina, revisar el estado y ejecutar `git pull --ff-only`.
-Si hay divergencia o rechazo, detenerse y revisar; no forzar el push ni
-sobrescribir cambios para igualar las copias.
+Preparar el PR contra `main`, con título Conventional Commits y contenido
+íntegramente en inglés. Describir el problema, resultado, validación y límites
+relevantes de instalación/restauración. Para un cuerpo multilínea, preparar un
+archivo temporal fuera del repositorio y usar `--body-file`:
+
+```sh
+gh pr create --base main --head docs/refine-readme \
+  --title "docs: refine README punctuation" --body-file /tmp/dotfiles-pr-body.md
+```
+
+El PR queda para aprobación o rechazo; crearlo no autoriza merge. Si el cambio
+aún no está listo para revisión, añadir `--draft`. No hacer force-push ni
+reescribir historial. Si hay divergencia o rechazo, revisar la causa preservando
+el trabajo. Tras la integración aprobada, actualizar la copia de la otra máquina
+con `git pull --ff-only` desde `main` y con el checkout revisado.
+
+## Reproducibility and deployment
+
+Cada componente debe poder reinstalarse desde las fuentes versionadas y su guía:
+dependencias directas y procedencia, versiones verificadas, destinos/modos del
+manifiesto, instalación, comprobaciones y recuperación. No depender de pasos
+manuales sin documentar ni versionar caches, credenciales o estado privado.
+La restauración limpia sigue siendo una validación pendiente independiente.
 
 Tras validar el checkout vigente en la portátil, regenerar su copia secundaria
 con el [procedimiento de snapshot](repository-layout.md#secondary-snapshot).
@@ -172,13 +209,17 @@ git diff --cached
 La primera orden no debe listar rutas. Revisar contenido y tipos de archivo,
 no sólo nombres o patrones: un token puede estar en un archivo aparentemente
 normal. Ejecutar los tests también sobre una exportación limpia del candidato.
-Después del commit, actualizar referencias y revisar todo lo que saldría:
+Después de cada commit y antes del push de la rama, actualizar referencias y
+revisar todo lo que saldría:
 
 ```sh
 git fetch origin
 git log --oneline origin/main..HEAD
 git diff --stat origin/main..HEAD
 ```
+
+Confirmar que la rama actual es la de trabajo y que el rango contiene sólo el
+bloque previsto. La rama remota y el PR deben contener el mismo HEAD validado.
 
 Auditar los blobs y mensajes de todos los commits salientes, no sólo el último
 árbol: eliminar un secreto en un commit posterior no lo retira del historial.

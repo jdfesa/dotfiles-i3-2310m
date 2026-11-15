@@ -4,6 +4,21 @@ Cambios de configuración y comprobaciones relevantes. El estado vigente está
 en las guías; versiones de referencia en [dependencies.md](docs/dependencies.md).
 No representa una reproducción byte a byte del sistema ni un benchmark.
 
+## 2026-11-15
+
+### Planning
+
+- Ampliado TODO con inventario comparado de `dotfiles-i5-5257u` (`a85e710`):
+  flujo cotidiano, adaptaciones i3/Xorg, herramientas opcionales y exclusiones
+  por hardware/sesión. Conservados los pendientes anteriores.
+- Documentado trabajo por prioridad/componente con revisión de dependencias,
+  procesos y sondeos. Las mediciones de la MacBook no prueban rendimiento en
+  el BGH; sin instalaciones, despliegues ni cambios de la sesión.
+- Establecido flujo habitual por ramas, commits modulares Conventional Commits
+  y PR en inglés para revisión; integración sólo tras aprobación explícita.
+  Actualizada la guía Git para evitar publicación directa en main y exigir
+  fuentes/manifiesto, dependencias, instalación, validación y rollback reproducibles.
+
 ## 2026-11-02
 
 ### Productivity
