@@ -58,7 +58,7 @@
 - [ ] Probar restauración completa sobre una instalación limpia.
 - [ ] Ampliar la migración de enlaces a componentes anteriores tras revisar
   diferencias; el auxiliar con dry-run/backup/rollback sólo gestiona los seis
-  archivos nuevos de [editor/files](docs/editor-and-files.md).
+  archivos nuevos de [Editor and file management](docs/editor-and-files.md).
 - [ ] Agrupar fuentes heredadas sueltas de `config/` por componente; actualizar
   referencias/manifiesto y probar sin cambiar destinos a ciegas. Las nuevas
   herramientas ya usan carpetas propias.
@@ -80,7 +80,7 @@
 ## Productivity and resources
 
 - [x] Instalar Neovim/Yazi y base Lua modular con sólo mini.files.
-  [Estado y operación](docs/editor-and-files.md).
+  [Editor and file management](docs/editor-and-files.md).
 - [ ] Seleccionar herramientas/stacks adicionales según proyectos concretos.
 - [ ] Comprobar comodidad visual y uso diario de Neovim/Yazi en la terminal local.
 - [ ] Medir carga de CPU, memoria y respuesta con tareas representativas antes

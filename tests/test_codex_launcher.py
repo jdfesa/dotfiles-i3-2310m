@@ -127,8 +127,8 @@ class CodexLauncherTests(unittest.TestCase):
         entries = json.loads((ROOT / "config/manifest.json").read_text())
         self.assertIn({"source": "scripts/codex-launch.py",
                        "destination": "/home/jd/.local/bin/codex", "mode": 493}, entries)
-        self.assertIn("on-demand Codex launcher", (ROOT / "AGENTS.md").read_text())
-        self.assertIn("intended source account", (ROOT / "AGENTS.md").read_text())
+        self.assertIn("lanzador Codex bajo demanda", (ROOT / "AGENTS.md").read_text())
+        self.assertIn("cuenta de origen prevista", (ROOT / "AGENTS.md").read_text())
         self.assertIn("cuenta esperada", (ROOT / "docs/codex-setup.md").read_text())
 
 

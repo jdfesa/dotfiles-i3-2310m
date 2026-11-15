@@ -18,12 +18,12 @@ def documents():
 class DocumentationTests(unittest.TestCase):
     def test_durable_productivity_decisions_live_in_agent_instructions(self):
         text = (ROOT / "AGENTS.md").read_text()
-        for term in ("Record durable project decisions", "## Productivity tools",
-                     "official stable Neovim", "SHA256-verified", "root-owned",
-                     "APT does not update", "Yazi", "modular Lua", "mini.files",
-                     "only initially enabled", "umask 022", "editor startup",
-                     "docs/editor-and-files.md", "Do not install Zed",
-                     "Intel HD 3000", "hardware Vulkan"):
+        for term in ("Registrar las decisiones duraderas", "## Productivity tools",
+                     "Neovim estable oficial", "verificado con SHA256", "propiedad de root",
+                     "APT no actualiza", "Yazi", "Lua modular", "mini.files",
+                     "único módulo MINI habilitado inicialmente", "umask 022", "al iniciar el editor",
+                     "docs/editor-and-files.md", "No instalar Zed",
+                     "Intel HD 3000", "Vulkan de hardware"):
             self.assertIn(term, text)
 
     def test_neovim_upstream_installation_is_pinned_and_recoverable(self):
@@ -128,8 +128,8 @@ class DocumentationTests(unittest.TestCase):
 
     def test_publication_requires_ignore_index_and_outgoing_history_review(self):
         instructions = (ROOT / "AGENTS.md").read_text()
-        for term in ('Before every push', 'tracked-but-ignored', 'staged allowlist',
-                     'outgoing', 'Never force-add'):
+        for term in ('Antes de cada push', 'pero ignorados', 'lista explícita del índice',
+                     'commits salientes', 'Nunca forzar la inclusión'):
             self.assertIn(term, instructions)
         guide = (ROOT / "docs/git-workflow.md").read_text()
         for term in ('## Publication checks', 'git ls-files -ci --exclude-standard',
