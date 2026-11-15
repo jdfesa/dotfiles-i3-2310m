@@ -6,6 +6,9 @@
   o PgUp/PgDn cambian de mes; Today/Home vuelve a hoy; Close/Escape cierra.
 - Clic izquierdo en CPU: abrir/cerrar btop en una ventana Kitty identificada.
   Expandir primero las métricas con el chevrón. `q` cierra el monitor.
+- Clic izquierdo en el bloque del trackpad: alternar el panel GTK3
+  [Trackpad speed](bluetooth-setup.md#pointer-speed). Comparte el tema del
+  calendario; Enter aplica y cierra, Escape cierra sin aplicar.
 
 Cada clic alterna sólo el panel correspondiente. Un lock independiente descarta
 activaciones simultáneas mientras abre/cierra. Las ventanas se colocan bajo el
@@ -30,19 +33,20 @@ btop y la biblioteca GTK3 de Debian; el calendario necesita sus bindings:
 sudo apt-get install --no-install-recommends btop python3-gi gir1.2-gtk-3.0
 ```
 
-No hay servicios de inicio nuevos. GTK3 vive mientras está abierto el calendario;
+No hay servicios de inicio nuevos. GTK3 vive mientras está abierto su panel;
 Kitty/btop viven mientras está abierto el monitor. La cache/configuración privada
 de btop permanece fuera del repositorio.
 
 ## Installation and recovery
 
-[manifest.json](../config/manifest.json) declara los siete archivos afectados.
+[manifest.json](../config/manifest.json) declara las fuentes y destinos.
 Fuentes nuevas, como archivos regulares propiedad de `jd`:
 
 | Fuente | Destino | Modo |
 |---|---|---|
 | `scripts/status-panel.py` | `/home/jd/scripts/status-panel.py` | 755 |
 | `scripts/calendar-popup.py` | `/home/jd/scripts/calendar-popup.py` | 755 |
+| `scripts/open-trackpad-speed.py` | `/home/jd/scripts/open-trackpad-speed.py` | 755 |
 | `config/calendar/calendar.css` | `/home/jd/.config/calendar/calendar.css` | 644 |
 
 También cambian `config/i3-config`, `scripts/status-clicks.py`,
@@ -50,22 +54,22 @@ También cambian `config/i3-config`, `scripts/status-clicks.py`,
 Antes de actualizar, respaldarlos en un directorio privado externo con modo 700,
 anotar contenidos/modos y marcar los destinos que todavía no existen. Revisar
 las diferencias locales y conservarlas; no sustituir toda la configuración i3
-para añadir dos reglas de ventanas.
+para añadir reglas de ventanas.
 
 Desde la raíz, como `jd`, tras comprobar el respaldo:
 
 ```sh
 umask 022
 install -d "$HOME/scripts" "$HOME/.config/i3" "$HOME/.config/calendar"
-install -m 755 scripts/status-panel.py scripts/calendar-popup.py "$HOME/scripts/"
+install -m 755 scripts/status-panel.py scripts/calendar-popup.py scripts/open-trackpad-speed.py "$HOME/scripts/"
 install -m 644 config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
 install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
 install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
 ```
 
-Aplicar las reglas `BGH-Calendar`/`bgh-calendar` y `BGH-Resources`/`bgh-resources`
-de `config/i3-config` al destino activo, y las dos entradas nuevas de scripts a
-su README. En una restauración limpia se instalan esas fuentes completas con
+Aplicar las reglas `BGH-Calendar`/`bgh-calendar`, `BGH-Resources`/`bgh-resources`
+y `BGH-Trackpad-Speed`/`bgh-trackpad-speed` de `config/i3-config` al destino activo.
+En una restauración limpia se instalan esas fuentes completas con
 modo 644. Validar antes de renovar i3bar:
 
 ```sh
@@ -97,6 +101,10 @@ píxeles y el monitor 960 × 560; su altura depende de la fuente y las decoracio
 Verificados CSS y callbacks GTK de mes siguiente, Home y Escape. Las pruebas
 cubren identidades, coordenadas negativas, límites de pantalla, IPC fragmentado,
 fallos de conexión, locks y conservación de ventanas ajenas.
+
+El panel de velocidad comparte el fondo y ancho de 360 píxeles del calendario.
+Se verificaron su anclaje justo bajo la barra, el segundo clic sin cambios y
+la selección con flechas y Enter, con lectura XInput y restauración posterior.
 
 Muestra acotada de btop solo, sin contar Kitty: 10 s, 0,50 % de una CPU lógica
 y RSS de 5,92 MiB, con actualización de 2 s y la carga existente. No es una

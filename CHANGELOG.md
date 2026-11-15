@@ -10,6 +10,12 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 - Retiradas las etiquetas CPU y RAM de la barra; se conservan los pictogramas,
   los valores y el clic del bloque CPU para btop.
+- El clic en el trackpad alterna un panel GTK3 de velocidad para el Magic
+  Trackpad 2 Bluetooth bajo el bloque, con el tema del calendario. Enter aplica
+  y cierra; Escape o el segundo clic cierran sin aplicar. Validado el cambio y
+  retorno al valor inicial en Xorg mediante xinput, sin cambiar el perfil ni
+  agregar sondeo o servicios. El ajuste no
+  se reaplica tras reconectar.
 
 ### Graphical tools
 

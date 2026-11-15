@@ -60,6 +60,13 @@ class PanelTests(unittest.TestCase):
         with patch.object(panel.shutil, "which", return_value=None), self.assertRaises(RuntimeError):
             panel.launch_command("resources")
 
+    def test_trackpad_launch_and_identity_are_independent_of_calendar(self):
+        self.assertNotEqual(panel.PANELS["trackpad"], panel.PANELS["calendar"])
+        with patch.object(panel.os, "access", return_value=True):
+            self.assertEqual(panel.launch_command("trackpad"),
+                             [str(Path.home() / "scripts/open-trackpad-speed.py")])
+        self.assertIsNone(panel.find_panel(window(panel.PANELS["calendar"]), panel.PANELS["trackpad"]))
+
     def test_existing_panel_closes_only_its_container_and_does_not_launch(self):
         target = window(panel.PANELS["resources"])
         ipc = Mock()

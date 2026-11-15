@@ -13,7 +13,8 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/status-bar.sh` | Selecciona sensor/audio y ejecuta i3status al iniciar barra |
 | `scripts/status-clicks.py` | Adaptador residente de i3bar; clicks, iconos y tráfico |
 | `scripts/bluetooth-status.py` | Módulo del adaptador: estado BlueZ en cada tick y lector HID breve cada 5 min; sin servicio propio |
-| `scripts/status-panel.py` | Abre/cierra calendario o btop identificados; IPC breve por evento, sin sondeo |
+| `scripts/open-trackpad-speed.py` | Panel GTK3 bajo demanda que ajusta sólo la velocidad del Magic Trackpad 2 Bluetooth en Xorg |
+| `scripts/status-panel.py` | Alterna calendario, btop y velocidad del trackpad por identidad; IPC breve por evento, sin sondeo |
 | `scripts/calendar-popup.py` | Calendario GTK3 de sólo lectura; vive sólo mientras está abierto |
 | `scripts/open-networks.sh` | nmtui-connect en Kitty flotante; click/Super+N |
 | `scripts/open-mixer.sh` | Panel ALSA si hay dispositivo; click/Super+A |

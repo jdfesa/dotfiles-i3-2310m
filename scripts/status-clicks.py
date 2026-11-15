@@ -20,6 +20,8 @@ ICON_FONT = "JetBrainsMono Nerd Font Propo 12"
 WEATHER_ICONS = {"☀": "\uf185", "☾": "\uf186", "☁": "\uf0c2", "≋": "\ue313",
                  "☂": "\ue318", "❄": "\U000f0598", "ϟ": "\U000f0593", "?": "\ue370"}
 SECONDARY_BLOCKS = frozenset(("traffic", "memory", "cpu_usage", "cpu_temperature", "disk_info"))
+PANELS = {("tztime", "local"): "calendar", ("cpu_usage", "aggregate"): "resources",
+          ("trackpad", "battery"): "trackpad"}
 
 
 def labeled(icon, text, color):
@@ -185,12 +187,14 @@ def handle_click(event, view=None):
         helper = "open-mixer.sh"
     elif event.get("name") == "read_file" and event.get("instance") == str(Path.home() / ".cache/i3/updates.txt"):
         helper = "open-updates.sh"
-    elif (event.get("name"), event.get("instance")) in (("tztime", "local"), ("cpu_usage", "aggregate")):
-        panel = "calendar" if event["name"] == "tztime" else "resources"
-        helper = "status-panel.py " + panel
-        anchor = popup_anchor(event)
-        if anchor is not None:
-            helper += f" {anchor[0]} {anchor[1]}"
+    else:
+        panel = next((panel for identity, panel in PANELS.items()
+                      if identity == (event.get("name"), event.get("instance"))), None)
+        if panel is not None:
+            helper = "status-panel.py " + panel
+            anchor = popup_anchor(event)
+            if anchor is not None:
+                helper += f" {anchor[0]} {anchor[1]}"
     if helper:
         # Only allowlisted helper names; never interpret event strings/SSID.
         subprocess.run(["i3-msg", f"exec --no-startup-id ~/scripts/{helper}"],

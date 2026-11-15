@@ -29,6 +29,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `scripts/status-bar.sh` | `/home/jd/scripts/status-bar.sh` | `755` |
 | `scripts/status-clicks.py` | `/home/jd/scripts/status-clicks.py` | `755` |
 | `scripts/bluetooth-status.py` | `/home/jd/scripts/bluetooth-status.py` | `755` |
+| `scripts/open-trackpad-speed.py` | `/home/jd/scripts/open-trackpad-speed.py` | `755` |
 | `config/bluetooth/vendor/magic-trackpad-battery` | `/home/jd/.local/lib/bgh-bluetooth/magic-trackpad-battery` | `644` |
 | `config/bluetooth/vendor/LICENSE` | `/home/jd/.local/lib/bgh-bluetooth/LICENSE` | `644` |
 | `config/bluetooth/72-bgh-magic-trackpad.rules` | `/etc/udev/rules.d/72-bgh-magic-trackpad.rules` | `644` (root) |

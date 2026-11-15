@@ -24,7 +24,7 @@ Procedencia, tamaño y hash de la única fuente añadida en
 | Paquetes | Candidatos APT locales; click o Super+U abre lista |
 | Audio | Nivel/mute si existe mixer; si no, `No audio`; click/Super+A |
 | Wi-Fi | Sólo icono por calidad, sin SSID/cifra; click/Super+N |
-| Bluetooth / trackpad | Presencia/encendido del adaptador USB y batería inalámbrica; [Bluetooth and Magic Trackpad 2](bluetooth-setup.md#status-indicators) |
+| Bluetooth / trackpad | Estado del adaptador y batería inalámbrica; clic en el icono del trackpad abre [Trackpad speed](bluetooth-setup.md#pointer-speed) |
 | Batería | Estado real; `No battery` si no existe dispositivo |
 | Reloj | Fecha en inglés y hora local; clic abre/cierra calendario |
 
@@ -96,7 +96,7 @@ Usa i3bar/i3status, Python 3 estándar y `libsystemd0`; procedencia y versiones 
 [Dependencies](dependencies.md). En una instalación nueva, instalar primero las
 fuentes Mono, BGH y sus licencias según [Fonts](apps-setup.md#fonts).
 El TTF Propo es un archivo regular en [manifest.json](../config/manifest.json), sin enlaces.
-Instalar antes el módulo, lector/licencia y regla limitada de
+Instalar antes el módulo, lector/licencia, regla limitada y auxiliar de velocidad de
 [Bluetooth and Magic Trackpad 2](bluetooth-setup.md#indicator-installation-and-recovery);
 el adaptador actualizado los necesita. Esa guía cubre también su recuperación.
 Desde la raíz, como `jd`, respaldar los archivos afectados fuera del repositorio:
