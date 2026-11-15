@@ -41,6 +41,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/packages-refresh.timer` | `/home/jd/.config/systemd/user/packages-refresh.timer` | `644` |
 | `config/fonts/JetBrainsMonoNerdFontMono-Regular.ttf` | `/home/jd/.local/share/fonts/JetBrainsMonoNerdFontMono-Regular.ttf` | `644` |
 | `config/fonts/JetBrainsMonoNerdFontMono-Bold.ttf` | `/home/jd/.local/share/fonts/JetBrainsMonoNerdFontMono-Bold.ttf` | `644` |
+| `config/fonts/jetbrains-mono-nerd-font-propo-regular.ttf` | `/home/jd/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf` | `644` |
 | `config/fonts/OFL.txt` | `/home/jd/.local/share/fonts/bgh-font-licenses/OFL.txt` | `644` |
 | `config/fonts/UPSTREAM.md` | `/home/jd/.local/share/fonts/bgh-font-licenses/UPSTREAM.md` | `644` |
 | `scripts/power-menu` | `/home/jd/scripts/power-menu` | `755` |

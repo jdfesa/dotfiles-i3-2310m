@@ -145,6 +145,11 @@
     "mode": 420
   },
   {
+    "source": "config/fonts/jetbrains-mono-nerd-font-propo-regular.ttf",
+    "destination": "/home/jd/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf",
+    "mode": 420
+  },
+  {
     "source": "config/fonts/OFL.txt",
     "destination": "/home/jd/.local/share/fonts/bgh-font-licenses/OFL.txt",
     "mode": 420
