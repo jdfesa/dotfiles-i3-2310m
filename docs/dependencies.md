@@ -17,6 +17,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | BlueZ | 5.82-1.1 | Debian; bluetoothctl y servicio existentes, comprobados 2026-11-15 |
 | libinput / Xorg libinput | 1.28.1-1+deb13u1 / 1.5.0-1 | Debian; Magic Trackpad 2 USB/Bluetooth comprobado 2026-11-15 |
 | xinput | 1.6.4-1 | Debian; ajuste de velocidad del Magic Trackpad 2 en Xorg |
+| Xorg / libXi / libX11 | 21.1.16-1.3+deb13u4 / 2:1.8.2-1 / 2:1.8.12-1 | Debian; XInput 2.4 para gestos, comprobados 2026-11-15 |
 | Magic Trackpad battery reader | commit 09e72af43a803575ae537b161e6504e1f8130d76 | mmarfil/magic-trackpad-battery, MIT; fuente fijada y licencia en config/bluetooth/vendor/ |
 | i3-wm / i3status | 4.24-1 / 2.15-2 | Debian |
 | Mesa / OpenGL observado | 25.0.7 / core 3.3 acelerado | Debian / i915 |
@@ -49,6 +50,10 @@ instalación y emparejamiento en [Bluetooth and Magic Trackpad 2](bluetooth-setu
 Sus indicadores usan `libsystemd0` existente mediante ctypes y la biblioteca
 estándar; no requieren UPower, python3-dbus, pip, Blueman ni el daemon/timer
 del proveedor.
+Los [gestos del trackpad](trackpad-gestures.md) usan Python estándar y
+`libxi6`/`libx11-6` mediante ctypes; Xorg y su driver libinput deben admitir
+XInput 2.4. Son bibliotecas existentes de la sesión; no requieren pip,
+libinput-tools, xdotool, compilación ni gestores externos de gestos.
 `xfce4-terminal` y `dmenu`/`suckless-tools` permanecen instalados como
 alternativas, pero no son procesos de inicio ni requisitos del lanzador Rofi.
 

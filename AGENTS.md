@@ -166,10 +166,17 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   no instalar servidores de audio ni continuar diagnósticos sin una prueba
   coordinada del adaptador.
 - Bluetooth/Magic Trackpad 2 usa BlueZ, btusb, hid_magicmouse y libinput de Debian;
-  sin gestor gráfico ni agente/daemon de gestos adicional. Emparejar sólo el
+  sin gestor gráfico ni agente Bluetooth adicional. Emparejar sólo el
   dispositivo identificado, detener el escaneo y cerrar el agente temporal.
   Claves de enlace y direcciones permanecen privadas; operación en
   docs/bluetooth-setup.md.
+- Gestos del Magic Trackpad 2: tres dedos a la izquierda/derecha cambian al
+  escritorio siguiente/anterior existente de la misma pantalla al terminar.
+  Un auxiliar de usuario espera eventos XInput 2.4 con libXi/libX11 existentes,
+  limitado por HID y driver; altas/bajas por eventos, sin sondeo, acceso evdev,
+  grupo input, sudo ni servicio systemd. No asignar verticales, cuatro dedos
+  ni pinza; no cambiar clics, scroll o aceleración. Operación y límites de la
+  captura de swipes en docs/trackpad-gestures.md.
 - Indicadores Bluetooth/trackpad permanecen visibles en la barra compacta.
   Consultar BlueZ mediante libsystemd existente en el tick de 10 s; reutilizar el lector
   HID del proveedor fijado cada 5 min en un proceso breve. Cache sólo en memoria,

@@ -49,6 +49,7 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
 - Red: aplicar sólo con acceso alternativo; seguir `wifi-setup.md`.
 - Bluetooth/trackpad: reinstalar la pila Debian y emparejar siguiendo
   [Bluetooth and Magic Trackpad 2](bluetooth-setup.md); las claves no vienen de Git.
+  Reponer también el auxiliar y el inicio i3 de [Trackpad gestures](trackpad-gestures.md).
 - Helium: convertir clave pública ASCII a keyring binario y verificar fingerprint,
   no comparar hashes entre formatos. Seguir `apps-setup.md`.
 - Fuentes: copiar TTF/licencias, ejecutar fc-cache y comprobar el render real.
