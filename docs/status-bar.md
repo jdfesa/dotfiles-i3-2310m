@@ -3,7 +3,7 @@
 ## Appearance
 
 i3bar superior, opaca y compacta, Catppuccin Mocha; texto **JetBrainsMono Nerd Font
-Mono Regular 10**, iconos de clima/métricas/audio **Propo Regular 12**.
+Mono Regular 10**, iconos de clima/métricas/audio/Bluetooth/trackpad **Propo Regular 12**.
 Sin blur/compositor. Sólo workspaces existentes, manteniendo
 los diez accesibles por teclado. Textos en inglés, hora 24 h y temperaturas °C.
 
@@ -24,6 +24,7 @@ Procedencia, tamaño y hash de la única fuente añadida en
 | Paquetes | Candidatos APT locales; click o Super+U abre lista |
 | Audio | Nivel/mute si existe mixer; si no, `No audio`; click/Super+A |
 | Wi-Fi | Sólo icono por calidad, sin SSID/cifra; click/Super+N |
+| Bluetooth / trackpad | Presencia/encendido del adaptador USB y batería inalámbrica; [Bluetooth and Magic Trackpad 2](bluetooth-setup.md#status-indicators) |
 | Batería | Estado real; `No battery` si no existe dispositivo |
 | Reloj | Fecha en inglés y hora local; clic abre/cierra calendario |
 
@@ -35,7 +36,7 @@ mantiene la autorización normal de NetworkManager.
 
 La barra inicia contraída. El chevrón antes del contador de paquetes alterna
 con un clic izquierdo: `›` expande y `‹` contrae tráfico, RAM, CPU, temperatura
-y disco. Clima, paquetes, audio, Wi-Fi, batería y reloj permanecen visibles.
+y disco. Clima, paquetes, audio, Wi-Fi, Bluetooth, trackpad, batería y reloj permanecen visibles.
 Un bloque marcado por el productor con `urgent: true` también permanece visible.
 
 El estado vive sólo en memoria y vuelve a contraído cuando se reinicia el
@@ -60,7 +61,9 @@ Dependencias, operación, muestra de recursos y recuperación en
 2. i3status obtiene datos cada **10 s**, sin shell por indicador.
 3. `status-clicks.py` es un adaptador Python **residente**. Espera eventos con
    selectores, formatea indicadores y lee dos contadores sysfs de tráfico en el
-   tick existente; no consulta Internet ni nmcli cada tick.
+   tick existente; no consulta Internet ni nmcli cada tick. Bluetooth consulta
+   una propiedad D-Bus por controlador en ese mismo tick; el lector HID fijado
+   sólo se ejecuta brevemente al conectar y cada 5 min, sin servicio/timer propio.
 4. Los clicks sólo abren helpers fijos; no interpolan SSID o datos arbitrarios
    como comandos.
 5. Sin ALSA, se genera una variante temporal en `~/.cache/i3/`; no se altera la
@@ -89,10 +92,13 @@ La lista Super+U también es de sólo lectura. Fuentes y ciclo de vida:
 
 ## Installation and recovery
 
-Usa i3bar/i3status y Python 3 estándar; procedencia y versiones en
+Usa i3bar/i3status, Python 3 estándar y `libsystemd0`; procedencia y versiones en
 [Dependencies](dependencies.md). En una instalación nueva, instalar primero las
 fuentes Mono, BGH y sus licencias según [Fonts](apps-setup.md#fonts).
 El TTF Propo es un archivo regular en [manifest.json](../config/manifest.json), sin enlaces.
+Instalar antes el módulo, lector/licencia y regla limitada de
+[Bluetooth and Magic Trackpad 2](bluetooth-setup.md#indicator-installation-and-recovery);
+el adaptador actualizado los necesita. Esa guía cubre también su recuperación.
 Desde la raíz, como `jd`, respaldar los archivos afectados fuera del repositorio:
 
 ```sh

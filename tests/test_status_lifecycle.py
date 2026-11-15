@@ -33,9 +33,18 @@ class StatusLifecycleTests(unittest.TestCase):
                 "while True: signal.pause()\n"
             )
             backend.chmod(0o755)
+            adapter = home / "scripts/status-clicks.py"
+            adapter.write_bytes((ROOT / "scripts/status-clicks.py").read_bytes())
+            adapter.chmod(0o755)
+            # Keep process-group regression tests independent of real Bluetooth.
+            (home / "scripts/bluetooth-status.py").write_text(
+                "class BluetoothStatus:\n"
+                " def sample(self):\n"
+                "  return dict(adapter='absent', connected=False, percentage=None, charging=False, stale=False)\n"
+                " def close(self): pass\n")
             env = dict(os.environ, HOME=str(home))
             process = subprocess.Popen(
-                ["/bin/sh", "-c", shlex.quote(str(ROOT / "scripts/status-clicks.py"))],
+                ["/bin/sh", "-c", shlex.quote(str(adapter))],
                 stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                 start_new_session=True, env=env,
             )

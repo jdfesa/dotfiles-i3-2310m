@@ -170,6 +170,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   dispositivo identificado, detener el escaneo y cerrar el agente temporal.
   Claves de enlace y direcciones permanecen privadas; operación en
   docs/bluetooth-setup.md.
+- Indicadores Bluetooth/trackpad permanecen visibles en la barra compacta.
+  Consultar BlueZ mediante libsystemd existente en el tick de 10 s; reutilizar el lector
+  HID del proveedor fijado cada 5 min en un proceso breve. Cache sólo en memoria,
+  sin root ni servicio/timer adicional; acceso hidraw limitado por uaccess a la
+  sesión local activa y al HID exacto del Trackpad 2.
 - Menú de energía: Power off primero y Yes seleccionado en todas las
   confirmaciones; disponibles Escape/No/Cancel. Autorización de sesión local
   activa mediante logind/polkitd estándar, sin fallback sudo, políticas amplias

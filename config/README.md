@@ -28,6 +28,10 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/mimeapps.list` | `/home/jd/.config/mimeapps.list` | `644` |
 | `scripts/status-bar.sh` | `/home/jd/scripts/status-bar.sh` | `755` |
 | `scripts/status-clicks.py` | `/home/jd/scripts/status-clicks.py` | `755` |
+| `scripts/bluetooth-status.py` | `/home/jd/scripts/bluetooth-status.py` | `755` |
+| `config/bluetooth/vendor/magic-trackpad-battery` | `/home/jd/.local/lib/bgh-bluetooth/magic-trackpad-battery` | `644` |
+| `config/bluetooth/vendor/LICENSE` | `/home/jd/.local/lib/bgh-bluetooth/LICENSE` | `644` |
+| `config/bluetooth/72-bgh-magic-trackpad.rules` | `/etc/udev/rules.d/72-bgh-magic-trackpad.rules` | `644` (root) |
 | `scripts/status-panel.py` | `/home/jd/scripts/status-panel.py` | `755` |
 | `scripts/calendar-popup.py` | `/home/jd/scripts/calendar-popup.py` | `755` |
 | `config/calendar/calendar.css` | `/home/jd/.config/calendar/calendar.css` | `644` |

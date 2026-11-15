@@ -15,6 +15,12 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
   emparejamiento nuevo desactivado; guía de instalación/recuperación en
   [Bluetooth and Magic Trackpad 2](docs/bluetooth-setup.md), sin publicar claves
   ni identificadores privados.
+- Añadidos iconos permanentes de adaptador Bluetooth y batería del trackpad.
+  Lectura reutilizada de magic-trackpad-battery fijado, MIT; acceso hidraw por
+  sesión local activa mediante regla limitada al hardware. BlueZ por libsystemd
+  en el tick existente y batería en auxiliar breve cada 5 min, sin daemon/timer
+  adicional. Cache en memoria, estados desconocidos/desactualizados y urgencia
+  de batería baja; retirada USB real y porcentaje 99 % comprobados.
 
 ### Status panels
 
