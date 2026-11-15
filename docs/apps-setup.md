@@ -90,10 +90,10 @@ Kitty aplica su configuración en terminales nuevas.
 
 ## Audio
 
-ALSA utils proporciona `alsamixer`/`amixer`. Sin dispositivo enumerado, la barra
-muestra `No audio` y omite consultas a un mixer inexistente. La tarjeta/mixer y
-la reproducción del adaptador externo están pendientes; no añadir servidores
-de audio ni desmutear/subir volumen automáticamente.
+ALSA/libasound controla la salida del adaptador USB mediante el deslizador de
+[USB audio](audio-setup.md). `alsamixer`/`amixer` quedan disponibles para
+diagnóstico. La barra detecta el adaptador en su tick normal, sin servidores de
+audio ni cambios automáticos de volumen o mute al conectar.
 
 Codex y RTK/Engram son opcionales: [codex-setup.md](codex-setup.md) y
 [development-tools.md](development-tools.md).

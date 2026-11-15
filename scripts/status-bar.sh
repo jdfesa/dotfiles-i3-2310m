@@ -32,12 +32,7 @@ if [ ! -f "$cache/weather.txt" ] ||
    [ -n "$(find "$cache/weather.txt" -mmin +180 -print)" ]; then
     printf '☁ --°C\n' > "$cache/weather.txt"
 fi
-# Avoid repeated ALSA error logs while the external adapter is unplugged.
-# Device presence is checked at startup only; reload i3 after connecting it.
+# Audio is sampled by status-clicks.py on the existing tick, including hotplug.
 config="$HOME/.config/i3status/config"
-if ! grep -q '\[.*\]' /proc/asound/cards 2>/dev/null; then
-    awk '$0 != "order += \"volume master\""' "$config" > "$cache/i3status-no-audio.conf"
-    config="$cache/i3status-no-audio.conf"
-fi
 # Replace this startup shell with native i3status; the click adapter is separate.
 exec i3status -c "$config" "$@"

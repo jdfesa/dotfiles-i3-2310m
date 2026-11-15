@@ -9,10 +9,14 @@
 - Clic izquierdo en el bloque del trackpad: alternar el panel GTK3
   [Trackpad speed](bluetooth-setup.md#pointer-speed). Comparte el tema del
   calendario; Enter aplica y cierra, Escape cierra sin aplicar.
+- Clic izquierdo en audio o Super+A: alternar el deslizador de
+  [USB audio](audio-setup.md). Flechas/ratón aplican volumen inmediatamente;
+  Mute cambia sólo el silencio de salida; Escape cierra.
 
 Cada clic alterna sólo el panel correspondiente. Un lock independiente descarta
 activaciones simultáneas mientras abre/cierra. Las ventanas se colocan bajo el
-bloque pulsado y se limitan al monitor; sin coordenadas válidas se centran.
+bloque pulsado y se limitan al monitor; sin coordenadas válidas se centran,
+salvo audio: Super+A calcula su bloque actual y siempre lo coloca debajo.
 El calendario es de sólo lectura: no agenda eventos ni consulta servicios.
 
 `status-panel.py` consulta i3 y espera eventos de ventana con un plazo total de
@@ -56,6 +60,9 @@ anotar contenidos/modos y marcar los destinos que todavía no existen. Revisar
 las diferencias locales y conservarlas; no sustituir toda la configuración i3
 para añadir reglas de ventanas.
 
+Antes de renovar `status-clicks.py`, instalar también el módulo ALSA, perfil y
+deslizador según [USB audio installation](audio-setup.md#installation).
+
 Desde la raíz, como `jd`, tras comprobar el respaldo:
 
 ```sh
@@ -67,8 +74,9 @@ install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
 install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
 ```
 
-Aplicar las reglas `BGH-Calendar`/`bgh-calendar`, `BGH-Resources`/`bgh-resources`
-y `BGH-Trackpad-Speed`/`bgh-trackpad-speed` de `config/i3-config` al destino activo.
+Aplicar las reglas `BGH-Calendar`/`bgh-calendar`, `BGH-Resources`/`bgh-resources`,
+`BGH-Trackpad-Speed`/`bgh-trackpad-speed` y `BGH-Audio-Volume`/`bgh-audio-volume`
+de `config/i3-config` al destino activo.
 En una restauración limpia se instalan esas fuentes completas con
 modo 644. Validar antes de renovar i3bar:
 

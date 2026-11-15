@@ -50,6 +50,8 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
 - Bluetooth/trackpad: reinstalar la pila Debian y emparejar siguiendo
   [Bluetooth and Magic Trackpad 2](bluetooth-setup.md); las claves no vienen de Git.
   Reponer también el auxiliar y el inicio i3 de [Trackpad gestures](trackpad-gestures.md).
+- Audio USB: instalar módulo, perfil de salida y deslizador de
+  [USB audio](audio-setup.md); no depende de un servidor de audio.
 - Helium: convertir clave pública ASCII a keyring binario y verificar fingerprint,
   no comparar hashes entre formatos. Seguir `apps-setup.md`.
 - Fuentes: copiar TTF/licencias, ejecutar fc-cache y comprobar el render real.

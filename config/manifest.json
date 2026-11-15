@@ -135,6 +135,26 @@
     "mode": 493
   },
   {
+    "source": "scripts/audio-control.py",
+    "destination": "/home/jd/scripts/audio-control.py",
+    "mode": 493
+  },
+  {
+    "source": "scripts/audio-volume.py",
+    "destination": "/home/jd/scripts/audio-volume.py",
+    "mode": 493
+  },
+  {
+    "source": "scripts/audio-position.py",
+    "destination": "/home/jd/scripts/audio-position.py",
+    "mode": 493
+  },
+  {
+    "source": "config/audio/usb-audio.json",
+    "destination": "/home/jd/.config/audio/usb-audio.json",
+    "mode": 420
+  },
+  {
     "source": "scripts/open-updates.sh",
     "destination": "/home/jd/scripts/open-updates.sh",
     "mode": 493

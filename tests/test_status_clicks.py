@@ -33,7 +33,8 @@ class StatusTests(unittest.TestCase):
 
     def test_volume_and_missing_hardware(self):
         for text, expected in (("80%", "\uf028"), ("30%", "\uf027"), ("0%", "\uf026"),
-                               ("muted 20%", "\ueee8"), ("no mixer", "No audio")):
+                               ("muted 20%", "\ueee8"), ("absent", "No audio"),
+                               ("unavailable", "Audio ?")):
             with self.subTest(text=text):
                 block = {"name": "volume", "full_text": text}
                 self.assertIn(expected, status.adapt_status([block])[0]["full_text"])
@@ -78,10 +79,10 @@ class StatusTests(unittest.TestCase):
         self.assertTrue(run.call_args.kwargs["check"])
         self.assertNotIn("shell", run.call_args.kwargs)
 
-    def test_native_volume_instance_click(self):
+    def test_usb_volume_instance_click(self):
         with patch.object(status.subprocess, "run") as run:
-            status.handle_click({"name": "volume", "instance": "default.Master.0", "button": 1})
-        self.assertEqual(run.call_args.args[0], ["i3-msg", "exec --no-startup-id ~/scripts/open-mixer.sh"])
+            status.handle_click({"name": "volume", "instance": "usb-output", "button": 1})
+        self.assertEqual(run.call_args.args[0], ["i3-msg", "exec --no-startup-id ~/scripts/status-panel.py audio"])
 
     def test_trackpad_click_launches_only_the_fixed_speed_menu(self):
         event = {"name": "trackpad", "instance": "battery", "button": 1}
@@ -96,7 +97,7 @@ class StatusTests(unittest.TestCase):
 
     def test_clock_and_cpu_clicks_only_launch_allowlisted_panels(self):
         for name, instance, panel in (("tztime", "local", "calendar"), ("cpu_usage", "aggregate", "resources"),
-                                      ("trackpad", "battery", "trackpad")):
+                                      ("trackpad", "battery", "trackpad"), ("volume", "usb-output", "audio")):
             with self.subTest(panel=panel), patch.object(status.subprocess, "run") as run:
                 status.handle_click({"name": name, "instance": instance, "button": 1,
                                      "x": 1310, "y": 12, "relative_x": 30, "relative_y": 12,
@@ -126,12 +127,33 @@ class StatusTests(unittest.TestCase):
         self.assertEqual(blocks[0]["name"], "volume")
         self.assertIn("No audio", blocks[0]["full_text"])
 
+    def test_audio_tracks_hotplug_on_ticks_and_chevron_does_not_resample(self):
+        audio = Mock()
+        audio.sample.side_effect = [{"status": "absent"},
+                                    {"status": "ready", "percentage": 17, "muted": False},
+                                    {"status": "ready", "percentage": 17, "muted": True},
+                                    {"status": "absent"}]
+        view = status.StatusView()
+        with patch.object(status.subprocess, "run") as run:
+            for expected in ("No audio", "17%", "17%", "No audio"):
+                frame = view.update([], audio=audio)
+                block = next(b for b in frame if b["name"] == "volume")
+                self.assertEqual(block["instance"], "usb-output")
+                self.assertIn(expected, block["full_text"])
+                before = audio.sample.call_count
+                status.handle_click({"name": "stats_toggle", "instance": "secondary", "button": 1}, view)
+                view.render()
+                self.assertEqual(audio.sample.call_count, before)
+        self.assertEqual(audio.sample.call_count, 4)
+        run.assert_not_called()
+
     def test_unrelated_or_invalid_click_ignored(self):
         with patch.object(status.subprocess, "run") as run:
             for event in ({"name": "battery", "button": 1},
                           {"name": "wireless", "instance": "wlp2s0", "button": 3},
                           {"name": "wireless", "instance": "wrong", "button": 1},
-                          {"name": "wireless", "instance": "wlp2s0", "button": True}):
+                          {"name": "wireless", "instance": "wlp2s0", "button": True},
+                          {"name": "volume", "instance": "default.Master.0", "button": 1}):
                 status.handle_click(event)
         run.assert_not_called()
 
@@ -146,7 +168,7 @@ class CollapsibleMetricsTests(unittest.TestCase):
             {"name": "cpu_temperature", "full_text": "45°C"},
             {"name": "disk_info", "full_text": "40 GB"},
             {"name": "read_file", "instance": "/fixture/updates.txt", "full_text": "?"},
-            {"name": "volume", "instance": "default.Master.0", "full_text": "unavailable"},
+            {"name": "volume", "instance": "usb-output", "full_text": "absent"},
             {"name": "wireless", "instance": "wlp2s0", "full_text": "down"},
             {"name": "battery", "full_text": "No battery"},
             {"name": "tztime", "full_text": "Sun Nov 15 12:00"},

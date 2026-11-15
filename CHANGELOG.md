@@ -6,6 +6,26 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### USB audio volume
+
+- Sustituida la detección de audio sólo al arrancar y el mixer fijo Master por
+  lectura ALSA de Speaker del USB identificado, en el tick existente de 10 s.
+  Icono y porcentaje reales; ausencia y error diferenciados, sin procesos por
+  muestra ni servidores de audio nuevos.
+- Clic en audio o Super+A alterna un deslizador GTK3 bajo el bloque, con el tema
+  del calendario. Volumen de salida y mute explícitos, sin cambiar micrófono,
+  captura o ganancia automática. Identidad/driver y generación de tarjeta
+  revalidados antes de escribir; apertura/conexión sin escrituras. Procedimiento
+  y recuperación en [USB audio](docs/audio-setup.md).
+- Super+A sitúa el panel bajo el mismo bloque de audio que el clic, desde la
+  muestra visible guardada en memoria X11 y medición Pango bajo demanda. Sin
+  sondeo, archivos de estado ni carga de GTK/Pango en el productor de barra.
+  El perfil USB permite cambiar de puerto/hub sin fijar el índice de tarjeta.
+- Despliegue con respaldo privado y diferencias locales conservadas. Volumen
+  audible, mute, posición del teclado y reconexión en otro puerto/hub comprobados;
+  17 regresiones de audio/posición y suite completa correctas. Estado y alcance
+  en [USB audio](docs/audio-setup.md#current-verification--2026-11-15).
+
 ### Trackpad gestures
 
 - Añadidos deslizamientos de tres dedos: izquierda al siguiente escritorio

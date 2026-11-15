@@ -10,15 +10,18 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/codex-launch.py` | Ejecuta el standalone oficial; recupera sólo su alias de socket obsoleto bajo lock; bajo demanda |
 | `scripts/power-menu` | Rofi de energía, Super+Shift+P o entrada Power; bajo demanda |
 | `scripts/power-action.sh` | Auxiliar logind/Polkit en Kitty tras confirmar; bajo demanda |
-| `scripts/status-bar.sh` | Selecciona sensor/audio y ejecuta i3status al iniciar barra |
+| `scripts/status-bar.sh` | Selecciona sensor y ejecuta i3status al iniciar barra |
 | `scripts/status-clicks.py` | Adaptador residente de i3bar; clicks, iconos y tráfico |
 | `scripts/bluetooth-status.py` | Módulo del adaptador: estado BlueZ en cada tick y lector HID breve cada 5 min; sin servicio propio |
 | `scripts/open-trackpad-speed.py` | Panel GTK3 bajo demanda que ajusta sólo la velocidad del Magic Trackpad 2 Bluetooth en Xorg |
 | `scripts/trackpad-gestures.py` | Un residente por pantalla X: espera gestos XInput 2.4 del Magic Trackpad 2, sin sondeo; [Trackpad gestures](../docs/trackpad-gestures.md) |
-| `scripts/status-panel.py` | Alterna calendario, btop y velocidad del trackpad por identidad; IPC breve por evento, sin sondeo |
+| `scripts/status-panel.py` | Alterna calendario, btop, volumen y velocidad del trackpad por identidad; IPC breve por evento, sin sondeo |
 | `scripts/calendar-popup.py` | Calendario GTK3 de sólo lectura; vive sólo mientras está abierto |
 | `scripts/open-networks.sh` | nmtui-connect en Kitty flotante; click/Super+N |
-| `scripts/open-mixer.sh` | Panel ALSA si hay dispositivo; click/Super+A |
+| `scripts/open-mixer.sh` | Entrada Super+A al panel de volumen USB; sin terminal adicional |
+| `scripts/audio-control.py` | Módulo ALSA: lectura de salida USB en el tick existente y escrituras explícitas del panel; ejecución directa sólo lee |
+| `scripts/audio-volume.py` | Deslizador GTK3 de volumen/mute; vive sólo mientras está abierto |
+| `scripts/audio-position.py` | Publica el tramo de audio de la barra en memoria X11; calcula el anclaje del teclado con Pango sólo al abrir |
 | `scripts/open-updates.sh` | Lista APT local de sólo lectura; click/Super+U |
 | `scripts/update-weather.py` | Oneshot del timer de clima; cache cada 30 min |
 | `scripts/update-packages.py` | Oneshot del timer APT; simulación local cada 6 h |

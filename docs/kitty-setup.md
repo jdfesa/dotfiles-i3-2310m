@@ -28,9 +28,10 @@ Las confirmaciones de Kitty pueden intervenir si hay un comando ejecutándose.
 La ayuda visible con Super+K incluye estos atajos; referencia común en
 [Keyboard shortcuts](keybindings.md).
 
-Las ventanas auxiliares Wi-Fi, audio, APT y energía reciben
+Las ventanas auxiliares Wi-Fi, APT y energía reciben
 `--override=tab_bar_min_tabs=2`: con una sola pestaña mantienen su presentación
 compacta. El parámetro sólo cambia la visibilidad de la barra de esa ventana.
+El [volumen USB](audio-setup.md) utiliza un panel GTK3 independiente de Kitty.
 
 ## Installation and recovery
 
@@ -41,7 +42,6 @@ Fuentes y destinos existentes de [manifest.json](../config/manifest.json):
 | `config/kitty.conf` | `/home/jd/.config/kitty/kitty.conf` | 644 |
 | `config/keybindings-help.txt` | `/home/jd/.config/i3/keybindings-help.txt` | 644 |
 | `scripts/open-networks.sh` | `/home/jd/scripts/open-networks.sh` | 755 |
-| `scripts/open-mixer.sh` | `/home/jd/scripts/open-mixer.sh` | 755 |
 | `scripts/open-updates.sh` | `/home/jd/scripts/open-updates.sh` | 755 |
 | `scripts/power-menu` | `/home/jd/scripts/power-menu` | 755 |
 
@@ -55,7 +55,7 @@ mkdir -p "$HOME/.local/state/bgh-config-backups"
 backup=$(mktemp -d "$HOME/.local/state/bgh-config-backups/kitty-XXXXXXXX")
 install -m 600 "$HOME/.config/kitty/kitty.conf" "$backup/kitty.conf"
 install -m 600 "$HOME/.config/i3/keybindings-help.txt" "$backup/keybindings-help.txt"
-for script in open-networks.sh open-mixer.sh open-updates.sh power-menu; do
+for script in open-networks.sh open-updates.sh power-menu; do
     install -m 600 "$HOME/scripts/$script" "$backup/$script"
 done
 ```
@@ -64,7 +64,7 @@ Validar con el parser instalado y `sh -n`:
 
 ```sh
 kitty +runpy 'from pathlib import Path; from kitty.config import load_config; bad=[]; load_config(str(Path("config/kitty.conf").resolve()), accumulate_bad_lines=bad); assert not bad, bad; print("Kitty config: OK")'
-for script in open-networks.sh open-mixer.sh open-updates.sh power-menu; do
+for script in open-networks.sh open-updates.sh power-menu; do
     sh -n "scripts/$script"
 done
 ```
@@ -76,7 +76,7 @@ de Kitty a su invocación existente en vez de reemplazarlo completo.
 ```sh
 install -m 644 config/kitty.conf "$HOME/.config/kitty/kitty.conf"
 install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
-for script in open-networks.sh open-mixer.sh open-updates.sh power-menu; do
+for script in open-networks.sh open-updates.sh power-menu; do
     install -m 755 "scripts/$script" "$HOME/scripts/$script"
 done
 cmp config/kitty.conf "$HOME/.config/kitty/kitty.conf"

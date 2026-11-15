@@ -21,7 +21,7 @@ WEATHER_ICONS = {"☀": "\uf185", "☾": "\uf186", "☁": "\uf0c2", "≋": "\ue3
                  "☂": "\ue318", "❄": "\U000f0598", "ϟ": "\U000f0593", "?": "\ue370"}
 SECONDARY_BLOCKS = frozenset(("traffic", "memory", "cpu_usage", "cpu_temperature", "disk_info"))
 PANELS = {("tztime", "local"): "calendar", ("cpu_usage", "aggregate"): "resources",
-          ("trackpad", "battery"): "trackpad"}
+          ("trackpad", "battery"): "trackpad", ("volume", "usb-output"): "audio"}
 
 
 def labeled(icon, text, color):
@@ -81,13 +81,21 @@ def peripheral_blocks(state):
     return [bluetooth, trackpad]
 
 
-def adapt_status(blocks, traffic=None, peripherals=None):
+def adapt_status(blocks, traffic=None, peripherals=None, audio=None):
     if peripherals is not None:
         index = next((i for i, block in enumerate(blocks) if block.get("name") in ("battery", "tztime")), len(blocks))
         blocks[index:index] = peripheral_blocks(peripherals.sample())
+    if audio is not None:
+        state = audio.sample()
+        blocks[:] = [block for block in blocks if block.get("name") != "volume"]
+    else:
+        state = {"status": "absent"}
     if not any(block.get("name") == "volume" for block in blocks):
         index = next((i for i, block in enumerate(blocks) if block.get("name") == "wireless"), len(blocks))
-        blocks.insert(index, {"name": "volume", "instance": "default.Master.0", "full_text": "unavailable"})
+        text = "absent" if state["status"] == "absent" else "unavailable"
+        if state["status"] == "ready":
+            text = ("muted " if state["muted"] else "") + f'{state["percentage"]}%'
+        blocks.insert(index, {"name": "volume", "instance": "usb-output", "full_text": text})
     for block in blocks:
         name, text = block.get("name"), block.get("full_text", "")
         if name == "wireless" and block.get("instance") == "wlp2s0":
@@ -110,9 +118,9 @@ def adapt_status(blocks, traffic=None, peripherals=None):
             volume = re.fullmatch(r"(muted )?(\d+)%", text.strip())
             if volume:
                 icon = "\ueee8" if volume[1] else "\uf028" if int(volume[2]) > 50 else "\uf027" if int(volume[2]) else "\uf026"
-                block["full_text"] = f'<span font_desc="{ICON_FONT}" foreground="{YELLOW}">{icon}</span>'
+                block["full_text"] = labeled(icon, volume[2] + "%", YELLOW)
             else:
-                block["full_text"] = labeled("\ueee8", "No audio", "#7f849c")
+                block["full_text"] = labeled("\ueee8", "No audio" if text == "absent" else "Audio ?", "#7f849c")
             block["min_width"], block["align"] = 24, "center"
         elif name == "read_file" and block.get("instance", "").endswith("/weather.txt"):
             block["full_text"] = format_weather(text)
@@ -137,8 +145,8 @@ class StatusView:
         self.expanded = False
         self.snapshot = None
 
-    def update(self, blocks, traffic=None, peripherals=None):
-        self.snapshot = adapt_status([dict(block) for block in blocks], traffic, peripherals)
+    def update(self, blocks, traffic=None, peripherals=None, audio=None):
+        self.snapshot = adapt_status([dict(block) for block in blocks], traffic, peripherals, audio)
         return self.render()
 
     def render(self):
@@ -183,8 +191,6 @@ def handle_click(event, view=None):
     helper = None
     if event.get("name") == "wireless" and event.get("instance") == "wlp2s0":
         helper = "open-networks.sh"
-    elif event.get("name") == "volume" and event.get("instance") == "default.Master.0":
-        helper = "open-mixer.sh"
     elif event.get("name") == "read_file" and event.get("instance") == str(Path.home() / ".cache/i3/updates.txt"):
         helper = "open-updates.sh"
     else:
@@ -208,6 +214,17 @@ def main(run_once=False):
     bluetooth = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(bluetooth)
     peripherals = bluetooth.BluetoothStatus()
+    spec = importlib.util.spec_from_file_location("audio_control", Path(__file__).with_name("audio-control.py"))
+    audio_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(audio_module)
+    audio = audio_module.AudioStatus()
+    spec = importlib.util.spec_from_file_location("audio_position", Path(__file__).with_name("audio-position.py"))
+    position_module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(position_module)
+    try:
+        position = None if run_once else position_module.PositionMemory()
+    except OSError:
+        position = None
     source = Path.home() / "scripts/status-bar.sh"
     child = subprocess.Popen([str(source)] + (["--run-once"] if run_once else []),
                              stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, bufsize=0)
@@ -231,6 +248,8 @@ def main(run_once=False):
 
     def emit(blocks):
         nonlocal first
+        if position is not None:
+            position.publish(blocks)
         print(("" if first else ",") + json.dumps(blocks, ensure_ascii=False), flush=True)
         first = False
 
@@ -263,8 +282,10 @@ def main(run_once=False):
                         except (OSError, subprocess.TimeoutExpired, subprocess.CalledProcessError):
                             print("Could not open status panel", file=sys.stderr)
                     elif key.data == "status" and isinstance(value, list):
-                        emit(view.update(value, traffic, peripherals))
+                        emit(view.update(value, traffic, peripherals, audio))
     finally:
+        if position is not None:
+            position.close()
         peripherals.close()
         poller.close()
         if child.poll() is None:
