@@ -232,6 +232,10 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 
 ## Productivity tools
 
+- Kitty usa su barra nativa superior incluso con una pestaña, etiquetas del
+  directorio activo y pestañas nuevas en ese directorio. Conservar Bash,
+  fuente/repintado y confirmaciones nativas; los paneles auxiliares usan una
+  excepción de visibilidad por invocación. Operación en docs/kitty-setup.md.
 - Usar Yazi para gestión general de archivos y Neovim estable oficial para edición.
   Instalar el archivo precompilado del proveedor, versionado y verificado con SHA256,
   bajo /opt propiedad de root; seleccionarlo mediante /usr/local/bin/nvim y las

@@ -6,6 +6,18 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Kitty
+
+- Añadida barra nativa superior con el nombre del directorio, visible con una
+  pestaña. Ctrl+Shift+T abre otra en la carpeta activa; Ctrl+Shift+Q cierra la
+  seleccionada. Ayuda y guía de atajos actualizadas; fuente 11 y repintado 20
+  conservados, con colores Mocha en las pestañas.
+- Paneles Wi-Fi/audio/APT/energía usan un override fijo de visibilidad para
+  mantener su presentación compacta. Parser, bindings efectivos, plantillas
+  y acciones nativas comprobados con Bash en una ventana aislada. Despliegue
+  de seis archivos de usuario con respaldo privado y ajuste local preservado;
+  instalación, comprobaciones y rollback en [Kitty setup](docs/kitty-setup.md).
+
 ### Status bar
 
 - Incorporada Propo Regular de Nerd Fonts v3.5.1 como único TTF adicional,
