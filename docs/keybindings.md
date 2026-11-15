@@ -14,7 +14,7 @@ La configuración está en `config/i3-config` y la ayuda en
 | Super + Shift + P | Menú de energía; Power off primero, Yes preseleccionado |
 | Super + D | Alias del lanzador |
 | Super + N | Lista Wi-Fi con `nmtui-connect` en Kitty flotante; red activa marcada, flechas/Tab/Enter/Esc |
-| Super + A | Mezclador de audio; hoy muestra ausencia de adaptador externo |
+| Super + A | Abrir/cerrar deslizador de volumen USB; flechas ajustan, Escape cierra |
 | Super + U | Lista de actualizaciones disponibles según caché local APT, sólo lectura |
 | Super + Shift + Enter o B | Helium |
 | Super + K | Ayuda de atajos, filtrable con teclado; Esc cierra |
@@ -45,6 +45,9 @@ La configuración está en `config/i3-config` y la ayuda en
 La navegación usa flechas; J/K/L quedan reservadas para división, ayuda y layouts. Super+Tab cambia de capa y Super+Espacio abre el lanzador. La barra se ubica arriba.
 
 Click izquierdo en Wi-Fi, audio o contador de paquetes abre el mismo panel que Super + N, A o U. No hay acción automática de actualización; cambiar a una red nueva podría requerir autorización administrativa. La lista de redes no es un medidor de distancia: el icono refleja calidad de enlace.
+
+El panel de [USB audio](audio-setup.md) aplica el volumen inmediatamente;
+**Mute** controla el silencio de salida. Cerrar no revierte los cambios.
 
 El chevrón antes del contador de paquetes muestra u oculta las métricas
 secundarias con un clic izquierdo. La barra inicia contraída; bloques visibles

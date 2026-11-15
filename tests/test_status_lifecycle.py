@@ -42,6 +42,9 @@ class StatusLifecycleTests(unittest.TestCase):
                 " def sample(self):\n"
                 "  return dict(adapter='absent', connected=False, percentage=None, charging=False, stale=False)\n"
                 " def close(self): pass\n")
+            (home / "scripts/audio-control.py").write_text(
+                "class AudioStatus:\n"
+                " def sample(self): return dict(status='absent')\n")
             env = dict(os.environ, HOME=str(home))
             process = subprocess.Popen(
                 ["/bin/sh", "-c", shlex.quote(str(adapter))],

@@ -15,7 +15,8 @@ import time
 
 PANELS = {"calendar": ("BGH-Calendar", "bgh-calendar"),
           "resources": ("BGH-Resources", "bgh-resources"),
-          "trackpad": ("BGH-Trackpad-Speed", "bgh-trackpad-speed")}
+          "trackpad": ("BGH-Trackpad-Speed", "bgh-trackpad-speed"),
+          "audio": ("BGH-Audio-Volume", "bgh-audio-volume")}
 HEADER = struct.Struct("=6sII")
 WINDOW_EVENT = 0x80000003
 
@@ -100,7 +101,8 @@ def container_id(panel):
 
 
 def launch_command(name):
-    gtk_helpers = {"calendar": "calendar-popup.py", "trackpad": "open-trackpad-speed.py"}
+    gtk_helpers = {"calendar": "calendar-popup.py", "trackpad": "open-trackpad-speed.py",
+                   "audio": "audio-volume.py"}
     if name in gtk_helpers:
         source = Path.home() / "scripts" / gtk_helpers[name]
         if not os.access(source, os.X_OK):

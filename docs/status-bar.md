@@ -22,14 +22,14 @@ Procedencia, tamaño y hash de la única fuente añadida en
 | Temperatura | Sensor CPU coretemp/x86_pkg_temp; no temperatura exterior |
 | Disco | Espacio disponible de `/`; G=GiB |
 | Paquetes | Candidatos APT locales; click o Super+U abre lista |
-| Audio | Nivel/mute si existe mixer; si no, `No audio`; click/Super+A |
+| Audio | Icono y porcentaje/mute de la salida USB; `No audio` si falta, `Audio ?` si no se puede leer; clic/Super+A abre deslizador |
 | Wi-Fi | Sólo icono por calidad, sin SSID/cifra; click/Super+N |
 | Bluetooth / trackpad | Estado del adaptador y batería inalámbrica; clic en el icono del trackpad abre [Trackpad speed](bluetooth-setup.md#pointer-speed) |
 | Batería | Estado real; `No battery` si no existe dispositivo |
 | Reloj | Fecha en inglés y hora local; clic abre/cierra calendario |
 
-Falta de audio/batería no se representa como 0%. Tarjeta/mixer externos y
-reproducción siguen pendientes. Redes se abre con `nmtui-connect` en Kitty;
+Falta de audio/batería no se representa como 0%. Detección y control de salida
+en [USB audio](audio-setup.md). Redes se abre con `nmtui-connect` en Kitty;
 mantiene la autorización normal de NetworkManager.
 
 ## Collapsible metrics
@@ -57,17 +57,19 @@ Dependencias, operación, muestra de recursos y recuperación en
 
 ## Scheduled work and events
 
-1. `status-bar.sh` selecciona sensor/audio al iniciar y ejecuta i3status.
+1. `status-bar.sh` selecciona sensor al iniciar y ejecuta i3status.
 2. i3status obtiene datos cada **10 s**, sin shell por indicador.
 3. `status-clicks.py` es un adaptador Python **residente**. Espera eventos con
    selectores, formatea indicadores y lee dos contadores sysfs de tráfico en el
    tick existente; no consulta Internet ni nmcli cada tick. Bluetooth consulta
    una propiedad D-Bus por controlador en ese mismo tick; el lector HID fijado
    sólo se ejecuta brevemente al conectar y cada 5 min, sin servicio/timer propio.
+   Audio verifica el USB y lee su mixer con libasound en ese tick de 10 s,
+   sin procesos hijos ni consulta a una tarjeta ausente.
 4. Los clicks sólo abren helpers fijos; no interpolan SSID o datos arbitrarios
    como comandos.
-5. Sin ALSA, se genera una variante temporal en `~/.cache/i3/`; no se altera la
-   fuente ni se repiten consultas a un mixer ausente.
+5. La conexión/desconexión de audio se refleja en el próximo tick, sin reiniciar
+   la barra ni generar una variante temporal de i3status.
 
 ## Caches
 
@@ -92,13 +94,15 @@ La lista Super+U también es de sólo lectura. Fuentes y ciclo de vida:
 
 ## Installation and recovery
 
-Usa i3bar/i3status, Python 3 estándar y `libsystemd0`; procedencia y versiones en
+Usa i3bar/i3status, Python 3 estándar, `libsystemd0` y `libasound2t64`; procedencia y versiones en
 [Dependencies](dependencies.md). En una instalación nueva, instalar primero las
 fuentes Mono, BGH y sus licencias según [Fonts](apps-setup.md#fonts).
 El TTF Propo es un archivo regular en [manifest.json](../config/manifest.json), sin enlaces.
 Instalar antes el módulo, lector/licencia, regla limitada y auxiliar de velocidad de
 [Bluetooth and Magic Trackpad 2](bluetooth-setup.md#indicator-installation-and-recovery);
 el adaptador actualizado los necesita. Esa guía cubre también su recuperación.
+Instalar también el módulo/perfil y panel de [USB audio](audio-setup.md#installation)
+antes de renovar el adaptador.
 Desde la raíz, como `jd`, respaldar los archivos afectados fuera del repositorio:
 
 ```sh
@@ -113,9 +117,9 @@ backup=$(mktemp -d "$HOME/.local/state/bgh-config-backups/bar-XXXXXXXX")
  fi)
 ```
 
-Con el respaldo comprobado, validar e instalar las fuentes. No reemplazar
-`~/.config/i3/config`: esta mejora no modifica bindings ni la configuración
-nativa de la barra.
+Con el respaldo comprobado, validar e instalar las fuentes. Conservar las
+diferencias de `~/.config/i3/config` al añadir las reglas de paneles; no
+reemplazar toda la configuración activa para modificar la barra.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_status*.py' -q

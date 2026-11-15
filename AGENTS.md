@@ -162,9 +162,13 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   sin interpolación de shell.
 - Bloque Wi-Fi: sólo icono de nivel, sin SSID ni calidad numérica. El clic y
   Super+N abren la misma lista en inglés; conservar la autorización de NetworkManager.
-- La verificación de audio está aplazada. Mostrar No audio si no hay hardware;
-  no instalar servidores de audio ni continuar diagnósticos sin una prueba
-  coordinada del adaptador.
+- Audio USB usa ALSA/libasound existente, con perfil público de VID/PID,
+  driver snd-usb-audio y control de reproducción verificado. La barra consulta
+  conexión/volumen en el tick de 10 s; clic o Super+A alterna un deslizador GTK3
+  bajo demanda. Revalidar tarjeta e identidad antes de escribir; no tocar
+  micrófono/captura ni cambiar volumen o mute al abrir/conectar. Sin servidores
+  de audio, sondeo adicional ni servicio propio. No audio sólo si falta el
+  adaptador; errores/ambigüedad muestran Audio ?. Operación en docs/audio-setup.md.
 - Bluetooth/Magic Trackpad 2 usa BlueZ, btusb, hid_magicmouse y libinput de Debian;
   sin gestor gráfico ni agente Bluetooth adicional. Emparejar sólo el
   dispositivo identificado, detener el escaneo y cerrar el agente temporal.

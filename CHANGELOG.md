@@ -6,6 +6,18 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### USB audio volume
+
+- Sustituida la detección de audio sólo al arrancar y el mixer fijo Master por
+  lectura ALSA de Speaker del USB identificado, en el tick existente de 10 s.
+  Icono y porcentaje reales; ausencia y error diferenciados, sin procesos por
+  muestra ni servidores de audio nuevos.
+- Clic en audio o Super+A alterna un deslizador GTK3 bajo el bloque, con el tema
+  del calendario. Volumen de salida y mute explícitos, sin cambiar micrófono,
+  captura o ganancia automática. Identidad/driver y generación de tarjeta
+  revalidados antes de escribir; apertura/conexión sin escrituras. Procedimiento
+  y recuperación en [USB audio](docs/audio-setup.md).
+
 ### Trackpad gestures
 
 - Añadidos deslizamientos de tres dedos: izquierda al siguiente escritorio
