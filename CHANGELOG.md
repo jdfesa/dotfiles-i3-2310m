@@ -8,12 +8,11 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ### Planning
 
-- Ampliado TODO con inventario comparado de `dotfiles-i5-5257u` (`a85e710`):
-  flujo cotidiano, adaptaciones i3/Xorg, herramientas opcionales y exclusiones
-  por hardware/sesión. Conservados los pendientes anteriores.
+- Ampliado TODO con tareas de flujo cotidiano, sesión i3/Xorg y herramientas
+  opcionales para el BGH. Conservados los pendientes anteriores.
 - Documentado trabajo por prioridad/componente con revisión de dependencias,
-  procesos y sondeos. Las mediciones de la MacBook no prueban rendimiento en
-  el BGH; sin instalaciones, despliegues ni cambios de la sesión.
+  procesos y sondeos, y validación del rendimiento mediante mediciones locales.
+  Sin instalaciones, despliegues ni cambios de la sesión.
 - Establecido flujo habitual por ramas, commits modulares Conventional Commits
   y PR en inglés para revisión; integración sólo tras aprobación explícita.
   Actualizada la guía Git para evitar publicación directa en main y exigir

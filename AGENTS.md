@@ -24,6 +24,8 @@
   narrative, personal account history, third-person references to the repository
   maintainer or exhaustive vulnerability diary. Brief kernel/security limits
   are sufficient.
+- Keep plans and guides self-contained: document this project's tasks, behavior
+  and requirements. Keep implementation research out of the published backlog.
 - Record durable project decisions in this file when established. Keep version
   inventories, verification results and actual pending work in their topic
   guides, CHANGELOG.md and TODO.md; do not accumulate operational history here.
@@ -77,10 +79,9 @@
 
 ## Change workflow
 
-Work on one priority and component at a time. Treat other machines' dotfiles as
-references: select useful behavior, adapt it to this hardware and Xorg/i3, and
-review dependencies, resident processes and polling before adding it to TODO.md.
-Source-machine measurements do not establish performance on this laptop.
+Work on one priority and component at a time. Review dependencies, resident
+processes and polling for this hardware and Xorg/i3 before adding tasks to TODO.md.
+Validate performance claims with representative measurements on this laptop.
 
 1. Inspect actual destinations and preserve existing changes. If unreachable,
    make only clearly marked local changes; do not claim deployment or equality.
