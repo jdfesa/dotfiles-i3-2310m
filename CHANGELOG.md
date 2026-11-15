@@ -6,6 +6,18 @@ No representa una reproducción byte a byte del sistema ni un benchmark.
 
 ## 2026-11-15
 
+### Status panels
+
+- Clic en el reloj abre/cierra calendario GTK3 con navegación de meses y Today;
+  CPU abre/cierra btop en Kitty exclusivo, con refresco inicial de 2 s.
+  Paneles flotantes bajo el bloque, acotados al monitor, por IPC y locks breves.
+  Sin sondeo adicional ni cambios al tick/SIGSTOP/SIGCONT de i3bar.
+- Declarados auxiliares, CSS y dependencias; GTK3 existente reutilizado con
+  bindings de Debian. Verificados clics reales de barra, tres ciclos por panel,
+  callbacks GTK, límites/identidades y cierre de btop sin procesos residuales.
+  Despliegue con respaldo privado y diferencias locales conservadas; instalación,
+  rollback y alcance de la muestra de coste en [Status panels](docs/status-panels.md).
+
 ### Kitty
 
 - Añadida barra nativa superior con el nombre del directorio, visible con una

@@ -5,7 +5,8 @@
 - Neovim estable oficial, Yazi APT stable firmado y sólo mini.files fijado instalados.
   [Versiones](dependencies.md) y [operación/recuperación](editor-and-files.md).
 - Barra contraíble y tipografía Propo verificadas en i3/Xorg;
-  [Status bar](status-bar.md#verification). Suite completa: 112 pruebas correctas.
+  [Status bar](status-bar.md#verification). Calendario y btop bajo demanda en
+  [Status panels](status-panels.md). Suite completa: 127 pruebas correctas.
 - Neovim se probó en Sandy Bridge/glibc 2.41 antes de activarlo: 93/93 pruebas
   existentes correctas. nvim y los cinco accesos vi/vim/ex/view/vimdiff usan el
   prefijo root de /opt; view/vimdiff conservan readonly/diff. Binario y runtime
@@ -13,7 +14,7 @@
 - Contrastados los hashes de los 2127 archivos oficiales instalados; permisos y
   propiedad root verificados. Yazi abrió el binario nuevo y guardó un fixture
   temporal en pseudoterminal. El PATH de la sesión i3 existente ya lo selecciona.
-- El manifiesto contiene **53 destinos**: **46 coinciden** en contenido, modo y
+- El manifiesto contiene **56 destinos**: **49 coinciden** en contenido, modo y
   propietario. Los seis enlaces nuevos apuntan al checkout residente; los tres
   archivos APT son regulares root:root644. El TTF Propo añadido es regular
   jd:jd644; los siete destinos con diferencias existentes se conservan.
