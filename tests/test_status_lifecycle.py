@@ -23,12 +23,13 @@ class StatusLifecycleTests(unittest.TestCase):
             backend.write_text(
                 f"#!{sys.executable}\n"
                 "import json, signal\n"
+                "sample = json.dumps([{'name': 'memory', 'full_text': '37%'}])\n"
                 "def frame(*_):\n"
-                " print(',[]', flush=True)\n"
+                " print(',' + sample, flush=True)\n"
                 "signal.signal(signal.SIGCONT, frame)\n"
                 "print(json.dumps({'version': 1}), flush=True)\n"
                 "print('[', flush=True)\n"
-                "print('[]', flush=True)\n"
+                "print(sample, flush=True)\n"
                 "while True: signal.pause()\n"
             )
             backend.chmod(0o755)
@@ -41,9 +42,10 @@ class StatusLifecycleTests(unittest.TestCase):
             buffer = b""
             header = None
             frames = 0
+            latest = None
 
             def read_until(wanted_frames):
-                nonlocal buffer, header, frames
+                nonlocal buffer, header, frames, latest
                 deadline = time.monotonic() + 3
                 while frames < wanted_frames and time.monotonic() < deadline:
                     ready, _, _ = select.select([process.stdout], [], [],
@@ -64,11 +66,13 @@ class StatusLifecycleTests(unittest.TestCase):
                             header = value
                         elif isinstance(value, list):
                             frames += 1
+                            latest = value
                 self.assertGreaterEqual(frames, wanted_frames)
 
             try:
                 read_until(1)
                 self.assertIsNotNone(header)
+                self.assertNotIn("memory", [b["name"] for b in latest])
                 for _ in range(3):
                     before = frames
                     os.killpg(process.pid, header.get("stop_signal", signal.SIGSTOP))
@@ -77,6 +81,15 @@ class StatusLifecycleTests(unittest.TestCase):
                     os.killpg(process.pid, header.get("cont_signal", signal.SIGCONT))
                     read_until(before + 1)
                     self.assertIsNone(process.poll(), "showing killed the launcher")
+                    # The producer is idle in signal.pause(): clicks must redraw
+                    # immediately without waiting for another producer frame.
+                    for expanded in (True, False):
+                        before = frames
+                        event = {"name": "stats_toggle", "instance": "secondary", "button": 1}
+                        process.stdin.write((json.dumps(event) + "\n").encode())
+                        process.stdin.flush()
+                        read_until(before + 1)
+                        self.assertEqual("memory" in [b["name"] for b in latest], expanded)
             finally:
                 for sig in (signal.SIGCONT, signal.SIGTERM):
                     try:
