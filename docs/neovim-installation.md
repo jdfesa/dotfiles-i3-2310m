@@ -24,7 +24,7 @@ El paquete Debian y su runtime quedan disponibles explícitamente en
 `/usr/bin/nvim`; no se reemplaza ningún archivo propiedad de dpkg. **APT no
 actualiza la copia de /opt**: revisar nuevas estables y sus cambios incompatibles,
 fijar nuevo URL/hash, probar y cambiar la selección en una operación manual.
-No actualizar MINI ni añadir `vim.pack`, LSP o servicios como efecto colateral.
+El binario es independiente del perfil [LazyVim setup](lazyvim-setup.md).
 
 ## Installation
 
@@ -103,8 +103,8 @@ son artefactos de instalación, no fuentes ni binarios para añadir a Git.
 ```sh
 command -v nvim
 nvim --version
-nvim --headless -i NONE -n \
-  '+lua assert(vim.fn.has("nvim-0.12")==1); assert(type(MiniFiles)=="table")' +qa!
+nvim --headless --clean -i NONE -n \
+  '+lua assert(vim.fn.has("nvim-0.12")==1)' +qa!
 view --headless -u NONE -i NONE -n '+lua assert(vim.o.readonly)' +qa!
 vimdiff --headless -u NONE -i NONE -n '+lua assert(vim.wo.diff)' +qa!
 for name in vi vim ex view vimdiff; do update-alternatives --query "$name"; done

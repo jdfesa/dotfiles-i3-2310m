@@ -301,19 +301,15 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   limitado a `code`; mantener sandbox, sin autostart ni extensiones de oficio.
 - Zathura con Poppler es el lector PDF predeterminado, con modo oscuro Mocha
   y portapapeles estándar. Helium conserva la web; Yazi conserva sus previews.
-- Neovim usa una configuración Lua modular pequeña y propia, sin distribución.
-  Separar opciones nativas, keymaps y autocomandos de las extensiones; ampliar
-  ajustes nativos o por tipo de archivo según necesidades concretas.
-- mini.files es el único módulo MINI habilitado inicialmente, instalado por
-  separado desde su versión oficial fijada, con ayuda y licencia conservadas.
-  Sin bootstrap de gestor de plugins, descargas ni actualizaciones automáticas
-  desde init.lua o al iniciar el editor.
+- LazyVim estable es el perfil predeterminado de Neovim. Fijar release y
+  revisiones de plugins; instalar bajo demanda sin comprobador periódico de
+  actualizaciones ni aprovisionamiento implícito de herramientas de lenguaje.
+  Conservar el perfil previo con mini.files sólo como recuperación.
 - Yazi limita los previews normales a texto/directorios y desactiva la precarga
-  multimedia. mini.files inicia sin preview ni proveedor de iconos, con borrado
-  no permanente; su papelera no es un backup versionado.
+  multimedia. Conservar su invocación de `nvim` y no cambiar las alternativas.
 - Añadir módulos, servidores LSP, watchers o auxiliares multimedia sólo para un
   flujo identificado y con revisión explícita de recursos, no porque existan.
   Las API de paquetes deben corresponder a la versión instalada de Neovim.
-- Mantener instalación, atajos, recuperación y estado actual en
-  docs/editor-and-files.md; los hashes fijados del código pertenecen al instalador
-  y las versiones verificadas a docs/dependencies.md, sin duplicar inventarios aquí.
+- Habilitar LSP de Python primero si hace falta; Java y web quedan para después.
+  Medir respuesta, CPU y RAM con Helium y carga real antes de ampliar el perfil.
+  Operación, recuperación y dependencias en docs/lazyvim-setup.md.

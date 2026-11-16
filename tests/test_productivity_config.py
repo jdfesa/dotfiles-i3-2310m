@@ -216,13 +216,32 @@ class ProductivityConfigurationTests(unittest.TestCase):
         self.assertIn("preview = false", text)
         self.assertNotIn("require('mini.icons')", text)
 
-    def test_manifest_symlink_scope_is_only_new_productivity_config(self):
+    def test_manifest_symlink_scope_is_only_yazi(self):
         items = json.loads((ROOT / "config/manifest.json").read_text())
         linked = [x for x in items if x.get("deployment") == "symlink"]
-        self.assertEqual(len(linked), 6)
-        for item in linked:
-            self.assertTrue(item["source"].startswith(("config/nvim/", "config/yazi/")))
-            self.assertTrue(item["destination"].startswith("/home/jd/.config/"))
+        self.assertEqual([(x["source"], x["destination"]) for x in linked],
+                         [("config/yazi/yazi.toml", "/home/jd/.config/yazi/yazi.toml")])
+
+    def test_lazyvim_default_uses_regular_copies_and_pins_plugin_revisions(self):
+        items = json.loads((ROOT / "config/manifest.json").read_text())
+        nvim = [x for x in items if x["destination"].startswith("/home/jd/.config/nvim/")]
+        self.assertEqual(nvim, [
+            {"source": "config/lazyvim/" + entry, "destination": "/home/jd/.config/nvim/" + entry,
+             "mode": 0o644} for entry in ("init.lua", "lazy-lock.json")])
+        base = ROOT / "config/lazyvim"
+        lock = json.loads((base / "lazy-lock.json").read_text())
+        self.assertEqual(lock["LazyVim"]["commit"], "0fa4a847929fc6beae40a3063615a58115678c34")
+        self.assertEqual(lock["lazy.nvim"]["commit"], "85c7ff3711b730b4030d03144f6db6375044ae82")
+        for entry in lock.values():
+            self.assertEqual(set(entry), {"branch", "commit"})
+            self.assertRegex(entry["commit"], r"^[0-9a-f]{40}$")
+        init = (base / "init.lua").read_text()
+        for option in ('tag = "v16.0.2"', 'BGH_LAZYVIM_SETUP == "1"', "missing = setup",
+                       "checker = { enabled = false }", "lua_ls = { enabled = false }",
+                       "opts.ensure_installed = {}"):
+            self.assertIn(option, init)
+        for unwanted in ("git clone", "lazyvim.plugins.extras.lang"):
+            self.assertNotIn(unwanted, init)
 
     @unittest.skipUnless(shutil.which("nvim"), "Neovim runtime validation needs nvim")
     def test_neovim_startup_with_isolated_state(self):

@@ -54,6 +54,8 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
   Reponer también el auxiliar y el inicio i3 de [Trackpad gestures](trackpad-gestures.md).
 - Audio USB: instalar módulo, perfil de salida y deslizador de
   [USB audio](audio-setup.md); no depende de un servidor de audio.
+- Editor: instalar el [Neovim oficial](neovim-installation.md) y provisionar
+  [LazyVim setup](lazyvim-setup.md) antes de activarlo como perfil predeterminado.
 - Brillo del panel interno: instalar el auxiliar y su integración i3 según
   [Screen brightness](status-bar.md#brightness-installation-and-recovery).
 - Helium: convertir clave pública ASCII a keyring binario y verificar fingerprint,
