@@ -5,6 +5,13 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### LazyVim
+
+- LazyVim estable pasa a ser el perfil predeterminado de Neovim 0.12; usa el
+  catálogo base de plugins fijado y Tree-sitter, sin extras ni instalación
+  automática de servidores de lenguaje. Se conservan Yazi, alternativas y
+  recuperación del perfil anterior. [LazyVim setup](docs/lazyvim-setup.md).
+
 ### Screen brightness
 
 - Añadido el indicador de brillo del panel interno y un deslizador GTK3

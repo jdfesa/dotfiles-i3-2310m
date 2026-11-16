@@ -67,8 +67,9 @@ temporales superados sólo después de verificarlo. Sin cambios no genera backup
 
 ## Symbolic links
 
-Neovim/Yazi usan seis enlaces por archivo con fuentes residentes, dry-run,
-conflictos y rollback privado. Procedimiento único en
+Yazi usa un enlace por archivo con fuente residente, dry-run,
+conflictos y rollback privado. LazyVim usa dos copias regulares.
+Procedimiento del enlace en
 [Editor and file management](editor-and-files.md). Los componentes anteriores
 siguen como copias; revisar sus divergencias antes de ampliar la migración.
 

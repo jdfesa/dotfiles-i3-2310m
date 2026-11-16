@@ -20,9 +20,8 @@ class DocumentationTests(unittest.TestCase):
         text = (ROOT / "AGENTS.md").read_text()
         for term in ("Registrar las decisiones duraderas", "## Productivity tools",
                      "Neovim estable oficial", "verificado con SHA256", "propiedad de root",
-                     "APT no actualiza", "Yazi", "Lua modular", "mini.files",
-                     "único módulo MINI habilitado inicialmente", "umask 022", "al iniciar el editor",
-                     "docs/editor-and-files.md"):
+                     "APT no actualiza", "Yazi", "LazyVim estable", "mini.files",
+                     "sin comprobador periódico", "umask 022", "docs/lazyvim-setup.md"):
             self.assertIn(term, text)
 
     def test_neovim_upstream_installation_is_pinned_and_recoverable(self):

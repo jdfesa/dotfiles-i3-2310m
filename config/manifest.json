@@ -320,34 +320,14 @@
     "mode": 420
   },
   {
-    "source": "config/nvim/init.lua",
+    "source": "config/lazyvim/init.lua",
     "destination": "/home/jd/.config/nvim/init.lua",
-    "mode": 420,
-    "deployment": "symlink"
+    "mode": 420
   },
   {
-    "source": "config/nvim/lua/config/options.lua",
-    "destination": "/home/jd/.config/nvim/lua/config/options.lua",
-    "mode": 420,
-    "deployment": "symlink"
-  },
-  {
-    "source": "config/nvim/lua/config/keymaps.lua",
-    "destination": "/home/jd/.config/nvim/lua/config/keymaps.lua",
-    "mode": 420,
-    "deployment": "symlink"
-  },
-  {
-    "source": "config/nvim/lua/config/autocmds.lua",
-    "destination": "/home/jd/.config/nvim/lua/config/autocmds.lua",
-    "mode": 420,
-    "deployment": "symlink"
-  },
-  {
-    "source": "config/nvim/lua/config/mini.lua",
-    "destination": "/home/jd/.config/nvim/lua/config/mini.lua",
-    "mode": 420,
-    "deployment": "symlink"
+    "source": "config/lazyvim/lazy-lock.json",
+    "destination": "/home/jd/.config/nvim/lazy-lock.json",
+    "mode": 420
   },
   {
     "source": "config/yazi/yazi.toml",

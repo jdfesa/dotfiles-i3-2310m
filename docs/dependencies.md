@@ -42,10 +42,14 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | RTK / Engram | 1.1.0 / 3.6.0 | Binarios de publicaciones oficiales |
 | Plugin Engram | 0.1.5, tag v3.6.0 | Marketplace oficial fijado |
 | Neovim / runtime | 0.12.6 | Archivo oficial Linux x86_64, SHA256 verificado; comprobado 2026-11-02; Debian 0.10.4-8 sólo para recuperación |
+| LazyVim / lazy.nvim | v16.0.2 / v11.17.5 | Publicaciones oficiales; commits de plugins en el lockfile; sin extras de lenguaje |
+| Tree-sitter CLI | 0.26.13 | Publicación oficial Linux x86_64, SHA256 verificado; GCC y cabeceras de Debian para parsers |
+| gcc / libc6-dev | 4:14.2.0-1 / 2.41-12+deb13u4 | Debian estable, sin recomendaciones |
+| ripgrep / fd-find | 14.1.1-1+b4 / 10.2.0-1+b5 | Debian estable; `rg` y `fdfind` para el buscador |
 | Zathura / Poppler plugin | 0.5.11-1 / 0.3.3-1 | Debian estable; comprobados 2026-11-16 en Xorg/i3 |
 | Visual Studio Code | 1.146.0-1794340865 | APT oficial de Microsoft, canal stable amd64; comprobado 2026-11-15 |
 | Yazi / Ya | 26.9.1-1 / 26.9.1 | APT oficial stable firmado; comprobado 2026-11-02 |
-| mini.files | v0.18.0, commit a5689dae6b732955e33eec225b798d6815063179 | Módulo oficial standalone, hashes fijados en tools/install-mini-files.py |
+| mini.files | v0.18.0, commit a5689dae6b732955e33eec225b798d6815063179 | Sólo recuperación del perfil anterior; hashes en tools/install-mini-files.py |
 
 Python 3 de Debian ejecuta la barra y los refrescos con biblioteca estándar.
 El [volumen USB](audio-setup.md) usa libasound mediante ctypes en el tick
@@ -108,8 +112,8 @@ El [PDF reader](pdf-reader.md) se instala por separado: usa `zathura` y
   separada de la configuración.
 - [RTK/Engram](development-tools.md): URLs y SHA256 fijados en
   `tools/install-user-tools.py`; sin compilación local.
-- [Editor y archivos](editor-and-files.md): Neovim estable oficial, Yazi APT stable
-  firmado y sólo mini.files fijado, sin recomendaciones ni descargas al inicio.
+- [Editor and file management](editor-and-files.md): Neovim oficial, perfil
+  [LazyVim setup](lazyvim-setup.md) y Yazi desde su APT stable firmado.
 - [Visual Studio Code](editor-and-files.md#visual-studio-code): APT estable
   firmado de Microsoft, restringido a `code`.
 

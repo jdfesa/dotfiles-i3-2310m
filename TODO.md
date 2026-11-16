@@ -60,8 +60,8 @@
 
 - [ ] Probar restauración completa sobre una instalación limpia.
 - [ ] Ampliar la migración de enlaces a componentes anteriores tras revisar
-  diferencias; el auxiliar con dry-run/backup/rollback sólo gestiona los seis
-  archivos nuevos de [Editor and file management](docs/editor-and-files.md).
+  diferencias; el auxiliar con dry-run/backup/rollback sólo gestiona Yazi
+  según [User links](docs/editor-and-files.md#user-links).
 - [ ] Agrupar fuentes heredadas sueltas de `config/` por componente; actualizar
   referencias/manifiesto y probar sin cambiar destinos a ciegas. Las nuevas
   herramientas ya usan carpetas propias.
@@ -86,9 +86,10 @@
 - [x] Instalar Neovim/Yazi y base Lua modular con sólo mini.files.
   [Editor and file management](docs/editor-and-files.md).
 - [ ] Seleccionar herramientas/stacks adicionales según proyectos concretos.
-- [ ] Comprobar comodidad visual y uso diario de Neovim/Yazi en la terminal local.
-- [ ] Medir carga de CPU, memoria y respuesta con tareas representativas antes
-  de incorporar LSP, watchers, contenedores u otros servicios.
+- [ ] Comprobar comodidad visual y uso diario de LazyVim/Yazi en Kitty y medir
+  arranque, CPU y RAM en un proyecto real con una o dos pestañas de Helium.
+- [ ] Si hace falta LSP, probar primero Python con un proyecto concreto; Java
+  y web después, de uno en uno. No instalar runtimes ni auxiliares por anticipado.
 - [ ] Comparar alternativas cuando exista un problema medido; no asumir que una
   CLI o un terminal diferente es automáticamente más ligero.
 
