@@ -5,6 +5,19 @@ Debian 13 with i3 on Xorg.
 
 **Hardware:** Intel Core i3-2310M · Intel HD 3000 · 8 GB RAM · 120 GB SATA SSD.
 
+## Desktop setup
+
+| Component | Configuration |
+| --- | --- |
+| Session | [i3 on Xorg](docs/i3-setup.md) from a console login, without a display manager or compositor. |
+| Bar | [i3bar and i3status](docs/status-bar.md): collapsible metrics, calendar, brightness, audio, and Wi-Fi. |
+| Terminal and shell | [Kitty](docs/kitty-setup.md), Bash, and tabs that inherit the current directory. |
+| Theme and fonts | Catppuccin Mocha with [JetBrains Mono Nerd Font](docs/apps-setup.md#fonts) and Noto Color Emoji. |
+| Launcher and power | Rofi application and power menus; [keyboard shortcuts](docs/keybindings.md). |
+| Files and editing | [Yazi and Neovim with LazyVim](docs/editor-and-files.md); Thunar and VS Code as graphical alternatives. |
+| Web and PDF | [Helium](docs/apps-setup.md#helium) and [Zathura with Poppler](docs/pdf-reader.md). |
+| Input and audio | [Magic Trackpad 2](docs/bluetooth-setup.md) with workspace gestures; [USB audio](docs/audio-setup.md) through ALSA. |
+
 ## Contents
 
 ```text
@@ -27,10 +40,8 @@ Debian 13 with i3 on Xorg.
 
 - **Configuration:** [files and destinations](config/README.md), [scripts](scripts/README.md), and [tools](tools/README.md).
 - **Installation:** [dependencies](docs/dependencies.md) and [restoration](docs/restore-guide.md).
-- **Desktop:** [i3](docs/i3-setup.md), [applications](docs/apps-setup.md),
-  [network](docs/wifi-setup.md), [Bluetooth and Magic Trackpad 2](docs/bluetooth-setup.md),
-  [keybindings](docs/keybindings.md), and [status bar](docs/status-bar.md).
-- **Development:** [editor and files](docs/editor-and-files.md), [Git](docs/git-workflow.md),
+- **Network:** [Network setup](docs/wifi-setup.md).
+- **Development:** [Git workflow](docs/git-workflow.md),
   [Codex](docs/codex-setup.md), and [RTK/Engram](docs/development-tools.md).
 - **Maintenance:** [verification](docs/mirror-status.md),
   [changelog](CHANGELOG.md), and [TODO](TODO.md).
