@@ -14,6 +14,6 @@
 - Never save credentials, session tokens, private keys, Wi-Fi secrets, raw
   histories, memory databases or private backups in a configuration repository.
 - Engram belongs to this machine and its projects. Do not import other machines'
-  memories or enable cloud synchronization without explicit approval.
+  memories or enable cloud synchronization without the owner's request.
 
 @/home/jd/.codex/RTK.md

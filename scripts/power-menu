@@ -2,6 +2,7 @@
 # On-demand Rofi power menu; no resident process.
 set -eu
 export LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+script_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 
 usage() {
     printf '%s\n' 'Usage: power-menu' '       power-menu --preview' '       power-menu --dry-run "Cancel|Lock|Suspend|Log out|Reboot|Power off"'
@@ -63,7 +64,7 @@ run() {
 
 power_action() {
     [ "$dry_run" -eq 1 ] || require kitty
-    run kitty --class BGH-Power --title 'Power action' --override=tab_bar_min_tabs=2 -e "$HOME/scripts/power-action.sh" "$1"
+    run kitty --class BGH-Power --title 'Power action' --override=tab_bar_min_tabs=2 -e "$script_dir/power-action.sh" "$1"
 }
 
 if [ "$dry_run" -ne 1 ] || [ "$preview" -eq 1 ]; then

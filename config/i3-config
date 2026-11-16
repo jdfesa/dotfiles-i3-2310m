@@ -1,5 +1,5 @@
 # Minimal i3 configuration for the BGH A470 (jd).
-# Super/Windows is the main modifier; no compositor or desktop autostart.
+# Super/Windows is the main modifier; no desktop environment autostart.
 set $mod Mod4
 font pango:JetBrainsMono Nerd Font Mono 10
 floating_modifier $mod
@@ -7,7 +7,7 @@ focus_follows_mouse no
 default_border pixel 2
 hide_edge_borders smart
 
-# Catppuccin Mocha without compositor effects.
+# Catppuccin Mocha; basic composition preserves the installed Kitty opacity.
 #                    border  background text    indicator child_border
 client.focused       #b4befe #45475a #cdd6f4 #b4befe #b4befe
 client.focused_inactive #313244 #1e1e2e #a6adc8 #313244 #313244
@@ -25,11 +25,14 @@ for_window [class="^BGH-Calendar$" instance="^bgh-calendar$"] floating enable, m
 for_window [class="^BGH-Trackpad-Speed$" instance="^bgh-trackpad-speed$"] floating enable
 for_window [class="^BGH-Resources$" instance="^bgh-resources$"] floating enable, resize set 960 560, move position center
 
+# Preserve the installed static Kitty background transparency.
+exec --no-startup-id /usr/bin/xcompmgr -n
+
 # One blocking XInput listener per display; no input-device permissions needed.
-exec --no-startup-id ~/scripts/trackpad-gestures.py
+exec --no-startup-id ~/dotfiles-i3-2310m/scripts/trackpad-gestures.py
 
 # Apply the default on initial login, not on reload or in-session restart.
-exec --no-startup-id ~/scripts/screen-brightness.py --set-percent 43
+exec --no-startup-id ~/dotfiles-i3-2310m/scripts/screen-brightness.py --set-percent 43
 
 # Set the wallpaper once, without running a background process.
 exec --no-startup-id /usr/bin/xwallpaper --zoom ~/.local/share/wallpapers/pixel-car.png
@@ -38,10 +41,10 @@ exec --no-startup-id /usr/bin/xwallpaper --zoom ~/.local/share/wallpapers/pixel-
 bindsym $mod+Return exec --no-startup-id kitty
 bindsym $mod+space exec --no-startup-id rofi -show drun
 bindsym $mod+d exec --no-startup-id rofi -show drun
-bindsym $mod+n exec --no-startup-id ~/scripts/open-networks.sh
-bindsym $mod+a exec --no-startup-id ~/scripts/open-mixer.sh
-bindsym $mod+u exec --no-startup-id ~/scripts/open-updates.sh
-bindsym $mod+Shift+p exec --no-startup-id ~/scripts/power-menu
+bindsym $mod+n exec --no-startup-id ~/dotfiles-i3-2310m/scripts/open-networks.sh
+bindsym $mod+a exec --no-startup-id ~/dotfiles-i3-2310m/scripts/open-mixer.sh
+bindsym $mod+u exec --no-startup-id ~/dotfiles-i3-2310m/scripts/open-updates.sh
+bindsym $mod+Shift+p exec --no-startup-id ~/dotfiles-i3-2310m/scripts/power-menu
 bindsym $mod+Shift+Return exec --no-startup-id helium
 bindsym $mod+Shift+b exec --no-startup-id helium
 bindsym $mod+k exec --no-startup-id rofi -dmenu -i -p 'Shortcuts' < ~/.config/i3/keybindings-help.txt >/dev/null
@@ -124,7 +127,7 @@ mode "resize" {
 
 bar {
     position top
-    status_command ~/scripts/status-clicks.py
+    status_command ~/dotfiles-i3-2310m/scripts/status-clicks.py
     font pango:JetBrainsMono Nerd Font Mono 10
     workspace_buttons yes
     workspace_min_width 24

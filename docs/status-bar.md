@@ -4,7 +4,7 @@
 
 i3bar superior, opaca y compacta, Catppuccin Mocha; texto **JetBrainsMono Nerd Font
 Mono Regular 10**, iconos de clima/métricas/brillo/audio/batería/Bluetooth/trackpad **Propo Regular 12**.
-Sin blur/compositor. Sólo workspaces existentes, manteniendo
+Barra opaca, sin blur ni efectos. Sólo workspaces existentes, manteniendo
 los diez accesibles por teclado. Textos en inglés, hora 24 h y temperaturas °C.
 
 Los pictogramas Propo conservan su proporción sin comprimirse en una celda Mono.
@@ -70,9 +70,8 @@ umask 022
 python3 -m unittest discover -s tests -p test_battery_status.py
 python3 -m unittest discover -s tests -p 'test_status*.py'
 i3status -c config/i3status-config --run-once
-install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
-install -m 644 config/i3status-config "$HOME/.config/i3status/config"
-cmp scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
+python3 tools/link-user-config.py  # Apply links using User configuration links.
+python3 tools/verify-mirror.py --remote --check
 cmp config/i3status-config "$HOME/.config/i3status/config"
 i3-msg restart
 ```
@@ -132,8 +131,7 @@ dependencias del adaptador y [Status panels](status-panels.md) ya instaladas:
 ```sh
 umask 022
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p test_screen_brightness.py
-install -m 755 scripts/screen-brightness.py scripts/status-panel.py scripts/status-clicks.py "$HOME/scripts/"
-install -m 644 config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
+python3 tools/link-user-config.py  # Apply links using User configuration links.
 ```
 
 Añadir la regla `BGH-Screen-Brightness`/`bgh-screen-brightness` y el
@@ -145,7 +143,7 @@ con el manifiesto. Ejecutar `i3-msg restart` en la sesión vigente para renovar
 el adaptador conservando las ventanas. Comprobar el sol, el anclaje, un paso en
 cada dirección y el segundo clic; devolver el brillo a su valor anterior.
 Para comprobar el valor inicial sin salir de la sesión, ejecutar desde ella
-`~/scripts/screen-brightness.py --set-percent 43` y verificar que el indicador
+`~/dotfiles-i3-2310m/scripts/screen-brightness.py --set-percent 43` y verificar que el indicador
 muestra 43 % en el próximo tick.
 
 Para revertir, cerrar el panel, restaurar sólo los destinos respaldados y retirar
@@ -217,57 +215,33 @@ La lista Super+U también es de sólo lectura. Fuentes y ciclo de vida:
 Usa i3bar/i3status, Python 3 estándar, `libsystemd0` y `libasound2t64`; procedencia y versiones en
 [Dependencies](dependencies.md). En una instalación nueva, instalar primero las
 fuentes Mono, BGH y sus licencias según [Fonts](apps-setup.md#fonts).
-El TTF Propo es un archivo regular en [manifest.json](../config/manifest.json), sin enlaces.
+El TTF Propo se enlaza a la fuente pública de [manifest.json](../config/manifest.json).
 Instalar antes el módulo, lector/licencia, regla limitada y auxiliar de velocidad de
 [Bluetooth and Magic Trackpad 2](bluetooth-setup.md#indicator-installation-and-recovery);
 el adaptador actualizado los necesita. Esa guía cubre también su recuperación.
 Instalar también el módulo/perfil y panel de [USB audio](audio-setup.md#installation)
 y el auxiliar de [Screen brightness](#brightness-installation-and-recovery)
 antes de renovar el adaptador.
-Desde la raíz, como `jd`, respaldar los archivos afectados fuera del repositorio:
-
-```sh
-umask 022
-mkdir -p "$HOME/.local/state/bgh-config-backups"
-backup=$(mktemp -d "$HOME/.local/state/bgh-config-backups/bar-XXXXXXXX")
-(umask 077
- cp -- "$HOME/scripts/status-clicks.py" "$backup/status-clicks.py"
- cp -- "$HOME/.config/i3/keybindings-help.txt" "$backup/keybindings-help.txt"
- if [ -e "$HOME/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf" ]; then
-     cp -- "$HOME/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf" "$backup/propo.ttf"
- fi)
-```
-
-Con el respaldo comprobado, validar e instalar las fuentes. Conservar las
-diferencias de `~/.config/i3/config` al añadir las reglas de paneles; no
-reemplazar toda la configuración activa para modificar la barra.
+Los archivos públicos de usuario se enlazan al checkout siguiendo
+[User configuration links](user-config-links.md). Los scripts se ejecutan desde
+el repositorio; no se copian a otro directorio. Reconciliar las diferencias del
+archivo i3 antes de enlazarlo. Las fuentes TTF y sus licencias usan enlaces por
+archivo; normalizar sólo los modos públicos declarados en el manifiesto.
 
 ```sh
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_status*.py' -q
 i3 -C -c "$HOME/.config/i3/config"
-install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
-install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
-install -m 644 config/fonts/jetbrains-mono-nerd-font-propo-regular.ttf "$HOME/.local/share/fonts/"
+python3 tools/link-user-config.py
 fc-cache "$HOME/.local/share/fonts"
 fc-match 'JetBrainsMono Nerd Font Propo'
-cmp scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
-cmp config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
-cmp config/fonts/jetbrains-mono-nerd-font-propo-regular.ttf "$HOME/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf"
-stat -c '%a %U:%G %n' "$HOME/scripts/status-clicks.py" "$HOME/.config/i3/keybindings-help.txt" \
-  "$HOME/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf"
-i3-msg restart
+python3 tools/verify-mirror.py --remote --check
 ```
 
-Esperado: `jd:jd`, adaptador 755, ayuda y TTF 644; fontconfig debe resolver
-Propo al TTF instalado. El restart de i3 renueva el adaptador y
-conserva las ventanas. Comprobar ambos estados con el chevrón y la ayuda con
-Super+K. Un reload puede conservar el proceso anterior.
-
-Para revertir, seleccionar el respaldo privado revisado e instalar el adaptador
-y la ayuda con sus modos anteriores. Restaurar `propo.ttf` al destino si existía;
-si antes estaba ausente, retirar sólo el TTF añadido después de restaurar el
-adaptador. Ejecutar `fc-cache "$HOME/.local/share/fonts"` e `i3-msg restart`.
-La recuperación no requiere cerrar la sesión ni restaurar otros archivos.
+Renovar i3 conservando las ventanas cuando deba cambiar el adaptador residente;
+un reload puede mantener el productor anterior. Comprobar ambos estados con el
+chevrón y la ayuda con Super+K. Para revertir los enlaces, usar el journal de la
+migración; para revertir comportamiento, cambiar las fuentes mediante Git.
+No cerrar la sesión ni restaurar otros archivos para recuperar la barra.
 
 ## Verification
 
@@ -288,7 +262,7 @@ limpia ni a una medida de consumo sostenido.
 
 ## Troubleshooting
 
-- Muestra acotada: `~/scripts/status-clicks.py --run-once`.
+- Muestra acotada: `~/dotfiles-i3-2310m/scripts/status-clicks.py --run-once`.
 - Error tras fullscreen: conservar SIGSTOP/SIGCONT del protocolo; i3bar señaliza
   todo el grupo. No anunciar USR1/USR2 ni desactivar la pausa con stop_signal=0.
 - Si un reload conserva el adaptador antiguo, `i3-msg restart` renueva i3bar

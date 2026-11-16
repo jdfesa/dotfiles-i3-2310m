@@ -9,6 +9,10 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 - Retirado el generador de la copia secundaria: el checkout y GitHub conservan
   las fuentes públicas, sin exportar otro árbol de configuración.
+- La configuración pública de usuario usa enlaces por archivo al checkout;
+  los scripts se ejecutan desde él. Se conservan los ajustes públicos instalados
+  de Kitty y MIME; el estado privado generado de Codex no se enlaza a Git.
+  [User configuration links](docs/user-config-links.md).
 
 
 ### Thunar dark theme

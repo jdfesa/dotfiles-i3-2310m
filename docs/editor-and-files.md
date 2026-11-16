@@ -1,5 +1,9 @@
 # Editor and file management
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Current state
 
 Neovim usa [LazyVim setup](lazyvim-setup.md) como perfil predeterminado.
@@ -35,19 +39,16 @@ papelera y volúmenes no forman parte de esta instalación mínima.
 #### Installation
 
 Como `jd`, revisar y respaldar en privado los dos destinos del
-[manifest.json](../config/manifest.json) antes de instalar sus copias regulares
-con modo644. Si un destino no existía, registrar esa ausencia para la reversión.
+[manifest.json](../config/manifest.json) antes de enlazar sus fuentes con modo644.
+Aplicar [User configuration links](user-config-links.md), que registra también
+los destinos ausentes para la reversión.
 
 ```sh
 apt-get -s install --no-install-recommends thunar
 sudo apt-get install --no-install-recommends thunar
 
 desktop-file-validate config/thunar/thunar.desktop
-install -d -m 755 "$HOME/.local/share/applications" \
-  "$HOME/.config/systemd/user/thunar.service.d"
-install -m 644 config/thunar/thunar.desktop "$HOME/.local/share/applications/thunar.desktop"
-install -m 644 config/thunar/10-dark-theme.conf \
-  "$HOME/.config/systemd/user/thunar.service.d/10-dark-theme.conf"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
 systemctl --user daemon-reload
 ```
 
@@ -193,27 +194,10 @@ no se añaden aliases ni se cambia `$EDITOR` o la alternativa global `editor`.
 
 ### User links
 
-`tools/link-user-config.py` sólo selecciona entradas con `deployment=symlink`:
-sólo la configuración de Yazi en este perfil. El resto del manifiesto permanece intacto.
-
-```sh
-umask 022
-# Tras revisar las fuentes públicas, normalizar también un checkout anterior.
-chmod 644 config/yazi/yazi.toml
-python3 tools/link-user-config.py                    # revisar el plan completo
-backup="$HOME/.local/state/bgh-config-backups/productivity-$(date -u +%Y%m%dT%H%M%SZ)"
-python3 tools/link-user-config.py --apply --backup-dir "$backup"
-python3 tools/link-user-config.py                    # todos unchanged
-```
-
-Rechaza fuentes/destinos inseguros, padres enlazados, archivos diferentes y
-enlaces distintos/rotos. Una copia regular idéntica puede migrarse tras backup.
-También rechaza una fuente con modo incorrecto: Git no conserva los bits de
-lectura/escritura 644 frente a 664. No omitir esta comprobación después de un pull.
-El directorio de respaldo debe ser nuevo, externo y privado; el journal600
-registra destinos ausentes o copias anteriores. No sustituye una revisión de
-preferencias de aplicaciones. Los enlaces tienen modo de sistema 777; el
-manifiesto exige 644 al archivo fuente y propiedad de la cuenta en ambos.
+La configuración pública de usuario, incluido Yazi y los dos archivos de
+LazyVim, se enlaza por archivo al único checkout. Instalación, dry-run, conflictos
+y rollback en [User configuration links](user-config-links.md). El perfil Lua
+anterior queda como fuente de recuperación; no se instala sobre LazyVim.
 
 ## Operation
 

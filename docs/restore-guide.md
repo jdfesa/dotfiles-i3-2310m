@@ -35,11 +35,12 @@ La identidad y autenticación Git se reconstruyen por separado siguiendo
 Los campos `source` del manifiesto son relativos a la raíz; `destination` es
 la ruta real y `mode` el permiso Unix expresado en decimal.
 
-- Como cuenta de sesión: configuración i3/Rofi/Kitty, fuentes, desktop entries y
-  scripts en `~/scripts/` (755). Ejemplo para **un destino ya revisado/respaldado**:
+- Como cuenta de sesión: enlazar configuración i3/Rofi/Kitty, fuentes y desktop
+  entries mediante [User configuration links](user-config-links.md), después de
+  revisar todas las diferencias. Los scripts se ejecutan desde el checkout:
 
   ```sh
-  install -D -m 755 scripts/power-menu "$HOME/scripts/power-menu"
+python3 tools/link-user-config.py  # Apply links using User configuration links.
   ```
 
 - `config/profile` es un modelo completo; combinar con personalizaciones de
@@ -56,13 +57,13 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
   [USB audio](audio-setup.md); no depende de un servidor de audio.
 - Editor: instalar el [Neovim oficial](neovim-installation.md) y provisionar
   [LazyVim setup](lazyvim-setup.md) antes de activarlo como perfil predeterminado.
-- Fondo de i3: instalar `xwallpaper` y copiar la imagen de
+- Fondo de i3: instalar `xwallpaper` y enlazar la imagen de
   [Wallpaper](i3-setup.md#wallpaper).
 - Brillo del panel interno: instalar el auxiliar y su integración i3 según
   [Screen brightness](status-bar.md#brightness-installation-and-recovery).
 - Helium: convertir clave pública ASCII a keyring binario y verificar fingerprint,
   no comparar hashes entre formatos. Seguir `apps-setup.md`.
-- Fuentes: copiar los TTF/licencias locales y restaurar el paquete Debian de
+- Fuentes: enlazar los TTF/licencias locales y restaurar el paquete Debian de
   emoji; comprobar el render según [Fonts](apps-setup.md#fonts).
 - Lector PDF: instalar Zathura y registrar sólo `application/pdf` según
   [PDF reader](pdf-reader.md), sin reemplazar `mimeapps.list` completo.
@@ -71,15 +72,15 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
 - GRUB: instalar el drop-in sólo en hardware afectado, regenerar/validar GRUB;
   no instalar la unidad Wi-Fi diagnóstica de referencia.
 
-Después de copiar unidades de usuario:
+Después de enlazar las unidades de usuario:
 
 ```sh
 systemctl --user daemon-reload
 systemctl --user enable --now weather-refresh.timer packages-refresh.timer
 ```
 
-Los enlaces de timers/binarios creados por sus instaladores no equivalen a una
-migración general de dotfiles a symlinks. Esa migración sigue pendiente.
+Las unidades de usuario también se enlazan al checkout. Sus enlaces de
+habilitación en `timers.target.wants/` siguen gestionados por systemd.
 
 ## Verification
 
@@ -87,15 +88,15 @@ migración general de dotfiles a symlinks. Esa migración sigue pendiente.
 i3 -C -c ~/.config/i3/config
 sh -n ~/.profile
 sh -n ~/.xinitrc
-~/scripts/status-clicks.py --run-once
-~/scripts/power-menu --preview
+~/dotfiles-i3-2310m/scripts/status-clicks.py --run-once
+~/dotfiles-i3-2310m/scripts/power-menu --preview
 systemctl --user status weather-refresh.timer packages-refresh.timer --no-pager
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -q
 ```
 
 Ejecutar tests desde una copia del proyecto; los comandos anteriores son para
-Debian. `tools/verify-mirror.py` compara **SHA256**, no permisos/propietarios:
-comprobar estos últimos aparte con `stat` contra el manifiesto.
+Debian. `tools/verify-mirror.py --remote --check` comprueba contenidos, enlaces,
+propietarios y modos; excluye los overlays de estado privado del manifiesto.
 Verificar ventanas, atajos y datos reales; no inferir funcionamiento GUI de un
 parser correcto. Coordinar cualquier prueba física de energía, red o tapa.
 

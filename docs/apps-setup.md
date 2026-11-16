@@ -3,13 +3,17 @@
 Dependencias y versiones: [dependencies.md](dependencies.md).
 Aplicar cambios con respaldo previo según [restore-guide.md](restore-guide.md).
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Terminal and launcher
 
 Kitty y Rofi proceden de Debian, instalados sin recomendaciones. Kitty fue
 probado en Intel HD 3000 con i915/Mesa, OpenGL core 3.3 y renderizado acelerado;
 no se fuerza renderizado software. `xfce4-terminal` queda como alternativa.
 
-- `config/kitty.conf` → `~/.config/kitty/kitty.conf`: Mocha opaco, Regular 11,
+- `config/kitty.conf` → `~/.config/kitty/kitty.conf`: Mocha al 85%, Regular 11,
   ligaduras y animación de cursor desactivadas; `repaint_delay 20`.
   Pestañas y directorio activo en [Kitty setup](kitty-setup.md).
 - `config/rofi-config.rasi` → `~/.config/rofi/config.rasi`: Regular 11,
@@ -76,9 +80,7 @@ Mono Regular se utiliza en el texto de barra (10), Rofi/Kitty (11);
 Propo Regular en iconos de barra (12). Bold no se fuerza en la barra.
 
 ```sh
-install -d "$HOME/.local/share/fonts/bgh-font-licenses"
-install -m 644 config/fonts/*.ttf config/bgh-status-icons.ttf "$HOME/.local/share/fonts/"
-install -m 644 config/fonts/OFL.txt config/fonts/UPSTREAM.md "$HOME/.local/share/fonts/bgh-font-licenses/"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
 fc-cache "$HOME/.local/share/fonts"
 fc-match 'JetBrainsMono Nerd Font Mono'
 fc-match 'JetBrainsMono Nerd Font Propo'

@@ -5,11 +5,11 @@ enlazan a i3 ni se habilitan en el arranque. No confundirlas con `scripts/`.
 
 | Fuente | Función / precaución |
 |---|---|
-| `tools/verify-mirror.py` | Imprime SHA256 de fuentes; `--remote` lee destinos del manifiesto. No comprueba propietario/modo |
+| `tools/verify-mirror.py` | SHA256 de fuentes/destinos; `--remote --check` verifica contenido, enlaces, propietario/modo y ejecución desde el checkout; omite overlays privados |
 | `tools/verify-power-session.sh` | Terminal física: autorización y systemctl sólo --dry-run, con inhibidor block temporal 8 s; sin lock/energía real |
 | `tools/install-user-tools.py` | Instala RTK/Engram oficiales fijados, Linux amd64 sin root; no reemplaza binarios distintos |
 | `tools/install-mini-files.py` | Dry-run por defecto; instala sólo módulo/ayuda/licencia fijados; `--check` sin red; no reemplaza diferencias |
-| `tools/link-user-config.py` | Dry-run por defecto; sólo entradas `deployment=symlink`, backup privado externo y rollback; nunca root/sistema |
+| `tools/link-user-config.py` | Enlaces por archivo, dry-run, reemplazo atómico, revisión exacta de diferencias y rollback privado; nunca root/sistema |
 | `tools/build-status-icons.py` | Genera cinco glifos Wi-Fi originales con fontTools; sólo entorno de desarrollo |
 | `tools/capture-bar.py` | X11: PPM de los 32 píxeles superiores en stdout; guardar captura fuera del árbol |
 | `tools/probe-wifi-keys.py` | Captura acotada y filtrada Fn/F11/radio; requiere coordinación y acceso explícito a dispositivos; sin inyección |

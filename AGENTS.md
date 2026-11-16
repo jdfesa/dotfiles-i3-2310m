@@ -95,6 +95,10 @@
   inglés como type/description-in-kebab-case (feat/, fix/, docs/, chore/), sin
   prefijos de herramientas. Revisar primero los cambios existentes y conservar
   el trabajo en curso.
+- Los enlaces activos siguen el contenido del checkout. Tras integrar un PR,
+  actualizar primero la referencia local de main por fast-forward desde GitHub
+  y comprobar las fuentes antes de cambiar de rama; no pasar temporalmente por
+  un main antiguo ni por una rama que reponga rutas ya retiradas.
 - Hacer un commit por bloque coherente y validado, preparando el índice con una
   lista explícita de archivos permitidos. Redactar asunto y cuerpo íntegramente
   en inglés con Conventional Commits: type(scope): description; el ámbito es
@@ -143,7 +147,9 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   escritorio completo ni compositor sin aprobación explícita. Super+Space abre
   el lanzador; Super+Enter, la terminal; barra superior. Actualizar
   docs/keybindings.md y la ayuda visible al cambiar atajos.
-- Catppuccin Mocha compacto y opaco; texto de barra JetBrainsMono Nerd Font Mono
+- Catppuccin Mocha con barra compacta y opaca; Kitty conserva su opacidad
+  estática 85% con xcompmgr básico, sin blur ni efectos adicionales.
+  Texto de barra JetBrainsMono Nerd Font Mono
   Regular 10 e iconos de clima/métricas/audio/batería Propo Regular 12. Wi-Fi conserva
   BGH Status Icons 12. Bold está instalada, pero no se fuerza. Mostrar escritorios existentes.
 - Los fondos versionados van en `wallpapers/`. i3 aplica la imagen instalada

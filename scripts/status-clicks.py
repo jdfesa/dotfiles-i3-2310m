@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 import re
 import selectors
+import shlex
 import signal
 import subprocess
 import sys
@@ -246,7 +247,9 @@ def handle_click(event, view=None):
                 helper += f" {anchor[0]} {anchor[1]}"
     if helper:
         # Only allowlisted helper names; never interpret event strings/SSID.
-        subprocess.run(["i3-msg", f"exec --no-startup-id ~/scripts/{helper}"],
+        executable, *arguments = helper.split()
+        command = shlex.join([str(Path(__file__).resolve().with_name(executable)), *arguments])
+        subprocess.run(["i3-msg", f"exec --no-startup-id {command}"],
                        stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                        stderr=subprocess.DEVNULL, timeout=3, check=True)
     return False
@@ -271,7 +274,7 @@ def main(run_once=False):
         position = None if run_once else position_module.PositionMemory()
     except OSError:
         position = None
-    source = Path.home() / "scripts/status-bar.sh"
+    source = Path(__file__).resolve().with_name("status-bar.sh")
     child = subprocess.Popen([str(source)] + (["--run-once"] if run_once else []),
                              stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, bufsize=0)
     def terminate(*_):

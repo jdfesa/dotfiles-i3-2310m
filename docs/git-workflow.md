@@ -131,9 +131,9 @@ enlazados activos sin evaluar su efecto. Con el checkout limpio y seguro:
 ```sh
 umask 022
 git status --short --branch
-git switch main
-git pull --ff-only
-git switch -c docs/refine-readme
+git fetch origin
+git diff HEAD..origin/main -- config scripts wallpapers
+git switch --no-track -c docs/refine-readme origin/main
 ```
 
 Si ya hay una rama de trabajo para el mismo bloque, continuar en ella tras
@@ -174,6 +174,21 @@ reescribir historial. Si hay divergencia o rechazo, revisar la causa preservando
 el trabajo. Tras la integración aprobada, actualizar la copia de la otra máquina
 con `git pull --ff-only` desde `main` y con el checkout revisado.
 
+Con archivos enlazados al checkout, volver a un `main` local antiguo modifica
+también las fuentes activas. Después del merge aprobado, permanecer en la rama
+de trabajo limpia y actualizar primero la referencia local por fast-forward:
+
+```sh
+git fetch origin refs/heads/main:refs/heads/main
+git diff --exit-code HEAD main -- config scripts wallpapers
+git switch main
+```
+
+El fetch rechaza una actualización no fast-forward. Si la comparación muestra
+cambios, revisarlos antes de cambiar de rama; no forzar ni restaurar fuentes
+viejas para completar la limpieza. Eliminar la rama de trabajo sólo después de
+verificar que su commit está integrado.
+
 ## Reproducibility and deployment
 
 Cada componente debe poder reinstalarse desde las fuentes versionadas y su guía:
@@ -189,8 +204,8 @@ recuperar un disco perdido. Los datos sensibles necesitan un respaldo privado
 independiente si se requiere esa recuperación; nunca se publican en GitHub.
 
 Git sincroniza las fuentes, no sustituye su [despliegue validado](restore-guide.md).
-La migración general de enlaces sigue pendiente; Neovim/Yazi usan ya el
-[despliegue acotado](editor-and-files.md). Los archivos de sistema se instalan
+La configuración pública de usuario usa [User configuration links](user-config-links.md).
+Los scripts se ejecutan desde el checkout y los archivos de sistema se instalan
 por separado. Un pull puede cambiar directamente un archivo enlazado; revisar
 los cambios antes y recargar sólo la aplicación afectada, no la sesión completa.
 

@@ -39,6 +39,21 @@ Como `jd`, desde la raíz:
 
 ```sh
 umask 022
+python3 - <<'PY'
+import json
+import os
+from pathlib import Path
+import subprocess
+
+root = Path.cwd().resolve()
+tracked = set(subprocess.check_output(["git", "ls-files", "-z"]).decode().split("\0"))
+for entry in json.loads((root / "config/manifest.json").read_text()):
+    source = root / entry["source"]
+    assert entry["source"] in tracked
+    assert source.is_file() and not source.is_symlink() and source.resolve() == source
+    assert source.stat().st_uid == os.getuid()
+    source.chmod(entry["mode"])
+PY
 python3 tools/link-user-config.py
 backup="$HOME/.local/state/bgh-config-backups/links-$(date -u +%Y%m%dT%H%M%SZ)"
 python3 tools/link-user-config.py --apply --backup-dir "$backup"
@@ -47,10 +62,31 @@ python3 tools/link-user-config.py
 
 El primer comando sólo prepara el plan. El auxiliar rechaza archivos distintos,
 enlaces inesperados, padres enlazados y fuentes con propietario/modo incorrecto.
-Sólo sustituye copias regulares idénticas o crea destinos ausentes. Antes de
+Por defecto sólo sustituye copias regulares idénticas o crea destinos ausentes. Antes de
 reemplazar guarda copias y un journal en un directorio nuevo y privado700,
 externo al checkout. Los archivos privados quedan600. El resultado esperado
 en la segunda revisión es `unchanged` para todos los enlaces.
+
+### Reviewed differences
+
+Si un destino difiere, revisar su contenido y recuperar primero los ajustes
+públicos útiles en la fuente. Para una sustitución deliberada, un JSON privado
+puede registrar el estado exacto revisado, con el nombre `source` como clave.
+Una entrada regular usa `kind=file`, su `sha256` y `mode` decimal; un enlace usa
+`kind=link` y su `target`. Guardarlo fuera del checkout con modo600. No registrar
+ni aprobar archivos de autenticación o estado privado.
+
+```sh
+python3 tools/link-user-config.py --reviewed-differences "$review_file"
+python3 tools/link-user-config.py --reviewed-differences "$review_file" \
+  --apply --backup-dir "$backup"
+```
+
+La revisión no equivale a sobrescribir cualquier diferencia: si cambian el
+contenido, modo o destino del enlace revisado, el auxiliar se detiene. El journal
+permite restaurar también el enlace anterior, sin modificar su archivo destino.
+La sustitución por el enlace nuevo es atómica. Retirar el JSON de revisión cuando
+ya no sea necesario; la siguiente comprobación normal no necesita esa opción.
 
 Instalar la configuración de sistema por separado según su guía. Después de
 cambiar las unidades de usuario, ejecutar `systemctl --user daemon-reload`.
@@ -88,6 +124,9 @@ python3 tools/link-user-config.py --rollback "$backup/journal.json"
 ```
 
 El auxiliar verifica los hashes y el destino del enlace antes de restaurar.
+Si la migración también retiró rutas antiguas de ejecución, restaurar primero
+sus auxiliares desde el archivo privado revisado `legacy-runtime.tar`; el
+journal de enlaces no recrea por sí solo un directorio de scripts retirado.
 Para revertir contenido ya publicado, usar el flujo de ramas y PR habitual;
 no reescribir `main` ni reemplazar el checkout completo.
 
