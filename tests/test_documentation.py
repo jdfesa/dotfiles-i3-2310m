@@ -134,7 +134,7 @@ class DocumentationTests(unittest.TestCase):
                      'git diff --cached', 'origin/main..HEAD'):
             self.assertIn(term, guide)
         self.assertIn('GitHub es la fuente de verdad', guide)
-        self.assertIn('tools/sync-secondary.py --check',
+        self.assertIn('único checkout',
                       (ROOT / 'docs/repository-layout.md').read_text())
 
     def test_licenses_preserve_original_and_third_party_scope(self):

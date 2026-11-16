@@ -182,10 +182,11 @@ manifiesto, instalación, comprobaciones y recuperación. No depender de pasos
 manuales sin documentar ni versionar caches, credenciales o estado privado.
 La restauración limpia sigue siendo una validación pendiente independiente.
 
-Tras validar el checkout vigente en la portátil, regenerar su copia secundaria
-con el [procedimiento de snapshot](repository-layout.md#secondary-snapshot).
-No editarla ni conservar allí guías/estados anteriores. Un respaldo privado de
-recuperación se mantiene fuera de los árboles activos, no como otra fuente.
+El checkout de la portátil es la única fuente pública local. Publicar sus cambios
+en GitHub; no exportar otro árbol de configuración ni conservar guías paralelas.
+Los respaldos privados temporales sirven para deshacer un despliegue, no para
+recuperar un disco perdido. Los datos sensibles necesitan un respaldo privado
+independiente si se requiere esa recuperación; nunca se publican en GitHub.
 
 Git sincroniza las fuentes, no sustituye su [despliegue validado](restore-guide.md).
 La migración general de enlaces sigue pendiente; Neovim/Yazi usan ya el

@@ -5,6 +5,12 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### Configuration sources
+
+- Retirado el generador de la copia secundaria: el checkout y GitHub conservan
+  las fuentes públicas, sin exportar otro árbol de configuración.
+
+
 ### Thunar dark theme
 
 - La activación D-Bus de Thunar desde el navegador aplica `Adwaita:dark`

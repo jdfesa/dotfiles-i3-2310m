@@ -234,7 +234,7 @@ vez. No apagar el controlador ni detener el servicio si atiende otros dispositiv
 
 `/etc/bluetooth/` conserva los archivos del paquete; `/var/lib/bluetooth/`
 es estado privado de root con claves de enlace,
-fuera del repositorio y del snapshot. Direcciones, números de serie y nombres
+fuera del repositorio. Direcciones, números de serie y nombres
 personales tampoco se publican. Una reinstalación requiere nuevo emparejamiento;
 Git no restaura esas claves.
 

@@ -30,7 +30,7 @@
 - Se mantienen preferencias de mimeapps/Codex fuera del baseline público mínimo.
   También difieren i3, power-menu, README de scripts y lanzador Codex.
   No se reemplazan archivos ajenos a la barra para forzar hashes.
-- La batería cubre configuración, instalación, rollback, snapshot secundario,
+- La batería cubre configuración, instalación, rollback,
   arranque Yazi en pseudoterminal y operaciones mini.files en fixtures aislados.
   La ejecución con el módulo instalado se realiza en Debian; el host de
   administración omite esa prueba si no tiene el módulo.
@@ -42,16 +42,15 @@
 - Comodidad visual local, carga representativa con navegador y restauración
   limpia pendientes; no se infieren de estas pruebas.
 
-## Source and secondary snapshot
+## Source and deployment
 
-GitHub es la fuente de verdad y sincroniza los checkouts mediante commit/push/pull.
-SSH administra/despliega y transfiere únicamente el material privado necesario.
-La portátil es el destino principal de validación.
+GitHub es la fuente de verdad y sincroniza el único checkout local mediante
+commit/push/pull. SSH administra/despliega y transfiere únicamente el material
+privado necesario. La portátil es el destino principal de validación.
 
-La copia secundaria se regenera del commit limpio: mismos archivos, contenidos y
-modos, sin guías antiguas ni caches/metadatos de transferencia. No se mantiene como
-otro árbol editable ni se conservan divergencias históricas. Procedimiento y
-baseline privado externo en [Repository layout](repository-layout.md#secondary-snapshot).
+Los destinos públicos de usuario se enlazan al checkout y los scripts se
+invocan desde él. Las excepciones privadas y la instalación regular root se
+describen en [User configuration links](user-config-links.md).
 
 ## Verification commands
 
@@ -64,7 +63,6 @@ NVIM_TEST_MINI_FILES="$HOME/.local/share/nvim/site/pack/vendor/start/mini.files"
 python3 tools/install-mini-files.py --check
 python3 tools/link-user-config.py
 python3 tools/verify-mirror.py --remote
-python3 tools/sync-secondary.py --check
 dpkg --audit
 ```
 

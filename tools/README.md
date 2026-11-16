@@ -10,7 +10,6 @@ enlazan a i3 ni se habilitan en el arranque. No confundirlas con `scripts/`.
 | `tools/install-user-tools.py` | Instala RTK/Engram oficiales fijados, Linux amd64 sin root; no reemplaza binarios distintos |
 | `tools/install-mini-files.py` | Dry-run por defecto; instala sólo módulo/ayuda/licencia fijados; `--check` sin red; no reemplaza diferencias |
 | `tools/link-user-config.py` | Dry-run por defecto; sólo entradas `deployment=symlink`, backup privado externo y rollback; nunca root/sistema |
-| `tools/sync-secondary.py` | Snapshot sólo del commit limpio; dry-run, backup externo y comparación exacta; retira documentación/metadatos obsoletos, rechaza extras desconocidos |
 | `tools/build-status-icons.py` | Genera cinco glifos Wi-Fi originales con fontTools; sólo entorno de desarrollo |
 | `tools/capture-bar.py` | X11: PPM de los 32 píxeles superiores en stdout; guardar captura fuera del árbol |
 | `tools/probe-wifi-keys.py` | Captura acotada y filtrada Fn/F11/radio; requiere coordinación y acceso explícito a dispositivos; sin inyección |

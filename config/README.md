@@ -1,8 +1,7 @@
 # Managed configuration mirror
 
 Fuentes de los archivos administrados, versionadas mediante **GitHub**. Cada
-máquina tiene una copia de trabajo; `/home/jd/setup-guide` es un snapshot
-secundario generado del commit vigente, no otro árbol editable. Editar fuente,
+máquina mantiene un único checkout, sin una copia secundaria. Editar fuente,
 revisar destino, respaldar, desplegar y validar principalmente en la portátil.
 No contiene secretos Wi-Fi ni claves privadas.
 
