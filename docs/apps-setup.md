@@ -88,6 +88,40 @@ Si i3bar conserva cajas en lugar de iconos, renovar i3 con `i3-msg restart`
 conservando ventanas, no cerrar sesión o reiniciar Debian sólo para las fuentes.
 Kitty aplica su configuración en terminales nuevas.
 
+### Browser emoji
+
+Instalar [Noto Color Emoji](https://packages.debian.org/trixie/fonts-noto-color-emoji)
+desde Debian estable firmado. El paquete instala la fuente en
+`/usr/share/fonts/truetype/noto/NotoColorEmoji.ttf` (root:root, 644); el trigger
+de Fontconfig actualiza la caché. La licencia se conserva en
+`/usr/share/doc/fonts-noto-color-emoji/copyright`. No añadir copias al home,
+reglas propias de fallback ni cambiar las fuentes de texto, i3bar o Kitty. El
+archivo lo gestiona APT; no es una fuente del manifiesto del repositorio.
+
+```sh
+apt-cache policy fonts-noto-color-emoji
+apt-get -s install --no-install-recommends fonts-noto-color-emoji
+sudo apt-get install --no-install-recommends fonts-noto-color-emoji
+dpkg -V fonts-noto-color-emoji
+fc-match emoji
+for point in 1f44d 1f680 1f642; do
+  fc-match -f '%{family}\n' "emoji:charset=$point"
+done
+```
+
+`fc-match` debe mostrar Noto Color Emoji y `dpkg -V` no debe informar cambios.
+Comprobar el render en Helium con 👍 🚀 🙂 y, además, una secuencia compuesta
+como 👩‍💻. Si un proceso ya abierto no detecta la fuente, guardar el trabajo,
+cerrar Helium normalmente y volver a abrirlo; no reiniciar i3 ni Debian.
+
+Para volver al estado anterior si el paquete no estaba instalado, simular y
+retirar sólo esta dependencia si APT no propone otros cambios:
+
+```sh
+apt-get -s remove fonts-noto-color-emoji
+sudo apt-get remove fonts-noto-color-emoji
+```
+
 ## Audio
 
 ALSA/libasound controla la salida del adaptador USB mediante el deslizador de

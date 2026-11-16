@@ -214,6 +214,9 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Helium usa el repositorio APT stable oficial firmado; conservar el sandbox.
   Verificar compatibilidad GPU/CPU, sin ocultar límites mediante renderizado
   permanente por software.
+- Los emoji usan Noto Color Emoji de Debian como fuente de sistema y el
+  fallback de Fontconfig existente; no sustituir las fuentes de texto/barra ni
+  añadir reglas globales propias. Operación en docs/apps-setup.md.
 - El hard block Wi-Fi sigue sin resolver; la captura final acotada está completa.
   No repetir ciclos de arranque, eventos Fn, blacklist ni trabajos de EC/firmware
   por defecto.

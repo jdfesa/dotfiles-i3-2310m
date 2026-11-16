@@ -5,11 +5,8 @@
 - [ ] Usar el navegador predeterminado XDG en Super+Shift+B; revisar el alias
   Super+Shift+Enter y actualizar configuración, ayuda y
   [Keybindings](docs/keybindings.md).
-- [ ] Instalar a nivel de sistema [Noto Color Emoji](https://packages.debian.org/trixie/fonts-noto-color-emoji)
-  mediante `fonts-noto-color-emoji` de Debian, sin paquetes recomendados, y
-  validar el fallback y páginas reales en Helium. Falta una fuente de emojis;
-  ninguna instalada cubre U+1F44D, U+1F680 ni U+1F642. Conservar las fuentes
-  actuales de texto/barra; el paquete sólo añade la fuente y documentación.
+- [x] Instalar Noto Color Emoji de Debian y verificar emoji a color en Helium
+  sin cambiar las fuentes de texto/barra. [Browser emoji](docs/apps-setup.md#browser-emoji).
 - [x] Añadir pestañas de Kitty en el directorio actual con Ctrl+Shift+T/Q y
   título de directorio; fuente y repintado conservados.
   [Kitty setup](docs/kitty-setup.md).
