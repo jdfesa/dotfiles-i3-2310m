@@ -211,6 +211,8 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Conservar SIGSTOP/SIGCONT predeterminados de i3bar; las señales abarcan todo
   el grupo de procesos. Un reload puede conservar el adaptador anterior;
   reiniciar i3 preservando ventanas si hace falta.
+- Helium es el navegador predeterminado. Super+Shift+B y Super+Shift+Enter lo
+  abren directamente, sin resolver el navegador por XDG al pulsar el atajo.
 - Helium usa el repositorio APT stable oficial firmado; conservar el sandbox.
   Verificar compatibilidad GPU/CPU, sin ocultar límites mediante renderizado
   permanente por software.
