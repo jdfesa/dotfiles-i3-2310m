@@ -12,6 +12,8 @@
 - Clic izquierdo en audio o Super+A: alternar el deslizador de
   [USB audio](audio-setup.md). Flechas/ratón aplican volumen inmediatamente;
   Mute cambia sólo el silencio de salida; Escape cierra.
+- Clic izquierdo en el sol: alternar el deslizador de
+  [Screen brightness](status-bar.md#screen-brightness).
 
 Cada clic alterna sólo el panel correspondiente. Un lock independiente descarta
 activaciones simultáneas mientras abre/cierra. Las ventanas se colocan bajo el
@@ -62,6 +64,8 @@ para añadir reglas de ventanas.
 
 Antes de renovar `status-clicks.py`, instalar también el módulo ALSA, perfil y
 deslizador según [USB audio installation](audio-setup.md#installation).
+Instalar el auxiliar y la regla de brillo según
+[Brightness installation and recovery](status-bar.md#brightness-installation-and-recovery).
 
 Desde la raíz, como `jd`, tras comprobar el respaldo:
 

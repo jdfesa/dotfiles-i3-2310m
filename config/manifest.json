@@ -115,6 +115,11 @@
     "mode": 493
   },
   {
+    "source": "scripts/screen-brightness.py",
+    "destination": "/home/jd/scripts/screen-brightness.py",
+    "mode": 493
+  },
+  {
     "source": "scripts/calendar-popup.py",
     "destination": "/home/jd/scripts/calendar-popup.py",
     "mode": 493
