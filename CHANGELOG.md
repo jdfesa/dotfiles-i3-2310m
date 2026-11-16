@@ -5,6 +5,13 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### Thunar dark theme
+
+- La activación D-Bus de Thunar desde el navegador aplica `Adwaita:dark`
+  mediante un drop-in del servicio de usuario existente. Se conserva el
+  lanzador oscuro, sin cambiar el tema GTK global ni las asociaciones MIME.
+  [Thunar](docs/editor-and-files.md#thunar).
+
 ### USB audio adapter
 
 - El perfil de audio pasa al GeneralPlus `1b3f:2008` con `Speaker`, índice0,

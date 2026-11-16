@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class DesktopToolsTests(unittest.TestCase):
-    def test_thunar_uses_dark_gtk_only_through_its_launcher(self):
+    def test_thunar_launcher_uses_dark_gtk(self):
         desktop = configparser.ConfigParser(interpolation=None)
         desktop.read(ROOT / "config/thunar/thunar.desktop", encoding="utf-8")
         entry = desktop["Desktop Entry"]
