@@ -64,6 +64,8 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
   no comparar hashes entre formatos. Seguir `apps-setup.md`.
 - Fuentes: copiar los TTF/licencias locales y restaurar el paquete Debian de
   emoji; comprobar el render según [Fonts](apps-setup.md#fonts).
+- Terminal: instalar `xcompmgr` y comprobar
+  [Kitty background opacity](kitty-setup.md#background-opacity).
 - Lector PDF: instalar Zathura y registrar sólo `application/pdf` según
   [PDF reader](pdf-reader.md), sin reemplazar `mimeapps.list` completo.
 - Polkitd: necesario para el menú de energía local sin contraseña. No crear reglas

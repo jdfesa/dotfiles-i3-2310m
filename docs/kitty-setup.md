@@ -4,7 +4,7 @@
 
 Kitty y su integración de shell proceden de Debian; versiones comprobadas en
 [Dependencies](dependencies.md). Bash sigue siendo la shell existente. La fuente
-es JetBrainsMono Nerd Font Mono Regular 11, con fondo Mocha opaco, cursor sin
+es JetBrainsMono Nerd Font Mono Regular 11, con fondo Mocha, cursor sin
 animación, `repaint_delay 20` y scrollback de 5000 líneas.
 
 La barra nativa aparece arriba incluso con una sola pestaña. Powerline distingue
@@ -15,6 +15,47 @@ aparece como `/`. Si Kitty no obtiene el directorio, usa el título como respald
 `tab.active_wd` realiza la consulta nativa al redibujar. No hay renderer propio,
 script de prompt, daemon ni sondeo adicional. El control remoto permanece
 deshabilitado y las confirmaciones nativas de cierre se conservan.
+
+## Background opacity
+
+Todas las instancias, incluidos los auxiliares que abren Kitty, cargan
+`background_opacity 0.85`: 85 % de opacidad para las celdas con el color de
+fondo de la terminal. El texto no se atenúa; aplicaciones que pintan su propio
+fondo pueden seguir opacas. No se activa opacidad dinámica ni desenfoque.
+
+Xorg necesita un compositor para ese canal alfa. i3 ejecuta una sola vez
+`/usr/bin/xcompmgr -n` al iniciar la sesión. Es un proceso de usuario con
+composición XRender básica, sin sombras, desenfoque, shaders ni animaciones.
+i3bar y las decoraciones permanecen opacas. El compositor procesa el
+escritorio; una opacidad cercana a 1 no elimina el coste de composición.
+Queda por verificar la respuesta con el flujo habitual y vídeo en Helium.
+
+```sh
+sudo apt-get install --no-install-recommends xcompmgr
+```
+
+Antes de instalar las fuentes existentes de Kitty e i3, respaldar
+`~/.config/kitty/kitty.conf` y `~/.config/i3/config` fuera del repositorio.
+Conservar las diferencias locales al añadir la línea de arranque de
+`config/i3-config`. Validar con el parser de Kitty y
+`i3 -C -c "$HOME/.config/i3/config"`. En la sesión abierta, recargar i3 y,
+sólo si no hay otro compositor, iniciarlo una vez sin cerrar aplicaciones:
+
+```sh
+i3-msg reload
+i3-msg 'exec --no-startup-id /usr/bin/xcompmgr -n'
+```
+
+Abrir Kitty normalmente con Super+Enter. Las ventanas que se crearon
+opacas deben volver a abrirse; la recarga de Kitty no cambia su canal alfa.
+No cerrarlas hasta guardar el trabajo o terminar los comandos en ejecución.
+
+Para revertir, restaurar los dos archivos respaldados o volver a
+`background_opacity 1.0` y retirar el `exec` de xcompmgr. Validar y recargar
+i3. Identificar con `pgrep -a -u "$(id -u)" -x xcompmgr` el proceso de esta
+sesión que se inició con `/usr/bin/xcompmgr -n` y enviar `kill -TERM` sólo a
+ese PID. Las ventanas nuevas volverán a abrirse opacas. Si ya no se usa el
+paquete, revisar primero `apt-get -s remove xcompmgr`.
 
 ## Shortcuts
 
@@ -86,8 +127,8 @@ stat -c '%a %U:%G %n' "$HOME/.config/kitty/kitty.conf" "$HOME/scripts/open-netwo
 
 Esperado: propietario `jd:jd`, configuración/ayuda 644 y auxiliares 755.
 Abrir una ventana nueva con Super+Enter; las terminales existentes conservan
-su estado. Para aplicar a una terminal abierta se puede usar Ctrl+Shift+F5;
-no hace falta reiniciar i3 ni cerrar la sesión.
+su estado. Ctrl+Shift+F5 recarga opciones compatibles, no el canal alfa
+descrito en [Background opacity](#background-opacity).
 
 Para revertir, seleccionar el respaldo privado revisado, instalar `kitty.conf`
 y la ayuda con modo 644, y los cuatro auxiliares con modo 755 en sus destinos.
@@ -117,3 +158,5 @@ modos y propietarios de los seis destinos, preservando diferencias locales previ
 - [Kitty tab bar](https://sw.kovidgoyal.net/kitty/conf/#tab-bar).
 - [Kitty tab actions](https://sw.kovidgoyal.net/kitty/actions/#tab-management).
 - [Kitty shell integration](https://sw.kovidgoyal.net/kitty/shell-integration/).
+- [Kitty background opacity](https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.background_opacity).
+- [xcompmgr manual](https://manpages.debian.org/trixie/xcompmgr/xcompmgr.1.en.html).

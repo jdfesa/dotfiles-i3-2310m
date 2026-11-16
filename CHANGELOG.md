@@ -5,6 +5,12 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### Kitty background opacity
+
+- Todas las instancias de Kitty usan 85 % de opacidad de fondo por defecto.
+  i3 inicia xcompmgr en modo básico, sin sombras, blur, shaders ni animaciones.
+  [Background opacity](docs/kitty-setup.md#background-opacity).
+
 ### Desktop wallpaper
 
 - Fondo Pixel Car versionado en `wallpapers/` y aplicado al inicio de i3 con

@@ -9,7 +9,7 @@ Kitty y Rofi proceden de Debian, instalados sin recomendaciones. Kitty fue
 probado en Intel HD 3000 con i915/Mesa, OpenGL core 3.3 y renderizado acelerado;
 no se fuerza renderizado software. `xfce4-terminal` queda como alternativa.
 
-- `config/kitty.conf` → `~/.config/kitty/kitty.conf`: Mocha opaco, Regular 11,
+- `config/kitty.conf` → `~/.config/kitty/kitty.conf`: Mocha, Regular 11,
   ligaduras y animación de cursor desactivadas; `repaint_delay 20`.
   Pestañas y directorio activo en [Kitty setup](kitty-setup.md).
 - `config/rofi-config.rasi` → `~/.config/rofi/config.rasi`: Regular 11,

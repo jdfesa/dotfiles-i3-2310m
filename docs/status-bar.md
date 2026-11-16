@@ -4,7 +4,7 @@
 
 i3bar superior, opaca y compacta, Catppuccin Mocha; texto **JetBrainsMono Nerd Font
 Mono Regular 10**, iconos de clima/métricas/brillo/audio/batería/Bluetooth/trackpad **Propo Regular 12**.
-Sin blur/compositor. Sólo workspaces existentes, manteniendo
+Sin blur ni transparencias. Sólo workspaces existentes, manteniendo
 los diez accesibles por teclado. Textos en inglés, hora 24 h y temperaturas °C.
 
 Los pictogramas Propo conservan su proporción sin comprimirse en una celda Mono.

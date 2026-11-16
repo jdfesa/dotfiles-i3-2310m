@@ -9,9 +9,9 @@ Debian 13 with i3 on Xorg.
 
 | Component | Configuration |
 | --- | --- |
-| Session | [i3 on Xorg](docs/i3-setup.md) from a console login, without a display manager or compositor. |
+| Session | [i3 on Xorg](docs/i3-setup.md) from a console login, without a display manager. |
 | Bar | [i3bar and i3status](docs/status-bar.md): collapsible metrics, calendar, brightness, audio, and Wi-Fi. |
-| Terminal and shell | [Kitty](docs/kitty-setup.md), Bash, and tabs that inherit the current directory. |
+| Terminal and shell | [Kitty](docs/kitty-setup.md) with 85% background opacity, Bash, and tabs that inherit the working directory. |
 | Theme and fonts | Catppuccin Mocha with [JetBrains Mono Nerd Font](docs/apps-setup.md#fonts) and Noto Color Emoji. |
 | Wallpaper | [Pixel Car](wallpapers/pixel-car.png), set by [xwallpaper](docs/i3-setup.md#wallpaper). |
 | Launcher and power | Rofi application and power menus; [keyboard shortcuts](docs/keybindings.md). |

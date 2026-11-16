@@ -143,8 +143,13 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Catppuccin Mocha compacto y opaco; texto de barra JetBrainsMono Nerd Font Mono
   Regular 10 e iconos de clima/métricas/audio/batería Propo Regular 12. Wi-Fi conserva
   BGH Status Icons 12. Bold está instalada, pero no se fuerza. Mostrar escritorios existentes.
+- Kitty aplica 85 % de opacidad al fondo por defecto en todas sus instancias.
+  La sesión inicia sólo `xcompmgr -n` para composición básica X11, sin
+  sombras, desenfoque, animaciones ni shaders. Mantener opacas la barra y
+  las decoraciones; no habilitar opacidad dinámica. Operación y reversión
+  en docs/kitty-setup.md.
 - Los fondos versionados van en `wallpapers/`. i3 aplica la imagen instalada
-  al iniciar con xwallpaper, sin daemon, compositor ni cambios automáticos.
+  al iniciar con xwallpaper, sin daemon ni cambios automáticos del fondo.
   Operación y recuperación en docs/i3-setup.md.
 - Tick de i3status de 10 s; tráfico por diferencias de contadores en ese ciclo.
   Sin sondeo adicional de alta frecuencia. status-clicks.py es residente y
