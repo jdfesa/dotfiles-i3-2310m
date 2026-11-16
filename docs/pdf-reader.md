@@ -1,9 +1,10 @@
 # PDF reader
 
-Zathura usa Poppler para leer PDF bajo demanda. La paleta Mocha oscurece la
-interfaz y las páginas, conservando el matiz cuando es posible. El recolor es
-sólo visual; no altera el archivo. No hay lanzador propio, servicio, autostart,
-cambios de asociaciones MIME ni vistas previas nuevas en Yazi.
+Zathura con Poppler es el lector de archivos PDF predeterminado. La paleta
+Mocha oscurece la interfaz y las páginas, en modo normal y a pantalla
+completa. `Ctrl+R` no alterna el recolor.
+El modo oscuro no modifica el PDF. Helium sigue como navegador predeterminado;
+no se añaden servicios, lanzadores propios ni vistas previas en Yazi.
 
 ## Installation
 
@@ -26,19 +27,34 @@ install -d -m 755 "$HOME/.config/zathura"
 install -m 644 config/zathura/zathurarc "$HOME/.config/zathura/zathurarc"
 ```
 
+## PDF association
+
+En la sesión gráfica, como cuenta de usuario. Guardar el lector anterior y
+respaldar `~/.config/mimeapps.list` en privado si existe. Aplicar sólo la
+asociación PDF, sin copiar la plantilla completa sobre preferencias locales.
+
+```sh
+xdg-mime query default application/pdf
+xdg-mime default org.pwmt.zathura-pdf-poppler.desktop application/pdf
+xdg-mime query default application/pdf
+```
+
+El resultado debe ser `org.pwmt.zathura-pdf-poppler.desktop`. Ese ID declara
+`application/pdf`; `org.pwmt.zathura.desktop` es la entrada del lanzador.
+Las asociaciones de HTML, HTTP y HTTPS no cambian.
+
 ## Usage and verification
 
 ```sh
 zathura --version
 cmp config/zathura/zathurarc "$HOME/.config/zathura/zathurarc"
-xdg-mime query default application/pdf
-zathura /path/to/document.pdf
+gio mime application/pdf
+gio open /path/to/document.pdf
 ```
 
-El visor utiliza la entrada de escritorio del paquete, disponible en Rofi
-(`Super+Space`). Verificar páginas e interfaz oscuras y comprobar que la
-asociación PDF conserva el valor anterior a la instalación. `Ctrl+R` alterna
-el recolor para consultar colores originales; `/` busca y `q` cierra.
+Abrir un PDF con doble clic desde el gestor de archivos y verificar que se
+abre en Zathura con páginas e interfaz oscuras. También se puede abrir
+**Zathura** desde Rofi (`Super+Space`). `/` busca y `q` cierra.
 
 Para copiar texto, seleccionarlo con el ratón y pegar con `Ctrl+V` en otra
 aplicación. Para un enlace externo, pulsar `c` y confirmar el número que
@@ -46,12 +62,16 @@ muestra Zathura (sin abrir el enlace). Referencia de opciones en
 [zathurarc(5)](https://manpages.debian.org/trixie/zathura/zathurarc.5.en.html)
 y teclas en [zathura(1)](https://manpages.debian.org/trixie/zathura/zathura.1.en.html).
 
-En Debian 13/Xorg se comprobó el render de páginas y barras, el cambio
-entre paleta Mocha y original, y la copia de texto y de un enlace externo
-con un PDF de prueba. La asociación PDF permaneció en Helium. Esta prueba
-no mide rendimiento sostenido ni una restauración limpia.
+En Debian 13/Xorg se verificaron la apertura de un archivo local mediante
+GIO, el modo oscuro con `Ctrl+R` desactivado en ambos modos y la copia de
+texto y enlaces.
 
 ## Recovery
+
+Antes de desinstalar, restaurar sólo la entrada `application/pdf` del
+respaldo de `[Default Applications]`. Si antes no existía, retirar la línea
+que se añadió. Comprobar el resultado con `xdg-mime query default application/pdf`;
+no sustituir el archivo completo.
 
 Cerrar Zathura normalmente y restaurar el respaldo de `zathurarc`. Si no había
 configuración previa, retirar sólo la copia gestionada después de comprobar que
@@ -59,4 +79,4 @@ no contiene cambios locales. No eliminar el historial ni los marcadores.
 
 Para retirar el visor, simular `apt-get -s remove zathura zathura-pdf-poppler`
 y retirar esos paquetes con sudo si el plan no afecta otros programas. No
-ejecutar una limpieza global de paquetes ni restaurar asociaciones a ciegas.
+ejecutar una limpieza global de paquetes.

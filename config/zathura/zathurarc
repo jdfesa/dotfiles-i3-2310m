@@ -1,5 +1,7 @@
 # Mocha palette for PDF pages and the viewer chrome.
 set recolor true
+unmap [normal] <C-r>
+unmap [fullscreen] <C-r>
 set recolor-keephue true
 set recolor-darkcolor "#cdd6f4"
 set recolor-lightcolor "#1e1e2e"

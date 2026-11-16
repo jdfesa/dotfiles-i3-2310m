@@ -98,7 +98,7 @@ descarga y 79.4 MB adicionales; sin upgrades, compilación ni escritorio complet
 El servicio de secretos es local a la cuenta; el agente SSH adicional de gcr4
 queda deshabilitado. No se midió aquí carga sostenida de CPU.
 
-El [PDF reader](pdf-reader.md) es opcional: usa `zathura` y
+El [PDF reader](pdf-reader.md) se instala por separado: usa `zathura` y
 `zathura-pdf-poppler`, sin recomendaciones ni servicio.
 
 ## External packages

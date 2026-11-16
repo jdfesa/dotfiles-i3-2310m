@@ -124,8 +124,8 @@ sudo apt-get remove fonts-noto-color-emoji
 
 ## PDF reader
 
-Zathura abre PDF bajo demanda con modo oscuro, sin cambiar el lector asociado.
-Instalación, atajos y reversión en [PDF reader](pdf-reader.md).
+Los archivos PDF se abren en Zathura con modo oscuro. Helium sigue como
+navegador predeterminado. Instalación y reversión en [PDF reader](pdf-reader.md).
 
 ## Audio
 

@@ -7,10 +7,10 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ### PDF reader
 
-- Añadido Zathura con Poppler para abrir PDF bajo demanda. La paleta Mocha
-  oscurece la interfaz y las páginas; se puede alternar el recolor.
+- Zathura con Poppler es el lector predeterminado para PDF. Usa Mocha en
+  interfaz y páginas, sin alternar el recolor con Ctrl+R.
 - La selección de texto y la copia de enlaces usan el portapapeles estándar.
-  No cambian las asociaciones PDF ni las vistas previas de Yazi.
+  Helium conserva las asociaciones web; Yazi mantiene sus vistas previas.
   [PDF reader](docs/pdf-reader.md).
 
 ### Browser emoji
