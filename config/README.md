@@ -37,6 +37,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `scripts/calendar-popup.py` | `/home/jd/scripts/calendar-popup.py` | `755` |
 | `config/calendar/calendar.css` | `/home/jd/.config/calendar/calendar.css` | `644` |
 | `scripts/open-networks.sh` | `/home/jd/scripts/open-networks.sh` | `755` |
+| `config/network-panel/bgh-network-panel.desktop` | `/home/jd/.local/share/applications/bgh-network-panel.desktop` | `644` |
 | `scripts/open-mixer.sh` | `/home/jd/scripts/open-mixer.sh` | `755` |
 | `scripts/open-updates.sh` | `/home/jd/scripts/open-updates.sh` | `755` |
 | `config/bgh-status-icons.ttf` | `/home/jd/.local/share/fonts/bgh-status-icons.ttf` | `644` |

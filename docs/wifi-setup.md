@@ -19,6 +19,38 @@ reiniciando servicios a ciegas por la única sesión SSH.
 Dependencias: [dependencies.md](dependencies.md). Los perfiles con secretos no
 son archivos administrados por este árbol.
 
+## Network panel
+
+`Super+N`, el icono Wi-Fi y **Wi-Fi Networks** en Rofi (`Super+Space`)
+abren el mismo panel. Si ya está abierto, i3 lo enfoca en su escritorio sin
+moverlo ni duplicarlo. Durante el arranque o el cierre, una pulsación repetida
+no crea otra instancia.
+
+Usa Kitty, `nmtui-connect` de NetworkManager, `flock` de util-linux e
+`i3-msg` de i3-wm; no usa servicios ni sondeo adicional. **Quit** y una
+interrupción de teclado normal cierran sin aviso. Si el programa hijo termina
+con error, el panel muestra el estado de salida y espera Enter. Los errores de
+conexión en curso siguen mostrándose en `nmtui-connect`.
+
+### Installation and verification
+
+Revisar y respaldar privadamente ambos destinos si existen. Como cuenta de
+sesión, desde la raíz del repositorio:
+
+```sh
+sh -n scripts/open-networks.sh
+desktop-file-validate config/network-panel/bgh-network-panel.desktop
+install -D -m 755 scripts/open-networks.sh "$HOME/scripts/open-networks.sh"
+install -D -m 644 config/network-panel/bgh-network-panel.desktop \
+  "$HOME/.local/share/applications/bgh-network-panel.desktop"
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p test_network_panel.py -q
+```
+
+Con el panel abierto, enfocar otra ventana y volver a invocarlo; debe recuperar
+la misma instancia. Probar sin seleccionar **Activate** ni **Deactivate**.
+No se necesita recargar i3. Para revertir, cerrar el panel, restaurar el script
+respaldado y restaurar la entrada del lanzador o retirarla si era nueva.
+
 ## Creating a connection
 
 Comprobar primero perfiles existentes para no duplicarlos. Ejemplo con nombres

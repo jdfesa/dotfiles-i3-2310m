@@ -17,7 +17,7 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/trackpad-gestures.py` | Un residente por pantalla X: espera gestos XInput 2.4 del Magic Trackpad 2, sin sondeo; [Trackpad gestures](../docs/trackpad-gestures.md) |
 | `scripts/status-panel.py` | Alterna calendario, btop, volumen y velocidad del trackpad por identidad; IPC breve por evento, sin sondeo |
 | `scripts/calendar-popup.py` | Calendario GTK3 de sólo lectura; vive sólo mientras está abierto |
-| `scripts/open-networks.sh` | nmtui-connect en Kitty flotante; click/Super+N |
+| `scripts/open-networks.sh` | Panel único de `nmtui-connect` en Kitty; clic, Super+N o Rofi. [Network panel](../docs/wifi-setup.md#network-panel) |
 | `scripts/open-mixer.sh` | Entrada Super+A al panel de volumen USB; sin terminal adicional |
 | `scripts/audio-control.py` | Módulo ALSA: lectura de salida USB en el tick existente y escrituras explícitas del panel; ejecución directa sólo lee |
 | `scripts/audio-volume.py` | Deslizador GTK3 de volumen/mute; vive sólo mientras está abierto |
