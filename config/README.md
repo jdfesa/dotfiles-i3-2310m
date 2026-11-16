@@ -55,6 +55,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `scripts/power-menu` | `/home/jd/scripts/power-menu` | `755` |
 | `scripts/power-action.sh` | `/home/jd/scripts/power-action.sh` | `755` |
 | `config/bgh-power-menu.desktop` | `/home/jd/.local/share/applications/bgh-power-menu.desktop` | `644` |
+| `config/zathura/zathurarc` | `/home/jd/.config/zathura/zathurarc` | `644` |
 | `config/thunar/thunar.desktop` | `/home/jd/.local/share/applications/thunar.desktop` | `644` |
 | `scripts/README.md` | `/home/jd/scripts/README.md` | `644` |
 | `config/codex-config.toml` | `/home/jd/.codex/config.toml` | `600` |

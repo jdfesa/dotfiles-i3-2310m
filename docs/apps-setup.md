@@ -122,6 +122,11 @@ apt-get -s remove fonts-noto-color-emoji
 sudo apt-get remove fonts-noto-color-emoji
 ```
 
+## PDF reader
+
+Zathura abre PDF bajo demanda con modo oscuro, sin cambiar el lector asociado.
+Instalación, atajos y reversión en [PDF reader](pdf-reader.md).
+
 ## Audio
 
 ALSA/libasound controla la salida del adaptador USB mediante el deslizador de

@@ -5,6 +5,14 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### PDF reader
+
+- Añadido Zathura con Poppler para abrir PDF bajo demanda. La paleta Mocha
+  oscurece la interfaz y las páginas; se puede alternar el recolor.
+- La selección de texto y la copia de enlaces usan el portapapeles estándar.
+  No cambian las asociaciones PDF ni las vistas previas de Yazi.
+  [PDF reader](docs/pdf-reader.md).
+
 ### Browser emoji
 
 - Instalado únicamente Noto Color Emoji desde Debian estable. Se reutiliza el

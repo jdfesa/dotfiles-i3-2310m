@@ -46,9 +46,8 @@
   Historial y caches privados fuera del repositorio.
 - [ ] Comparar prompt nativo con Starship mínimo; medir arranque y repintado
   en proyectos representativos antes de añadir módulos Git o de lenguajes.
-- [ ] Evaluar Zathura bajo demanda para lectura PDF y copia de texto/enlaces.
-  Mantener Yazi con previews de texto/directorios y precargas desactivadas;
-  revisar por separado el coste de cualquier preview adicional.
+- [x] Añadir Zathura bajo demanda con modo oscuro y copia de texto/enlaces,
+  sin cambiar las vistas previas de Yazi. [PDF reader](docs/pdf-reader.md).
 - [ ] Definir perfiles de desarrollo según proyectos concretos, con dependencias
   directas, instalación y recuperación documentadas, sin autostart de servicios.
 

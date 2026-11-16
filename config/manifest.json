@@ -240,6 +240,11 @@
     "mode": 420
   },
   {
+    "source": "config/zathura/zathurarc",
+    "destination": "/home/jd/.config/zathura/zathurarc",
+    "mode": 420
+  },
+  {
     "source": "config/thunar/thunar.desktop",
     "destination": "/home/jd/.local/share/applications/thunar.desktop",
     "mode": 420
