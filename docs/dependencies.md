@@ -36,6 +36,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | libsecret-tools | 0.21.7-1 | Debian; comprobado 2026-11-02 |
 | curl / jq | 8.14.1-2+deb13u5 / 1.7.1-6+deb13u4 | Debian |
 | Helium | 0.19.2.1-1 | APT oficial Helium, canal stable |
+| Noto Color Emoji | 2.051-0+deb13u1 | Debian estable; paquete fonts-noto-color-emoji, comprobado 2026-11-16 |
 | JetBrains Mono Nerd Font | Nerd Fonts 3.5.1, base 2.304 | Publicación oficial; Mono Regular/Bold y Propo Regular; Propo comprobada 2026-11-15 |
 | Codex CLI | 0.165.0, Linux x64 musl | Instalador oficial standalone |
 | RTK / Engram | 1.1.0 / 3.6.0 | Binarios de publicaciones oficiales |
@@ -79,7 +80,7 @@ sudo apt-get install --no-install-recommends \
   xserver-xorg-core xserver-xorg-input-libinput libgl1-mesa-dri \
   xinit x11-xserver-utils xauth dbus-user-session \
   i3-wm i3status i3lock kitty rofi xdg-utils \
-  fonts-dejavu-core fonts-liberation2 alsa-utils polkitd
+  fonts-dejavu-core fonts-liberation2 fonts-noto-color-emoji alsa-utils polkitd
 
 # Scripts y herramientas de instalación/desarrollo.
 sudo apt-get install --no-install-recommends \

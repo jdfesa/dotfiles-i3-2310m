@@ -4,6 +4,20 @@ Cambios de configuración y comprobaciones relevantes. El estado vigente está
 en las guías; versiones de referencia en [dependencies.md](docs/dependencies.md).
 No representa una reproducción byte a byte del sistema ni un benchmark.
 
+## 2026-11-16
+
+### Browser emoji
+
+- Instalado únicamente Noto Color Emoji desde Debian estable. Se reutiliza el
+  fallback de Fontconfig; no cambian las fuentes de texto ni de barra ni se
+  añaden servicios. Instalación y reversión en
+  [Browser emoji](docs/apps-setup.md#browser-emoji).
+- Verificados integridad/permisos, fallback y render a color en un perfil
+  aislado de Helium: 👍 🚀 🙂 y 👩‍💻 (un glifo compuesto). En la página
+  [Emoji](https://en.wikipedia.org/wiki/Emoji) de Wikipedia, los 18 elementos de
+  texto muestreados usaron la fuente local. No se cerraron las ventanas abiertas
+  ni se reinició la sesión.
+
 ## 2026-11-15
 
 ### Battery icons
