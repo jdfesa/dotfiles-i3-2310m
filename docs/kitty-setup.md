@@ -4,7 +4,7 @@
 
 Kitty y su integración de shell proceden de Debian; versiones comprobadas en
 [Dependencies](dependencies.md). Bash sigue siendo la shell existente. La fuente
-es JetBrainsMono Nerd Font Mono Regular 11, con fondo Mocha opaco, cursor sin
+es JetBrainsMono Nerd Font Mono Regular 11, con fondo Mocha al 85%, cursor sin
 animación, `repaint_delay 20` y scrollback de 5000 líneas.
 
 La barra nativa aparece arriba incluso con una sola pestaña. Powerline distingue
@@ -41,24 +41,14 @@ Fuentes y destinos existentes de [manifest.json](../config/manifest.json):
 |---|---|---|
 | `config/kitty.conf` | `/home/jd/.config/kitty/kitty.conf` | 644 |
 | `config/keybindings-help.txt` | `/home/jd/.config/i3/keybindings-help.txt` | 644 |
-| `scripts/open-networks.sh` | `/home/jd/scripts/open-networks.sh` | 755 |
-| `scripts/open-updates.sh` | `/home/jd/scripts/open-updates.sh` | 755 |
-| `scripts/power-menu` | `/home/jd/scripts/power-menu` | 755 |
+| `scripts/open-networks.sh` | `/home/jd/dotfiles-i3-2310m/scripts/open-networks.sh` | 755 |
+| `scripts/open-updates.sh` | `/home/jd/dotfiles-i3-2310m/scripts/open-updates.sh` | 755 |
+| `scripts/power-menu` | `/home/jd/dotfiles-i3-2310m/scripts/power-menu` | 755 |
 
-Desde la raíz, como `jd`, revisar las diferencias con cada destino antes de
-actualizarlo y conservar ajustes locales. Respaldar la lista acotada fuera del
-repositorio:
-
-```sh
-umask 022
-mkdir -p "$HOME/.local/state/bgh-config-backups"
-backup=$(mktemp -d "$HOME/.local/state/bgh-config-backups/kitty-XXXXXXXX")
-install -m 600 "$HOME/.config/kitty/kitty.conf" "$backup/kitty.conf"
-install -m 600 "$HOME/.config/i3/keybindings-help.txt" "$backup/keybindings-help.txt"
-for script in open-networks.sh open-updates.sh power-menu; do
-    install -m 600 "$HOME/scripts/$script" "$backup/$script"
-done
-```
+Los archivos de configuración se enlazan al checkout y los auxiliares se
+invocan directamente desde él. Aplicar el procedimiento de
+[User configuration links](user-config-links.md), con revisión de diferencias,
+dry-run y rollback privado; no instalar otras copias de los scripts.
 
 Validar con el parser instalado y `sh -n`:
 
@@ -67,32 +57,19 @@ kitty +runpy 'from pathlib import Path; from kitty.config import load_config; ba
 for script in open-networks.sh open-updates.sh power-menu; do
     sh -n "scripts/$script"
 done
+python3 tools/link-user-config.py
 ```
 
-Con el respaldo y las diferencias revisados, instalar las fuentes como archivos
-regulares. Si un auxiliar conserva cambios locales, aplicar sólo el override
-de Kitty a su invocación existente en vez de reemplazarlo completo.
+Se conserva la opacidad estática 85% instalada: `background_opacity 0.85`,
+`background_blur 0` y `dynamic_background_opacity no`, con `xcompmgr -n`
+al inicio de i3. El compositor es una dependencia residente existente para
+mostrar el canal alfa; no se añaden efectos ni se atribuyen mejoras de CPU.
+Versiones en [Dependencies](dependencies.md).
 
-```sh
-install -m 644 config/kitty.conf "$HOME/.config/kitty/kitty.conf"
-install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
-for script in open-networks.sh open-updates.sh power-menu; do
-    install -m 755 "scripts/$script" "$HOME/scripts/$script"
-done
-cmp config/kitty.conf "$HOME/.config/kitty/kitty.conf"
-cmp config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
-stat -c '%a %U:%G %n' "$HOME/.config/kitty/kitty.conf" "$HOME/scripts/open-networks.sh"
-```
-
-Esperado: propietario `jd:jd`, configuración/ayuda 644 y auxiliares 755.
 Abrir una ventana nueva con Super+Enter; las terminales existentes conservan
-su estado. Para aplicar a una terminal abierta se puede usar Ctrl+Shift+F5;
-no hace falta reiniciar i3 ni cerrar la sesión.
-
-Para revertir, seleccionar el respaldo privado revisado, instalar `kitty.conf`
-y la ayuda con modo 644, y los cuatro auxiliares con modo 755 en sus destinos.
-Abrir otra ventana o recargar Kitty con Ctrl+Shift+F5. No restaurar carpetas
-completas de configuración ni la shell para revertir estos seis archivos.
+su estado. Para aplicar a una terminal abierta se puede usar Ctrl+Shift+F5.
+Para revertir contenido, editar las fuentes mediante una rama revisada; para
+revertir la migración de archivos a enlaces, usar su journal privado.
 
 ## Verification
 

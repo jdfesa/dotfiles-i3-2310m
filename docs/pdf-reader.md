@@ -6,6 +6,10 @@ completa. `Ctrl+R` no alterna el recolor.
 El modo oscuro no modifica el PDF. Helium sigue como navegador predeterminado;
 no se añaden servicios, lanzadores propios ni vistas previas en Yazi.
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Installation
 
 Paquetes del repositorio firmado de Debian estable: [Zathura](https://packages.debian.org/trixie/zathura)
@@ -19,12 +23,11 @@ sudo apt-get install --no-install-recommends zathura zathura-pdf-poppler
 ```
 
 Como cuenta de sesión, desde la raíz del repositorio. Si el destino ya existe,
-respaldarlo en privado fuera del árbol y revisar diferencias antes de copiar.
+respaldarlo en privado fuera del árbol y revisar diferencias antes de enlazar.
 El destino administrado es `~/.config/zathura/zathurarc`, modo 644.
 
 ```sh
-install -d -m 755 "$HOME/.config/zathura"
-install -m 644 config/zathura/zathurarc "$HOME/.config/zathura/zathurarc"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
 ```
 
 ## PDF association

@@ -1,5 +1,11 @@
 [Default Applications]
-application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
 text/html=helium.desktop
 x-scheme-handler/http=helium.desktop
 x-scheme-handler/https=helium.desktop
+x-scheme-handler/codex=chatgpt.desktop
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop
+x-scheme-handler/bitwarden=bitwarden.desktop
+
+[Added Associations]
+application/pdf=org.pwmt.zathura-pdf-poppler.desktop;
+x-scheme-handler/bitwarden=bitwarden.desktop;

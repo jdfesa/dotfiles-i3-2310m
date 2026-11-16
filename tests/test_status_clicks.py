@@ -111,14 +111,14 @@ class StatusTests(unittest.TestCase):
             status.handle_click({"name": "wireless", "instance": "wlp2s0", "button": 1,
                                  "irrelevant": "'; touch /tmp/unsafe"})
         run.assert_called_once()
-        self.assertEqual(run.call_args.args[0], ["i3-msg", "exec --no-startup-id ~/scripts/open-networks.sh"])
+        self.assertEqual(run.call_args.args[0], ["i3-msg", f"exec --no-startup-id {Path(status.__file__).resolve().parent}/open-networks.sh"])
         self.assertTrue(run.call_args.kwargs["check"])
         self.assertNotIn("shell", run.call_args.kwargs)
 
     def test_usb_volume_instance_click(self):
         with patch.object(status.subprocess, "run") as run:
             status.handle_click({"name": "volume", "instance": "usb-output", "button": 1})
-        self.assertEqual(run.call_args.args[0], ["i3-msg", "exec --no-startup-id ~/scripts/status-panel.py audio"])
+        self.assertEqual(run.call_args.args[0], ["i3-msg", f"exec --no-startup-id {Path(status.__file__).resolve().parent}/status-panel.py audio"])
 
     def test_trackpad_click_launches_only_the_fixed_speed_menu(self):
         event = {"name": "trackpad", "instance": "battery", "button": 1}
@@ -129,7 +129,7 @@ class StatusTests(unittest.TestCase):
             run.assert_not_called()
             self.assertFalse(status.handle_click(dict(event, x="unsafe")))
             self.assertEqual(run.call_args.args[0],
-                             ["i3-msg", "exec --no-startup-id ~/scripts/status-panel.py trackpad"])
+                             ["i3-msg", f"exec --no-startup-id {Path(status.__file__).resolve().parent}/status-panel.py trackpad"])
 
     def test_clock_and_cpu_clicks_only_launch_allowlisted_panels(self):
         for name, instance, panel in (("tztime", "local", "calendar"), ("cpu_usage", "aggregate", "resources"),
@@ -139,7 +139,7 @@ class StatusTests(unittest.TestCase):
                                      "x": 1310, "y": 12, "relative_x": 30, "relative_y": 12,
                                      "width": 80, "height": 24})
                 self.assertEqual(run.call_args.args[0],
-                                 ["i3-msg", f"exec --no-startup-id ~/scripts/status-panel.py {panel} 1320 24"])
+                                 ["i3-msg", f"exec --no-startup-id {Path(status.__file__).resolve().parent}/status-panel.py {panel} 1320 24"])
 
     def test_panel_clicks_reject_wrong_identity_and_do_not_interpret_coordinates(self):
         with patch.object(status.subprocess, "run") as run:
@@ -150,7 +150,7 @@ class StatusTests(unittest.TestCase):
             status.handle_click({"name": "tztime", "instance": "local", "button": 1,
                                  "x": "$(touch /tmp/not-a-command)", "y": 0})
             self.assertEqual(run.call_args.args[0],
-                             ["i3-msg", "exec --no-startup-id ~/scripts/status-panel.py calendar"])
+                             ["i3-msg", f"exec --no-startup-id {Path(status.__file__).resolve().parent}/status-panel.py calendar"])
 
     def test_anchor_handles_negative_monitor_coordinates_and_invalid_dimensions(self):
         event = {"x": -100, "y": 12, "relative_x": 20, "relative_y": 12, "width": 80, "height": 24}

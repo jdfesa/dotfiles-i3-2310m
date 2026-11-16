@@ -3,7 +3,7 @@ Description=Refresh cached weather for i3bar
 
 [Service]
 Type=oneshot
-ExecStart=%h/scripts/update-weather.py
+ExecStart=%h/dotfiles-i3-2310m/scripts/update-weather.py
 TimeoutStartSec=30
 Environment=PYTHONDONTWRITEBYTECODE=1
 NoNewPrivileges=yes

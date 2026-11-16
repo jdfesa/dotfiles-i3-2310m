@@ -40,7 +40,7 @@ Debian 13 with i3 on Xorg.
 
 ## Documentation
 
-- **Configuration:** [files and destinations](config/README.md), [scripts](scripts/README.md), and [tools](tools/README.md).
+- **Configuration:** [files and destinations](config/README.md), [User configuration links](docs/user-config-links.md), [scripts](scripts/README.md), and [tools](tools/README.md).
 - **Installation:** [dependencies](docs/dependencies.md) and [restoration](docs/restore-guide.md).
 - **Network:** [Network setup](docs/wifi-setup.md).
 - **Development:** [Git workflow](docs/git-workflow.md),

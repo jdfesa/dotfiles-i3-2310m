@@ -24,7 +24,7 @@ no constituye una firma independiente.
 
 | Fuente | Destino bajo el home / función |
 |---|---|
-| `config/codex-config.toml` | `.codex/config.toml`; TUI, MCP stdio y marketplace |
+| `config/codex-config.toml` | Base pública de preferencias; combinar con el estado privado de `.codex/config.toml`, sin enlazarlo |
 | `config/codex-agents.md` | `.codex/AGENTS.md`; restricciones CPU/seguridad |
 | `config/codex-rtk.md` | `.codex/RTK.md`; instrucciones de salida |
 | `config/codex-hooks.json` | `.codex/hooks.json`; hook RTK nativo |

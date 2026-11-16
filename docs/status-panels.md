@@ -1,5 +1,9 @@
 # Status panels
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Operation
 
 - Clic izquierdo en el reloj: abrir/cerrar calendario GTK3. Flechas del widget
@@ -46,64 +50,37 @@ de btop permanece fuera del repositorio.
 ## Installation and recovery
 
 [manifest.json](../config/manifest.json) declara las fuentes y destinos.
-Fuentes nuevas, como archivos regulares propiedad de `jd`:
+Fuentes de usuario enlazadas al checkout o ejecutadas directamente desde él:
 
 | Fuente | Destino | Modo |
 |---|---|---|
-| `scripts/status-panel.py` | `/home/jd/scripts/status-panel.py` | 755 |
-| `scripts/calendar-popup.py` | `/home/jd/scripts/calendar-popup.py` | 755 |
-| `scripts/open-trackpad-speed.py` | `/home/jd/scripts/open-trackpad-speed.py` | 755 |
+| `scripts/status-panel.py` | `/home/jd/dotfiles-i3-2310m/scripts/status-panel.py` | 755 |
+| `scripts/calendar-popup.py` | `/home/jd/dotfiles-i3-2310m/scripts/calendar-popup.py` | 755 |
+| `scripts/open-trackpad-speed.py` | `/home/jd/dotfiles-i3-2310m/scripts/open-trackpad-speed.py` | 755 |
 | `config/calendar/calendar.css` | `/home/jd/.config/calendar/calendar.css` | 644 |
 
-También cambian `config/i3-config`, `scripts/status-clicks.py`,
-`config/keybindings-help.txt` y `scripts/README.md`, con sus destinos existentes.
-Antes de actualizar, respaldarlos en un directorio privado externo con modo 700,
-anotar contenidos/modos y marcar los destinos que todavía no existen. Revisar
-las diferencias locales y conservarlas; no sustituir toda la configuración i3
-para añadir reglas de ventanas.
-
-Antes de renovar `status-clicks.py`, instalar también el módulo ALSA, perfil y
-deslizador según [USB audio installation](audio-setup.md#installation).
-Instalar el auxiliar y la regla de brillo según
+Aplicar [User configuration links](user-config-links.md), con respaldo privado,
+dry-run y revisión de diferencias. Las reglas de identidad permanecen en la
+fuente i3 enlazada; no mantener otra copia editable para los paneles.
+Antes de renovar el adaptador, disponer también de los módulos y perfiles de
+[USB audio installation](audio-setup.md#installation) y
 [Brightness installation and recovery](status-bar.md#brightness-installation-and-recovery).
-
-Desde la raíz, como `jd`, tras comprobar el respaldo:
-
-```sh
-umask 022
-install -d "$HOME/scripts" "$HOME/.config/i3" "$HOME/.config/calendar"
-install -m 755 scripts/status-panel.py scripts/calendar-popup.py scripts/open-trackpad-speed.py "$HOME/scripts/"
-install -m 644 config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
-install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
-install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
-```
-
-Aplicar las reglas `BGH-Calendar`/`bgh-calendar`, `BGH-Resources`/`bgh-resources`,
-`BGH-Trackpad-Speed`/`bgh-trackpad-speed` y `BGH-Audio-Volume`/`bgh-audio-volume`
-de `config/i3-config` al destino activo.
-En una restauración limpia se instalan esas fuentes completas con
-modo 644. Validar antes de renovar i3bar:
 
 ```sh
 i3 -C -c "$HOME/.config/i3/config"
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_status*.py' -q
-cmp scripts/status-panel.py "$HOME/scripts/status-panel.py"
-cmp scripts/calendar-popup.py "$HOME/scripts/calendar-popup.py"
-cmp config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
-stat -c '%a %U:%G %n' "$HOME/scripts/status-panel.py" "$HOME/scripts/calendar-popup.py" \
-  "$HOME/.config/calendar/calendar.css"
+python3 tools/verify-mirror.py --remote --check
 i3-msg restart
 ```
 
-Esperado: `jd:jd`, auxiliares 755 y CSS 644. El restart conserva las ventanas.
-Comprobar apertura y segundo clic de cierre, sin ventanas duplicadas ni procesos
-del monitor después de cerrar. También se pueden ejecutar manualmente
-`~/scripts/status-panel.py calendar` y `~/scripts/status-panel.py resources`.
+El restart conserva las ventanas y renueva el adaptador. Comprobar apertura y
+segundo clic de cierre, sin duplicados ni monitor residente después de cerrar.
+También se pueden ejecutar `scripts/status-panel.py calendar` y
+`scripts/status-panel.py resources` desde el checkout.
 
-Para revertir, cerrar sólo estos paneles, restaurar desde el respaldo los
-archivos que existían y retirar únicamente los auxiliares/CSS antes ausentes.
-Validar i3 y ejecutar `i3-msg restart`. Mantener las preferencias privadas de btop;
-no eliminar paquetes compartidos como parte del rollback de archivos.
+Para revertir enlaces, usar el journal de la migración. Para revertir el
+comportamiento, modificar las fuentes mediante Git y renovar sólo lo necesario.
+Mantener las preferencias privadas de btop y los paquetes compartidos.
 
 ## Verification and cost
 

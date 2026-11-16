@@ -106,7 +106,7 @@ def launch_command(name):
     gtk_helpers = {"calendar": "calendar-popup.py", "trackpad": "open-trackpad-speed.py",
                    "audio": "audio-volume.py", "brightness": "screen-brightness.py"}
     if name in gtk_helpers:
-        source = Path.home() / "scripts" / gtk_helpers[name]
+        source = Path(__file__).resolve().with_name(gtk_helpers[name])
         if not os.access(source, os.X_OK):
             raise RuntimeError(f"{name.capitalize()} helper is not installed.")
         return [str(source)]

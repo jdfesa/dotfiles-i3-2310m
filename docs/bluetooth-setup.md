@@ -1,5 +1,9 @@
 # Bluetooth and Magic Trackpad 2
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Scope
 
 El Magic Trackpad 2 usa la pila incluida en Debian: `btusb` para el adaptador,
@@ -170,13 +174,7 @@ instala por separado con sudo autenticado. Fuentes, destinos y modos en el
 
 ```sh
 umask 022
-install -d -m 755 "$HOME/scripts" "$HOME/.local/lib/bgh-bluetooth"
-install -m 755 scripts/bluetooth-status.py "$HOME/scripts/bluetooth-status.py"
-install -m 644 config/bluetooth/vendor/magic-trackpad-battery \
-  "$HOME/.local/lib/bgh-bluetooth/magic-trackpad-battery"
-install -m 644 config/bluetooth/vendor/LICENSE "$HOME/.local/lib/bgh-bluetooth/LICENSE"
-install -m 755 scripts/open-trackpad-speed.py "$HOME/scripts/open-trackpad-speed.py"
-install -m 755 scripts/status-clicks.py "$HOME/scripts/status-clicks.py"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
 udevadm verify config/bluetooth/72-bgh-magic-trackpad.rules
 sudo install -o root -g root -m 644 config/bluetooth/72-bgh-magic-trackpad.rules \
   /etc/udev/rules.d/72-bgh-magic-trackpad.rules
@@ -190,7 +188,7 @@ identificar primero su `hidrawN` por `device/uevent` y ejecutar sólo para él:
 
 ```sh
 sudo udevadm trigger --action=add --settle /sys/class/hidraw/hidrawN
-~/scripts/bluetooth-status.py --read-battery hidrawN
+~/dotfiles-i3-2310m/scripts/bluetooth-status.py --read-battery hidrawN
 i3-msg restart
 ```
 
@@ -234,7 +232,7 @@ vez. No apagar el controlador ni detener el servicio si atiende otros dispositiv
 
 `/etc/bluetooth/` conserva los archivos del paquete; `/var/lib/bluetooth/`
 es estado privado de root con claves de enlace,
-fuera del repositorio y del snapshot. Direcciones, números de serie y nombres
+fuera del repositorio. Direcciones, números de serie y nombres
 personales tampoco se publican. Una reinstalación requiere nuevo emparejamiento;
 Git no restaura esas claves.
 

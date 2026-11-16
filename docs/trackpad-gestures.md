@@ -1,5 +1,9 @@
 # Trackpad gestures
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Workspace swipes
 
 | Gesto en el Magic Trackpad 2 | Acción al levantar los dedos |
@@ -54,9 +58,8 @@ Desde la raíz del checkout y dentro de la sesión Xorg autenticada:
 
 ```sh
 umask 022
-install -d -m 755 "$HOME/scripts" "$HOME/.config/i3"
-install -m 755 scripts/trackpad-gestures.py "$HOME/scripts/trackpad-gestures.py"
-python3 "$HOME/scripts/trackpad-gestures.py" --check
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
+python3 "$HOME/dotfiles-i3-2310m/scripts/trackpad-gestures.py" --check
 i3 -C -c config/i3-config
 ```
 
@@ -65,7 +68,7 @@ Después de reconciliar diferencias, instalar `config/i3-config` como
 `~/.config/i3/keybindings-help.txt`, ambos modo644 y jd:jd. La línea nueva es:
 
 ```text
-exec --no-startup-id ~/scripts/trackpad-gestures.py
+exec --no-startup-id ~/dotfiles-i3-2310m/scripts/trackpad-gestures.py
 ```
 
 `exec` se ejecuta al entrar en i3; una recarga no lo inicia. Para activar ahora,
@@ -73,7 +76,7 @@ sin salir ni reiniciar i3:
 
 ```sh
 i3-msg reload
-i3-msg 'exec --no-startup-id ~/scripts/trackpad-gestures.py'
+i3-msg 'exec --no-startup-id ~/dotfiles-i3-2310m/scripts/trackpad-gestures.py'
 ```
 
 Una selección X11 propia evita duplicar auxiliares en ese display. Comparar
@@ -87,8 +90,8 @@ capturarlos; cero dispositivos es válido si está desconectado. Para una prueba
 sin cambiar escritorios, detener sólo este auxiliar y ejecutarlo en primer plano:
 
 ```sh
-~/scripts/trackpad-gestures.py --stop
-~/scripts/trackpad-gestures.py --dry-run
+~/dotfiles-i3-2310m/scripts/trackpad-gestures.py --stop
+~/dotfiles-i3-2310m/scripts/trackpad-gestures.py --dry-run
 ```
 
 Hacer ambos gestos amplios de tres dedos; debe imprimir el comando correspondiente
@@ -134,7 +137,7 @@ python3 -m unittest discover -s tests -p test_trackpad_gestures.py
 Para detener exclusivamente los gestos en el display actual:
 
 ```sh
-~/scripts/trackpad-gestures.py --stop
+~/dotfiles-i3-2310m/scripts/trackpad-gestures.py --stop
 ```
 
 Para retirarlos permanentemente, quitar sólo la línea `exec` nueva de la

@@ -1,5 +1,9 @@
 # Network setup
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Interface ownership and status
 
 NetworkManager administra Ethernet `enp4s0` y Wi-Fi `wlp2s0` (RTL8188CE,
@@ -40,9 +44,7 @@ sesión, desde la raíz del repositorio:
 ```sh
 sh -n scripts/open-networks.sh
 desktop-file-validate config/network-panel/bgh-network-panel.desktop
-install -D -m 755 scripts/open-networks.sh "$HOME/scripts/open-networks.sh"
-install -D -m 644 config/network-panel/bgh-network-panel.desktop \
-  "$HOME/.local/share/applications/bgh-network-panel.desktop"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
 PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p test_network_panel.py -q
 ```
 

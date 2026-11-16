@@ -2,7 +2,8 @@
 """Link only manifest entries explicitly marked deployment=symlink.
 
 Dry-run by default. Different files/links and symlinked parents are conflicts.
-Only identical regular copies may be replaced, with a private external backup.
+Identical copies can be replaced; differences require an explicit prior-state
+review file. Replacements are atomic, with a private external rollback journal.
 Rollback verifies link identity and backups before touching any destination.
 """
 import argparse
@@ -50,8 +51,11 @@ def snapshot(path):
     return {"kind": "file", "sha256": digest(path), "mode": stat.S_IMODE(st.st_mode)}
 
 
-def plan(root, home):
+def plan(root, home, reviewed=None):
     root, home = root.resolve(), home.absolute()
+    reviewed = {} if reviewed is None else reviewed
+    if not isinstance(reviewed, dict):
+        raise ValueError("Reviewed differences must map source names to prior file states")
     entries = json.loads((root / "config/manifest.json").read_text())
     result = []
     for entry in entries:
@@ -77,6 +81,8 @@ def plan(root, home):
             action = "create"
         elif before["kind"] == "file" and before["sha256"] == digest(source):
             action = "replace-identical-copy"
+        elif reviewed.get(entry["source"]) == before:
+            action = "replace-reviewed-difference"
         else:
             raise ValueError(f"Conflict; preserve and review: {target}")
         result.append(dict(source=str(source), destination=str(target), before=before,
@@ -85,6 +91,8 @@ def plan(root, home):
         raise ValueError("Duplicate destination")
     if not result:
         raise ValueError("No explicitly symlink-managed entries")
+    if set(reviewed) - {entry["source"] for entry in entries if entry.get("deployment") == "symlink"}:
+        raise ValueError("Reviewed differences contain an unmanaged source")
     return result
 
 
@@ -131,6 +139,8 @@ def rollback(journal):
             with target.open("xb") as stream:
                 stream.write(backup.read_bytes())
                 os.fchmod(stream.fileno(), entry["before"]["mode"])
+        elif entry["before"]["kind"] == "link":
+            os.symlink(entry["before"]["target"], target)
     data["state"] = "rolled-back"
     write_journal(journal, data)
 
@@ -176,9 +186,12 @@ def apply(entries, root, home, backup):
             if snapshot(target) != entry["before"]:
                 raise ValueError(f"Destination changed: {target}")
             target.parent.mkdir(mode=0o755, parents=True, exist_ok=True)
-            if entry["before"]["kind"] == "file":
-                target.unlink()
-            os.symlink(entry["source"], target)
+            temporary = target.with_name(f".{target.name}.link-{os.getpid()}")
+            os.symlink(entry["source"], temporary)
+            try:
+                os.replace(temporary, target)
+            finally:
+                temporary.unlink(missing_ok=True)
         data["state"] = "applied"
         write_journal(journal, data)
     except Exception:
@@ -192,17 +205,20 @@ def main():
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--backup-dir", type=Path)
     parser.add_argument("--rollback", type=Path, metavar="JOURNAL")
+    parser.add_argument("--reviewed-differences", type=Path,
+                        help="Private JSON of explicitly reviewed prior file states")
     args = parser.parse_args()
     if os.geteuid() == 0:
         parser.error("Run as the target account, never root")
     try:
         if args.rollback:
-            if args.apply or args.backup_dir:
+            if args.apply or args.backup_dir or args.reviewed_differences:
                 parser.error("Rollback cannot be combined with deployment")
             rollback(args.rollback.absolute())
             print("Rollback complete; sources and unrelated files preserved")
             return
-        entries = plan(ROOT, Path.home())
+        reviewed = json.loads(args.reviewed_differences.read_text()) if args.reviewed_differences else None
+        entries = plan(ROOT, Path.home(), reviewed)
         for entry in entries:
             print(f"{entry['action']}: {entry['destination']}")
         if args.apply:

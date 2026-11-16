@@ -1,5 +1,9 @@
 # USB audio
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Volume control
 
 La barra muestra el icono y porcentaje de la salida USB. Clic izquierdo o
@@ -74,12 +78,7 @@ Con el respaldo comprobado, instalar los componentes juntos:
 
 ```sh
 umask 022
-install -d -m 755 "$HOME/scripts" "$HOME/.config/audio" "$HOME/.config/calendar" "$HOME/.config/i3" "$HOME/.config/i3status"
-install -m 755 scripts/audio-control.py scripts/audio-volume.py scripts/audio-position.py scripts/refresh-helium-audio.py scripts/open-mixer.sh scripts/status-panel.py scripts/status-clicks.py scripts/status-bar.sh "$HOME/scripts/"
-install -m 644 config/audio/usb-audio.json "$HOME/.config/audio/usb-audio.json"
-install -m 644 config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
-install -m 644 config/i3status-config "$HOME/.config/i3status/config"
-install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
 ```
 
 En i3, sustituir sólo la regla anterior `BGH-Mixer` por la regla exacta de
@@ -90,7 +89,7 @@ como `~/.config/i3/config`, modo644. Validar:
 ```sh
 sh -n scripts/status-bar.sh scripts/open-mixer.sh
 i3 -C -c "$HOME/.config/i3/config"
-python3 "$HOME/scripts/audio-control.py"
+python3 "$HOME/dotfiles-i3-2310m/scripts/audio-control.py"
 i3-msg restart
 ```
 
@@ -100,12 +99,12 @@ adaptador anterior. Comparar contenidos, modos y propietarios: scripts755,
 JSON/CSS/configuración/ayuda644, todos jd:jd. Los comentarios locales de i3
 pueden diferir si se conservaron deliberadamente.
 
-Si los scripts instalados ya coinciden y sólo se sustituye el adaptador,
-respaldar el perfil instalado, copiar únicamente `config/audio/usb-audio.json`
-a `~/.config/audio/usb-audio.json` con modo644 y propietario jd:jd, comprobar
+Si sólo se sustituye el adaptador, revisar y actualizar la fuente versionada
+`config/audio/usb-audio.json`, cuyo destino está enlazado. Mantener modo644
+y propietario jd:jd, comprobar
 la lectura y ejecutar `i3-msg restart`. La barra carga el perfil al arrancar;
 esperar otro tick sin renovarla no cambia la identidad seleccionada.
-Instalar además `scripts/refresh-helium-audio.py` en `~/scripts/`, modo755,
+Instalar además `scripts/refresh-helium-audio.py` en `~/dotfiles-i3-2310m/scripts/`, modo755,
 para disponer del auxiliar de recuperación manual descrito abajo. Si ya existe,
 revisarlo y respaldarlo antes; no requiere recargar i3.
 
@@ -150,8 +149,8 @@ el USB con el navegador abierto. Como `jd`, comprobar primero y aplicar sólo
 si hace falta:
 
 ```sh
-~/scripts/refresh-helium-audio.py           # sólo comprueba; no envía señales
-~/scripts/refresh-helium-audio.py --apply   # renueva sólo AudioService
+~/dotfiles-i3-2310m/scripts/refresh-helium-audio.py           # sólo comprueba; no envía señales
+~/dotfiles-i3-2310m/scripts/refresh-helium-audio.py --apply   # renueva sólo AudioService
 ```
 
 La fuente es [`refresh-helium-audio.py`](../scripts/refresh-helium-audio.py).
@@ -202,9 +201,9 @@ independientes: que el porcentaje sea correcto no demuestra audición.
 Para revertir sólo la sustitución, restaurar el JSON del respaldo privado,
 conservar modo644 y propietario jd:jd, validar la lectura con el adaptador
 correspondiente conectado y renovar la barra con `i3-msg restart`.
-Si el auxiliar de recuperación no existía antes, retirar únicamente
-`~/scripts/refresh-helium-audio.py`; si existía, restaurar su respaldo. No hay
-servicio que desactivar. Una renovación ya realizada de AudioService no necesita
+El auxiliar de recuperación reside en `scripts/refresh-helium-audio.py`; cambiar
+o retirar su fuente mediante Git, sin borrar otros scripts. No hay servicio
+que desactivar. Una renovación ya realizada de AudioService no necesita
 revertirse y no modifica preferencias del navegador.
 
 Cerrar sólo el panel de audio y restaurar desde el respaldo los scripts,

@@ -21,9 +21,9 @@ No es una copia completa del home ni de `/etc`.
 | `tmp/` | Material descartable ignorado; no documentación duradera |
 
 `config/manifest.json` contiene fuentes relativas a esta raíz y destinos reales.
-Los scripts se instalan en `/home/jd/scripts/`. `/home/jd/setup-guide` es una
-snapshot secundario del commit vigente: no se edita ni se utiliza automáticamente
-como fuente runtime. No conservar guías antiguas a su lado.
+El único checkout público reside en `/home/jd/dotfiles-i3-2310m`. Los scripts
+se ejecutan directamente desde su carpeta `scripts/`; las rutas de aplicaciones
+apuntan a las fuentes mediante enlaces simbólicos por archivo.
 Los ejemplos y rutas de fuentes parten de la raíz del repositorio, salvo
 indicación contraria. Los README de componentes permanecen junto a sus fuentes.
 
@@ -34,45 +34,21 @@ indicación contraria. Los README de componentes permanecen junto a sus fuentes.
 3. Instalar con propietario/modo del manifiesto; sudo sólo para archivos de sistema.
 4. Validar sintaxis y comportamiento sin interrumpir aplicaciones o acceso remoto.
 5. Validar en la portátil, comparar hashes y registrar sólo el estado técnico vigente.
-6. Sincronizar fuentes mediante GitHub y regenerar el snapshot secundario.
+6. Publicar las fuentes mediante GitHub y retirar copias públicas redundantes
+   después de reconciliar diferencias y verificar las referencias activas.
 
 Para sincronizar cambios entre máquinas mediante commit/push/pull, seguir
 [Git workflow](git-workflow.md).
 
 No guardar logs, secretos, historiales o memorias en el árbol.
 
-## Secondary snapshot
-
-Desde el checkout limpio de la portátil actualizado mediante GitHub:
-
-```sh
-umask 022
-git pull --ff-only
-python3 tools/sync-secondary.py                     # revisar cambios y retiros
-backup="$HOME/.local/state/bgh-config-backups/secondary-$(date -u +%Y%m%dT%H%M%SZ)"
-python3 tools/sync-secondary.py --apply --backup-dir "$backup"
-python3 tools/sync-secondary.py --check
-```
-
-El auxiliar exporta sólo archivos del commit, nunca archivos privados ignorados
-ni `.git`. Reemplaza copias públicas desactualizadas y retira guías antiguas ya
-movidas a `docs/`, el nombre anterior del generador de iconos y metadatos/cache
-generados. Un archivo extra desconocido o enlace exige revisión privada previa;
-no se publica ni se elimina a ciegas.
-
-Antes de escribir guarda el estado afectado en un directorio700 externo con
-journal600. La comparación final exige contenidos, modos y conjunto exacto de
-archivos del commit. No crea otra copia de trabajo ni almacena estados anteriores
-en el snapshot. Conservar un baseline revisado de recuperación; retirar respaldos
-temporales superados sólo después de verificarlo. Sin cambios no genera backups.
-
 ## Symbolic links
 
-Yazi usa un enlace por archivo con fuente residente, dry-run,
-conflictos y rollback privado. LazyVim usa dos copias regulares.
-Procedimiento del enlace en
-[Editor and file management](editor-and-files.md). Los componentes anteriores
-siguen como copias; revisar sus divergencias antes de ampliar la migración.
+La configuración pública de usuario usa enlaces por archivo al checkout
+residente, con dry-run, comprobación de conflictos y rollback privado. Los
+scripts no se copian a otro directorio. Autenticación, historiales y estado
+generado permanecen privados; un archivo que mezcle esos datos no se enlaza
+al repositorio. Procedimiento en [User configuration links](user-config-links.md).
 
 Agrupar fuentes nuevas bajo `config/<component>/`, incluso metadatos APT en
 su subcarpeta `apt/`; inventarios comunes permanecen en `config/`. No mezclar

@@ -1,8 +1,12 @@
 # i3 setup
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Minimal session
 
-Xorg + i3 de Debian; sin escritorio completo, display manager, compositor o
+Xorg + i3 de Debian; sin escritorio completo, display manager o
 autologin. Paquetes y versiones en [dependencies.md](dependencies.md).
 La sesión física y ventanas de Kitty/Rofi/Helium fueron comprobadas.
 
@@ -41,15 +45,14 @@ recortar bordes en pantallas con otra relación de aspecto. No queda ningún
 proceso residente ni se añade un compositor. Un cambio de resolución o
 monitor no reaplica el fondo automáticamente.
 
-Instalar `xwallpaper` desde Debian estable y copiar la imagen del checkout
+Instalar `xwallpaper` desde Debian estable y enlazar la imagen del checkout
 mediante el [manifest.json](../config/manifest.json). Como `jd`, revisar y
 respaldar en privado el archivo i3 activo y cualquier imagen previa en el
 destino antes de reemplazarlos:
 
 ```sh
 sudo apt-get install --no-install-recommends xwallpaper
-install -d -m 755 "$HOME/.local/share/wallpapers"
-install -m 644 wallpapers/pixel-car.png "$HOME/.local/share/wallpapers/pixel-car.png"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
 cmp wallpapers/pixel-car.png "$HOME/.local/share/wallpapers/pixel-car.png"
 ```
 
@@ -66,7 +69,7 @@ xwallpaper --zoom "$HOME/.local/share/wallpapers/pixel-car.png"
 Comprobar el fondo en un escritorio vacío. Para revertir, retirar sólo esa
 línea o restaurar el respaldo revisado, validar y recargar i3; reaplicar el
 fondo anterior o ejecutar `xsetroot -def` para volver al fondo predeterminado
-de Xorg. Retirar la copia instalada sólo si no existía antes.
+de Xorg. Retirar sólo el enlace añadido si antes no existía.
 
 ## Verification
 
@@ -74,7 +77,7 @@ de Xorg. Retirar la copia instalada sólo si no existía antes.
 i3 -C -c ~/.config/i3/config
 sh -n ~/.profile
 sh -n ~/.xinitrc
-~/scripts/status-clicks.py --run-once
+~/dotfiles-i3-2310m/scripts/status-clicks.py --run-once
 ```
 
 La última orden produce una muestra de estado; revisar JSON y datos disponibles.
