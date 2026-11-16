@@ -270,6 +270,11 @@
     "mode": 420
   },
   {
+    "source": "config/thunar/10-dark-theme.conf",
+    "destination": "/home/jd/.config/systemd/user/thunar.service.d/10-dark-theme.conf",
+    "mode": 420
+  },
+  {
     "source": "config/vscode/apt/microsoft.asc",
     "destination": "/etc/apt/keyrings/bgh-vscode.asc",
     "mode": 420

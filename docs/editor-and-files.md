@@ -32,24 +32,83 @@ Thunar funciona bajo demanda en i3 con GTK3 existente. Se instala desde Debian
 sin GVfs, tumbler, gestor de volúmenes ni escritorio Xfce; integraciones de
 papelera y volúmenes no forman parte de esta instalación mínima.
 
+#### Installation
+
+Como `jd`, revisar y respaldar en privado los dos destinos del
+[manifest.json](../config/manifest.json) antes de instalar sus copias regulares
+con modo644. Si un destino no existía, registrar esa ausencia para la reversión.
+
 ```sh
 apt-get -s install --no-install-recommends thunar
 sudo apt-get install --no-install-recommends thunar
 
 desktop-file-validate config/thunar/thunar.desktop
-install -d -m 755 "$HOME/.local/share/applications"
+install -d -m 755 "$HOME/.local/share/applications" \
+  "$HOME/.config/systemd/user/thunar.service.d"
 install -m 644 config/thunar/thunar.desktop "$HOME/.local/share/applications/thunar.desktop"
+install -m 644 config/thunar/10-dark-theme.conf \
+  "$HOME/.config/systemd/user/thunar.service.d/10-dark-theme.conf"
+systemctl --user daemon-reload
 ```
 
 El lanzador de usuario reemplaza el ID `thunar.desktop`. En **Super+Space**,
 abrir **Thunar File Manager**: aplica `Adwaita:dark` sólo al proceso lanzado,
 sin modificar ajustes globales de GTK. En terminal usar
-`GTK_THEME=Adwaita:dark thunar "$HOME"`. Si ya está abierto con otro tema,
-cerrar sus ventanas normalmente antes de lanzar la versión oscura. Verificar
-una ventana real y `thunar --version`; no iniciar con `--daemon`.
+`GTK_THEME=Adwaita:dark thunar "$HOME"`.
 
-Para revertir, restaurar el lanzador previo o retirar sólo la copia de usuario
-si antes no existía. Thunar vuelve a su lanzador Debian. La desinstalación es
+**Show in folder** de Helium usa la interfaz D-Bus `org.freedesktop.FileManager1`,
+que no pasa por el lanzador. Los descriptores Debian de esa interfaz y de
+`org.xfce.Thunar` delegan en `thunar.service`; el drop-in añade el mismo
+`GTK_THEME` al servicio de usuario existente sin sustituir su comando.
+No habilitarlo al inicio ni lanzar manualmente `--daemon`: D-Bus lo activa
+bajo demanda. No se añaden unidades, paquetes ni sondeos; las asociaciones
+MIME se conservan. La precedencia de configuración del servicio se describe
+en [systemd.unit](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html),
+y la interfaz en [File Manager Interface](https://www.freedesktop.org/wiki/Specifications/file-manager-interface/).
+
+Una instancia que ya estaba abierta conserva su tema; cerrar ventanas puede
+dejar el daemon de Debian activo. Esperar a que terminen todas las operaciones
+y cerrar las ventanas de Thunar antes de ejecutar `thunar --quit`. La siguiente
+apertura recibe el ajuste nuevo. No renovar Thunar mientras haya copias,
+movimientos o diálogos activos; no reiniciar el navegador ni la sesión.
+
+#### Validation
+
+```sh
+thunar --version
+systemd-analyze --user verify thunar.service
+systemctl --user show thunar.service -p Environment
+```
+
+`Environment` debe incluir `GTK_THEME=Adwaita:dark`. Comprobar una ventana real
+desde **Thunar File Manager** y otra mediante la misma interfaz del navegador,
+con un archivo temporal ajeno a las descargas personales:
+
+```sh
+probe=$(mktemp -d /tmp/thunar-dark-check.XXXXXX)
+touch "$probe/theme-check.txt"
+gdbus call --session --dest org.freedesktop.FileManager1 \
+  --object-path /org/freedesktop/FileManager1 \
+  --method org.freedesktop.FileManager1.ShowItems \
+  "['file://$probe/theme-check.txt']" ''
+```
+
+Ambas ventanas deben verse oscuras. Para comprobar una activación nueva por
+D-Bus, usar primero `thunar --quit` sólo cuando no queden ventanas ni operaciones;
+así no se reutiliza una instancia que ya tenía el tema del lanzador.
+Cerrar únicamente la ventana de comprobación y retirar el fixture:
+
+```sh
+rm "$probe/theme-check.txt"
+rmdir "$probe"
+```
+
+#### Recovery
+
+Restaurar los dos archivos previos o retirar sólo las copias de usuario que
+antes no existían; no eliminar otros drop-ins de `thunar.service`. Ejecutar
+`systemctl --user daemon-reload` y renovar Thunar con las mismas precauciones.
+Sin estas copias vuelve al tema de sus rutas Debian. La desinstalación es
 independiente; revisar `apt-get -s remove thunar`, sin autoremove a ciegas.
 
 ### Visual Studio Code

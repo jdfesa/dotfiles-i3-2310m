@@ -58,6 +58,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/bgh-power-menu.desktop` | `/home/jd/.local/share/applications/bgh-power-menu.desktop` | `644` |
 | `config/zathura/zathurarc` | `/home/jd/.config/zathura/zathurarc` | `644` |
 | `config/thunar/thunar.desktop` | `/home/jd/.local/share/applications/thunar.desktop` | `644` |
+| `config/thunar/10-dark-theme.conf` | `/home/jd/.config/systemd/user/thunar.service.d/10-dark-theme.conf` | `644` |
 | `scripts/README.md` | `/home/jd/scripts/README.md` | `644` |
 | `config/codex-config.toml` | `/home/jd/.codex/config.toml` | `600` |
 | `config/codex-agents.md` | `/home/jd/.codex/AGENTS.md` | `600` |

@@ -304,8 +304,10 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   por defecto todas las integraciones opcionales/recomendadas.
 - Thunar y Visual Studio Code son alternativas gráficas bajo demanda; no fijar
   asociaciones MIME ni cambiar los editores predeterminados. Thunar reutiliza GTK3
-  con tema oscuro sólo en su lanzador; no instalar XFCE completo ni servicios
-  opcionales por defecto. VS Code usa el repositorio oficial estable firmado
+  con tema oscuro en su lanzador y en la activación D-Bus mediante su servicio
+  de usuario existente; sin cambiar el tema GTK global ni añadir autostart.
+  No instalar XFCE completo ni servicios opcionales por defecto.
+  VS Code usa el repositorio oficial estable firmado
   limitado a `code`; mantener sandbox, sin autostart ni extensiones de oficio.
 - Zathura con Poppler es el lector PDF predeterminado, con modo oscuro Mocha
   y portapapeles estándar. Helium conserva la web; Yazi conserva sus previews.
