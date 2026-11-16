@@ -185,6 +185,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   micrófono/captura ni cambiar volumen o mute al abrir/conectar. Sin servidores
   de audio, sondeo adicional ni servicio propio. No audio sólo si falta el
   adaptador; errores/ambigüedad muestran Audio ?. Operación en docs/audio-setup.md.
+- La recuperación de reproducción tras cambiar el USB es manual con
+  `refresh-helium-audio.py`: sólo el AudioService de Helium de la cuenta actual,
+  con USB verificado, captura cerrada, identidad revalidada y pidfd; sin reiniciar
+  el navegador ni añadir automatización de hotplug. Sin argumentos sólo revisa;
+  `--apply` renueva ese proceso. Operación en docs/audio-setup.md.
 - Bluetooth/Magic Trackpad 2 usa BlueZ, btusb, hid_magicmouse y libinput de Debian;
   sin gestor gráfico ni agente Bluetooth adicional. Emparejar sólo el
   dispositivo identificado, detener el escaneo y cerrar el agente temporal.

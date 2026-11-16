@@ -10,9 +10,9 @@
   [Status bar](status-bar.md#verification). Calendario y btop bajo demanda en
   [Status panels](status-panels.md). Suite completa: 181 pruebas correctas y
   una omitida en exportación limpia.
-- Adaptador de audio USB con volumen/mute por ALSA y deslizador GTK3; clic y
-  Super+A bajo el bloque, cambio de puerto y hub comprobados localmente.
-  [USB audio](audio-setup.md#current-verification--2026-11-15).
+- GeneralPlus USB `1b3f:2008` seleccionado para volumen/mute por ALSA y
+  deslizador GTK3. Comprobaciones y límites del adaptador actual en
+  [USB audio](audio-setup.md#current-verification).
 - Batería ausente mostrada como icono, sin leyenda; estados de batería instalada
   comprobados sólo mediante fixtures nativos y vista previa. Prueba física pendiente.
   [Battery icons](status-bar.md#battery-icons).

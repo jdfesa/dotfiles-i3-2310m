@@ -5,6 +5,17 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### USB audio adapter
+
+- El perfil de audio pasa al GeneralPlus `1b3f:2008` con `Speaker`, índice0,
+  sustituyendo al USB `8086:0808`. Se conserva el controlador ALSA existente,
+  con rango de volumen nativo, sin dependencias ni sondeos nuevos.
+  [USB audio](docs/audio-setup.md).
+- Añadido `refresh-helium-audio.py` para recuperar la reproducción tras cambiar
+  el USB con Helium abierto: revisión sin señales por defecto y renovación
+  explícita sólo de AudioService mediante pidfd, USB/identidad revalidados y
+  captura cerrada. Sin cerrar pestañas ni añadir automatización de hotplug.
+
 ### Desktop wallpaper
 
 - Fondo Pixel Car versionado en `wallpapers/` y aplicado al inicio de i3 con

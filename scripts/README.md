@@ -23,6 +23,7 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/audio-control.py` | Módulo ALSA: lectura de salida USB en el tick existente y escrituras explícitas del panel; ejecución directa sólo lee |
 | `scripts/audio-volume.py` | Deslizador GTK3 de volumen/mute; vive sólo mientras está abierto |
 | `scripts/audio-position.py` | Publica el tramo de audio de la barra en memoria X11; calcula el anclaje del teclado con Pango sólo al abrir |
+| `scripts/refresh-helium-audio.py` | Comprueba el USB y renueva sólo AudioService de Helium con `--apply`; ejecución directa sólo revisa, sin servicio ni sondeo. [USB audio](../docs/audio-setup.md#helium-playback-after-replacing-usb) |
 | `scripts/open-updates.sh` | Lista APT local de sólo lectura; click/Super+U |
 | `scripts/update-weather.py` | Oneshot del timer de clima; cache cada 30 min |
 | `scripts/update-packages.py` | Oneshot del timer APT; simulación local cada 6 h |
