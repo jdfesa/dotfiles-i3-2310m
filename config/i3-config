@@ -28,6 +28,9 @@ for_window [class="^BGH-Resources$" instance="^bgh-resources$"] floating enable,
 # One blocking XInput listener per display; no input-device permissions needed.
 exec --no-startup-id ~/scripts/trackpad-gestures.py
 
+# Apply the default on initial login, not on reload or in-session restart.
+exec --no-startup-id ~/scripts/screen-brightness.py --set-percent 43
+
 # Applications and session controls.
 bindsym $mod+Return exec --no-startup-id kitty
 bindsym $mod+space exec --no-startup-id rofi -show drun

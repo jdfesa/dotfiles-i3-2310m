@@ -10,6 +10,8 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 - Añadido el indicador de brillo del panel interno y un deslizador GTK3
   anclado a la barra. Usa los pasos físicos de la retroiluminación ACPI mediante
   logind y el tick de barra existente. [Screen brightness](docs/status-bar.md#screen-brightness).
+- El inicio de una sesión i3 fija el brillo del panel interno en 43 %; no se
+  reaplica al recargar o reiniciar i3 dentro de la sesión.
 
 ### Network panel
 

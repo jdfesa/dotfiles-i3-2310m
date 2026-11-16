@@ -16,7 +16,7 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/open-trackpad-speed.py` | Panel GTK3 bajo demanda que ajusta sólo la velocidad del Magic Trackpad 2 Bluetooth en Xorg |
 | `scripts/trackpad-gestures.py` | Un residente por pantalla X: espera gestos XInput 2.4 del Magic Trackpad 2, sin sondeo; [Trackpad gestures](../docs/trackpad-gestures.md) |
 | `scripts/status-panel.py` | Alterna calendario, btop, brillo, volumen y velocidad del trackpad por identidad; IPC breve por evento, sin sondeo |
-| `scripts/screen-brightness.py` | Lee la retroiluminación interna en el tick existente; panel GTK3 que escribe por logind bajo demanda |
+| `scripts/screen-brightness.py` | Lee la retroiluminación interna en el tick existente; aplica el brillo inicial con logind y abre el panel GTK3 bajo demanda |
 | `scripts/calendar-popup.py` | Calendario GTK3 de sólo lectura; vive sólo mientras está abierto |
 | `scripts/open-networks.sh` | Panel único de `nmtui-connect` en Kitty; clic, Super+N o Rofi. [Network panel](../docs/wifi-setup.md#network-panel) |
 | `scripts/open-mixer.sh` | Entrada Super+A al panel de volumen USB; sin terminal adicional |

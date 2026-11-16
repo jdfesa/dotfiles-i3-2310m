@@ -36,6 +36,21 @@ class BacklightTests(unittest.TestCase):
         self.assertEqual(brightness.write_level(3, 7, request, self.device), 43)
         request.assert_called_once_with(3)
 
+    def test_default_maps_to_three_and_skips_an_already_matching_level(self):
+        request = Mock(side_effect=lambda target: self.actual.write_text(str(target)))
+        brightness.set_percentage(43, request, self.device)
+        brightness.set_percentage(43, request, self.device)
+        request.assert_called_once_with(3)
+
+    def test_tiny_percentage_maps_to_nonzero_level_and_invalid_input_is_rejected(self):
+        request = Mock(side_effect=lambda target: self.actual.write_text(str(target)))
+        for invalid in (0, -1, 101, True):
+            with self.subTest(invalid=invalid), self.assertRaises(ValueError):
+                brightness.set_percentage(invalid, request, self.device)
+        request.assert_not_called()
+        brightness.set_percentage(1, request, self.device)
+        request.assert_called_once_with(1)
+
     def test_never_requests_zero_or_out_of_range_or_changed_device(self):
         request = Mock()
         for level, remembered_max in ((0, 7), (-1, 7), (True, 7), (3.0, 7), (8, 7), (3, 9)):
@@ -70,6 +85,11 @@ class BacklightTests(unittest.TestCase):
 
 
 class BrightnessBlockTests(unittest.TestCase):
+    def test_i3_sets_default_only_on_initial_startup(self):
+        config = (SCRIPTS.parent / "config/i3-config").read_text()
+        commands = [line for line in config.splitlines() if "~/scripts/screen-brightness.py" in line]
+        self.assertEqual(commands, ["exec --no-startup-id ~/scripts/screen-brightness.py --set-percent 43"])
+
     def test_block_stays_visible_without_resampling_on_toggle(self):
         source = Mock(side_effect=(57, None))
         view = status.StatusView()

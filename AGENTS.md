@@ -160,7 +160,8 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   sólo mientras está abierto; detalles en docs/status-panels.md.
 - Brillo de pantalla: bloque de sol siempre visible y panel GTK3 bajo demanda.
   Leer la retroiluminación física del panel interno en el tick de 10 s y
-  escribir sólo por interacción mediante logind desde la sesión local.
+  usar logind desde la sesión local: 43 % al inicio de i3 y ajustes por
+  interacción después. No reaplicar al recargar i3 ni al abrir el panel.
   No escribir cero, manipular la gamma ni añadir permisos o sondeos.
   Operación en docs/status-bar.md.
 - Clima: coordenadas públicas del centro de Orán, sin geolocalización automática;

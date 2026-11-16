@@ -104,6 +104,11 @@ izquierda/derecha aplican cambios al instante; Escape o **Close** cierra sin
 revertirlos. Abrir y cerrar no cambia el nivel. El panel muestra la lectura
 validada y la barra se actualiza en el próximo tick de 10 s.
 
+Al iniciar una sesión i3 nueva, el brillo se fija en **43 %** (paso 3 de 7).
+Los cambios manuales se conservan durante la sesión: el valor inicial no se
+reaplica al recargar o reiniciar i3 ni al abrir el deslizador. No altera la
+retroiluminación antes de iniciar i3.
+
 En la BGH A470 usa únicamente `/sys/class/backlight/acpi_video0` de tipo
 `firmware`. El porcentaje es la relación entre el paso real y el máximo del
 driver; en esta portátil, los pasos seleccionables son 1 a 7. No escribe cero
@@ -131,13 +136,17 @@ install -m 755 scripts/screen-brightness.py scripts/status-panel.py scripts/stat
 install -m 644 config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
 ```
 
-Añadir sólo la regla `BGH-Screen-Brightness`/`bgh-screen-brightness` de
-`config/i3-config` al archivo activo, conservando sus diferencias locales. En
+Añadir la regla `BGH-Screen-Brightness`/`bgh-screen-brightness` y el
+`exec` de `screen-brightness.py --set-percent 43` de `config/i3-config`
+al archivo activo, conservando sus diferencias locales. En
 una instalación limpia, instalar la fuente completa en modo 644. Comprobar
 `i3 -C -c "$HOME/.config/i3/config"` y comparar contenidos, modos y propietario
 con el manifiesto. Ejecutar `i3-msg restart` en la sesión vigente para renovar
 el adaptador conservando las ventanas. Comprobar el sol, el anclaje, un paso en
 cada dirección y el segundo clic; devolver el brillo a su valor anterior.
+Para comprobar el valor inicial sin salir de la sesión, ejecutar desde ella
+`~/scripts/screen-brightness.py --set-percent 43` y verificar que el indicador
+muestra 43 % en el próximo tick.
 
 Para revertir, cerrar el panel, restaurar sólo los destinos respaldados y retirar
 el nuevo auxiliar si no existía. Validar i3 y renovar de la misma forma; no hay

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-"""Read the BGH internal backlight and open its on-demand GTK3 control."""
+"""Read, set or open the control for the BGH internal backlight."""
+import argparse
 import os
 from pathlib import Path
 import sys
@@ -40,6 +41,15 @@ def write_level(level, expected_maximum, request, device=BACKLIGHT):
     if maximum != expected_maximum or current != level:
         raise OSError("Backlight did not report the requested level.")
     return percentage(current, maximum)
+
+
+def set_percentage(value, request, device=BACKLIGHT):
+    if type(value) is not int or not 1 <= value <= 100:
+        raise ValueError("Brightness must be between 1 and 100 percent.")
+    current, maximum = read_level(device)
+    target = max(1, (value * maximum + 50) // 100)
+    if target != current:
+        write_level(target, maximum, request, device)
 
 
 def request_brightness(Gio, GLib, level):
@@ -132,6 +142,23 @@ def build_window(application, Gdk, Gio, GLib, Gtk):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--set-percent", type=int, metavar="PERCENT",
+                        help="Set brightness once (1–100) without opening a window.")
+    args = parser.parse_args()
+    if args.set_percent is not None:
+        try:
+            from gi.repository import Gio, GLib
+        except ImportError:
+            print("Setting brightness requires the Debian Python GI and Gio bindings.", file=sys.stderr)
+            return 1
+        try:
+            set_percentage(args.set_percent, lambda level: request_brightness(Gio, GLib, level))
+        except (OSError, ValueError, GLib.Error) as error:
+            print(f"Could not set brightness: {error}", file=sys.stderr)
+            return 1
+        return 0
+
     if not os.environ.get("DISPLAY"):
         print("An X11 session is required for the brightness panel.", file=sys.stderr)
         return 1
