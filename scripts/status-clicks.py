@@ -31,7 +31,8 @@ BATTERY_CHARGING_LEVELS = ("\U000f089f", "\U000f089c", "\U000f0086", "\U000f0087
 BATTERY_IDLE_MARK = "\uf04c"
 SECONDARY_BLOCKS = frozenset(("traffic", "memory", "cpu_usage", "cpu_temperature", "disk_info"))
 PANELS = {("tztime", "local"): "calendar", ("cpu_usage", "aggregate"): "resources",
-          ("trackpad", "battery"): "trackpad", ("volume", "usb-output"): "audio"}
+          ("trackpad", "battery"): "trackpad", ("volume", "usb-output"): "audio",
+          ("screen_brightness", "internal-display"): "brightness"}
 
 
 def labeled(icon, text, color):
@@ -114,7 +115,7 @@ def peripheral_blocks(state):
     return [bluetooth, trackpad]
 
 
-def adapt_status(blocks, traffic=None, peripherals=None, audio=None):
+def adapt_status(blocks, traffic=None, peripherals=None, audio=None, brightness=None):
     if peripherals is not None:
         index = next((i for i, block in enumerate(blocks) if block.get("name") in ("battery", "tztime")), len(blocks))
         blocks[index:index] = peripheral_blocks(peripherals.sample())
@@ -129,6 +130,12 @@ def adapt_status(blocks, traffic=None, peripherals=None, audio=None):
         if state["status"] == "ready":
             text = ("muted " if state["muted"] else "") + f'{state["percentage"]}%'
         blocks.insert(index, {"name": "volume", "instance": "usb-output", "full_text": text})
+    if brightness is not None:
+        level = brightness()
+        index = next(i for i, block in enumerate(blocks) if block.get("name") == "volume")
+        label = "?" if level is None else f"{level}%"
+        blocks.insert(index, {"name": "screen_brightness", "instance": "internal-display",
+                              "full_text": labeled("\uf185", label, "#7f849c" if level is None else YELLOW)})
     for block in blocks:
         name, text = block.get("name"), block.get("full_text", "")
         if name == "wireless" and block.get("instance") == "wlp2s0":
@@ -181,8 +188,8 @@ class StatusView:
         self.expanded = False
         self.snapshot = None
 
-    def update(self, blocks, traffic=None, peripherals=None, audio=None):
-        self.snapshot = adapt_status([dict(block) for block in blocks], traffic, peripherals, audio)
+    def update(self, blocks, traffic=None, peripherals=None, audio=None, brightness=None):
+        self.snapshot = adapt_status([dict(block) for block in blocks], traffic, peripherals, audio, brightness)
         return self.render()
 
     def render(self):
@@ -194,7 +201,7 @@ class StatusView:
         index = next((i for i, block in enumerate(blocks)
                       if (block.get("name") == "read_file" and
                           block.get("instance", "").endswith("/updates.txt")) or
-                      block.get("name") in ("volume", "wireless", "battery", "tztime")), len(blocks))
+                      block.get("name") in ("screen_brightness", "volume", "wireless", "battery", "tztime")), len(blocks))
         chevron = "\uf053" if self.expanded else "\uf054"
         blocks.insert(index, {"name": "stats_toggle", "instance": "secondary",
                               "full_text": chevron, "short_text": chevron,
@@ -254,6 +261,9 @@ def main(run_once=False):
     audio_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(audio_module)
     audio = audio_module.AudioStatus()
+    spec = importlib.util.spec_from_file_location("screen_brightness", Path(__file__).with_name("screen-brightness.py"))
+    brightness = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(brightness)
     spec = importlib.util.spec_from_file_location("audio_position", Path(__file__).with_name("audio-position.py"))
     position_module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(position_module)
@@ -318,7 +328,7 @@ def main(run_once=False):
                         except (OSError, subprocess.TimeoutExpired, subprocess.CalledProcessError):
                             print("Could not open status panel", file=sys.stderr)
                     elif key.data == "status" and isinstance(value, list):
-                        emit(view.update(value, traffic, peripherals, audio))
+                        emit(view.update(value, traffic, peripherals, audio, brightness.sample))
     finally:
         if position is not None:
             position.close()

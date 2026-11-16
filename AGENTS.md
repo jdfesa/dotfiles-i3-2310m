@@ -158,6 +158,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   exclusiva. Auxiliar breve por eventos IPC, identidades exactas y lock por
   panel; no cerrar ventanas ajenas ni añadir sondeos. btop refresca cada 2 s
   sólo mientras está abierto; detalles en docs/status-panels.md.
+- Brillo de pantalla: bloque de sol siempre visible y panel GTK3 bajo demanda.
+  Leer la retroiluminación física del panel interno en el tick de 10 s y
+  escribir sólo por interacción mediante logind desde la sesión local.
+  No escribir cero, manipular la gamma ni añadir permisos o sondeos.
+  Operación en docs/status-bar.md.
 - Clima: coordenadas públicas del centro de Orán, sin geolocalización automática;
   sólo icono/temperatura, refresco cada 30 min mediante servicio breve/cache,
   indicando honestamente los datos desactualizados.

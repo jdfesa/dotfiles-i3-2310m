@@ -3,7 +3,7 @@
 ## Appearance
 
 i3bar superior, opaca y compacta, Catppuccin Mocha; texto **JetBrainsMono Nerd Font
-Mono Regular 10**, iconos de clima/métricas/audio/batería/Bluetooth/trackpad **Propo Regular 12**.
+Mono Regular 10**, iconos de clima/métricas/brillo/audio/batería/Bluetooth/trackpad **Propo Regular 12**.
 Sin blur/compositor. Sólo workspaces existentes, manteniendo
 los diez accesibles por teclado. Textos en inglés, hora 24 h y temperaturas °C.
 
@@ -22,6 +22,7 @@ Procedencia, tamaño y hash de la única fuente añadida en
 | Temperatura | Sensor CPU coretemp/x86_pkg_temp; no temperatura exterior |
 | Disco | Espacio disponible de `/`; G=GiB |
 | Paquetes | Candidatos APT locales; click o Super+U abre lista |
+| Brillo | Sol y porcentaje del panel interno; clic alterna el deslizador |
 | Audio | Icono y porcentaje/mute de la salida USB; `No audio` si falta, `Audio ?` si no se puede leer; clic/Super+A abre deslizador |
 | Wi-Fi | Sólo icono por calidad, sin SSID/cifra; click/Super+N |
 | Bluetooth / trackpad | Estado del adaptador y batería inalámbrica; clic en el icono del trackpad abre [Trackpad speed](bluetooth-setup.md#pointer-speed) |
@@ -95,11 +96,58 @@ servicios ni estado de energía para esta presentación.
   por teclado se recalcula con el nuevo ancho del bloque. Sin nuevas fuentes,
   consultas o procesos. Los estados con batería instalada siguen sin prueba física.
 
+## Screen brightness
+
+El sol, junto al audio, permanece visible con la barra contraída. Clic izquierdo
+abre/cierra **Screen brightness** debajo del bloque. El deslizador y las flechas
+izquierda/derecha aplican cambios al instante; Escape o **Close** cierra sin
+revertirlos. Abrir y cerrar no cambia el nivel. El panel muestra la lectura
+validada y la barra se actualiza en el próximo tick de 10 s.
+
+En la BGH A470 usa únicamente `/sys/class/backlight/acpi_video0` de tipo
+`firmware`. El porcentaje es la relación entre el paso real y el máximo del
+driver; en esta portátil, los pasos seleccionables son 1 a 7. No escribe cero
+y no modifica gamma, monitores externos ni iluminación de teclado. Si la
+lectura no está disponible, el bloque muestra `?` y el panel no permite ajustar.
+La escritura usa [logind SetBrightness](https://www.freedesktop.org/software/systemd/man/latest/org.freedesktop.login1.html)
+mediante Gio desde la sesión i3 local activa; no usa sudo, reglas propias ni
+permisos adicionales. Reutiliza Python y GTK3 de Debian y systemd/logind ya
+instalados (versiones en [Dependencies](dependencies.md)), sin nuevos servicios
+ni sondeos. La barra sólo lee sysfs, sin abrir conexiones D-Bus de brillo.
+
+### Brightness installation and recovery
+
+Comprobar el dispositivo en la portátil y revisar el [manifest.json](../config/manifest.json).
+Como `jd`, respaldar los destinos existentes de `status-clicks.py`,
+`status-panel.py`, `~/.config/calendar/calendar.css` y `~/.config/i3/config` en
+un directorio privado externo (modo 700). Registrar si el nuevo auxiliar no
+existe; si existe, revisar y respaldarlo también. Desde la raíz, con las
+dependencias del adaptador y [Status panels](status-panels.md) ya instaladas:
+
+```sh
+umask 022
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p test_screen_brightness.py
+install -m 755 scripts/screen-brightness.py scripts/status-panel.py scripts/status-clicks.py "$HOME/scripts/"
+install -m 644 config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
+```
+
+Añadir sólo la regla `BGH-Screen-Brightness`/`bgh-screen-brightness` de
+`config/i3-config` al archivo activo, conservando sus diferencias locales. En
+una instalación limpia, instalar la fuente completa en modo 644. Comprobar
+`i3 -C -c "$HOME/.config/i3/config"` y comparar contenidos, modos y propietario
+con el manifiesto. Ejecutar `i3-msg restart` en la sesión vigente para renovar
+el adaptador conservando las ventanas. Comprobar el sol, el anclaje, un paso en
+cada dirección y el segundo clic; devolver el brillo a su valor anterior.
+
+Para revertir, cerrar el panel, restaurar sólo los destinos respaldados y retirar
+el nuevo auxiliar si no existía. Validar i3 y renovar de la misma forma; no hay
+paquetes que retirar ni permisos que deshacer.
+
 ## Collapsible metrics
 
 La barra inicia contraída. El chevrón antes del contador de paquetes alterna
 con un clic izquierdo: `›` expande y `‹` contrae tráfico, RAM, CPU, temperatura
-y disco. Clima, paquetes, audio, Wi-Fi, Bluetooth, trackpad, batería y reloj permanecen visibles.
+y disco. Clima, paquetes, brillo, audio, Wi-Fi, Bluetooth, trackpad, batería y reloj permanecen visibles.
 Un bloque marcado por el productor con `urgent: true` también permanece visible.
 
 El estado vive sólo en memoria y vuelve a contraído cuando se reinicia el
@@ -165,6 +213,7 @@ Instalar antes el módulo, lector/licencia, regla limitada y auxiliar de velocid
 [Bluetooth and Magic Trackpad 2](bluetooth-setup.md#indicator-installation-and-recovery);
 el adaptador actualizado los necesita. Esa guía cubre también su recuperación.
 Instalar también el módulo/perfil y panel de [USB audio](audio-setup.md#installation)
+y el auxiliar de [Screen brightness](#brightness-installation-and-recovery)
 antes de renovar el adaptador.
 Desde la raíz, como `jd`, respaldar los archivos afectados fuera del repositorio:
 

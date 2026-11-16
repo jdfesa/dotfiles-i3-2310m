@@ -18,6 +18,7 @@ client.background    #1e1e2e
 # A compact, keyboard-accessible network list, rather than a tiled terminal.
 for_window [class="^BGH-Networks$"] floating enable, resize set 760 520, move position center
 for_window [class="^BGH-Audio-Volume$" instance="^bgh-audio-volume$"] floating enable, move position center
+for_window [class="^BGH-Screen-Brightness$" instance="^bgh-screen-brightness$"] floating enable, move position center
 for_window [class="^BGH-Updates$"] floating enable, resize set 850 520, move position center
 for_window [class="^BGH-Power$"] floating enable, resize set 760 360, move position center
 for_window [class="^BGH-Calendar$" instance="^bgh-calendar$"] floating enable, move position center

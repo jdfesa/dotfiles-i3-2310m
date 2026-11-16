@@ -54,6 +54,8 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
   Reponer también el auxiliar y el inicio i3 de [Trackpad gestures](trackpad-gestures.md).
 - Audio USB: instalar módulo, perfil de salida y deslizador de
   [USB audio](audio-setup.md); no depende de un servidor de audio.
+- Brillo del panel interno: instalar el auxiliar y su integración i3 según
+  [Screen brightness](status-bar.md#brightness-installation-and-recovery).
 - Helium: convertir clave pública ASCII a keyring binario y verificar fingerprint,
   no comparar hashes entre formatos. Seguir `apps-setup.md`.
 - Fuentes: copiar los TTF/licencias locales y restaurar el paquete Debian de

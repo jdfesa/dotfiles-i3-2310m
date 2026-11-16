@@ -48,6 +48,8 @@ class StatusLifecycleTests(unittest.TestCase):
             (home / "scripts/audio-position.py").write_text(
                 "class PositionMemory:\n"
                 " def __init__(self): raise OSError('no X11 in fixture')\n")
+            (home / "scripts/screen-brightness.py").write_text(
+                "def sample(): return 57\n")
             env = dict(os.environ, HOME=str(home))
             process = subprocess.Popen(
                 ["/bin/sh", "-c", shlex.quote(str(adapter))],

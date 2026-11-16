@@ -5,6 +5,12 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### Screen brightness
+
+- Añadido el indicador de brillo del panel interno y un deslizador GTK3
+  anclado a la barra. Usa los pasos físicos de la retroiluminación ACPI mediante
+  logind y el tick de barra existente. [Screen brightness](docs/status-bar.md#screen-brightness).
+
 ### Network panel
 
 - Reabrir el panel de redes enfoca la instancia existente. El lanzador Rofi
