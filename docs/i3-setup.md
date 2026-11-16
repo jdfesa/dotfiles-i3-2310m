@@ -33,6 +33,41 @@ startx
 No lanzarlo por SSH ni como root. Una sesión con barra y sin iconos de escritorio
 es el comportamiento normal de i3. El servidor X mantiene TCP deshabilitado.
 
+## Wallpaper
+
+i3 aplica [Pixel Car](../wallpapers/pixel-car.png) al abrir una sesión.
+`xwallpaper --zoom` llena la pantalla conservando la proporción; puede
+recortar bordes en pantallas con otra relación de aspecto. No queda ningún
+proceso residente ni se añade un compositor. Un cambio de resolución o
+monitor no reaplica el fondo automáticamente.
+
+Instalar `xwallpaper` desde Debian estable y copiar la imagen del checkout
+mediante el [manifest.json](../config/manifest.json). Como `jd`, revisar y
+respaldar en privado el archivo i3 activo y cualquier imagen previa en el
+destino antes de reemplazarlos:
+
+```sh
+sudo apt-get install --no-install-recommends xwallpaper
+install -d -m 755 "$HOME/.local/share/wallpapers"
+install -m 644 wallpapers/pixel-car.png "$HOME/.local/share/wallpapers/pixel-car.png"
+cmp wallpapers/pixel-car.png "$HOME/.local/share/wallpapers/pixel-car.png"
+```
+
+Añadir sólo el `exec` de xwallpaper de `config/i3-config` al archivo activo si
+tiene diferencias locales. Desde la sesión i3 abierta, validar y aplicar sin
+cerrar aplicaciones:
+
+```sh
+i3 -C -c "$HOME/.config/i3/config"
+i3-msg reload
+xwallpaper --zoom "$HOME/.local/share/wallpapers/pixel-car.png"
+```
+
+Comprobar el fondo en un escritorio vacío. Para revertir, retirar sólo esa
+línea o restaurar el respaldo revisado, validar y recargar i3; reaplicar el
+fondo anterior o ejecutar `xsetroot -def` para volver al fondo predeterminado
+de Xorg. Retirar la copia instalada sólo si no existía antes.
+
 ## Verification
 
 ```sh

@@ -5,6 +5,11 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### Desktop wallpaper
+
+- Fondo Pixel Car versionado en `wallpapers/` y aplicado al inicio de i3 con
+  xwallpaper, sin daemon. [Wallpaper](docs/i3-setup.md#wallpaper).
+
 ### LazyVim
 
 - LazyVim estable pasa a ser el perfil predeterminado de Neovim 0.12; usa el

@@ -17,6 +17,7 @@ No es una copia completa del home ni de `/etc`.
 | `scripts/` | Ejecutables usados por i3, desktop entries o timers |
 | `tools/` | Utilidades manuales; no se instalan en el arranque |
 | `tests/` | Regresiones con fixtures y acciones simuladas |
+| `wallpapers/` | Fondos versionados; condiciones en [Third-party notices](third-party-notices.md) |
 | `tmp/` | Material descartable ignorado; no documentación duradera |
 
 `config/manifest.json` contiene fuentes relativas a esta raíz y destinos reales.
