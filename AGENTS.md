@@ -10,19 +10,18 @@
   AGENTS.md, CHANGELOG.md, TODO.md y LICENSE en la raíz; los README de componentes
   permanecen junto a sus fuentes. Salvo indicación contraria, ejecutar los ejemplos
   desde la raíz del repositorio.
-- La documentación debe ser concisa y reproducible: estado actual, fundamento,
-  dependencias/procedencia/versiones verificadas, instalación, comprobaciones y
-  recuperación. Usar CHANGELOG.md para cambios técnicos y TODO.md para pendientes.
-  No incluir narración de chats, historiales personales de cuentas, referencias
-  en tercera persona a quien mantiene el repositorio ni diarios exhaustivos de
-  vulnerabilidades. Bastan límites breves de kernel y seguridad.
+- Las guías documentan el estado actual, el origen de las dependencias,
+  instalación, comprobaciones y recuperación. CHANGELOG.md resume sólo qué
+  cambió técnicamente, sin relatos de sesiones, despliegues ni resultados de
+  pruebas. TODO.md registra pendientes. No narrar chats, publicar historiales
+  personales de cuentas ni convertir las guías en diarios de diagnóstico.
 - Mantener planes y guías autocontenidos: documentar tareas, comportamiento y
   requisitos de este proyecto. La investigación de implementación no forma parte
   del inventario publicado.
-- Registrar las decisiones duraderas del proyecto en este archivo cuando se
-  establezcan. Mantener inventarios de versiones, resultados de verificación y
-  pendientes reales en las guías temáticas, CHANGELOG.md y TODO.md; no acumular
-  historial operativo aquí.
+- Registrar las decisiones duraderas que afecten el trabajo en este archivo.
+  Dejar versiones, comprobaciones y detalles de compatibilidad en las guías
+  temáticas. No repetir su contenido ni mantener una lista de herramientas
+  descartadas aquí.
 - README.md es una entrada breve: contenido del repositorio, máquina destino y
   navegación. Mantener criterios de trabajo aquí, pendientes en TODO.md y detalles
   en sus guías. Enlazar una sola fuente en vez de duplicar estados, procedimientos
@@ -293,14 +292,9 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   con tema oscuro sólo en su lanzador; no instalar XFCE completo ni servicios
   opcionales por defecto. VS Code usa el repositorio oficial estable firmado
   limitado a `code`; mantener sandbox, sin autostart ni extensiones de oficio.
-- No instalar Zed en esta Intel HD 3000: no hay dispositivo Vulkan de hardware.
-  No eludir ese límite renderizando con CPU; reconsiderar sólo con nuevo alcance
-  acordado o hardware compatible. La aceleración OpenGL o un cargador Vulkan
-  instalado por sí solos no prueban compatibilidad Vulkan de la GPU.
-- Neovim usa una configuración Lua modular pequeña y propia, no una distribución
-  ni una configuración generada por MiniMax. Separar opciones nativas, keymaps y
-  autocomandos de las extensiones; ampliar ajustes nativos/por tipo de archivo
-  según necesidades concretas.
+- Neovim usa una configuración Lua modular pequeña y propia, sin distribución.
+  Separar opciones nativas, keymaps y autocomandos de las extensiones; ampliar
+  ajustes nativos o por tipo de archivo según necesidades concretas.
 - mini.files es el único módulo MINI habilitado inicialmente, instalado por
   separado desde su versión oficial fijada, con ayuda y licencia conservadas.
   Sin bootstrap de gestor de plugins, descargas ni actualizaciones automáticas

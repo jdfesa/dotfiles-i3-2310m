@@ -22,8 +22,7 @@ class DocumentationTests(unittest.TestCase):
                      "Neovim estable oficial", "verificado con SHA256", "propiedad de root",
                      "APT no actualiza", "Yazi", "Lua modular", "mini.files",
                      "único módulo MINI habilitado inicialmente", "umask 022", "al iniciar el editor",
-                     "docs/editor-and-files.md", "No instalar Zed",
-                     "Intel HD 3000", "Vulkan de hardware"):
+                     "docs/editor-and-files.md"):
             self.assertIn(term, text)
 
     def test_neovim_upstream_installation_is_pinned_and_recoverable(self):
