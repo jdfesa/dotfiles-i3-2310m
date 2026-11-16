@@ -46,7 +46,9 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
   `.profile` y no duplicar el fragmento de inicio. `.xinitrc` usa Xsession.
 - Archivos de sistema: instalación separada con sudo, root:root. Nunca symlinks
   de `/etc` a fuentes modificables desde el home.
-- Red: aplicar sólo con acceso alternativo; seguir `wifi-setup.md`.
+- Red: aplicar cambios a interfaces sólo con acceso alternativo; seguir
+  [Network setup](wifi-setup.md). Restaurar también el
+  [Network panel](wifi-setup.md#network-panel).
 - Bluetooth/trackpad: reinstalar la pila Debian y emparejar siguiendo
   [Bluetooth and Magic Trackpad 2](bluetooth-setup.md); las claves no vienen de Git.
   Reponer también el auxiliar y el inicio i3 de [Trackpad gestures](trackpad-gestures.md).

@@ -130,6 +130,11 @@
     "mode": 493
   },
   {
+    "source": "config/network-panel/bgh-network-panel.desktop",
+    "destination": "/home/jd/.local/share/applications/bgh-network-panel.desktop",
+    "mode": 420
+  },
+  {
     "source": "scripts/open-mixer.sh",
     "destination": "/home/jd/scripts/open-mixer.sh",
     "mode": 493

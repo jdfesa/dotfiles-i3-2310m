@@ -9,9 +9,9 @@
 - [x] Añadir pestañas de Kitty en el directorio actual con Ctrl+Shift+T/Q y
   título de directorio; fuente y repintado conservados.
   [Kitty setup](docs/kitty-setup.md).
-- [ ] Mejorar el panel de redes: enfocar la instancia abierta, acceso desde el
-  lanzador y distinguir cancelación de fallos del proceso hijo de Kitty.
-  Mantener NetworkManager y consultas sólo bajo demanda.
+- [x] Recuperar el panel de redes abierto, añadirlo a Rofi y mostrar fallos
+  del programa hijo sin confundirlos con una salida normal.
+  [Network panel](docs/wifi-setup.md#network-panel).
 - [ ] Reunir las comprobaciones de estructura, enlaces documentales, exclusiones
   e historial en una validación manual, reutilizando pruebas existentes y
   [Publication checks](docs/git-workflow.md#publication-checks).

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Wi-Fi Networks
+Comment=Open the NetworkManager connection panel
+Exec=/home/jd/scripts/open-networks.sh
+Icon=network-wireless
+Terminal=false
+Categories=Network;
+Keywords=Wi-Fi;Wireless;Connections;

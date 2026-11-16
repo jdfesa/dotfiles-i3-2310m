@@ -5,6 +5,14 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### Network panel
+
+- Reabrir el panel de redes enfoca la instancia existente. El lanzador Rofi
+  ofrece **Wi-Fi Networks** sin cambiar el clic de la barra ni Super+N.
+- Una salida anormal de `nmtui-connect` muestra el estado en Kitty hasta
+  pulsar Enter; una salida normal cierra el panel.
+  [Network panel](docs/wifi-setup.md#network-panel).
+
 ### PDF reader
 
 - Zathura con Poppler es el lector predeterminado para PDF. Usa Mocha en

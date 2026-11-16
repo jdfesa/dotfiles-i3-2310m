@@ -164,8 +164,9 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Contador APT: simulación con metadatos locales cada 6 h; sin apt update,
   upgrade ni instalación automáticos. Acciones de clic fijas por eventos,
   sin interpolación de shell.
-- Bloque Wi-Fi: sólo icono de nivel, sin SSID ni calidad numérica. El clic y
-  Super+N abren la misma lista en inglés; conservar la autorización de NetworkManager.
+- Bloque Wi-Fi: sólo icono de nivel, sin SSID ni calidad numérica. El clic,
+  Super+N y Wi-Fi Networks en Rofi abren la misma lista en inglés y recuperan
+  la instancia abierta. Conservar la autorización de NetworkManager.
 - Audio USB usa ALSA/libasound existente, con perfil público de VID/PID,
   driver snd-usb-audio y control de reproducción verificado. La barra consulta
   conexión/volumen en el tick de 10 s; clic o Super+A alterna un deslizador GTK3
