@@ -2,9 +2,8 @@
 
 ## Priority 1 — Desktop workflow
 
-- [ ] Usar el navegador predeterminado XDG en Super+Shift+B; revisar el alias
-  Super+Shift+Enter y actualizar configuración, ayuda y
-  [Keybindings](docs/keybindings.md).
+- [x] Conservar Helium como navegador predeterminado y abrirlo directamente
+  con Super+Shift+B o Super+Shift+Enter. [Keybindings](docs/keybindings.md).
 - [x] Instalar Noto Color Emoji de Debian y verificar emoji a color en Helium
   sin cambiar las fuentes de texto/barra. [Browser emoji](docs/apps-setup.md#browser-emoji).
 - [x] Añadir pestañas de Kitty en el directorio actual con Ctrl+Shift+T/Q y
