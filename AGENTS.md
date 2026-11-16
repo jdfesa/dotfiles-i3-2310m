@@ -292,6 +292,8 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   con tema oscuro sólo en su lanzador; no instalar XFCE completo ni servicios
   opcionales por defecto. VS Code usa el repositorio oficial estable firmado
   limitado a `code`; mantener sandbox, sin autostart ni extensiones de oficio.
+- Zathura con Poppler es el lector PDF predeterminado, con modo oscuro Mocha
+  y portapapeles estándar. Helium conserva la web; Yazi conserva sus previews.
 - Neovim usa una configuración Lua modular pequeña y propia, sin distribución.
   Separar opciones nativas, keymaps y autocomandos de las extensiones; ampliar
   ajustes nativos o por tipo de archivo según necesidades concretas.

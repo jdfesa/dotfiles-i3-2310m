@@ -42,6 +42,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | RTK / Engram | 1.1.0 / 3.6.0 | Binarios de publicaciones oficiales |
 | Plugin Engram | 0.1.5, tag v3.6.0 | Marketplace oficial fijado |
 | Neovim / runtime | 0.12.6 | Archivo oficial Linux x86_64, SHA256 verificado; comprobado 2026-11-02; Debian 0.10.4-8 sólo para recuperación |
+| Zathura / Poppler plugin | 0.5.11-1 / 0.3.3-1 | Debian estable; comprobados 2026-11-16 en Xorg/i3 |
 | Visual Studio Code | 1.146.0-1794340865 | APT oficial de Microsoft, canal stable amd64; comprobado 2026-11-15 |
 | Yazi / Ya | 26.9.1-1 / 26.9.1 | APT oficial stable firmado; comprobado 2026-11-02 |
 | mini.files | v0.18.0, commit a5689dae6b732955e33eec225b798d6815063179 | Módulo oficial standalone, hashes fijados en tools/install-mini-files.py |
@@ -96,6 +97,9 @@ Instalación comprobada sin recomendaciones: 22 paquetes nuevos, 17.1 MB de
 descarga y 79.4 MB adicionales; sin upgrades, compilación ni escritorio completo.
 El servicio de secretos es local a la cuenta; el agente SSH adicional de gcr4
 queda deshabilitado. No se midió aquí carga sostenida de CPU.
+
+El [PDF reader](pdf-reader.md) se instala por separado: usa `zathura` y
+`zathura-pdf-poppler`, sin recomendaciones ni servicio.
 
 ## External packages
 

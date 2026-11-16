@@ -5,6 +5,14 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### PDF reader
+
+- Zathura con Poppler es el lector predeterminado para PDF. Usa Mocha en
+  interfaz y páginas, sin alternar el recolor con Ctrl+R.
+- La selección de texto y la copia de enlaces usan el portapapeles estándar.
+  Helium conserva las asociaciones web; Yazi mantiene sus vistas previas.
+  [PDF reader](docs/pdf-reader.md).
+
 ### Browser emoji
 
 - Instalado únicamente Noto Color Emoji desde Debian estable. Se reutiliza el

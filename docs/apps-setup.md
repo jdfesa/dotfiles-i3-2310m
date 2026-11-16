@@ -122,6 +122,11 @@ apt-get -s remove fonts-noto-color-emoji
 sudo apt-get remove fonts-noto-color-emoji
 ```
 
+## PDF reader
+
+Los archivos PDF se abren en Zathura con modo oscuro. Helium sigue como
+navegador predeterminado. Instalación y reversión en [PDF reader](pdf-reader.md).
+
 ## Audio
 
 ALSA/libasound controla la salida del adaptador USB mediante el deslizador de

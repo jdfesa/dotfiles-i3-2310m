@@ -56,6 +56,8 @@ la ruta real y `mode` el permiso Unix expresado en decimal.
   no comparar hashes entre formatos. Seguir `apps-setup.md`.
 - Fuentes: copiar los TTF/licencias locales y restaurar el paquete Debian de
   emoji; comprobar el render según [Fonts](apps-setup.md#fonts).
+- Lector PDF: instalar Zathura y registrar sólo `application/pdf` según
+  [PDF reader](pdf-reader.md), sin reemplazar `mimeapps.list` completo.
 - Polkitd: necesario para el menú de energía local sin contraseña. No crear reglas
   NOPASSWD ni políticas de autorización generales.
 - GRUB: instalar el drop-in sólo en hardware afectado, regenerar/validar GRUB;
