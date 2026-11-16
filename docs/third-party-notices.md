@@ -7,6 +7,7 @@ de los materiales de terceros siguientes.
 |---|---|
 | `config/bluetooth/vendor/magic-trackpad-battery` y regla udev derivada | Marcelo Marfil, MIT; [procedencia y hashes](../config/bluetooth/vendor/upstream.md), [licencia conservada](../config/bluetooth/vendor/LICENSE) |
 | JetBrains Mono Nerd Font Mono Regular/Bold y Propo Regular | Nerd Fonts v3.5.1, base JetBrains Mono 2.304; SIL OFL y licencias/atribuciones de conjuntos de iconos en los archivos adjuntos |
+| `wallpapers/pixel-car.png` | Coincide byte a byte con la variante de la [colección Mocha de orangc](https://files.orangc.net/media/walls-catppuccin-mocha/), que no se atribuye la autoría. Publicación autorizada para este repositorio; no se declara una licencia general de reutilización ni se aplica MIT al PNG. |
 | `config/zathura/zathurarc` | [Reference configuration](https://github.com/jdfesa/dotfiles-i5-5257u/blob/1de9091926c1ce88b46a3a5ca2157a836c8a24f0/config/zathura/zathurarc), Copyright (c) 2026 jd, MIT; texto conservado en [LICENSE](../LICENSE) |
 | `config/profile` | Modelo de inicio Debian base-files con fragmento i3 añadido; conservar GPL-2.0-or-later, no relicenciar el archivo completo como MIT |
 | `config/codex-rtk.md` | Texto generado por RTK 1.1.0; conservar su marcador de procedencia |

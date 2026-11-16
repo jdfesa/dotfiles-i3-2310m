@@ -31,6 +31,9 @@ exec --no-startup-id ~/scripts/trackpad-gestures.py
 # Apply the default on initial login, not on reload or in-session restart.
 exec --no-startup-id ~/scripts/screen-brightness.py --set-percent 43
 
+# Set the wallpaper once, without running a background process.
+exec --no-startup-id /usr/bin/xwallpaper --zoom ~/.local/share/wallpapers/pixel-car.png
+
 # Applications and session controls.
 bindsym $mod+Return exec --no-startup-id kitty
 bindsym $mod+space exec --no-startup-id rofi -show drun

@@ -15,6 +15,11 @@
     "mode": 420
   },
   {
+    "source": "wallpapers/pixel-car.png",
+    "destination": "/home/jd/.local/share/wallpapers/pixel-car.png",
+    "mode": 420
+  },
+  {
     "source": "config/i3status-config",
     "destination": "/home/jd/.config/i3status/config",
     "mode": 420

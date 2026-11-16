@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def documents():
     paths = list(ROOT.glob("*.md"))
-    for folder in ("docs", "config", "scripts", "tools"):
+    for folder in ("docs", "config", "scripts", "tools", "wallpapers"):
         paths.extend((ROOT / folder).rglob("*.md"))
     # Upstream attribution is preserved verbatim, not edited as project prose.
     return [p for p in paths if p != ROOT / "config/fonts/UPSTREAM.md"]
@@ -45,7 +45,7 @@ class DocumentationTests(unittest.TestCase):
         self.assertIsNotNone(tree)
         directories = re.findall(r"^[├└]── ([a-z][a-z0-9-]*/)", tree.group(1), re.M)
         self.assertEqual(set(directories),
-                         {"config/", "docs/", "licenses/", "scripts/", "tests/", "tools/"})
+                         {"config/", "docs/", "licenses/", "scripts/", "tests/", "tools/", "wallpapers/"})
         for directory in directories:
             self.assertTrue((ROOT / directory).is_dir())
         for duplicate in ("Fn + F11", "No incluir contraseñas", "una CLI no garantiza",
@@ -67,7 +67,7 @@ class DocumentationTests(unittest.TestCase):
         conventional = {"README.md", "AGENTS.md", "CHANGELOG.md", "TODO.md", "LICENSE",
                         ".gitignore"}
         paths = list(ROOT.iterdir())
-        for folder in ("docs", "config", "scripts", "tools", "tests"):
+        for folder in ("docs", "config", "scripts", "tools", "tests", "wallpapers"):
             paths.extend((ROOT / folder).rglob("*"))
         for path in paths:
             if not path.is_file() or path.name in conventional:

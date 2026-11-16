@@ -13,6 +13,7 @@ Debian 13 with i3 on Xorg.
 | Bar | [i3bar and i3status](docs/status-bar.md): collapsible metrics, calendar, brightness, audio, and Wi-Fi. |
 | Terminal and shell | [Kitty](docs/kitty-setup.md), Bash, and tabs that inherit the current directory. |
 | Theme and fonts | Catppuccin Mocha with [JetBrains Mono Nerd Font](docs/apps-setup.md#fonts) and Noto Color Emoji. |
+| Wallpaper | [Pixel Car](wallpapers/pixel-car.png), set by [xwallpaper](docs/i3-setup.md#wallpaper). |
 | Launcher and power | Rofi application and power menus; [keyboard shortcuts](docs/keybindings.md). |
 | Files and editing | [Yazi and Neovim with LazyVim](docs/editor-and-files.md); Thunar and VS Code as graphical alternatives. |
 | Web and PDF | [Helium](docs/apps-setup.md#helium) and [Zathura with Poppler](docs/pdf-reader.md). |
@@ -27,7 +28,8 @@ Debian 13 with i3 on Xorg.
 ├── licenses/     # Third-party license texts
 ├── scripts/      # Session, status bar, and menu scripts
 ├── tests/        # Automated regression tests
-├── tools/        # Installation, verification, and diagnostics.
+├── tools/        # Installation, verification, and diagnostics
+├── wallpapers/   # Desktop wallpaper assets
 ├── .gitignore
 ├── AGENTS.md
 ├── CHANGELOG.md
