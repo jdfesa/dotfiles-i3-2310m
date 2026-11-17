@@ -1,0 +1,2 @@
+# Preserve whitespace from the exact imported Starship profile.
+config/starship/starship.toml whitespace=-blank-at-eol,-blank-at-eof

@@ -41,11 +41,11 @@
 
 ## Priority 3 — Optional productivity tools
 
-- [ ] Evaluar mejoras concretas de historial y completado antes de cambiar shell;
-  conservar inicio autenticado de i3 en tty1, SSH y recuperación.
+- [ ] Evaluar mejoras concretas de historial y completado en Zsh sólo si hacen
+  falta; conservar Bash para el inicio de i3 en tty1, SSH y recuperación.
   Historial y caches privados fuera del repositorio.
-- [ ] Comparar prompt nativo con Starship mínimo; medir arranque y repintado
-  en proyectos representativos antes de añadir módulos Git o de lenguajes.
+- [ ] Comparar arranque y redibujado del prompt nativo con el perfil Starship
+  de Kitty en proyectos representativos, antes de ampliar sus módulos.
 - [x] Usar Zathura como lector PDF predeterminado, con modo oscuro y copia de
   texto/enlaces. [PDF reader](docs/pdf-reader.md).
 - [ ] Definir perfiles de desarrollo según proyectos concretos, con dependencias

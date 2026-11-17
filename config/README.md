@@ -21,6 +21,8 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/locale` | `/etc/locale.conf` | `644` | `system-copy` |
 | `config/helium.list` | `/etc/apt/sources.list.d/helium.list` | `644` | `system-copy` |
 | `config/kitty.conf` | `/home/jd/.config/kitty/kitty.conf` | `644` | `symlink` |
+| `config/zsh/zshrc` | `/home/jd/.zshrc` | `644` | `symlink` |
+| `config/starship/starship.toml` | `/home/jd/.config/starship.toml` | `644` | `symlink` |
 | `config/rofi-config.rasi` | `/home/jd/.config/rofi/config.rasi` | `644` | `symlink` |
 | `config/keybindings-help.txt` | `/home/jd/.config/i3/keybindings-help.txt` | `644` | `symlink` |
 | `config/mimeapps.list` | `/home/jd/.config/mimeapps.list` | `644` | `symlink` |

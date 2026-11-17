@@ -5,6 +5,11 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-17
 
+### Interactive shell
+
+- Las nuevas terminales de Kitty usan Zsh con el perfil existente de Starship.
+  Bash se conserva para tty1 y SSH; no cambian los intérpretes de los scripts.
+
 ### Status bar spacing
 
 - Reducida levemente la separación general de la barra, con un margen menor
