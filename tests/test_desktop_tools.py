@@ -11,6 +11,17 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class DesktopToolsTests(unittest.TestCase):
+    def test_kitty_uses_static_background_alpha_with_basic_x11_compositing(self):
+        config = (ROOT / "config/kitty.conf").read_text().splitlines()
+        self.assertEqual([line for line in config if line.startswith("background_opacity ")],
+                         ["background_opacity 0.85"])
+        self.assertIn("background_blur 0", config)
+        self.assertIn("dynamic_background_opacity no", config)
+        self.assertFalse(any(line.startswith("custom_shaders ") for line in config))
+        i3 = (ROOT / "config/i3-config").read_text().splitlines()
+        self.assertEqual([line for line in i3 if line.startswith("exec") and "xcompmgr" in line],
+                         ["exec --no-startup-id /usr/bin/xcompmgr -n"])
+
     def test_thunar_launcher_uses_dark_gtk(self):
         desktop = configparser.ConfigParser(interpolation=None)
         desktop.read(ROOT / "config/thunar/thunar.desktop", encoding="utf-8")

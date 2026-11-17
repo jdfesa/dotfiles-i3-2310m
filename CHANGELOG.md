@@ -33,6 +33,12 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
   explícita sólo de AudioService mediante pidfd, USB/identidad revalidados y
   captura cerrada. Sin cerrar pestañas ni añadir automatización de hotplug.
 
+### Kitty background opacity
+
+- Kitty usa 85 % de opacidad de fondo por defecto. i3 inicia xcompmgr en modo
+  básico, sin sombras, desenfoque, shaders ni animaciones.
+  [Background opacity](docs/kitty-setup.md#background-opacity).
+
 ### Desktop wallpaper
 
 - Fondo Pixel Car versionado en `wallpapers/` y aplicado al inicio de i3 con

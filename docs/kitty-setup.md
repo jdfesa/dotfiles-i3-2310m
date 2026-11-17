@@ -4,7 +4,7 @@
 
 Kitty y su integración de shell proceden de Debian; versiones comprobadas en
 [Dependencies](dependencies.md). Bash sigue siendo la shell existente. La fuente
-es JetBrainsMono Nerd Font Mono Regular 11, con fondo Mocha al 85%, cursor sin
+es JetBrainsMono Nerd Font Mono Regular 11, con fondo Mocha, cursor sin
 animación, `repaint_delay 20` y scrollback de 5000 líneas.
 
 La barra nativa aparece arriba incluso con una sola pestaña. Powerline distingue
@@ -15,6 +15,37 @@ aparece como `/`. Si Kitty no obtiene el directorio, usa el título como respald
 `tab.active_wd` realiza la consulta nativa al redibujar. No hay renderer propio,
 script de prompt, daemon ni sondeo adicional. El control remoto permanece
 deshabilitado y las confirmaciones nativas de cierre se conservan.
+
+## Background opacity
+
+Kitty usa `background_opacity 0.85` en todas las instancias, incluidas las
+ventanas auxiliares. Sólo se atenúan las celdas con el color de fondo de la
+terminal; el texto no cambia y las aplicaciones que pintan su propio fondo
+pueden seguir opacas. El desenfoque y la opacidad dinámica están deshabilitados.
+
+El canal alfa en Xorg requiere un compositor. Instalar `xcompmgr` desde Debian
+estable (véase [Dependencies](dependencies.md)):
+
+```sh
+sudo apt-get install --no-install-recommends xcompmgr
+```
+
+i3 ejecuta una vez `/usr/bin/xcompmgr -n` al iniciar la sesión. Usa composición
+XRender básica sin sombras, desenfoque, shaders ni animaciones. i3bar y las
+decoraciones se mantienen opacas. Si hace falta aplicar esta configuración
+durante una sesión abierta, validar primero con `i3 -C -c "$HOME/.config/i3/config"`
+y recargar i3. Iniciar el compositor desde la sesión local sólo si no hay otro
+compositor activo, con `i3-msg 'exec --no-startup-id /usr/bin/xcompmgr -n'`.
+
+Abrir Kitty normalmente con Super+Enter. Ctrl+Shift+F5 puede recargar otras
+opciones, pero no el canal alfa de una ventana existente. Volver a abrir
+sólo las ventanas que deban cambiar, tras guardar su trabajo.
+
+Para revertir la opacidad, preparar una rama revisada que vuelva a
+`background_opacity 1.0` y retire el arranque de xcompmgr en i3. Validar las
+fuentes enlazadas y recargar i3. Si el compositor sigue activo en la sesión,
+identificar el proceso de usuario de esa pantalla iniciado con
+`/usr/bin/xcompmgr -n` y enviar `kill -TERM` sólo a ese PID.
 
 ## Shortcuts
 
@@ -60,16 +91,9 @@ done
 python3 tools/link-user-config.py
 ```
 
-Se conserva la opacidad estática 85% instalada: `background_opacity 0.85`,
-`background_blur 0` y `dynamic_background_opacity no`, con `xcompmgr -n`
-al inicio de i3. El compositor es una dependencia residente existente para
-mostrar el canal alfa; no se añaden efectos ni se atribuyen mejoras de CPU.
-Versiones en [Dependencies](dependencies.md).
-
-Abrir una ventana nueva con Super+Enter; las terminales existentes conservan
-su estado. Para aplicar a una terminal abierta se puede usar Ctrl+Shift+F5.
-Para revertir contenido, editar las fuentes mediante una rama revisada; para
-revertir la migración de archivos a enlaces, usar su journal privado.
+Para revertir la migración de archivos a enlaces, usar su journal privado.
+La operación y recuperación del compositor se describen por separado en
+[Background opacity](#background-opacity).
 
 ## Verification
 
@@ -94,3 +118,5 @@ modos y propietarios de los seis destinos, preservando diferencias locales previ
 - [Kitty tab bar](https://sw.kovidgoyal.net/kitty/conf/#tab-bar).
 - [Kitty tab actions](https://sw.kovidgoyal.net/kitty/actions/#tab-management).
 - [Kitty shell integration](https://sw.kovidgoyal.net/kitty/shell-integration/).
+- [Kitty background opacity](https://sw.kovidgoyal.net/kitty/conf/#opt-kitty.background_opacity).
+- [xcompmgr manual](https://manpages.debian.org/trixie/xcompmgr/xcompmgr.1.en.html).

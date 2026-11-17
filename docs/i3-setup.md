@@ -6,8 +6,10 @@ el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
 
 ## Minimal session
 
-Xorg + i3 de Debian; sin escritorio completo, display manager o
-autologin. Paquetes y versiones en [dependencies.md](dependencies.md).
+Xorg + i3 de Debian; sin escritorio completo, display manager ni autologin.
+La composición básica de Kitty se describe en
+[Background opacity](kitty-setup.md#background-opacity).
+Paquetes y versiones en [Dependencies](dependencies.md).
 La sesión física y ventanas de Kitty/Rofi/Helium fueron comprobadas.
 
 | Fuente | Destino |
@@ -42,7 +44,7 @@ es el comportamiento normal de i3. El servidor X mantiene TCP deshabilitado.
 i3 aplica [Pixel Car](../wallpapers/pixel-car.png) al abrir una sesión.
 `xwallpaper --zoom` llena la pantalla conservando la proporción; puede
 recortar bordes en pantallas con otra relación de aspecto. No queda ningún
-proceso residente ni se añade un compositor. Un cambio de resolución o
+proceso residente para el fondo. Un cambio de resolución o
 monitor no reaplica el fondo automáticamente.
 
 Instalar `xwallpaper` desde Debian estable y enlazar la imagen del checkout
