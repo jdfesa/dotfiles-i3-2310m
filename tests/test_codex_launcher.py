@@ -126,7 +126,8 @@ class CodexLauncherTests(unittest.TestCase):
     def test_manifest_and_durable_contract(self):
         entries = json.loads((ROOT / "config/manifest.json").read_text())
         self.assertIn({"source": "scripts/codex-launch.py",
-                       "destination": "/home/jd/.local/bin/codex", "mode": 493}, entries)
+                       "destination": "/home/jd/.local/bin/codex", "mode": 493,
+                       "deployment": "symlink"}, entries)
         self.assertIn("lanzador Codex bajo demanda", (ROOT / "AGENTS.md").read_text())
         self.assertIn("cuenta de origen prevista", (ROOT / "AGENTS.md").read_text())
         self.assertIn("cuenta esperada", (ROOT / "docs/codex-setup.md").read_text())

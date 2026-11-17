@@ -18,7 +18,8 @@ class WallpaperConfigTests(unittest.TestCase):
         self.assertEqual(data[-12:-4], b"\x00\x00\x00\x00IEND")
         entries = json.loads((ROOT / "config/manifest.json").read_text())
         wallpapers = [entry for entry in entries if entry["source"] == source]
-        self.assertEqual(wallpapers, [{"source": source, "destination": target, "mode": 0o644}])
+        self.assertEqual(wallpapers, [{"source": source, "destination": target, "mode": 0o644,
+                                     "deployment": "symlink"}])
         config = (ROOT / "config/i3-config").read_text()
         commands = [line for line in config.splitlines() if line.startswith("exec") and "xwallpaper" in line]
         self.assertEqual(commands,

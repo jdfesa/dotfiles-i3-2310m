@@ -105,6 +105,41 @@ class UserLinkTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Conflict"):
             self.plan()
 
+    def test_reviewed_file_difference_is_backed_up_and_can_be_restored(self):
+        self.target.parent.mkdir(parents=True)
+        self.target.write_text("reviewed existing preference")
+        self.target.chmod(0o600)
+        reviewed = {"config/editor.lua": LINKS.snapshot(self.target)}
+        entries = LINKS.plan(self.root, self.home, reviewed)
+        self.assertEqual(entries[0]["action"], "replace-reviewed-difference")
+        journal = LINKS.apply(entries, self.root, self.home, self.backup)
+        self.assertEqual(self.target.resolve(), self.source)
+        LINKS.rollback(journal)
+        self.assertEqual(self.target.read_text(), "reviewed existing preference")
+        self.assertEqual(self.target.stat().st_mode & 0o777, 0o600)
+
+    def test_reviewed_link_restores_its_original_target_without_touching_it(self):
+        self.target.parent.mkdir(parents=True)
+        original = self.base / "vendor-binary"
+        original.write_text("preserve vendor")
+        self.target.symlink_to(original)
+        reviewed = {"config/editor.lua": LINKS.snapshot(self.target)}
+        journal = LINKS.apply(LINKS.plan(self.root, self.home, reviewed),
+                              self.root, self.home, self.backup)
+        self.assertEqual(self.target.resolve(), self.source)
+        LINKS.rollback(journal)
+        self.assertEqual(self.target.readlink(), original)
+        self.assertEqual(original.read_text(), "preserve vendor")
+
+    def test_changed_review_state_is_still_a_conflict(self):
+        self.target.parent.mkdir(parents=True)
+        self.target.write_text("reviewed preference")
+        reviewed = {"config/editor.lua": LINKS.snapshot(self.target)}
+        self.target.write_text("changed after review")
+        with self.assertRaisesRegex(ValueError, "Conflict"):
+            LINKS.plan(self.root, self.home, reviewed)
+        self.assertFalse(self.backup.exists())
+
     def test_symlinked_parent_is_rejected(self):
         (self.home / ".config").symlink_to(self.root, target_is_directory=True)
         with self.assertRaisesRegex(ValueError, "Symlinked parent"):
@@ -216,18 +251,21 @@ class ProductivityConfigurationTests(unittest.TestCase):
         self.assertIn("preview = false", text)
         self.assertNotIn("require('mini.icons')", text)
 
-    def test_manifest_symlink_scope_is_only_yazi(self):
+    def test_manifest_links_only_public_user_destinations(self):
         items = json.loads((ROOT / "config/manifest.json").read_text())
         linked = [x for x in items if x.get("deployment") == "symlink"]
-        self.assertEqual([(x["source"], x["destination"]) for x in linked],
-                         [("config/yazi/yazi.toml", "/home/jd/.config/yazi/yazi.toml")])
+        self.assertTrue(linked)
+        for item in linked:
+            self.assertTrue(item["destination"].startswith("/home/jd/"))
+            self.assertNotEqual(item["source"], "config/codex-config.toml")
+            self.assertNotIn("auth.json", item["destination"])
 
-    def test_lazyvim_default_uses_regular_copies_and_pins_plugin_revisions(self):
+    def test_lazyvim_default_uses_links_and_pins_plugin_revisions(self):
         items = json.loads((ROOT / "config/manifest.json").read_text())
         nvim = [x for x in items if x["destination"].startswith("/home/jd/.config/nvim/")]
         self.assertEqual(nvim, [
             {"source": "config/lazyvim/" + entry, "destination": "/home/jd/.config/nvim/" + entry,
-             "mode": 0o644} for entry in ("init.lua", "lazy-lock.json")])
+             "mode": 0o644, "deployment": "symlink"} for entry in ("init.lua", "lazy-lock.json")])
         base = ROOT / "config/lazyvim"
         lock = json.loads((base / "lazy-lock.json").read_text())
         self.assertEqual(lock["LazyVim"]["commit"], "0fa4a847929fc6beae40a3063615a58115678c34")

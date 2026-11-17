@@ -114,7 +114,7 @@ dpkg --audit
 Repetir tests, checks del módulo/enlaces y revisión de propietarios/modos.
 Probar edición desde Yazi sólo con un fixture temporal, no documentos personales.
 No requiere reiniciar i3, terminales o sesión. Actualizar inventario/estado y
-sincronizar por GitHub; regenerar el snapshot secundario desde el commit limpio.
+sincronizar las fuentes por GitHub desde el único checkout de configuración.
 
 ## Recovery
 

@@ -2,7 +2,7 @@
 Type=Application
 Name=Wi-Fi Networks
 Comment=Open the NetworkManager connection panel
-Exec=/home/jd/scripts/open-networks.sh
+Exec=/home/jd/dotfiles-i3-2310m/scripts/open-networks.sh
 Icon=network-wireless
 Terminal=false
 Categories=Network;

@@ -1,8 +1,9 @@
 # Runtime scripts
 
-Fuentes ejecutadas por i3, el lanzador o timers. Se instalan en
-`/home/jd/scripts/`, modo 755; este README se instala 644. Excepción:
-`scripts/codex-launch.py` se instala en `~/.local/bin/codex`, modo 755.
+Fuentes ejecutadas por i3, el lanzador o timers directamente desde
+`/home/jd/dotfiles-i3-2310m/scripts/`, modo755; este README se lee en el checkout.
+`~/.local/bin/codex` es un enlace al lanzador versionado. Las configuraciones de
+usuario se enlazan según [User configuration links](../docs/user-config-links.md).
 El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 
 | Fuente relativa al proyecto | Uso / ciclo de vida |
@@ -23,6 +24,7 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/audio-control.py` | Módulo ALSA: lectura de salida USB en el tick existente y escrituras explícitas del panel; ejecución directa sólo lee |
 | `scripts/audio-volume.py` | Deslizador GTK3 de volumen/mute; vive sólo mientras está abierto |
 | `scripts/audio-position.py` | Publica el tramo de audio de la barra en memoria X11; calcula el anclaje del teclado con Pango sólo al abrir |
+| `scripts/refresh-helium-audio.py` | Comprueba el USB y renueva sólo AudioService de Helium con `--apply`; ejecución directa sólo revisa, sin servicio ni sondeo. [USB audio](../docs/audio-setup.md#helium-playback-after-replacing-usb) |
 | `scripts/open-updates.sh` | Lista APT local de sólo lectura; click/Super+U |
 | `scripts/update-weather.py` | Oneshot del timer de clima; cache cada 30 min |
 | `scripts/update-packages.py` | Oneshot del timer APT; simulación local cada 6 h |
@@ -66,12 +68,12 @@ Guardar trabajo antes de abrirlo. Escape, No y Cancel no ejecutan acciones.
 Pruebas sin acciones reales:
 
 ```sh
-~/scripts/power-menu --dry-run 'Power off'  # sin ventanas ni comandos reales
-~/scripts/power-menu --preview             # menú y confirmación, sin acciones
+~/dotfiles-i3-2310m/scripts/power-menu --dry-run 'Power off'  # sin ventanas ni comandos reales
+~/dotfiles-i3-2310m/scripts/power-menu --preview             # menú y confirmación, sin acciones
 # En terminal de la sesión física activa, no SSH:
-~/scripts/power-action.sh --dry-run poweroff
-~/scripts/power-action.sh --dry-run reboot
-~/scripts/power-action.sh --dry-run suspend # tampoco bloquea la pantalla
+~/dotfiles-i3-2310m/scripts/power-action.sh --dry-run poweroff
+~/dotfiles-i3-2310m/scripts/power-action.sh --dry-run reboot
+~/dotfiles-i3-2310m/scripts/power-action.sh --dry-run suspend # tampoco bloquea la pantalla
 ```
 
 `tools/verify-power-session.sh` comprueba esos dry-runs y toma un inhibidor block
@@ -81,7 +83,7 @@ apagado/reanudación. Suspensión por tapa/inactividad es un tema independiente.
 
 ## Maintenance
 
-Editar fuentes, respaldar destinos, instalar y comparar contenidos/permisos.
+Editar las fuentes y verificar enlaces, contenidos y permisos del manifiesto.
 Para revertir, restaurar el archivo correspondiente de un backup privado y
 actualizar la fuente; no desactivar protecciones para recuperar una acción.
 

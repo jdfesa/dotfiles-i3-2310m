@@ -1,5 +1,9 @@
 # USB audio
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Volume control
 
 La barra muestra el icono y porcentaje de la salida USB. Clic izquierdo o
@@ -18,9 +22,9 @@ próximo tick de la barra.
 
 ## Hardware and dependencies
 
-El adaptador comprobado se enumera como **USB PnP Sound Device**, VID/PID
-reportados `8086:0808`, driver nativo `snd-usb-audio`. Su control de salida es
-`Speaker`, índice0; no tiene `Master`. El perfil público
+El adaptador configurado se enumera como **GeneralPlus USB Audio Device**, VID/PID
+`1b3f:2008`, driver nativo `snd-usb-audio`. Su control de salida es
+`Speaker`, índice0, estéreo y rango ALSA0…30; no tiene `Master`. El perfil público
 [`usb-audio.json`](../config/audio/usb-audio.json) contiene sólo esos datos,
 sin número de serie, puerto USB ni índice de tarjeta persistente. Las tarjetas
 pueden cambiar de número al reconectar.
@@ -38,6 +42,8 @@ captura, monitorización del micrófono ni **Auto Gain Control**.
 
 Se reutilizan Python estándar, `libasound2t64`, GTK3 y sus bindings de Debian.
 `alsa-utils` aporta diagnóstico; versiones en [Dependencies](dependencies.md).
+La recuperación manual de Helium usa sólo Python estándar y pidfd del kernel
+Linux de Debian 13; verifica el ejecutable instalado `/opt/helium/helium`.
 No se añaden paquetes en la portátil, servidores de audio, procesos por muestra,
 daemons o timers. Cada tick abre/lee/cierra el mixer; el panel mantiene sólo
 su descriptor mientras está abierto. El panel no sondea ni reproduce sonidos.
@@ -53,6 +59,8 @@ hay barra/muestra disponible, no abre el panel en otra posición.
 Para otro adaptador, verificar primero su VID/PID, driver y control de salida
 de reproducción; actualizar el perfil y reiniciar el adaptador de la barra.
 No elegir por el número de tarjeta ni usar un control de micrófono como salida.
+El perfil selecciona únicamente el GeneralPlus; el anterior `8086:0808` ya no
+es el adaptador gestionado.
 
 ## Installation
 
@@ -70,12 +78,7 @@ Con el respaldo comprobado, instalar los componentes juntos:
 
 ```sh
 umask 022
-install -d -m 755 "$HOME/scripts" "$HOME/.config/audio" "$HOME/.config/calendar" "$HOME/.config/i3" "$HOME/.config/i3status"
-install -m 755 scripts/audio-control.py scripts/audio-volume.py scripts/audio-position.py scripts/open-mixer.sh scripts/status-panel.py scripts/status-clicks.py scripts/status-bar.sh "$HOME/scripts/"
-install -m 644 config/audio/usb-audio.json "$HOME/.config/audio/usb-audio.json"
-install -m 644 config/calendar/calendar.css "$HOME/.config/calendar/calendar.css"
-install -m 644 config/i3status-config "$HOME/.config/i3status/config"
-install -m 644 config/keybindings-help.txt "$HOME/.config/i3/keybindings-help.txt"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
 ```
 
 En i3, sustituir sólo la regla anterior `BGH-Mixer` por la regla exacta de
@@ -86,7 +89,7 @@ como `~/.config/i3/config`, modo644. Validar:
 ```sh
 sh -n scripts/status-bar.sh scripts/open-mixer.sh
 i3 -C -c "$HOME/.config/i3/config"
-python3 "$HOME/scripts/audio-control.py"
+python3 "$HOME/dotfiles-i3-2310m/scripts/audio-control.py"
 i3-msg restart
 ```
 
@@ -95,6 +98,15 @@ El restart renueva i3bar conservando ventanas; un reload puede conservar el
 adaptador anterior. Comparar contenidos, modos y propietarios: scripts755,
 JSON/CSS/configuración/ayuda644, todos jd:jd. Los comentarios locales de i3
 pueden diferir si se conservaron deliberadamente.
+
+Si sólo se sustituye el adaptador, revisar y actualizar la fuente versionada
+`config/audio/usb-audio.json`, cuyo destino está enlazado. Mantener modo644
+y propietario jd:jd, comprobar
+la lectura y ejecutar `i3-msg restart`. La barra carga el perfil al arrancar;
+esperar otro tick sin renovarla no cambia la identidad seleccionada.
+Instalar además `scripts/refresh-helium-audio.py` en `~/dotfiles-i3-2310m/scripts/`, modo755,
+para disponer del auxiliar de recuperación manual descrito abajo. Si ya existe,
+revisarlo y respaldarlo antes; no requiere recargar i3.
 
 ## Verification
 
@@ -120,27 +132,79 @@ Las pruebas sintéticas cubren selección, controles de reproducción, errores,
 ambigüedad e IDs reutilizados; no demuestran audición, reinstalación limpia ni
 coste sostenido de CPU.
 
-## Current verification — 2026-11-15
+## Helium playback after replacing USB
 
-- Detectado el USB con `Speaker` estéreo, rango ALSA0…151. Lectura inicial
-  17 % y cambio manual a 30 % contrastados con amixer; volumen audible y Mute
-  comprobados localmente. Micrófono, captura y AGC conservaron sus valores.
-- Barra con porcentaje real, sin errores del mixer Master. Clic y Super+A
-  alternan el panel bajo audio; anclaje de teclado `(986,24)` y ventana
-  360×233 en `(806,28)` comprobados en la pantalla de 1366×768.
-- Reconexión real en otro puerto USB y mediante hub: porcentaje recuperado y
-  ajuste de volumen confirmado, sin reiniciar la barra. Perfil sin puerto ni
-  número de tarjeta fijo; reapertura del panel enlaza la nueva conexión.
-- Doce archivos de usuario instalados, con respaldo privado, contenidos,
-  propietario y modos contrastados; dos comentarios anteriores de i3 y el
-  README runtime divergente conservados. Parsers i3/shell/GTK y 17 regresiones
-  específicas de audio/posición correctos; suite e inventario general en
-  [Verification status](mirror-status.md).
-- Sin paquetes, servidores de audio ni procesos residentes nuevos. El panel
-  no sondea; la barra mantiene su tick de 10 s y SIGSTOP/SIGCONT. No se midió
-  consumo sostenido ni se probó una reinstalación limpia.
+Si la barra reconoce el adaptador pero un video avanza sin sonido, comprobar
+la salida ALSA mientras reproduce:
+
+```sh
+cat /proc/asound/cards
+cat /proc/asound/card0/pcm0p/sub0/status
+```
+
+Usar `card0` sólo si corresponde a la tarjeta recién identificada. `closed`
+indica que ninguna aplicación abrió esa salida; no se corrige subiendo el
+volumen. Helium puede necesitar renovar su proceso de audio después de cambiar
+el USB con el navegador abierto. Como `jd`, comprobar primero y aplicar sólo
+si hace falta:
+
+```sh
+~/dotfiles-i3-2310m/scripts/refresh-helium-audio.py           # sólo comprueba; no envía señales
+~/dotfiles-i3-2310m/scripts/refresh-helium-audio.py --apply   # renueva sólo AudioService
+```
+
+La fuente es [`refresh-helium-audio.py`](../scripts/refresh-helium-audio.py).
+Verifica una única salida USB del perfil y rechaza captura abierta, root,
+ausencia o ambigüedad del proceso. Selecciona sólo `/opt/helium/helium` de la
+cuenta actual con rol `utility` y subtipo exacto `audio.mojom.AudioService`.
+Antes de enviar SIGTERM vuelve a comprobar USB, captura, identidad y generación
+del proceso, usando pidfd para impedir que un PID reutilizado sea el destino.
+No cambia volumen/mute, reinicia i3, cierra pestañas ni toca otros auxiliares.
+Interrumpe brevemente el audio del navegador; no usar durante una llamada o
+grabación. La ejecución termina tras la señal: sin sondeo, daemon ni autostart.
+
+Volver a reproducir y comprobar `RUNNING` y el sonido por los auriculares.
+El perfil de la barra y la conexión de reproducción de Helium son estados
+independientes: que el porcentaje sea correcto no demuestra audición.
+
+## Current verification
+
+- GeneralPlus `1b3f:2008` comprobado en Debian 13 el 2026-11-16, con
+  `snd-usb-audio`, reproducción estéreo de 16 bits a 44100/48000 Hz y
+  `Speaker`, índice0, rango0…30. Lectura inicial14/14, 47 %, sin mute.
+- El controlador existente calcula el porcentaje desde el rango nativo;
+  no requiere cambiar scripts ni instalar paquetes o servidores de audio.
+  El tick de 10 s, las verificaciones de identidad y el panel bajo demanda
+  permanecen iguales.
+- Perfil instalado como archivo regular jd:jd644, idéntico a la fuente;
+  lectura ALSA `ready` y barra al 47 % tras renovar i3. Todos los controles
+  de amixer conservaron sus valores, incluidos micrófono, captura y AGC.
+  Las ventanas existentes y las configuraciones instaladas de i3/Kitty se
+  conservaron. Suite de 210 pruebas sin fallos en exportación limpia, con
+  una omisión del módulo opcional de recuperación mini.files.
+- Ventana real de volumen GTK3 bajo su bloque, 360×233 en `(862,28)`;
+  abrir/cerrar mantuvo todos los controles ALSA sin cambios. El auxiliar de
+  recuperación cubre selección, captura, ambigüedad y reutilización de PID con
+  fixtures; sus pruebas no envían señales a procesos reales.
+- Auxiliar instalado como jd:jd755, idéntico a la fuente, y modo de revisión
+  comprobado con el USB y el AudioService reales, sin renovar de nuevo el audio.
+- Reproducción de YouTube por auriculares confirmada localmente, con ALSA
+  `RUNNING` tras renovar únicamente AudioService de Helium. La salida estaba
+  cerrada antes de renovar ese proceso; el navegador conservó sus pestañas.
+- Ajuste manual de volumen/mute y reconexión física del GeneralPlus pendientes
+  de confirmación local; no se iniciaron sonidos ni se cambió el volumen
+  automáticamente. No se midió consumo sostenido ni se probó una reinstalación
+  limpia.
 
 ## Recovery
+
+Para revertir sólo la sustitución, restaurar el JSON del respaldo privado,
+conservar modo644 y propietario jd:jd, validar la lectura con el adaptador
+correspondiente conectado y renovar la barra con `i3-msg restart`.
+El auxiliar de recuperación reside en `scripts/refresh-helium-audio.py`; cambiar
+o retirar su fuente mediante Git, sin borrar otros scripts. No hay servicio
+que desactivar. Una renovación ya realizada de AudioService no necesita
+revertirse y no modifica preferencias del navegador.
 
 Cerrar sólo el panel de audio y restaurar desde el respaldo los scripts,
 perfil, i3status, regla i3, CSS y ayuda afectados. Mantener el adaptador de barra
@@ -157,3 +221,4 @@ cerrar/restaurar archivos no los revierte ni garantiza persistencia al reconecta
 - [amixer](https://manpages.debian.org/trixie/alsa-utils/amixer.1.en.html).
 - [GTK3 Scale](https://docs.gtk.org/gtk3/class.Scale.html).
 - [i3bar text widths and positioning](https://github.com/i3/i3/blob/4.24/i3bar/src/xcb.c).
+- [Chromium audio architecture](https://chromium.googlesource.com/chromium/src/+/HEAD/media/audio/README.md).

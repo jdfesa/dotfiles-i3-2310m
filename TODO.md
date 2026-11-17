@@ -59,14 +59,14 @@
   autenticación HTTPS/push ya verificados. [Git workflow](docs/git-workflow.md).
 
 - [ ] Probar restauración completa sobre una instalación limpia.
-- [ ] Ampliar la migración de enlaces a componentes anteriores tras revisar
-  diferencias; el auxiliar con dry-run/backup/rollback sólo gestiona Yazi
-  según [User links](docs/editor-and-files.md#user-links).
+- [x] Unificar fuentes públicas y enlaces de usuario, retirar la copia secundaria
+  y ejecutar scripts desde el repositorio.
+  [User configuration links](docs/user-config-links.md).
 - [ ] Agrupar fuentes heredadas sueltas de `config/` por componente; actualizar
   referencias/manifiesto y probar sin cambiar destinos a ciegas. Las nuevas
   herramientas ya usan carpetas propias.
-- [ ] Revisar diferencias preservadas de `mimeapps.list` y Codex sin importar
-  credenciales, rutas efímeras o preferencias privadas.
+- [x] Reconciliar las asociaciones MIME públicas y separar la base de Codex de
+  su estado privado generado, sin importar credenciales ni rutas efímeras.
 
 ## Hardware and session
 

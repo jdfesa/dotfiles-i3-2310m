@@ -39,4 +39,6 @@ cambios. No hubo reinicio de Debian/red.
 Para revertir hacen falta acceso independiente, ausencia de procesos de la cuenta
 y revisión de colisiones/rutas. No restaurar passwd/shadow globales a ciegas:
 puede perder cambios de otras cuentas. Backups de cuentas nunca se publican.
-La migración general a symlinks permanece [pendiente](repository-layout.md).
+Los enlaces de configuración se gestionan mediante
+[User configuration links](user-config-links.md); una migración de cuenta
+debe revisar sus fuentes y destinos antes de mover el checkout.

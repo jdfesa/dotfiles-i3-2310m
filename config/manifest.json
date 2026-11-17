@@ -2,7 +2,8 @@
   {
     "source": "scripts/codex-launch.py",
     "destination": "/home/jd/.local/bin/codex",
-    "mode": 493
+    "mode": 493,
+    "deployment": "symlink"
   },
   {
     "source": "config/grub-lid.cfg",
@@ -12,27 +13,32 @@
   {
     "source": "config/i3-config",
     "destination": "/home/jd/.config/i3/config",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "wallpapers/pixel-car.png",
     "destination": "/home/jd/.local/share/wallpapers/pixel-car.png",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/i3status-config",
     "destination": "/home/jd/.config/i3status/config",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/xinitrc",
     "destination": "/home/jd/.xinitrc",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/profile",
     "destination": "/home/jd/.profile",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/network-interfaces",
@@ -46,7 +52,7 @@
   },
   {
     "source": "config/locale",
-    "destination": "/etc/default/locale",
+    "destination": "/etc/locale.conf",
     "mode": 420
   },
   {
@@ -57,57 +63,68 @@
   {
     "source": "config/kitty.conf",
     "destination": "/home/jd/.config/kitty/kitty.conf",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/rofi-config.rasi",
     "destination": "/home/jd/.config/rofi/config.rasi",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/keybindings-help.txt",
     "destination": "/home/jd/.config/i3/keybindings-help.txt",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/mimeapps.list",
     "destination": "/home/jd/.config/mimeapps.list",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "scripts/status-bar.sh",
-    "destination": "/home/jd/scripts/status-bar.sh",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/status-bar.sh",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/status-clicks.py",
-    "destination": "/home/jd/scripts/status-clicks.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/status-clicks.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/bluetooth-status.py",
-    "destination": "/home/jd/scripts/bluetooth-status.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/bluetooth-status.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/open-trackpad-speed.py",
-    "destination": "/home/jd/scripts/open-trackpad-speed.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/open-trackpad-speed.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/trackpad-gestures.py",
-    "destination": "/home/jd/scripts/trackpad-gestures.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/trackpad-gestures.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "config/bluetooth/vendor/magic-trackpad-battery",
     "destination": "/home/jd/.local/lib/bgh-bluetooth/magic-trackpad-battery",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/bluetooth/vendor/LICENSE",
     "destination": "/home/jd/.local/lib/bgh-bluetooth/LICENSE",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/bluetooth/72-bgh-magic-trackpad.rules",
@@ -116,153 +133,195 @@
   },
   {
     "source": "scripts/status-panel.py",
-    "destination": "/home/jd/scripts/status-panel.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/status-panel.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/screen-brightness.py",
-    "destination": "/home/jd/scripts/screen-brightness.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/screen-brightness.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/calendar-popup.py",
-    "destination": "/home/jd/scripts/calendar-popup.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/calendar-popup.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "config/calendar/calendar.css",
     "destination": "/home/jd/.config/calendar/calendar.css",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "scripts/open-networks.sh",
-    "destination": "/home/jd/scripts/open-networks.sh",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/open-networks.sh",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "config/network-panel/bgh-network-panel.desktop",
     "destination": "/home/jd/.local/share/applications/bgh-network-panel.desktop",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "scripts/open-mixer.sh",
-    "destination": "/home/jd/scripts/open-mixer.sh",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/open-mixer.sh",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/audio-control.py",
-    "destination": "/home/jd/scripts/audio-control.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/audio-control.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/audio-volume.py",
-    "destination": "/home/jd/scripts/audio-volume.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/audio-volume.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/audio-position.py",
-    "destination": "/home/jd/scripts/audio-position.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/audio-position.py",
+    "mode": 493,
+    "deployment": "in-place"
+  },
+  {
+    "source": "scripts/refresh-helium-audio.py",
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/refresh-helium-audio.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "config/audio/usb-audio.json",
     "destination": "/home/jd/.config/audio/usb-audio.json",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "scripts/open-updates.sh",
-    "destination": "/home/jd/scripts/open-updates.sh",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/open-updates.sh",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "config/bgh-status-icons.ttf",
     "destination": "/home/jd/.local/share/fonts/bgh-status-icons.ttf",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/weather.json",
     "destination": "/home/jd/.config/i3/weather.json",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "scripts/update-weather.py",
-    "destination": "/home/jd/scripts/update-weather.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/update-weather.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "config/weather-refresh.service",
     "destination": "/home/jd/.config/systemd/user/weather-refresh.service",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/weather-refresh.timer",
     "destination": "/home/jd/.config/systemd/user/weather-refresh.timer",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "scripts/update-packages.py",
-    "destination": "/home/jd/scripts/update-packages.py",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/update-packages.py",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "config/packages-refresh.service",
     "destination": "/home/jd/.config/systemd/user/packages-refresh.service",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/packages-refresh.timer",
     "destination": "/home/jd/.config/systemd/user/packages-refresh.timer",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/fonts/JetBrainsMonoNerdFontMono-Regular.ttf",
     "destination": "/home/jd/.local/share/fonts/JetBrainsMonoNerdFontMono-Regular.ttf",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/fonts/JetBrainsMonoNerdFontMono-Bold.ttf",
     "destination": "/home/jd/.local/share/fonts/JetBrainsMonoNerdFontMono-Bold.ttf",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/fonts/jetbrains-mono-nerd-font-propo-regular.ttf",
     "destination": "/home/jd/.local/share/fonts/jetbrains-mono-nerd-font-propo-regular.ttf",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/fonts/OFL.txt",
     "destination": "/home/jd/.local/share/fonts/bgh-font-licenses/OFL.txt",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/fonts/UPSTREAM.md",
     "destination": "/home/jd/.local/share/fonts/bgh-font-licenses/UPSTREAM.md",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "scripts/power-menu",
-    "destination": "/home/jd/scripts/power-menu",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/power-menu",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "scripts/power-action.sh",
-    "destination": "/home/jd/scripts/power-action.sh",
-    "mode": 493
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/power-action.sh",
+    "mode": 493,
+    "deployment": "in-place"
   },
   {
     "source": "config/bgh-power-menu.desktop",
     "destination": "/home/jd/.local/share/applications/bgh-power-menu.desktop",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/zathura/zathurarc",
     "destination": "/home/jd/.config/zathura/zathurarc",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/thunar/thunar.desktop",
     "destination": "/home/jd/.local/share/applications/thunar.desktop",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/thunar/10-dark-theme.conf",
+    "destination": "/home/jd/.config/systemd/user/thunar.service.d/10-dark-theme.conf",
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/vscode/apt/microsoft.asc",
@@ -281,33 +340,39 @@
   },
   {
     "source": "scripts/README.md",
-    "destination": "/home/jd/scripts/README.md",
-    "mode": 420
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/README.md",
+    "mode": 420,
+    "deployment": "in-place"
   },
   {
     "source": "config/codex-config.toml",
     "destination": "/home/jd/.codex/config.toml",
-    "mode": 384
+    "mode": 384,
+    "deployment": "private-overlay"
   },
   {
     "source": "config/codex-agents.md",
     "destination": "/home/jd/.codex/AGENTS.md",
-    "mode": 384
+    "mode": 384,
+    "deployment": "symlink"
   },
   {
     "source": "config/codex-rtk.md",
     "destination": "/home/jd/.codex/RTK.md",
-    "mode": 384
+    "mode": 384,
+    "deployment": "symlink"
   },
   {
     "source": "config/codex-hooks.json",
     "destination": "/home/jd/.codex/hooks.json",
-    "mode": 384
+    "mode": 384,
+    "deployment": "symlink"
   },
   {
     "source": "config/rtk-config.toml",
     "destination": "/home/jd/.config/rtk/config.toml",
-    "mode": 384
+    "mode": 384,
+    "deployment": "symlink"
   },
   {
     "source": "config/login-keyring.pam",
@@ -327,12 +392,14 @@
   {
     "source": "config/lazyvim/init.lua",
     "destination": "/home/jd/.config/nvim/init.lua",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/lazyvim/lazy-lock.json",
     "destination": "/home/jd/.config/nvim/lazy-lock.json",
-    "mode": 420
+    "mode": 420,
+    "deployment": "symlink"
   },
   {
     "source": "config/yazi/yazi.toml",

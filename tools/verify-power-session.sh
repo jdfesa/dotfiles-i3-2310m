@@ -3,7 +3,8 @@
 set -eu
 export LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 [ -t 0 ] && [ -t 1 ] || { echo 'Run in a local terminal (TTY required).' >&2; exit 2; }
-helper=$HOME/scripts/power-action.sh
+tool_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+helper=$tool_dir/../scripts/power-action.sh
 work=$(mktemp -d)
 inhibitor=
 cleanup() {

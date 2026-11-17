@@ -21,9 +21,9 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | Magic Trackpad battery reader | commit 09e72af43a803575ae537b161e6504e1f8130d76 | mmarfil/magic-trackpad-battery, MIT; fuente fijada y licencia en config/bluetooth/vendor/ |
 | i3-wm / i3status | 4.24-1 / 2.15-2 | Debian |
 | xwallpaper | 0.7.6-1 | Debian estable; aplica el fondo de Xorg una vez y termina |
-| xcompmgr | 1.1.8-1 | Debian estable; composición X11 básica para el fondo de Kitty |
 | Mesa / OpenGL observado | 25.0.7 / core 3.3 acelerado | Debian / i915 |
 | Kitty | 0.41.1-2+deb13u2 | Debian |
+| xcompmgr | 1.1.8-1 | Debian; compositor básico existente para el fondo 85% de Kitty |
 | btop | 1.3.2-0.1 | Debian; comprobado 2026-11-15 |
 | GTK3 / Python GI | 3.24.49-3 / 3.50.0-4+b1 | Debian; gir1.2-gtk-3.0 3.24.49-3; comprobados 2026-11-15 |
 | Pango / PangoCairo bindings | 1.56.3-1 | Debian; gir1.2-pango-1.0 y libpangocairo-1.0-0 existentes, posición del audio bajo demanda |
@@ -86,7 +86,7 @@ sudo apt-get install --no-install-recommends \
 sudo apt-get install --no-install-recommends \
   xserver-xorg-core xserver-xorg-input-libinput libgl1-mesa-dri \
   xinit x11-xserver-utils xauth dbus-user-session \
-  i3-wm i3status i3lock kitty rofi xdg-utils \
+  i3-wm i3status i3lock kitty rofi xdg-utils xcompmgr \
   fonts-dejavu-core fonts-liberation2 fonts-noto-color-emoji alsa-utils polkitd
 
 # Scripts y herramientas de instalación/desarrollo.

@@ -64,7 +64,7 @@ class PanelTests(unittest.TestCase):
         self.assertNotEqual(panel.PANELS["trackpad"], panel.PANELS["calendar"])
         with patch.object(panel.os, "access", return_value=True):
             self.assertEqual(panel.launch_command("trackpad"),
-                             [str(Path.home() / "scripts/open-trackpad-speed.py")])
+                             [str(ROOT / "scripts/open-trackpad-speed.py")])
         self.assertIsNone(panel.find_panel(window(panel.PANELS["calendar"]), panel.PANELS["trackpad"]))
 
     def test_existing_panel_closes_only_its_container_and_does_not_launch(self):

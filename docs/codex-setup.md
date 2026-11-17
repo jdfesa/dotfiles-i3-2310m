@@ -6,6 +6,8 @@ Standalone oficial Linux x64 musl, compatible con i3-2310M sin AVX2; sin
 Node/npm ni compilación local. El lanzador del proyecto requiere Python 3.
 El backend se inicia bajo demanda, sin servicio de arranque.
 Versión verificada: [dependencies.md](dependencies.md).
+La receta de instalación fija 0.165.0; el lanzador también está comprobado con
+el paquete 0.169.0 existente. Los hashes siguientes corresponden sólo a 0.165.0.
 
 Referencias oficiales: [CLI](https://learn.chatgpt.com/docs/codex/cli) y
 [autenticación](https://learn.chatgpt.com/docs/auth).
@@ -32,24 +34,21 @@ SHA256 de la publicación comprobada; no sustituyen una firma independiente:
 | Paquete x86_64 Linux musl | `e97c4463d7f146692a955d7b0e1c8cf48f97cd4d616cd45c5dcab2e8d9743316` |
 | Binario | `c06a67fd8ac76508dc78bd99ce20c9f317b8d568beda59485f3f4134df9962d5` |
 
-Instalar el lanzador sin escribir a través del enlace creado por el proveedor:
-
-```sh
-umask 022
-mkdir -p "$HOME/setup-backups"
-backup=$(mktemp -d "$HOME/setup-backups/codex-launch.XXXXXX")
-cp -P "$HOME/.local/bin/codex" "$backup/codex"
-staging=$(mktemp "$HOME/.local/bin/.codex-launch.XXXXXX")
-install -m 755 scripts/codex-launch.py "$staging"
-mv -T "$staging" "$HOME/.local/bin/codex"
-```
+El comando público `~/.local/bin/codex` debe ser un enlace a
+`scripts/codex-launch.py`, conservando aparte el binario oficial. Revisar el
+comando existente y aplicar [User configuration links](user-config-links.md).
+Si el instalador oficial dejó su propio enlace, guardar su destino en el
+respaldo privado y retirarlo explícitamente después de verificar que apunta
+al paquete instalado; el auxiliar rechaza enlaces diferentes por seguridad.
+No escribir a través del enlace ni copiar directorios de autenticación.
 
 ## Files and configuration
 
-- `~/.local/bin/codex`: lanzador del proyecto, modo 755.
+- `~/.local/bin/codex`: enlace al lanzador del repositorio, fuente modo755.
 - `~/.codex/packages/standalone/current/`: paquete oficial de la CLI.
 - `~/.codex/packages/app-server-daemon/`: backend administrado por Codex.
-- `config/codex-config.toml`: base mínima; revisar diferencias antes de restaurar.
+- `config/codex-config.toml`: base pública mínima. El archivo efectivo también
+  guarda proyectos, confianza y estado privado generado; no se enlaza al repo.
 
 Destinos y modos en [manifest.json](../config/manifest.json); integración
 RTK/Engram en [development-tools.md](development-tools.md). `config/profile`

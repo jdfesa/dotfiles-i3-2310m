@@ -1,57 +1,40 @@
 # Verification status
 
-## Current laptop state — 2026-11-15
+## Current laptop state — 2026-11-16
 
-- Neovim estable oficial, Yazi APT stable firmado y sólo mini.files fijado instalados.
-  [Versiones](dependencies.md) y [operación/recuperación](editor-and-files.md).
-- Magic Trackpad 2 emparejado por Bluetooth con CSR USB y pila Debian existente;
-  entrada inalámbrica confirmada localmente. [Bluetooth and Magic Trackpad 2](bluetooth-setup.md).
-- Barra contraíble y tipografía Propo verificadas en i3/Xorg;
-  [Status bar](status-bar.md#verification). Calendario y btop bajo demanda en
-  [Status panels](status-panels.md). Suite completa: 181 pruebas correctas y
-  una omitida en exportación limpia.
-- Adaptador de audio USB con volumen/mute por ALSA y deslizador GTK3; clic y
-  Super+A bajo el bloque, cambio de puerto y hub comprobados localmente.
-  [USB audio](audio-setup.md#current-verification--2026-11-15).
-- Batería ausente mostrada como icono, sin leyenda; estados de batería instalada
-  comprobados sólo mediante fixtures nativos y vista previa. Prueba física pendiente.
-  [Battery icons](status-bar.md#battery-icons).
-- Neovim se probó en Sandy Bridge/glibc 2.41 antes de activarlo: 93/93 pruebas
-  existentes correctas. nvim y los cinco accesos vi/vim/ex/view/vimdiff usan el
-  prefijo root de /opt; view/vimdiff conservan readonly/diff. Binario y runtime
-  propios, sin compilar ni modificar la configuración o el módulo.
-- Contrastados los hashes de los 2127 archivos oficiales instalados; permisos y
-  propiedad root verificados. Yazi abrió el binario nuevo y guardó un fixture
-  temporal en pseudoterminal. El PATH de la sesión i3 existente ya lo selecciona.
-- El manifiesto contiene **70 destinos**: **63 coinciden** en contenido, modo y
-  propietario. Los seis enlaces de Neovim/Yazi apuntan al checkout residente;
-  los archivos APT gestionados son regulares root:root644. El TTF Propo es regular
-  jd:jd644; los siete destinos con diferencias existentes se conservan.
-- Se mantienen preferencias de mimeapps/Codex fuera del baseline público mínimo.
-  También difieren i3, power-menu, README de scripts y lanzador Codex.
-  No se reemplazan archivos ajenos a la barra para forzar hashes.
-- La batería cubre configuración, instalación, rollback, snapshot secundario,
-  arranque Yazi en pseudoterminal y operaciones mini.files en fixtures aislados.
-  La ejecución con el módulo instalado se realiza en Debian; el host de
-  administración omite esa prueba si no tiene el módulo.
-- Arranque con la configuración Neovim instalada real correcto; escritura
-  conserva enlaces sintéticos. No se usaron documentos personales ni se
-  reiniciaron i3, sesión, red, audio o energía.
-- Autenticación Git HTTPS mediante gh/keyring cifrado verificada; desbloqueo
-  tras nueva entrada física sigue pendiente de coordinación.
-- Comodidad visual local, carga representativa con navegador y restauración
-  limpia pendientes; no se infieren de estas pruebas.
+- Un único checkout conserva las fuentes públicas. El manifiesto declara 73
+  entradas:37 enlaces de usuario,20 archivos usados desde el checkout,15 archivos
+  regulares de sistema y 1 base pública para estado privado. Contenidos, destinos,
+  propietarios y modos públicos comprobados con el verificador nativo.
+- i3, barra y gestos usan los scripts del repositorio. Panel de calendario real,
+  trama de estado con audio USB y dry-run de energía verificados; las ventanas
+  preexistentes y el compositor se conservan. No se probaron acciones reales
+  de bloqueo, energía ni cortes de red.
+- Se conservan el fondo, la apariencia 85% de Kitty y las asociaciones MIME
+  existentes. [Kitty setup](kitty-setup.md), [Wallpaper](i3-setup.md#wallpaper)
+  y [Desktop applications](apps-setup.md).
+- Thunar mantiene el tema oscuro del lanzador y del servicio de usuario.
+  [Thunar](editor-and-files.md#thunar).
+- Neovim oficial con LazyVim y Yazi, GeneralPlus ALSA y Magic Trackpad 2 siguen
+  disponibles. Versiones y comprobaciones de hardware en sus guías:
+  [Dependencies](dependencies.md), [LazyVim setup](lazyvim-setup.md),
+  [USB audio](audio-setup.md) y [Bluetooth and Magic Trackpad 2](bluetooth-setup.md).
+- 212 pruebas pasan con 1 omitida. La batería cubre enlaces, diferencias revisadas,
+  rollback, exclusiones privadas y rutas de ejecución. La restauración limpia,
+  el rendimiento sostenido y los casos físicos de energía/batería pendientes
+  se mantienen en [TODO.md](../TODO.md).
+- El keyring conserva la autenticación Git. El desbloqueo tras un nuevo login
+  físico sigue pendiente de comprobación coordinada.
 
-## Source and secondary snapshot
+## Source and deployment
 
-GitHub es la fuente de verdad y sincroniza los checkouts mediante commit/push/pull.
-SSH administra/despliega y transfiere únicamente el material privado necesario.
-La portátil es el destino principal de validación.
+GitHub es la fuente de verdad y sincroniza el único checkout local mediante
+commit/push/pull. SSH administra/despliega y transfiere únicamente el material
+privado necesario. La portátil es el destino principal de validación.
 
-La copia secundaria se regenera del commit limpio: mismos archivos, contenidos y
-modos, sin guías antiguas ni caches/metadatos de transferencia. No se mantiene como
-otro árbol editable ni se conservan divergencias históricas. Procedimiento y
-baseline privado externo en [Repository layout](repository-layout.md#secondary-snapshot).
+Los destinos públicos de usuario se enlazan al checkout y los scripts se
+invocan desde él. Las excepciones privadas y la instalación regular root se
+describen en [User configuration links](user-config-links.md).
 
 ## Verification commands
 
@@ -63,11 +46,10 @@ NVIM_TEST_MINI_FILES="$HOME/.local/share/nvim/site/pack/vendor/start/mini.files"
   python3 -m unittest discover -s tests -q
 python3 tools/install-mini-files.py --check
 python3 tools/link-user-config.py
-python3 tools/verify-mirror.py --remote
-python3 tools/sync-secondary.py --check
+python3 tools/verify-mirror.py --remote --check
 dpkg --audit
 ```
 
-El verificador de destinos sólo da SHA256; comprobar también propietario/modo
-según el manifiesto. Pendientes concretos en [TODO](../TODO.md); cambios técnicos
+El verificador comprueba los destinos públicos y omite el estado privado
+marcado como overlay en el manifiesto. Pendientes concretos en [TODO](../TODO.md); cambios técnicos
 en [Changelog](../CHANGELOG.md), sin acumular snapshots de verificaciones anteriores.

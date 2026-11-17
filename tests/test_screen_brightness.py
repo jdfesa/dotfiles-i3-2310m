@@ -87,8 +87,8 @@ class BacklightTests(unittest.TestCase):
 class BrightnessBlockTests(unittest.TestCase):
     def test_i3_sets_default_only_on_initial_startup(self):
         config = (SCRIPTS.parent / "config/i3-config").read_text()
-        commands = [line for line in config.splitlines() if "~/scripts/screen-brightness.py" in line]
-        self.assertEqual(commands, ["exec --no-startup-id ~/scripts/screen-brightness.py --set-percent 43"])
+        commands = [line for line in config.splitlines() if "~/dotfiles-i3-2310m/scripts/screen-brightness.py" in line]
+        self.assertEqual(commands, ["exec --no-startup-id ~/dotfiles-i3-2310m/scripts/screen-brightness.py --set-percent 43"])
 
     def test_block_stays_visible_without_resampling_on_toggle(self):
         source = Mock(side_effect=(57, None))
@@ -115,4 +115,4 @@ class BrightnessBlockTests(unittest.TestCase):
             run.assert_not_called()
             status.handle_click(event)
             self.assertEqual(run.call_args.args[0],
-                             ["i3-msg", "exec --no-startup-id ~/scripts/status-panel.py brightness 115 24"])
+                             ["i3-msg", f"exec --no-startup-id {SCRIPTS / 'status-panel.py'} brightness 115 24"])

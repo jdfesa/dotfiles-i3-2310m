@@ -22,7 +22,7 @@ class DesktopToolsTests(unittest.TestCase):
         self.assertEqual([line for line in i3 if line.startswith("exec") and "xcompmgr" in line],
                          ["exec --no-startup-id /usr/bin/xcompmgr -n"])
 
-    def test_thunar_uses_dark_gtk_only_through_its_launcher(self):
+    def test_thunar_launcher_uses_dark_gtk(self):
         desktop = configparser.ConfigParser(interpolation=None)
         desktop.read(ROOT / "config/thunar/thunar.desktop", encoding="utf-8")
         entry = desktop["Desktop Entry"]
@@ -52,7 +52,7 @@ class DesktopToolsTests(unittest.TestCase):
         self.assertEqual(hashlib.sha256((apt / "microsoft.asc").read_bytes()).hexdigest(),
                          "2fa9c05d591a1582a9aba276272478c262e95ad00acf60eaee1644d93941e3c6")
 
-    def test_manifest_maps_regular_files_to_the_expected_destinations(self):
+    def test_manifest_maps_user_links_and_regular_system_files(self):
         manifest = json.loads((ROOT / "config/manifest.json").read_text())
         entries = {entry["source"]: entry for entry in manifest}
         expected = {
@@ -66,4 +66,4 @@ class DesktopToolsTests(unittest.TestCase):
                 item = entries[source]
                 self.assertEqual(item["destination"], destination)
                 self.assertEqual(item["mode"], 0o644)
-                self.assertNotEqual(item.get("deployment"), "symlink")
+                self.assertEqual(item.get("deployment"), "symlink" if destination.startswith("/home/jd/") else None)

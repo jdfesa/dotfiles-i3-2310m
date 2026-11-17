@@ -51,11 +51,12 @@ class ZathuraConfigTests(unittest.TestCase):
         for mime in ("text/html", "x-scheme-handler/http", "x-scheme-handler/https"):
             self.assertEqual(expected[mime].rstrip(";"), "helium.desktop")
 
-    def test_configuration_is_managed_as_a_user_copy(self):
+    def test_configuration_is_managed_as_a_user_link(self):
         manifest = json.loads((ROOT / "config/manifest.json").read_text())
         self.assertEqual(
             [item for item in manifest if item["source"] == SOURCE],
-            [{"source": SOURCE, "destination": "/home/jd/.config/zathura/zathurarc", "mode": 0o644}],
+            [{"source": SOURCE, "destination": "/home/jd/.config/zathura/zathurarc", "mode": 0o644,
+              "deployment": "symlink"}],
         )
 
 

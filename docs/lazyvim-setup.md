@@ -77,8 +77,9 @@ modo 700, con nombres distintos, anotando los que no existían. Así se conserva
 los enlaces anteriores, undo y ShaDa sin cargar `mini.files` por accidente.
 No tocar el checkout que contienen los destinos de los enlaces antiguos.
 
-Instalar los dos archivos de `$work/config/nvim` como copias regulares 644 en
-`~/.config/nvim/`, según [manifest.json](../config/manifest.json). Mover el
+Comparar los dos archivos probados con `config/lazyvim/` y enlazar sus fuentes
+a `~/.config/nvim/` siguiendo [User configuration links](user-config-links.md).
+No copiar el perfil de prueba sobre los enlaces. Mover el
 árbol probado `$work/data/nvim` a `~/.local/share/nvim`; no copiar el caché de
 prueba. Instalar `$work/bin/tree-sitter` como `~/.local/bin/tree-sitter` modo
 755 sólo si el destino no existe o ya coincide. No cambiar `$EDITOR`, las

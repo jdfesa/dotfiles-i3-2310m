@@ -5,10 +5,38 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-16
 
+### Configuration sources
+
+- Retirado el generador de la copia secundaria: el checkout y GitHub conservan
+  las fuentes públicas, sin exportar otro árbol de configuración.
+- La configuración pública de usuario usa enlaces por archivo al checkout;
+  los scripts se ejecutan desde él. Se conservan los ajustes públicos instalados
+  de Kitty y MIME; el estado privado generado de Codex no se enlaza a Git.
+  [User configuration links](docs/user-config-links.md).
+
+
+### Thunar dark theme
+
+- La activación D-Bus de Thunar desde el navegador aplica `Adwaita:dark`
+  mediante un drop-in del servicio de usuario existente. Se conserva el
+  lanzador oscuro, sin cambiar el tema GTK global ni las asociaciones MIME.
+  [Thunar](docs/editor-and-files.md#thunar).
+
+### USB audio adapter
+
+- El perfil de audio pasa al GeneralPlus `1b3f:2008` con `Speaker`, índice0,
+  sustituyendo al USB `8086:0808`. Se conserva el controlador ALSA existente,
+  con rango de volumen nativo, sin dependencias ni sondeos nuevos.
+  [USB audio](docs/audio-setup.md).
+- Añadido `refresh-helium-audio.py` para recuperar la reproducción tras cambiar
+  el USB con Helium abierto: revisión sin señales por defecto y renovación
+  explícita sólo de AudioService mediante pidfd, USB/identidad revalidados y
+  captura cerrada. Sin cerrar pestañas ni añadir automatización de hotplug.
+
 ### Kitty background opacity
 
-- Todas las instancias de Kitty usan 85 % de opacidad de fondo por defecto.
-  i3 inicia xcompmgr en modo básico, sin sombras, blur, shaders ni animaciones.
+- Kitty usa 85 % de opacidad de fondo por defecto. i3 inicia xcompmgr en modo
+  básico, sin sombras, desenfoque, shaders ni animaciones.
   [Background opacity](docs/kitty-setup.md#background-opacity).
 
 ### Desktop wallpaper

@@ -44,12 +44,15 @@
   Gestionar por separado la migración de fuentes heredadas sueltas mediante
   comprobaciones de referencias/manifiesto; no mezclar configuración con caches,
   plugins descargados ni estado de ejecución.
-- /home/jd/setup-guide es un snapshot actual generado, nunca un árbol de edición
-  divergente ni una colección de guías antiguas. Sincronizar las fuentes versionadas
-  mediante GitHub commit/push/pull; usar SSH para administración/despliegue y
+- Mantener una única fuente pública en /home/jd/dotfiles-i3-2310m y en GitHub;
+  no generar copias secundarias del repositorio. La configuración de usuario
+  usa enlaces simbólicos por archivo a las fuentes revisadas; los scripts se
+  ejecutan desde scripts/ dentro del checkout, sin copias en ~/scripts.
+  Sincronizar las fuentes versionadas mediante GitHub commit/push/pull;
+  usar SSH para administración/despliegue y
   transferencias privadas necesarias en la red local. Validar principalmente en
   la portátil, donde se ejecuta la configuración. Cuenta/home actuales: jd /home/jd;
-  la migración general de enlaces sigue pendiente. Conservar las bases de
+  los destinos y excepciones privadas se declaran en el manifiesto. Conservar las bases de
   recuperación privadas fuera de los árboles activos, no versiones obsoletas
   dentro; retirar material temporal superado tras comprobarlo.
 - El trabajo solicitado autoriza el flujo de ramas/commits/pull requests descrito
@@ -92,6 +95,10 @@
   inglés como type/description-in-kebab-case (feat/, fix/, docs/, chore/), sin
   prefijos de herramientas. Revisar primero los cambios existentes y conservar
   el trabajo en curso.
+- Los enlaces activos siguen el contenido del checkout. Tras integrar un PR,
+  actualizar primero la referencia local de main por fast-forward desde GitHub
+  y comprobar las fuentes antes de cambiar de rama; no pasar temporalmente por
+  un main antiguo ni por una rama que reponga rutas ya retiradas.
 - Hacer un commit por bloque coherente y validado, preparando el índice con una
   lista explícita de archivos permitidos. Redactar asunto y cuerpo íntegramente
   en inglés con Conventional Commits: type(scope): description; el ámbito es
@@ -126,13 +133,13 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 5. Validar sintaxis y comportamiento en la sesión existente. Conservar aplicaciones,
    tty2+, SSH y la salida de recuperación disable-autostart; no iniciar X desde
    SSH/root.
-6. Comparar contenidos/hashes, permisos y propietarios en la portátil; actualizar
-   guías/CHANGELOG y regenerar el snapshot secundario desde el checkout limpio
-   confirmado en Git. Reconciliar contenido secundario obsoleto sin dejar estados
-   paralelos.
-7. Los futuros enlaces de usuario requieren destinos en la portátil, comprobación
-   de conflictos por archivo, dry-run y rollback. Revisar divergencias de mimeapps/
-   Codex antes de migrar.
+6. Comparar contenidos/hashes, enlaces, permisos y propietarios en la portátil;
+   actualizar guías/CHANGELOG y publicar las fuentes mediante GitHub. Retirar
+   copias públicas redundantes sólo después de verificar sus referencias y
+   recuperar cualquier diferencia útil.
+7. Los enlaces de usuario requieren destinos en la portátil, comprobación de
+   conflictos por archivo, dry-run y rollback privado. No enlazar autenticación,
+   caches ni archivos que mezclen preferencias con estado privado generado.
 
 ## Runtime contract
 
@@ -140,16 +147,15 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   escritorio completo ni compositor sin aprobación explícita. Super+Space abre
   el lanzador; Super+Enter, la terminal; barra superior. Actualizar
   docs/keybindings.md y la ayuda visible al cambiar atajos.
-- Catppuccin Mocha compacto y opaco; texto de barra JetBrainsMono Nerd Font Mono
+- Catppuccin Mocha con barra compacta y opaca. Texto de barra JetBrainsMono Nerd Font Mono
   Regular 10 e iconos de clima/métricas/audio/batería Propo Regular 12. Wi-Fi conserva
   BGH Status Icons 12. Bold está instalada, pero no se fuerza. Mostrar escritorios existentes.
-- Kitty aplica 85 % de opacidad al fondo por defecto en todas sus instancias.
-  La sesión inicia sólo `xcompmgr -n` para composición básica X11, sin
-  sombras, desenfoque, animaciones ni shaders. Mantener opacas la barra y
-  las decoraciones; no habilitar opacidad dinámica. Operación y reversión
-  en docs/kitty-setup.md.
+- Kitty aplica 85 % de opacidad estática al fondo por defecto. i3 inicia
+  `xcompmgr -n` para composición básica X11, sin sombras, desenfoque,
+  animaciones ni shaders. Mantener opacas la barra y las decoraciones.
+  Operación y recuperación en docs/kitty-setup.md.
 - Los fondos versionados van en `wallpapers/`. i3 aplica la imagen instalada
-  al iniciar con xwallpaper, sin daemon ni cambios automáticos del fondo.
+  al iniciar con xwallpaper, sin daemon propio ni cambios automáticos.
   Operación y recuperación en docs/i3-setup.md.
 - Tick de i3status de 10 s; tráfico por diferencias de contadores en ese ciclo.
   Sin sondeo adicional de alta frecuencia. status-clicks.py es residente y
@@ -190,6 +196,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   micrófono/captura ni cambiar volumen o mute al abrir/conectar. Sin servidores
   de audio, sondeo adicional ni servicio propio. No audio sólo si falta el
   adaptador; errores/ambigüedad muestran Audio ?. Operación en docs/audio-setup.md.
+- La recuperación de reproducción tras cambiar el USB es manual con
+  `refresh-helium-audio.py`: sólo el AudioService de Helium de la cuenta actual,
+  con USB verificado, captura cerrada, identidad revalidada y pidfd; sin reiniciar
+  el navegador ni añadir automatización de hotplug. Sin argumentos sólo revisa;
+  `--apply` renueva ese proceso. Operación en docs/audio-setup.md.
 - Bluetooth/Magic Trackpad 2 usa BlueZ, btusb, hid_magicmouse y libinput de Debian;
   sin gestor gráfico ni agente Bluetooth adicional. Emparejar sólo el
   dispositivo identificado, detener el escaneo y cerrar el agente temporal.
@@ -304,8 +315,10 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   por defecto todas las integraciones opcionales/recomendadas.
 - Thunar y Visual Studio Code son alternativas gráficas bajo demanda; no fijar
   asociaciones MIME ni cambiar los editores predeterminados. Thunar reutiliza GTK3
-  con tema oscuro sólo en su lanzador; no instalar XFCE completo ni servicios
-  opcionales por defecto. VS Code usa el repositorio oficial estable firmado
+  con tema oscuro en su lanzador y en la activación D-Bus mediante su servicio
+  de usuario existente; sin cambiar el tema GTK global ni añadir autostart.
+  No instalar XFCE completo ni servicios opcionales por defecto.
+  VS Code usa el repositorio oficial estable firmado
   limitado a `code`; mantener sandbox, sin autostart ni extensiones de oficio.
 - Zathura con Poppler es el lector PDF predeterminado, con modo oscuro Mocha
   y portapapeles estándar. Helium conserva la web; Yazi conserva sus previews.

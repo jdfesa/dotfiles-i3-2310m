@@ -1,5 +1,9 @@
 # Editor and file management
 
+La configuración pública de usuario se enlaza siguiendo
+[User configuration links](user-config-links.md); sus comandos distinguen
+el dry-run del despliegue con respaldo. No instalar copias paralelas de scripts.
+
 ## Current state
 
 Neovim usa [LazyVim setup](lazyvim-setup.md) como perfil predeterminado.
@@ -32,24 +36,80 @@ Thunar funciona bajo demanda en i3 con GTK3 existente. Se instala desde Debian
 sin GVfs, tumbler, gestor de volúmenes ni escritorio Xfce; integraciones de
 papelera y volúmenes no forman parte de esta instalación mínima.
 
+#### Installation
+
+Como `jd`, revisar y respaldar en privado los dos destinos del
+[manifest.json](../config/manifest.json) antes de enlazar sus fuentes con modo644.
+Aplicar [User configuration links](user-config-links.md), que registra también
+los destinos ausentes para la reversión.
+
 ```sh
 apt-get -s install --no-install-recommends thunar
 sudo apt-get install --no-install-recommends thunar
 
 desktop-file-validate config/thunar/thunar.desktop
-install -d -m 755 "$HOME/.local/share/applications"
-install -m 644 config/thunar/thunar.desktop "$HOME/.local/share/applications/thunar.desktop"
+python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separately.
+systemctl --user daemon-reload
 ```
 
 El lanzador de usuario reemplaza el ID `thunar.desktop`. En **Super+Space**,
 abrir **Thunar File Manager**: aplica `Adwaita:dark` sólo al proceso lanzado,
 sin modificar ajustes globales de GTK. En terminal usar
-`GTK_THEME=Adwaita:dark thunar "$HOME"`. Si ya está abierto con otro tema,
-cerrar sus ventanas normalmente antes de lanzar la versión oscura. Verificar
-una ventana real y `thunar --version`; no iniciar con `--daemon`.
+`GTK_THEME=Adwaita:dark thunar "$HOME"`.
 
-Para revertir, restaurar el lanzador previo o retirar sólo la copia de usuario
-si antes no existía. Thunar vuelve a su lanzador Debian. La desinstalación es
+**Show in folder** de Helium usa la interfaz D-Bus `org.freedesktop.FileManager1`,
+que no pasa por el lanzador. Los descriptores Debian de esa interfaz y de
+`org.xfce.Thunar` delegan en `thunar.service`; el drop-in añade el mismo
+`GTK_THEME` al servicio de usuario existente sin sustituir su comando.
+No habilitarlo al inicio ni lanzar manualmente `--daemon`: D-Bus lo activa
+bajo demanda. No se añaden unidades, paquetes ni sondeos; las asociaciones
+MIME se conservan. La precedencia de configuración del servicio se describe
+en [systemd.unit](https://www.freedesktop.org/software/systemd/man/latest/systemd.unit.html),
+y la interfaz en [File Manager Interface](https://www.freedesktop.org/wiki/Specifications/file-manager-interface/).
+
+Una instancia que ya estaba abierta conserva su tema; cerrar ventanas puede
+dejar el daemon de Debian activo. Esperar a que terminen todas las operaciones
+y cerrar las ventanas de Thunar antes de ejecutar `thunar --quit`. La siguiente
+apertura recibe el ajuste nuevo. No renovar Thunar mientras haya copias,
+movimientos o diálogos activos; no reiniciar el navegador ni la sesión.
+
+#### Validation
+
+```sh
+thunar --version
+systemd-analyze --user verify thunar.service
+systemctl --user show thunar.service -p Environment
+```
+
+`Environment` debe incluir `GTK_THEME=Adwaita:dark`. Comprobar una ventana real
+desde **Thunar File Manager** y otra mediante la misma interfaz del navegador,
+con un archivo temporal ajeno a las descargas personales:
+
+```sh
+probe=$(mktemp -d /tmp/thunar-dark-check.XXXXXX)
+touch "$probe/theme-check.txt"
+gdbus call --session --dest org.freedesktop.FileManager1 \
+  --object-path /org/freedesktop/FileManager1 \
+  --method org.freedesktop.FileManager1.ShowItems \
+  "['file://$probe/theme-check.txt']" ''
+```
+
+Ambas ventanas deben verse oscuras. Para comprobar una activación nueva por
+D-Bus, usar primero `thunar --quit` sólo cuando no queden ventanas ni operaciones;
+así no se reutiliza una instancia que ya tenía el tema del lanzador.
+Cerrar únicamente la ventana de comprobación y retirar el fixture:
+
+```sh
+rm "$probe/theme-check.txt"
+rmdir "$probe"
+```
+
+#### Recovery
+
+Restaurar los dos archivos previos o retirar sólo las copias de usuario que
+antes no existían; no eliminar otros drop-ins de `thunar.service`. Ejecutar
+`systemctl --user daemon-reload` y renovar Thunar con las mismas precauciones.
+Sin estas copias vuelve al tema de sus rutas Debian. La desinstalación es
 independiente; revisar `apt-get -s remove thunar`, sin autoremove a ciegas.
 
 ### Visual Studio Code
@@ -134,27 +194,10 @@ no se añaden aliases ni se cambia `$EDITOR` o la alternativa global `editor`.
 
 ### User links
 
-`tools/link-user-config.py` sólo selecciona entradas con `deployment=symlink`:
-sólo la configuración de Yazi en este perfil. El resto del manifiesto permanece intacto.
-
-```sh
-umask 022
-# Tras revisar las fuentes públicas, normalizar también un checkout anterior.
-chmod 644 config/yazi/yazi.toml
-python3 tools/link-user-config.py                    # revisar el plan completo
-backup="$HOME/.local/state/bgh-config-backups/productivity-$(date -u +%Y%m%dT%H%M%SZ)"
-python3 tools/link-user-config.py --apply --backup-dir "$backup"
-python3 tools/link-user-config.py                    # todos unchanged
-```
-
-Rechaza fuentes/destinos inseguros, padres enlazados, archivos diferentes y
-enlaces distintos/rotos. Una copia regular idéntica puede migrarse tras backup.
-También rechaza una fuente con modo incorrecto: Git no conserva los bits de
-lectura/escritura 644 frente a 664. No omitir esta comprobación después de un pull.
-El directorio de respaldo debe ser nuevo, externo y privado; el journal600
-registra destinos ausentes o copias anteriores. No sustituye una revisión de
-preferencias de aplicaciones. Los enlaces tienen modo de sistema 777; el
-manifiesto exige 644 al archivo fuente y propiedad de la cuenta en ambos.
+La configuración pública de usuario, incluido Yazi y los dos archivos de
+LazyVim, se enlaza por archivo al único checkout. Instalación, dry-run, conflictos
+y rollback en [User configuration links](user-config-links.md). El perfil Lua
+anterior queda como fuente de recuperación; no se instala sobre LazyVim.
 
 ## Operation
 
