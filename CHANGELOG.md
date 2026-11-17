@@ -3,6 +3,13 @@
 Cambios técnicos de la configuración. El estado vigente está en las guías y
 las versiones en [Dependencies and versions](docs/dependencies.md).
 
+## 2026-11-17
+
+### Status bar spacing
+
+- Reducida sólo la separación entre Wi-Fi y Bluetooth, de 12 a 6 píxeles,
+  sin cambiar los tamaños de bloque ni el resto de la barra.
+
 ## 2026-11-16
 
 ### Configuration sources
