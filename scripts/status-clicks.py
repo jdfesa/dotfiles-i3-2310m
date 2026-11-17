@@ -150,7 +150,7 @@ def adapt_status(blocks, traffic=None, peripherals=None, audio=None, brightness=
             block["color"] = RED if value is None or value <= 25 else YELLOW if value <= 50 else "#f2cdcd"
             if index + 1 < len(blocks) and blocks[index + 1].get("name") == "bluetooth":
                 # The centered icon blocks already add space on both sides.
-                gap = 2
+                gap = 1
         elif name == "cpu_usage":
             block["instance"] = "aggregate"
             block["full_text"] = labeled("\uf2db", text, YELLOW)

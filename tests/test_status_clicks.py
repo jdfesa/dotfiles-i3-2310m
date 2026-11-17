@@ -224,7 +224,7 @@ class CollapsibleMetricsTests(unittest.TestCase):
                 wifi = next(i for i, block in enumerate(frame) if block["name"] == "wireless")
                 neighbors = frame[wifi - 1:wifi + 3]
                 self.assertEqual([b["name"] for b in neighbors], ["volume", "wireless", "bluetooth", "trackpad"])
-                self.assertEqual([b["separator_block_width"] for b in neighbors], [4, 2, 10, 10])
+                self.assertEqual([b["separator_block_width"] for b in neighbors], [4, 1, 10, 10])
                 self.assertEqual([(b["min_width"], b["align"]) for b in neighbors[1:3]],
                                  [(28, "center"), (24, "center")])
                 self.assertTrue(all(b["separator_block_width"] == 10 for b in frame if b not in neighbors))
