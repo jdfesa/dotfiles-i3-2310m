@@ -3,8 +3,9 @@
 ## Dependencies and behavior
 
 Kitty y su integración de shell proceden de Debian; versiones comprobadas en
-[Dependencies](dependencies.md). Bash sigue siendo la shell existente. La fuente
-es JetBrainsMono Nerd Font Mono Regular 11, con fondo Mocha, cursor sin
+[Dependencies](dependencies.md). Las nuevas terminales usan Zsh y Starship,
+como se describe en [Interactive shell](#interactive-shell). La fuente es
+JetBrainsMono Nerd Font Mono Regular 11, con fondo Mocha, cursor sin
 animación, `repaint_delay 20` y scrollback de 5000 líneas.
 
 La barra nativa aparece arriba incluso con una sola pestaña. Powerline distingue
@@ -12,9 +13,43 @@ la pestaña activa con el color melocotón de Mocha. La etiqueta muestra el nomb
 de la carpeta activa, no la ruta completa. `cd` actualiza la etiqueta; `/`
 aparece como `/`. Si Kitty no obtiene el directorio, usa el título como respaldo.
 
-`tab.active_wd` realiza la consulta nativa al redibujar. No hay renderer propio,
-script de prompt, daemon ni sondeo adicional. El control remoto permanece
-deshabilitado y las confirmaciones nativas de cierre se conservan.
+`tab.active_wd` realiza la consulta nativa al redibujar. No hay renderer
+propio ni sondeo de pestañas. El control remoto permanece deshabilitado y las
+confirmaciones nativas de cierre se conservan.
+
+## Interactive shell
+
+Kitty inicia `/usr/bin/zsh` en nuevas ventanas y pestañas sin un comando
+explícito. Bash permanece como shell de la cuenta para tty1 y SSH; no se
+cambian `.profile`, `.bashrc` ni los intérpretes de los scripts. Los procesos
+de las terminales abiertas conservan su shell.
+
+Instalar sin recomendaciones desde Debian estable:
+
+```sh
+sudo apt-get install --no-install-recommends zsh starship
+```
+
+El perfil [Starship](https://starship.rs/config/) conserva sin cambios
+[starship.toml de mydotfiles](https://github.com/jdfesa/mydotfiles/blob/e904679e51d70d0f12b5318e680919b096df3850/shared/starship/starship.toml).
+Usa Catppuccin Mocha y los glifos de la fuente ya instalada. Zsh muestra el
+prompt derecho cuando hay módulos activos; no se añade un framework. El
+perfil incluye dos comandos Git locales y módulos contextuales. El coste
+con la carga habitual sigue por medir.
+
+Instalar los paquetes antes de desplegar el cambio de Kitty, comprobar
+`zsh -n config/zsh/zshrc` y crear los enlaces de esta guía con el procedimiento
+de [User configuration links](user-config-links.md). Zsh inicia Starship sólo si
+su binario está presente. El historial `~/.zsh_history` es privado, separado
+del historial de Bash y no se restaura desde Git.
+
+Abrir una ventana con Super+Enter y comprobar
+`printf '%s\n' "$ZSH_VERSION" "$STARSHIP_SHELL"`. Abrir un directorio Git para
+comprobar la rama y un proyecto con módulos activos para el lado derecho.
+Para abrir Bash sin cambiar el predeterminado, usar `kitty /bin/bash`.
+Para revertir, retirar `shell /usr/bin/zsh` de la fuente de Kitty mediante
+una rama revisada, revertir sólo los enlaces de esta instalación con su
+journal y abrir una ventana nueva. Conservar el historial privado.
 
 ## Background opacity
 
@@ -71,6 +106,8 @@ Fuentes y destinos existentes de [manifest.json](../config/manifest.json):
 | Fuente | Destino | Modo |
 |---|---|---|
 | `config/kitty.conf` | `/home/jd/.config/kitty/kitty.conf` | 644 |
+| `config/zsh/zshrc` | `/home/jd/.zshrc` | 644 |
+| `config/starship/starship.toml` | `/home/jd/.config/starship.toml` | 644 |
 | `config/keybindings-help.txt` | `/home/jd/.config/i3/keybindings-help.txt` | 644 |
 | `scripts/open-networks.sh` | `/home/jd/dotfiles-i3-2310m/scripts/open-networks.sh` | 755 |
 | `scripts/open-updates.sh` | `/home/jd/dotfiles-i3-2310m/scripts/open-updates.sh` | 755 |

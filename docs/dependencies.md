@@ -23,6 +23,8 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | xwallpaper | 0.7.6-1 | Debian estable; aplica el fondo de Xorg una vez y termina |
 | Mesa / OpenGL observado | 25.0.7 / core 3.3 acelerado | Debian / i915 |
 | Kitty | 0.41.1-2+deb13u2 | Debian |
+| Zsh / zsh-common | 5.9-8+b24 / 5.9-8 | Debian estable; shell interactiva de Kitty |
+| Starship | 1.22.1-5 | Debian estable; prompt de Zsh |
 | xcompmgr | 1.1.8-1 | Debian; compositor básico existente para el fondo 85% de Kitty |
 | btop | 1.3.2-0.1 | Debian; comprobado 2026-11-15 |
 | GTK3 / Python GI | 3.24.49-3 / 3.50.0-4+b1 | Debian; gir1.2-gtk-3.0 3.24.49-3; comprobados 2026-11-15 |

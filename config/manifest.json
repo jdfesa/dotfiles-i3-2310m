@@ -67,6 +67,18 @@
     "deployment": "symlink"
   },
   {
+    "source": "config/zsh/zshrc",
+    "destination": "/home/jd/.zshrc",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/starship/starship.toml",
+    "destination": "/home/jd/.config/starship.toml",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
     "source": "config/rofi-config.rasi",
     "destination": "/home/jd/.config/rofi/config.rasi",
     "mode": 420,

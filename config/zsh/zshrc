@@ -1,0 +1,9 @@
+# Interactive Zsh settings for this laptop. Keep history local.
+HISTFILE=$HOME/.zsh_history
+HISTSIZE=5000
+SAVEHIST=5000
+setopt APPEND_HISTORY
+
+if [[ -x /usr/bin/starship ]]; then
+    eval "$(/usr/bin/starship init zsh)"
+fi

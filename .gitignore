@@ -30,6 +30,7 @@ core
 **/engram-export*.json
 **/engram.db*
 **/history.jsonl
+**/.zsh_history
 *.sqlite
 *.sqlite3
 *.sqlite-wal

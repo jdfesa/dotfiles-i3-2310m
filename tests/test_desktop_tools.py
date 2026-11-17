@@ -1,5 +1,7 @@
 """Check the per-app launcher and the scoped VS Code APT source."""
 import configparser
+import json
+import tomllib
 import hashlib
 import json
 from pathlib import Path
@@ -11,6 +13,22 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class DesktopToolsTests(unittest.TestCase):
+    def test_kitty_uses_zsh_with_managed_starship_profile(self):
+        config = (ROOT / "config/kitty.conf").read_text().splitlines()
+        self.assertEqual([x for x in config if x.startswith("shell ")], ["shell /usr/bin/zsh"])
+        zshrc = (ROOT / "config/zsh/zshrc").read_text()
+        self.assertIn("if [[ -x /usr/bin/starship ]]; then", zshrc)
+        self.assertIn('eval "$(/usr/bin/starship init zsh)"', zshrc)
+        profile = tomllib.loads((ROOT / "config/starship/starship.toml").read_text())
+        self.assertEqual(profile["palette"], "catppuccin_mocha")
+        self.assertEqual(profile["right_format"].strip(), "$all")
+        entries = {e["source"]: e for e in json.loads((ROOT / "config/manifest.json").read_text())}
+        for source, target in (("config/zsh/zshrc", "/home/jd/.zshrc"),
+                               ("config/starship/starship.toml", "/home/jd/.config/starship.toml")):
+            entry = entries[source]
+            self.assertEqual((entry["destination"], entry["mode"], entry["deployment"]),
+                             (target, 0o644, "symlink"))
+
     def test_kitty_uses_static_background_alpha_with_basic_x11_compositing(self):
         config = (ROOT / "config/kitty.conf").read_text().splitlines()
         self.assertEqual([line for line in config if line.startswith("background_opacity ")],
