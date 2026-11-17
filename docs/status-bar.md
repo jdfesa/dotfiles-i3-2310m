@@ -10,9 +10,10 @@ los diez accesibles por teclado. Textos en inglés, hora 24 h y temperaturas °C
 Los pictogramas Propo conservan su proporción sin comprimirse en una celda Mono.
 Clima usa sol/luna/nube sólidos y conserva °C, `~` de caché y `--°C` sin datos.
 Wi-Fi mantiene BGH Status Icons 12; batería conserva la lectura nativa con iconos Propo.
-Audio tiene área mínima de 24 píxeles y separación posterior de 4. Wi-Fi conserva
-su ancho mínimo de 28 píxeles y deja 6 en vez de 12 sólo cuando le sigue
-Bluetooth, sin cambiar el área clicable ni las demás separaciones.
+La separación posterior habitual es de 10 píxeles; audio conserva 4. Entre
+Wi-Fi y Bluetooth se dejan 2 píxeles de margen adicionales al relleno propio
+de sus bloques centrados (28 y 24 píxeles mínimos). Esto aproxima el hueco
+visible al de los vecinos sin cambiar fuentes, iconos ni áreas clicables.
 Procedencia, tamaño y hash de la única fuente añadida en
 [Proportional icons](../config/fonts/README.md#proportional-icons).
 

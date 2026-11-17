@@ -7,8 +7,9 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ### Status bar spacing
 
-- Reducida sólo la separación entre Wi-Fi y Bluetooth, de 12 a 6 píxeles,
-  sin cambiar los tamaños de bloque ni el resto de la barra.
+- Reducida levemente la separación general de la barra, con un margen menor
+  entre Wi-Fi y Bluetooth para compensar el relleno de ambos bloques.
+  Se conservan las fuentes, los tamaños de los iconos y las áreas clicables.
 
 ## 2026-11-16
 

@@ -18,6 +18,7 @@ RED = "#f38ba8"
 YELLOW = "#f9e2af"
 LAVENDER = "#b4befe"
 ICON_FONT = "JetBrainsMono Nerd Font Propo 12"
+STATUS_GAP = 10
 WEATHER_ICONS = {"☀": "\uf185", "☾": "\uf186", "☁": "\uf0c2", "≋": "\ue313",
                  "☂": "\ue318", "❄": "\U000f0598", "ϟ": "\U000f0593", "?": "\ue370"}
 BATTERY_ABSENT = "\U000f17e9"
@@ -139,7 +140,7 @@ def adapt_status(blocks, traffic=None, peripherals=None, audio=None, brightness=
                               "full_text": labeled("\uf185", label, "#7f849c" if level is None else YELLOW)})
     for index, block in enumerate(blocks):
         name, text = block.get("name"), block.get("full_text", "")
-        gap = 4 if name == "volume" else 12
+        gap = 4 if name == "volume" else STATUS_GAP
         if name == "wireless" and block.get("instance") == "wlp2s0":
             quality = re.fullmatch(r"\s*(\d{1,3})%\s*", text)
             value = min(100, int(quality[1])) if quality else None
@@ -148,7 +149,8 @@ def adapt_status(blocks, traffic=None, peripherals=None, audio=None, brightness=
             block["min_width"], block["align"] = 28, "center"
             block["color"] = RED if value is None or value <= 25 else YELLOW if value <= 50 else "#f2cdcd"
             if index + 1 < len(blocks) and blocks[index + 1].get("name") == "bluetooth":
-                gap = 6
+                # The centered icon blocks already add space on both sides.
+                gap = 2
         elif name == "cpu_usage":
             block["instance"] = "aggregate"
             block["full_text"] = labeled("\uf2db", text, YELLOW)
@@ -182,7 +184,7 @@ def adapt_status(blocks, traffic=None, peripherals=None, audio=None, brightness=
         block["separator_block_width"] = gap
     if traffic is not None:
         blocks.insert(1, {"name": "traffic", "instance": "wlp2s0", "full_text": traffic.sample(),
-                          "color": "#7f849c", "separator": False, "separator_block_width": 12})
+                          "color": "#7f849c", "separator": False, "separator_block_width": STATUS_GAP})
     return blocks
 
 
@@ -211,7 +213,7 @@ class StatusView:
                               "full_text": chevron, "short_text": chevron,
                               "color": LAVENDER, "min_width": 28, "align": "center",
                               "markup": "pango", "separator": False,
-                              "separator_block_width": 12})
+                              "separator_block_width": STATUS_GAP})
         return blocks
 
 
