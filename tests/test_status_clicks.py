@@ -213,6 +213,25 @@ class CollapsibleMetricsTests(unittest.TestCase):
         self.traffic.sample.return_value = "↑2K ↓1K/s"
         self.event = {"name": "stats_toggle", "instance": "secondary", "button": 1}
 
+    def test_compact_gaps_keep_the_centered_icons_visually_balanced(self):
+        peripherals = Mock()
+        peripherals.sample.return_value = dict(adapter="connected", connected=True, percentage=80,
+                                               stale=False, charging=False)
+        for expanded in (False, True):
+            self.view.expanded = expanded
+            with self.subTest(expanded=expanded):
+                frame = self.view.update(self.blocks, self.traffic, peripherals=peripherals)
+                wifi = next(i for i, block in enumerate(frame) if block["name"] == "wireless")
+                neighbors = frame[wifi - 1:wifi + 3]
+                self.assertEqual([b["name"] for b in neighbors], ["volume", "wireless", "bluetooth", "trackpad"])
+                self.assertEqual([b["separator_block_width"] for b in neighbors], [4, 1, 10, 10])
+                self.assertEqual([(b["min_width"], b["align"]) for b in neighbors[1:3]],
+                                 [(28, "center"), (24, "center")])
+                self.assertTrue(all(b["separator_block_width"] == 10 for b in frame if b not in neighbors))
+        frame = self.view.update(self.blocks)
+        wifi = next(b for b in frame if b["name"] == "wireless")
+        self.assertEqual(wifi["separator_block_width"], 10)
+
     def test_compact_default_retains_essentials_and_unknown_blocks(self):
         self.blocks.append({"name": "future_block", "full_text": "unknown"})
         frame = self.view.update(self.blocks, self.traffic)
