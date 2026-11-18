@@ -3,33 +3,54 @@
 Dotfiles, scripts, and configuration for a **Positivo BGH A470 (2011)** running
 Debian 13 with i3 on Xorg.
 
-**Hardware:** Intel Core i3-2310M · Intel HD 3000 · 8 GB RAM · 120 GB SATA SSD.
+[![Debian 13](https://img.shields.io/badge/Debian-13-A81D33?style=flat&logo=debian&logoColor=white)](docs/dependencies.md)
+[![i3 on Xorg](https://img.shields.io/badge/Session-i3%20%2F%20Xorg-89b4fa?style=flat)](docs/i3-setup.md)
+[![MIT License](https://img.shields.io/badge/License-MIT-a6e3a1?style=flat)](LICENSE)
+
+## Specs
+
+| Component | Specification |
+| --- | --- |
+| CPU | Intel Core i3-2310M, 2 cores / 4 threads, 2.10 GHz |
+| Memory | 8 GiB: 2 × 4 GiB DDR3 SO-DIMM; 1334 MT/s reported |
+| Motherboard | POSITIVO BGH (SMBIOS); Intel HM65 chipset |
+| Graphics | Intel HD Graphics 3000, `i915` |
+| Display | LVDS, 1366 × 768, 60 Hz |
+| Storage | Kingston SA400S37120G, 120 GB SATA SSD |
+| Optical drive | Slimtype DVD A DS8A5S |
+| Ethernet | Realtek RTL8111/8168-family Gigabit Ethernet |
+| Wi-Fi | Realtek RTL8188CE, 802.11b/g/n |
+| Card reader | Realtek USB 2.0 multicard reader |
+| BIOS | Phoenix 1.04.00.BH |
 
 ## Desktop setup
 
-| Component | Configuration |
-| --- | --- |
-| Session | [i3 on Xorg](docs/i3-setup.md) from a console login, without a display manager. |
-| Bar | [i3bar and i3status](docs/status-bar.md): collapsible metrics, calendar, brightness, audio, and Wi-Fi. |
-| Terminal and shell | [Kitty](docs/kitty-setup.md) with 85% background opacity, Zsh with Starship, and tabs that inherit the working directory. |
-| Theme and fonts | Catppuccin Mocha with [JetBrains Mono Nerd Font](docs/apps-setup.md#fonts) and Noto Color Emoji. |
-| Wallpaper | [Pixel Car](wallpapers/pixel-car.png), set by [xwallpaper](docs/i3-setup.md#wallpaper). |
-| Launcher and power | Rofi application and power menus; [keyboard shortcuts](docs/keybindings.md). |
-| Files and editing | [Yazi and Neovim with LazyVim](docs/editor-and-files.md); Thunar and VS Code as graphical alternatives. |
-| Web and PDF | [Helium](docs/apps-setup.md#helium) and [Zathura with Poppler](docs/pdf-reader.md). |
-| Input and audio | [Magic Trackpad 2](docs/bluetooth-setup.md) with workspace gestures; [USB audio](docs/audio-setup.md) through ALSA. |
+[![Kitty terminal](https://img.shields.io/badge/Terminal-Kitty-cba6f7?style=flat)](docs/kitty-setup.md)
+[![Zsh shell](https://img.shields.io/badge/Shell-Zsh-a6e3a1?style=flat)](docs/kitty-setup.md#interactive-shell)
+[![Neovim editor](https://img.shields.io/badge/Editor-Neovim-89b4fa?style=flat&logo=neovim&logoColor=white)](docs/editor-and-files.md)
+[![Catppuccin Mocha](https://img.shields.io/badge/Theme-Catppuccin%20Mocha-f5c2e7?style=flat)](docs/apps-setup.md)
+
+Rofi launches applications; Yazi manages files, LazyVim edits code, Helium browses, and Zathura reads PDFs.
+
+[Status bar](docs/status-bar.md) ·
+[Keyboard shortcuts](docs/keybindings.md) ·
+[Editor and file management](docs/editor-and-files.md) ·
+[Desktop applications](docs/apps-setup.md) ·
+[PDF reader](docs/pdf-reader.md) ·
+[Bluetooth and Magic Trackpad 2](docs/bluetooth-setup.md) ·
+[USB audio](docs/audio-setup.md)
 
 ## Contents
 
 ```text
 .
-├── config/       # Managed configuration and destination manifest
-├── docs/         # Setup, operation, verification, and recovery guides
-├── licenses/     # Third-party license texts
-├── scripts/      # Session, status bar, and menu scripts
-├── tests/        # Automated regression tests
-├── tools/        # Installation, verification, and diagnostics
-├── wallpapers/   # Desktop wallpaper assets
+├── config/       # Configuration and manifest
+├── docs/         # Topic guides
+├── licenses/     # Third-party licenses
+├── scripts/      # Runtime scripts
+├── tests/        # Regression tests
+├── tools/        # Development tools
+├── wallpapers/   # Desktop backgrounds
 ├── .gitignore
 ├── AGENTS.md
 ├── CHANGELOG.md
@@ -40,15 +61,13 @@ Debian 13 with i3 on Xorg.
 
 ## Documentation
 
-- **Configuration:** [files and destinations](config/README.md), [User configuration links](docs/user-config-links.md), [scripts](scripts/README.md), and [tools](tools/README.md).
-- **Installation:** [dependencies](docs/dependencies.md) and [restoration](docs/restore-guide.md).
-- **Network:** [Network setup](docs/wifi-setup.md).
-- **Development:** [Git workflow](docs/git-workflow.md),
-  [Codex](docs/codex-setup.md), and [RTK/Engram](docs/development-tools.md).
-- **Maintenance:** [verification](docs/mirror-status.md),
-  [changelog](CHANGELOG.md), and [TODO](TODO.md).
+- [Managed configuration mirror](config/README.md), [User configuration links](docs/user-config-links.md), [Runtime scripts](scripts/README.md), [Development and diagnostic tools](tools/README.md).
+- [Dependencies and versions](docs/dependencies.md), [Restore and recovery](docs/restore-guide.md).
+- [Network setup](docs/wifi-setup.md), [Verification status](docs/mirror-status.md).
+- [Git workflow](docs/git-workflow.md), [Codex CLI](docs/codex-setup.md), [Development tools](docs/development-tools.md).
+- [CHANGELOG.md](CHANGELOG.md), [TODO.md](TODO.md).
 
 ## License
 
-Original code and documentation are licensed under [MIT](LICENSE).
+Original code and documentation: [MIT](LICENSE).
 [Third-party licenses and notices](docs/third-party-notices.md).

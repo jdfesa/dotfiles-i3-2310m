@@ -53,6 +53,30 @@ class DocumentationTests(unittest.TestCase):
                           "Documentación", "Licencia", "Directorio"):
             self.assertNotIn(duplicate, text)
 
+    def test_readme_has_specs_and_restrained_static_tool_badges(self):
+        text = (ROOT / "README.md").read_text()
+        specs = re.search(r"^## Specs\n(.*?)(?=^## |\Z)", text, re.M | re.S)
+        self.assertIsNotNone(specs)
+        rows = dict(re.findall(r"^\| ([^|]+?) \| ([^|]+?) \|$", specs.group(1), re.M))
+        for component in ("CPU", "Memory", "Motherboard", "Graphics", "Display",
+                          "Storage", "Optical drive", "Ethernet", "Wi-Fi",
+                          "Card reader", "BIOS"):
+            self.assertIn(component, rows)
+        self.assertRegex(rows["Memory"], r"\d+ GiB")
+        self.assertRegex(rows["Memory"], r"\d+ MT/s reported")
+        self.assertIn("SMBIOS", rows["Motherboard"])
+        self.assertNotIn("**Hardware:**", text)
+        badges = re.findall(
+            r"\[!\[([^\]]+)\]\((https://img\.shields\.io/badge/[^)]+)\)\]\(([^)]+)\)",
+            text)
+        self.assertEqual(len(badges), 7)
+        for label, image, target in badges:
+            self.assertIn("style=flat", image)
+            self.assertNotIn("serial", label.casefold())
+            parsed = urlsplit(target)
+            self.assertFalse(parsed.scheme)
+            self.assertTrue((ROOT / unquote(parsed.path)).is_file(), target)
+
     def test_topic_guides_live_under_docs(self):
         self.assertEqual({p.name for p in ROOT.glob("*.md")},
                          {"README.md", "AGENTS.md", "CHANGELOG.md", "TODO.md"})
