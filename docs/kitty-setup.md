@@ -51,6 +51,33 @@ Para revertir, retirar `shell /usr/bin/zsh` de la fuente de Kitty mediante
 una rama revisada, revertir sólo los enlaces de esta instalación con su
 journal y abrir una ventana nueva. Conservar el historial privado.
 
+### Native completion
+
+Tab completa comandos, rutas y opciones mediante las funciones incluidas en
+los paquetes `zsh`/`zsh-common` de Debian. Cuando hay varias coincidencias,
+Tab abre el menú y permite recorrerlo; las flechas seleccionan y Enter acepta
+la coincidencia. Se incluyen `.` y `..` al completar directorios.
+No hay sugerencias grises mientras se escribe, plugins adicionales ni procesos
+residentes fuera del propio shell. Starship y el historial de 5000 entradas
+se conservan.
+
+`compinit` mantiene su comprobación de seguridad de directorios y reutiliza
+`$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION`, o
+`~/.cache/zsh/zcompdump-$ZSH_VERSION` si la variable no está definida.
+El subdirectorio nuevo se crea con modo 700; la cache no se versiona ni se
+restaura. Si no puede crearse, el completado funciona sin guardar cache.
+No aceptar rutas inseguras sin revisar sus propietarios y permisos.
+
+Validar `zsh -n config/zsh/zshrc` y
+`python3 -m unittest discover -s tests -p 'test_zsh_completion.py'`.
+En una pestaña nueva, escribir `git che` y pulsar Tab para completar o listar
+subcomandos; probar también una ruta y el menú con varias coincidencias.
+Las terminales abiertas no se recargan automáticamente.
+
+Para retirar sólo el completado, revertir su bloque en `config/zsh/zshrc`
+mediante una rama revisada y abrir una pestaña nueva. No es necesario cambiar
+el enlace `~/.zshrc`, retirar Starship ni borrar el historial.
+
 ## Background opacity
 
 Kitty usa `background_opacity 0.85` en todas las instancias, incluidas las

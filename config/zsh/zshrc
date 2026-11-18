@@ -4,6 +4,19 @@ HISTSIZE=5000
 SAVEHIST=5000
 setopt APPEND_HISTORY
 
+# Native completion only; keep security checks and cache outside the checkout.
+zmodload zsh/complist
+autoload -Uz compinit
+_zsh_completion_cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+if [[ -d "$_zsh_completion_cache" ]] || command mkdir -p -m 700 -- "$_zsh_completion_cache"; then
+    compinit -d "$_zsh_completion_cache/zcompdump-$ZSH_VERSION"
+else
+    compinit -D
+fi
+unset _zsh_completion_cache
+zstyle ':completion:*' menu select
+zstyle ':completion:*' special-dirs true
+
 if [[ -x /usr/bin/starship ]]; then
     eval "$(/usr/bin/starship init zsh)"
 fi

@@ -41,9 +41,14 @@
 
 ## Priority 3 — Optional productivity tools
 
-- [ ] Evaluar mejoras concretas de historial y completado en Zsh sólo si hacen
-  falta; conservar Bash para el inicio de i3 en tty1, SSH y recuperación.
+- [x] Habilitar completado nativo de Zsh con Tab y menú, sin plugins ni
+  procesos adicionales. [Native completion](docs/kitty-setup.md#native-completion).
+- [ ] Evaluar mejoras concretas de historial en Zsh sólo si hacen falta;
+  conservar Bash para el inicio de i3 en tty1, SSH y recuperación.
   Historial y caches privados fuera del repositorio.
+- [ ] Evaluar alias de shell para acciones repetidas identificadas; explicar
+  su expansión, comprobar dependencias y no reemplazar comandos habituales
+  ni añadir herramientas sin una utilidad concreta.
 - [ ] Comparar arranque y redibujado del prompt nativo con el perfil Starship
   de Kitty en proyectos representativos, antes de ampliar sus módulos.
 - [x] Usar Zathura como lector PDF predeterminado, con modo oscuro y copia de

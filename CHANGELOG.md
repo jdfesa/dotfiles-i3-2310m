@@ -3,6 +3,14 @@
 Cambios técnicos de la configuración. El estado vigente está en las guías y
 las versiones en [Dependencies and versions](docs/dependencies.md).
 
+## 2026-11-18
+
+### Native shell completion
+
+- Zsh completa comandos, rutas y opciones con Tab y menú nativos, con cache
+  privada y comprobaciones de seguridad de `compinit`. Se conservan Starship,
+  el historial y Bash para login/SSH, sin plugins ni servicios adicionales.
+
 ## 2026-11-17
 
 ### Screen capture
