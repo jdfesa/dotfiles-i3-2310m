@@ -4,7 +4,9 @@ import importlib.util
 import io
 import json
 from pathlib import Path
+import stat
 import subprocess
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -36,21 +38,29 @@ class ScreenshotTests(unittest.TestCase):
             self.assertEqual(capture.main(), 1)
         run.assert_not_called()
 
-    def test_cancel_or_incomplete_output_keeps_the_clipboard(self):
-        for code, data in ((1, b""), (1, capture.PNG_HEADER + capture.PNG_END),
-                           (0, b""), (0, capture.PNG_HEADER)):
+    def test_cancel_or_incomplete_output_never_saves_or_copies(self):
+        cases = ((1, b"", 1), (1, capture.PNG_HEADER + capture.PNG_END, 1),
+                 (0, b"", 0), (0, capture.PNG_HEADER, 1))
+        for code, data, status in cases:
             with (self.subTest(code=code, data=data),
-                  patch.dict(capture.os.environ, {"DISPLAY": ":99"}),
+                  patch.dict(capture.os.environ, {"DISPLAY": ":99"}, clear=True),
                   patch("sys.stderr", new_callable=io.StringIO),
+                  patch.object(capture, "save_png") as save,
                   patch.object(capture.subprocess, "run",
                                return_value=subprocess.CompletedProcess([], code, data)) as run):
-                self.assertEqual(capture.main(), 1)
-                run.assert_called_once_with(capture.CAPTURE, stdout=subprocess.PIPE, check=False)
+                self.assertEqual(capture.main(), status)
+                run.assert_called_once_with(("/usr/bin/flameshot", "gui", "--raw"),
+                                            stdout=subprocess.PIPE, check=False,
+                                            env={"DISPLAY": ":99", "QT_QPA_PLATFORM": "xcb"})
+                save.assert_not_called()
 
-    def test_passes_png_as_x11_clipboard_data_and_propagates_copy_failure(self):
+    def test_accept_saves_the_final_png_and_copies_it(self):
         png = capture.PNG_HEADER + b"synthetic data" + capture.PNG_END
         for copy_result in (0, 1):
-            with (self.subTest(copy_result=copy_result),
+            with (self.subTest(copy_result=copy_result), tempfile.TemporaryDirectory() as home,
+                  patch.object(capture.Path, "home", return_value=Path(home)),
+                  patch("sys.stdout", new_callable=io.StringIO),
+                  patch("sys.stderr", new_callable=io.StringIO),
                   patch.dict(capture.os.environ, {"DISPLAY": ":99"}),
                   patch.object(capture.subprocess, "run", side_effect=[
                       subprocess.CompletedProcess([], 0, png),
@@ -59,4 +69,21 @@ class ScreenshotTests(unittest.TestCase):
                 self.assertEqual(capture.main(), copy_result)
                 run.assert_called_with(
                     ("/usr/bin/xclip", "-selection", "clipboard", "-target",
-                     "image/png", "-in", "-silent"), input=png, check=False)
+                     "image/png", "-in", "-silent"), input=png,
+                    stdout=subprocess.DEVNULL, check=False)
+                folder = Path(home) / "Pictures/Screenshots"
+                files = list(folder.iterdir())
+                self.assertEqual(len(files), 1)
+                self.assertRegex(files[0].name, r"^screenshot-.*\.png$")
+                self.assertEqual(files[0].read_bytes(), png)
+                self.assertEqual(stat.S_IMODE(files[0].stat().st_mode), 0o600)
+
+    def test_save_failure_keeps_the_clipboard(self):
+        png = capture.PNG_HEADER + b"synthetic data" + capture.PNG_END
+        with (patch.dict(capture.os.environ, {"DISPLAY": ":99"}),
+              patch("sys.stderr", new_callable=io.StringIO),
+              patch.object(capture, "save_png", side_effect=PermissionError),
+              patch.object(capture.subprocess, "run",
+                           return_value=subprocess.CompletedProcess([], 0, png)) as run):
+            self.assertEqual(capture.main(), 1)
+        self.assertEqual(run.call_count, 1)

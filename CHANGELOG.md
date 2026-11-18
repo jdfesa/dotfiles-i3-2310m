@@ -7,8 +7,9 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ### Screen capture
 
-- Añadida captura de región o ventana X11 al portapapeles con Print Screen
-  y Super+Ctrl+Alt+C, sin archivos automáticos ni historial.
+- Añadida captura X11 de región o escritorio con Print Screen y
+  Super+Ctrl+Alt+C, con vista previa y edición. Al aceptar se guarda el PNG
+  en ~/Pictures/Screenshots y se copia al portapapeles.
 
 ### Interactive shell
 
