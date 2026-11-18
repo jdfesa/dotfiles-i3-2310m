@@ -70,6 +70,8 @@ python3 tools/link-user-config.py  # Apply links using User configuration links.
   según [Background opacity](kitty-setup.md#background-opacity).
 - Lector PDF: instalar Zathura y registrar sólo `application/pdf` según
   [PDF reader](pdf-reader.md), sin reemplazar `mimeapps.list` completo.
+- Capturas: instalar las dependencias de [Screen capture](screen-capture.md)
+  antes de recargar los atajos de i3.
 - Polkitd: necesario para el menú de energía local sin contraseña. No crear reglas
   NOPASSWD ni políticas de autorización generales.
 - GRUB: instalar el drop-in sólo en hardware afectado, regenerar/validar GRUB;

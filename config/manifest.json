@@ -97,6 +97,12 @@
     "deployment": "symlink"
   },
   {
+    "source": "scripts/capture-screenshot.py",
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/capture-screenshot.py",
+    "mode": 493,
+    "deployment": "in-place"
+  },
+  {
     "source": "scripts/status-bar.sh",
     "destination": "/home/jd/dotfiles-i3-2310m/scripts/status-bar.sh",
     "mode": 493,

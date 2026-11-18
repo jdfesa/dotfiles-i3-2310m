@@ -33,8 +33,8 @@
   evaluar un deslizador sólo si aporta utilidad frente a teclas o rueda.
 - [ ] Si hacen falta varias distribuciones, añadir selector XKB para Xorg
   que refleje el estado real por eventos, sin polling.
-- [ ] Añadir captura de región al portapapeles con herramientas X11 bajo demanda,
-  sin archivos persistentes automáticos ni historial del portapapeles.
+- [x] Capturar región o escritorio en X11, con vista previa, edición opcional
+  y guardado más copia sólo al aceptar. [Screen capture](docs/screen-capture.md).
 - [ ] Implementar bloqueo por inactividad y previo a suspensión con i3lock,
   respetando logind e inhibidores. Revisar dependencias de avisos y coordinar
   las pruebas de [Hardware and session](#hardware-and-session).

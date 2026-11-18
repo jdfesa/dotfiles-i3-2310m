@@ -26,6 +26,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/rofi-config.rasi` | `/home/jd/.config/rofi/config.rasi` | `644` | `symlink` |
 | `config/keybindings-help.txt` | `/home/jd/.config/i3/keybindings-help.txt` | `644` | `symlink` |
 | `config/mimeapps.list` | `/home/jd/.config/mimeapps.list` | `644` | `symlink` |
+| `scripts/capture-screenshot.py` | `/home/jd/dotfiles-i3-2310m/scripts/capture-screenshot.py` | `755` | `in-place` |
 | `scripts/status-bar.sh` | `/home/jd/dotfiles-i3-2310m/scripts/status-bar.sh` | `755` | `in-place` |
 | `scripts/status-clicks.py` | `/home/jd/dotfiles-i3-2310m/scripts/status-clicks.py` | `755` | `in-place` |
 | `scripts/bluetooth-status.py` | `/home/jd/dotfiles-i3-2310m/scripts/bluetooth-status.py` | `755` | `in-place` |

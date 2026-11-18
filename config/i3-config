@@ -47,6 +47,8 @@ bindsym $mod+u exec --no-startup-id ~/dotfiles-i3-2310m/scripts/open-updates.sh
 bindsym $mod+Shift+p exec --no-startup-id ~/dotfiles-i3-2310m/scripts/power-menu
 bindsym $mod+Shift+Return exec --no-startup-id helium
 bindsym $mod+Shift+b exec --no-startup-id helium
+bindsym --release Print exec --no-startup-id ~/dotfiles-i3-2310m/scripts/capture-screenshot.py
+bindsym --release $mod+Control+Mod1+c exec --no-startup-id ~/dotfiles-i3-2310m/scripts/capture-screenshot.py
 bindsym $mod+k exec --no-startup-id rofi -dmenu -i -p 'Shortcuts' < ~/.config/i3/keybindings-help.txt >/dev/null
 bindsym $mod+w kill
 bindsym $mod+q kill
