@@ -35,6 +35,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/bluetooth/vendor/magic-trackpad-battery` | `/home/jd/.local/lib/bgh-bluetooth/magic-trackpad-battery` | `644` | `symlink` |
 | `config/bluetooth/vendor/LICENSE` | `/home/jd/.local/lib/bgh-bluetooth/LICENSE` | `644` | `symlink` |
 | `config/bluetooth/72-bgh-magic-trackpad.rules` | `/etc/udev/rules.d/72-bgh-magic-trackpad.rules` | `644` | `system-copy` |
+| `config/bluetooth/90-bgh-magic-trackpad-speed.conf` | `/etc/X11/xorg.conf.d/90-bgh-magic-trackpad-speed.conf` | `644` | `system-copy` |
 | `scripts/status-panel.py` | `/home/jd/dotfiles-i3-2310m/scripts/status-panel.py` | `755` | `in-place` |
 | `scripts/screen-brightness.py` | `/home/jd/dotfiles-i3-2310m/scripts/screen-brightness.py` | `755` | `in-place` |
 | `scripts/calendar-popup.py` | `/home/jd/dotfiles-i3-2310m/scripts/calendar-popup.py` | `755` | `in-place` |

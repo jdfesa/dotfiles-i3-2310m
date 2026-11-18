@@ -141,11 +141,12 @@ Los deslizamientos de tres dedos para cambiar de escritorio se configuran en
 Clic izquierdo sobre el bloque del trackpad (icono o batería) alterna **Trackpad
 speed** bajo el bloque, con el estilo del calendario. Elegir desde **Slowest**
 hasta **Fastest** con las flechas o el ratón; Enter o **Apply** aplica y cierra.
-**Default** vuelve al valor del driver. Un segundo clic en el bloque,
-**Close** o Escape cierra sin aplicar. Sólo se ajusta `libinput Accel Speed`
-del Magic Trackpad 2 por Bluetooth, no el perfil
-de aceleración, el panel interno ni el ratón. El cambio es para la conexión
-actual en Xorg: al reconectar o reiniciar X, libinput vuelve a su valor inicial.
+**Default** vuelve al valor nativo del driver (+0.00). Un segundo clic en el
+bloque, **Close** o Escape cierra sin aplicar. Sólo se ajusta
+`libinput Accel Speed` del Magic Trackpad 2 por Bluetooth, no el perfil de
+aceleración, el panel interno ni el ratón. Los cambios manuales duran la conexión
+actual; al reconectar o iniciar Xorg se aplica **Slightly faster** (+0.25),
+el nivel existente inmediatamente posterior a **Default**.
 
 Instalar [xinput de Debian](https://manpages.debian.org/trixie/xinput/xinput.1.en.html),
 sin recomendaciones. Comparte GTK3, CSS y posicionamiento con el calendario
@@ -159,17 +160,40 @@ sudo apt-get install --no-install-recommends xinput
 
 El auxiliar comprueba el HID Bluetooth y el nodo XInput antes de cualquier
 escritura. Si se pierde la conexión con el menú abierto, no cambia otro
-dispositivo. En la portátil se verificó el cambio `+0.00 → +0.25` y se
-restauró el valor inicial. Para comprobarlo, abrir el menú con el trackpad
-conectado, seleccionar un nivel y comparar el valor actual al reabrir. Para retirar
-el control, seleccionar **Default** y restaurar adaptador y auxiliar según
-el respaldo.
+dispositivo. Para comprobarlo, seleccionar un nivel y comparar el valor actual
+al reabrir el panel. Para retirar el control manual, seleccionar **Default** y
+restaurar adaptador y auxiliar según el respaldo.
+
+### Initial speed
+
+`config/bluetooth/90-bgh-magic-trackpad-speed.conf` fija únicamente
+`AccelSpeed` a `0.25` cuando Xorg crea el dispositivo. La regla udev existente
+marca sólo el evento de entrada del HID Bluetooth `0005:004C:0265`, driver
+`magicmouse` y tipo touchpad, mediante `ID_INPUT.tags`; conserva etiquetas
+previas y no amplía permisos. El InputClass exige esa etiqueta, `libinput` y
+un touchpad. No afecta al trackpad por USB ni a otros punteros.
+
+Ambos archivos de sistema se instalan como root, regulares y con modo 644,
+según [Indicator installation and recovery](#indicator-installation-and-recovery).
+No hay servicio, proceso de inicio, sondeo ni escritura desde la barra para
+reaplicar el valor. El panel sigue permitiendo cambiarlo durante la conexión.
+
+Validar la regla con `udevadm verify` y ejecutar
+`python3 -m unittest discover -s tests -p test_trackpad_speed.py`.
+La configuración nueva necesita que Xorg vuelva a leer sus archivos; recargar
+i3 no basta. En el siguiente inicio local coordinado, abrir el panel antes de
+ajustarlo y comprobar **Current: +0.25** y **Slightly faster** seleccionado.
+No reiniciar X ni desconectar el trackpad sólo para forzar esta comprobación.
+
+Para revertir la velocidad inicial, restaurar la regla udev anterior desde el
+respaldo privado y restaurar o retirar sólo el InputClass añadido. La siguiente
+sesión Xorg usará de nuevo el valor del driver; el panel manual permanece.
 
 ## Indicator installation and recovery
 
 Como `jd`, respaldar primero los destinos existentes en un directorio privado
-fuera del checkout y registrar cuáles no existían. La regla de sistema se
-instala por separado con sudo autenticado. Fuentes, destinos y modos en el
+fuera del checkout y registrar cuáles no existían. La regla udev y el InputClass
+se instalan por separado con sudo autenticado. Fuentes, destinos y modos en el
 [manifiesto](../config/manifest.json):
 
 ```sh
@@ -178,6 +202,9 @@ python3 tools/link-user-config.py  # Dry-run; apply the reviewed link plan separ
 udevadm verify config/bluetooth/72-bgh-magic-trackpad.rules
 sudo install -o root -g root -m 644 config/bluetooth/72-bgh-magic-trackpad.rules \
   /etc/udev/rules.d/72-bgh-magic-trackpad.rules
+sudo install -d -o root -g root -m 755 /etc/X11/xorg.conf.d
+sudo install -o root -g root -m 644 config/bluetooth/90-bgh-magic-trackpad-speed.conf \
+  /etc/X11/xorg.conf.d/90-bgh-magic-trackpad-speed.conf
 sudo udevadm control --reload-rules
 ```
 
@@ -195,7 +222,8 @@ i3-msg restart
 Sustituir `hidrawN` por el nodo comprobado; no disparar todos los dispositivos.
 El informe debe devolver `[porcentaje, cargando]`, o `null` si no hay lectura.
 Contrastar hashes y modos: archivos de usuario jd:jd, auxiliar/adaptador755,
-proveedor/licencia644; regla root:root644, regular. El restart conserva ventanas.
+proveedor/licencia644; regla e InputClass root:root644, regulares. El restart
+conserva ventanas, pero no recarga el InputClass de Xorg.
 
 Para revertir, restaurar primero el adaptador anterior y reiniciar i3. Restaurar
 la regla previa desde su respaldo; si estaba ausente, retirar sólo la regla
