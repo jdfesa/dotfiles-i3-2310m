@@ -2,7 +2,7 @@
 
 ## Usage
 
-Pulsar **Print Screen** o **Super+P**. Arrastrar para capturar una
+Pulsar **Print Screen** o **Super+Ctrl+Alt+C**. Arrastrar para capturar una
 región o hacer clic sobre una ventana. **Escape** cancela sin reemplazar el
 portapapeles. Al completar la selección, pegar el PNG en una aplicación
 compatible con imágenes. No se guarda automáticamente ningún archivo ni hay

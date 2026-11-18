@@ -6,7 +6,7 @@ Super + A                     USB audio slider; Left/Right: volume; Esc: close
 Super + U                     Available updates (read-only local APT cache)
 Super + Shift + Enter / B     Helium browser
 Print Screen                  Capture to clipboard; drag region, click window, Esc cancels
-Super + P                     Same screenshot shortcut (no Print Screen key needed)
+Super + Ctrl + Alt + C        Same screenshot shortcut (no Print Screen key needed)
 Super + K                     This help; Escape closes
 Bar chevron (before packages) Left click: expand/collapse system metrics
 Clock in bar                  Left click: open/close calendar; Esc closes

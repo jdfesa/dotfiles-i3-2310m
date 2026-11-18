@@ -27,7 +27,7 @@ class ScreenshotTests(unittest.TestCase):
         bindings = [line for line in (ROOT / "config/i3-config").read_text().splitlines()
                     if line.startswith("bindsym ") and line.endswith(command)]
         self.assertEqual(bindings, [f"bindsym --release Print {command}",
-                                    f"bindsym --release $mod+p {command}"])
+                                    f"bindsym --release $mod+Control+Mod1+c {command}"])
 
     def test_no_display_does_not_launch_anything(self):
         with (patch.dict(capture.os.environ, {}, clear=True),
