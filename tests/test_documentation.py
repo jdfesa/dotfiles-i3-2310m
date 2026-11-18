@@ -65,7 +65,7 @@ class DocumentationTests(unittest.TestCase):
 
     def test_project_filenames_use_kebab_case_with_python_test_exception(self):
         conventional = {"README.md", "AGENTS.md", "CHANGELOG.md", "TODO.md", "LICENSE",
-                        ".gitignore"}
+                        ".gitattributes", ".gitignore"}
         paths = list(ROOT.iterdir())
         for folder in ("docs", "config", "scripts", "tools", "tests", "wallpapers"):
             paths.extend((ROOT / folder).rglob("*"))
