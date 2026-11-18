@@ -11,6 +11,7 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/codex-launch.py` | Ejecuta el standalone oficial; recupera sólo su alias de socket obsoleto bajo lock; bajo demanda |
 | `scripts/power-menu` | Rofi de energía, Super+Shift+P o entrada Power; bajo demanda |
 | `scripts/power-action.sh` | Auxiliar logind/Polkit en Kitty tras confirmar; bajo demanda |
+| `scripts/capture-screenshot.py` | Selecciona una región o ventana X11 y copia el PNG al portapapeles; [Screen capture](../docs/screen-capture.md) |
 | `scripts/status-bar.sh` | Selecciona sensor y ejecuta i3status al iniciar barra |
 | `scripts/status-clicks.py` | Adaptador residente de i3bar; clicks, iconos y tráfico |
 | `scripts/bluetooth-status.py` | Módulo del adaptador: estado BlueZ en cada tick y lector HID breve cada 5 min; sin servicio propio |

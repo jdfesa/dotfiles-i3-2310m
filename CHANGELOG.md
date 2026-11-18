@@ -5,6 +5,11 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-17
 
+### Screen capture
+
+- Añadida captura de región o ventana X11 al portapapeles con Print Screen
+  y Super+P, sin archivos automáticos ni historial.
+
 ### Interactive shell
 
 - Las nuevas terminales de Kitty usan Zsh con el perfil existente de Starship.

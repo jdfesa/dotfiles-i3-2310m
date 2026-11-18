@@ -21,6 +21,7 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | Magic Trackpad battery reader | commit 09e72af43a803575ae537b161e6504e1f8130d76 | mmarfil/magic-trackpad-battery, MIT; fuente fijada y licencia en config/bluetooth/vendor/ |
 | i3-wm / i3status | 4.24-1 / 2.15-2 | Debian |
 | xwallpaper | 0.7.6-1 | Debian estable; aplica el fondo de Xorg una vez y termina |
+| maim / xclip | 5.8.0-1 / 0.13-4 | Debian estable; selección X11 y portapapeles bajo demanda |
 | Mesa / OpenGL observado | 25.0.7 / core 3.3 acelerado | Debian / i915 |
 | Kitty | 0.41.1-2+deb13u2 | Debian |
 | Zsh / zsh-common | 5.9-8+b24 / 5.9-8 | Debian estable; shell interactiva de Kitty |

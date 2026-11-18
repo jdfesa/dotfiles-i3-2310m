@@ -147,6 +147,10 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   escritorio completo ni compositor sin aprobación explícita. Super+Space abre
   el lanzador; Super+Enter, la terminal; barra superior. Actualizar
   docs/keybindings.md y la ayuda visible al cambiar atajos.
+- Print Screen y Super+P seleccionan una región o ventana X11 con
+  maim y copian el PNG con xclip. Escape conserva el portapapeles. Sin archivos
+  automáticos, historial, cargas en línea ni procesos al iniciar la sesión.
+  Operación en docs/screen-capture.md.
 - Catppuccin Mocha con barra compacta y opaca. Texto de barra JetBrainsMono Nerd Font Mono
   Regular 10 e iconos de clima/métricas/audio/batería Propo Regular 12. Wi-Fi conserva
   BGH Status Icons 12. Bold está instalada, pero no se fuerza. Mostrar escritorios existentes.

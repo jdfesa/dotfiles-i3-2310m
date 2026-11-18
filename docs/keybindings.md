@@ -17,6 +17,7 @@ La configuración está en `config/i3-config` y la ayuda en
 | Super + A | Abrir/cerrar deslizador de volumen USB; flechas ajustan, Escape cierra |
 | Super + U | Lista de actualizaciones disponibles según caché local APT, sólo lectura |
 | Super + Shift + Enter o B | Helium |
+| Print Screen o Super + P | [Screen capture](screen-capture.md): arrastrar región o pulsar una ventana; PNG al portapapeles; Escape cancela |
 | Super + K | Ayuda de atajos, filtrable con teclado; Esc cierra |
 | Super + W o Q | Cerrar ventana |
 | Super + Shift + Q | Alias anterior para cerrar ventana |
