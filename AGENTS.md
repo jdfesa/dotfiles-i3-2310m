@@ -73,11 +73,16 @@
   el título o nombre real del destino. Si la etiqueta es un nombre de archivo,
   respetar su escritura exacta, mayúsculas y extensión. Los destinos deben coincidir
   con las rutas reales, también en sistemas que distinguen mayúsculas de minúsculas.
-- Mantener en inglés todos los textos visibles del sistema, aplicaciones, menús,
-  barra, ayuda de línea de comandos y ayuda de interfaz (en_US.UTF-8).
-- Nombrar archivos, scripts y directorios propios en inglés y en kebab-case:
-  minúsculas separadas por guiones medios, sin espacios, guiones bajos ni camelCase.
-  Ejemplos: restore-guide.md, open-networks.sh y window-tools/.
+- Mantener exclusivamente en inglés (en_US.UTF-8) el sistema y todos los
+  textos visibles de aplicaciones, menús, barra, CLI y ayudas de interfaz.
+- Nombrar los repositorios y sus archivos, scripts y directorios propios en
+  inglés y en kebab-case: minúsculas separadas por guiones medios, sin espacios,
+  guiones bajos ni camelCase. Ejemplos: restore-guide.md, open-networks.sh y
+  window-tools/.
+- Nombrar en inglés y sin espacios los directorios de uso personal creados
+  en la portátil, tanto manualmente como por scripts. Distinguirlos de los
+  repositorios: la convención para nombres personales de varias palabras
+  queda por definir, sin adoptar todavía guiones ni guiones bajos.
 - Exceptuar los nombres convencionales README.md, AGENTS.md, CHANGELOG.md, TODO.md,
   LICENSE y los nombres exactos exigidos por herramientas. Conservar recursos y
   avisos de proveedores, y módulos Python test_*.py para descubrimiento estándar
