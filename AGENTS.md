@@ -119,6 +119,10 @@
 
 ## Change workflow
 
+Trabajar en una sola tarea a la vez. Si hay una rama de trabajo o un PR
+pendiente, consultar antes de abrir otra rama o PR para una tarea distinta.
+Trabajar en dos o más tareas a la vez sólo con autorización explícita.
+
 Trabajar una prioridad y un componente por vez. Revisar dependencias, procesos
 residentes y sondeos para este hardware y Xorg/i3 antes de añadir tareas a TODO.md.
 Validar las afirmaciones de rendimiento con medidas representativas en la portátil.
