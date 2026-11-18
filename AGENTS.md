@@ -317,6 +317,8 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   directorio activo y pestañas nuevas en ese directorio. Las terminales
   interactivas nuevas de Kitty usan Zsh con Starship; conservar Bash como
   shell de login para tty1 y SSH. No modificar los intérpretes de los scripts.
+  El completado usa funciones nativas de Zsh, sin framework ni plugins
+  adicionales; conservar las comprobaciones de seguridad y la cache privada.
   Conservar fuente/repintado y confirmaciones nativas; los paneles auxiliares
   usan una excepción de visibilidad por invocación. Operación en docs/kitty-setup.md.
 - Usar Yazi para gestión general de archivos y Neovim estable oficial para edición.
