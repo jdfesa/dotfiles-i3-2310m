@@ -240,8 +240,9 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - El icono del trackpad alterna un panel GTK3 bajo el bloque, con el tema del
   calendario, para la velocidad del Magic Trackpad 2 Bluetooth en Xorg.
   Verificar HID y nodo XInput de nuevo antes de escribir; no tocar otros
-  dispositivos ni el perfil de aceleración. El ajuste sólo dura la conexión
-  actual, sin servicio para reaplicarlo.
+  dispositivos ni el perfil de aceleración. Xorg aplica la velocidad inicial
+  acordada mediante una etiqueta udev del HID Bluetooth exacto; el panel conserva
+  cambios manuales durante esa conexión, sin procesos ni servicios para reaplicarlos.
 - Menú de energía: Power off primero y Yes seleccionado en todas las
   confirmaciones; disponibles Escape/No/Cancel. Autorización de sesión local
   activa mediante logind/polkitd estándar, sin fallback sudo, políticas amplias

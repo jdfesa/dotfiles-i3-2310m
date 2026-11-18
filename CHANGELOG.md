@@ -5,6 +5,13 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-18
 
+### Trackpad initial speed
+
+- El Magic Trackpad 2 Bluetooth inicia en Slightly faster (+0.25), mediante
+  InputClass de Xorg y una etiqueta udev del HID exacto. El panel conserva
+  ajustes manuales durante la conexión, sin procesos adicionales ni cambios
+  del perfil de aceleración.
+
 ### Native shell completion
 
 - Zsh completa comandos, rutas y opciones con Tab y menú nativos, con cache

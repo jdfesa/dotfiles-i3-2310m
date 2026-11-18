@@ -150,6 +150,11 @@
     "mode": 420
   },
   {
+    "source": "config/bluetooth/90-bgh-magic-trackpad-speed.conf",
+    "destination": "/etc/X11/xorg.conf.d/90-bgh-magic-trackpad-speed.conf",
+    "mode": 420
+  },
+  {
     "source": "scripts/status-panel.py",
     "destination": "/home/jd/dotfiles-i3-2310m/scripts/status-panel.py",
     "mode": 493,
