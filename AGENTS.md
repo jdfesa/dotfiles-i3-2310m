@@ -152,6 +152,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 
 ## Runtime contract
 
+- Mantener el arranque mínimo: las aplicaciones de uso bajo demanda no se
+  inician automáticamente por estar instaladas. Añadir programas, scripts o
+  servicios al arranque o al inicio de sesión sólo tras revisar su necesidad,
+  dependencias y coste residente, y acordarlo explícitamente. Conservar los
+  componentes de sesión ya definidos; evaluar nuevas necesidades de una en una.
 - El login autenticado en tty1 inicia i3; no añadir display manager, autologin,
   escritorio completo ni compositor sin aprobación explícita. Super+Space abre
   el lanzador; Super+Enter, la terminal; barra superior. Actualizar
