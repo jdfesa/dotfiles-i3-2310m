@@ -38,6 +38,13 @@
   ejecución en scripts/ y las herramientas manuales de desarrollo en tools/.
   Explicar los scripts y registrar rutas completas de origen, destinos reales
   y modos en config/manifest.json.
+- Mantener código y configuración modulares por responsabilidad: separar la
+  interfaz, las operaciones y la instalación/autorización cuando tengan ciclos
+  de cambio distintos. Reutilizar una única fuente para cada inventario y
+  documentar en la guía del componente cómo ampliarlo y comprobar sus fallos.
+  Aplicar este criterio al crear o modificar herramientas; evitar capas,
+  dependencias y fragmentación sin una necesidad concreta. Las ampliaciones
+  conservan los límites de recursos y privilegios del componente.
 - Agrupar las fuentes nuevas bajo config/<component>/, incluidos los metadatos
   APT del proveedor en su subdirectorio apt/; no añadir archivos de aplicaciones
   sueltos directamente en config/. Mantener allí los inventarios comunes.
@@ -323,11 +330,16 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 
 ## Productivity tools
 
-- Desarrollo Laravel usa PHP/Composer/MariaDB/phpMyAdmin de Debian, con servicios
-  locales bajo demanda y un panel GTK3 que conserva sudo autenticado. No añadir
-  Apache, PHP-FPM, contenedores, Node, watchers ni autostart por anticipado.
-  Mantener root de MariaDB por socket y cuentas por proyecto; credenciales y
-  bases quedan privadas. Operación en docs/laravel-setup.md.
+- Local Web Stack gestiona Apache/PHP/Composer/MariaDB/phpMyAdmin de Debian para
+  desarrollo local bajo demanda, sin arranque automático. El panel GTK3 usa
+  polkit existente: solo jd en sesión local activa y start/stop/restart de
+  apache2.service y mariadb.service; no ampliar a otras unidades, acciones ni
+  sudo sin contraseña. La instalación/configuración conserva sudo autenticado.
+  El perfil permite root de base de datos en loopback con contraseña elegida
+  localmente para práctica; conservar el método unix_socket de root@localhost
+  y la autenticación del sistema. Credenciales, bases y backups quedan privados.
+  No añadir PHP-FPM, FTP, contenedores, Node ni watchers por anticipado.
+  Operación en docs/laravel-setup.md.
 
 - Kitty usa su barra nativa superior incluso con una pestaña, etiquetas del
   directorio activo y pestañas nuevas en ese directorio. Las terminales

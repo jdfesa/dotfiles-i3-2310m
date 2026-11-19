@@ -16,4 +16,9 @@
 #bgh-laravel-services button:hover,
 #bgh-laravel-services button:focus { border-color: #b4befe; }
 #laravel-title { color: #b4befe; font-weight: bold; }
-#laravel-hint { color: #a6adc8; font-size: 9pt; }
+#bgh-laravel-services .service-active { color: #a6e3a1; }
+#bgh-laravel-services .service-error { color: #f38ba8; }
+#bgh-laravel-services textview text {
+    background-color: #181825;
+    color: #cdd6f4;
+}

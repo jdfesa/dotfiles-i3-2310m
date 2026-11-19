@@ -30,7 +30,7 @@ Debian 13 with i3 on Xorg.
 [![Neovim editor](https://img.shields.io/badge/Editor-Neovim-89b4fa?style=flat&logo=neovim&logoColor=white)](docs/editor-and-files.md)
 [![Catppuccin Mocha](https://img.shields.io/badge/Theme-Catppuccin%20Mocha-f5c2e7?style=flat)](docs/apps-setup.md)
 
-Rofi launches applications; Yazi manages files, LazyVim edits code, Helium browses, and Zathura reads PDFs.
+Rofi launches applications; Yazi manages files, LazyVim edits code, Helium browses; Zathura reads PDFs.
 
 [Status bar](docs/status-bar.md) ·
 [Keyboard shortcuts](docs/keybindings.md) ·
@@ -65,7 +65,7 @@ Rofi launches applications; Yazi manages files, LazyVim edits code, Helium brows
 - [Dependencies and versions](docs/dependencies.md), [Restore and recovery](docs/restore-guide.md).
 - [Network setup](docs/wifi-setup.md), [Verification status](docs/mirror-status.md).
 - [Git workflow](docs/git-workflow.md), [Codex CLI](docs/codex-setup.md), [Development tools](docs/development-tools.md).
-- [Laravel development](docs/laravel-setup.md).
+- [Local Web Stack](docs/laravel-setup.md).
 - [CHANGELOG.md](CHANGELOG.md), [TODO.md](TODO.md).
 
 ## License

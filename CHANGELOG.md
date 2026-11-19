@@ -3,7 +3,44 @@
 Cambios técnicos de la configuración. El estado vigente está en las guías y
 las versiones en [Dependencies and versions](docs/dependencies.md).
 
+## 2026-11-19
+
+### Local web stack modules
+
+- Separadas la entrada CLI, las operaciones sin GTK y la ventana por eventos;
+  el control asíncrono recoge stderr mediante Gio.
+- Añadidos Admin por servicio, estado activo coloreado, actividad limitada a 120
+  líneas en memoria, consulta manual de sockets y ayuda operativa en inglés.
+- Documentados los puntos de extensión, la revisión explícita de privilegios y
+  los requisitos básicos y de frontend para iniciar proyectos Laravel.
+
+### Maintainability
+
+- Establecida la separación por responsabilidades como criterio para crear o
+  modificar herramientas y configuración, con puntos de extensión documentados
+  y sin capas o dependencias adicionales por anticipado.
+
 ## 2026-11-18
+
+### Local web stack controls
+
+- Apache con módulo PHP 8.4 sirve proyectos en loopback80 y phpMyAdmin en
+  `/phpmyadmin/`; el puerto8080 redirige al nuevo acceso. Se retiran el servicio
+  PHP CLI y su router, con migración validada por hash y backup privado.
+- El panel incorpora reinicio individual/global, PID/puertos, acceso al sitio,
+  carpeta/terminal y lectura acotada de logs/configuración. Polkit autoriza solo
+  start/stop/restart de Apache/MariaDB para jd en sesión local activa, sin
+  terminal ni contraseña por interacción; sudo sigue autenticado.
+- Los logs de ambos servicios admiten lectura por ACL específica de jd,
+  heredable tras rotación. Los servicios permanecen deshabilitados al arrancar.
+
+### Local web stack access
+
+- El panel y el lanzador se identifican como Local Web Stack, para proyectos
+  PHP independientes del framework. El acceso administrativo de práctica usa
+  root por TCP de loopback con contraseña elegida localmente; se conserva por
+  separado root@localhost por socket. El configurador respalda el acceso anterior
+  en privado y permite cambiarlo sin reinstalar paquetes ni reiniciar servicios.
 
 ### Browser file chooser
 
@@ -15,9 +52,8 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 ### Laravel development
 
 - Añadido perfil nativo PHP 8.4/Composer/MariaDB/phpMyAdmin de Debian, con
-  instalación reproducible, servicios limitados a loopback y cuenta de estudio
-  por esquema. El panel GTK3 controla los servicios bajo demanda mediante sudo
-  autenticado, sin Apache, PHP-FPM ni inicio automático.
+  instalación reproducible y servicios limitados a loopback bajo demanda.
+  PHP y extensiones admiten Laravel 13 instalado por proyecto.
 
 ### Trackpad initial speed
 

@@ -9,5 +9,10 @@ composer
 unzip
 mariadb-server
 phpmyadmin
+apache2
+libapache2-mod-php8.4
+acl
+polkitd
 python3-gi
 gir1.2-gtk-3.0
+iproute2

@@ -56,10 +56,12 @@ actualizaciones de seguridad. La disponibilidad futura de versiones puede variar
 | Visual Studio Code | 1.146.0-1794340865 | APT oficial de Microsoft, canal stable amd64; comprobado 2026-11-15 |
 | Yazi / Ya | 26.9.1-1 / 26.9.1 | APT oficial stable firmado; comprobado 2026-11-02 |
 | mini.files | v0.18.0, commit a5689dae6b732955e33eec225b798d6815063179 | Sólo recuperación del perfil anterior; hashes en tools/install-mini-files.py |
-| PHP CLI / extensiones | 8.4.27-1~deb13u1 | Debian estable/seguridad; [Laravel development](laravel-setup.md), comprobado 2026-11-18 |
+| PHP CLI / extensiones | 8.4.27-1~deb13u1 | Debian estable/seguridad; [Local Web Stack](laravel-setup.md), comprobado 2026-11-18 |
+| Apache / PHP module | 2.4.71-1~deb13u1 / 8.4.27-1~deb13u1 | Debian estable/seguridad; solo loopback, bajo demanda |
+| acl / polkitd | 2.3.2-2+b1 / 126-2 | Debian; ACL de logs y autorización limitada de la sesión local |
 | Composer | 2.8.8-1+deb13u3 | Debian estable; ejecución como jd |
 | MariaDB server | 1:11.8.6-0+deb13u1 | Debian estable; inicio manual y escucha en loopback |
-| phpMyAdmin | 4:5.2.2-really+dfsg-1+deb13u1 | Debian estable; servidor PHP local bajo demanda |
+| phpMyAdmin | 4:5.2.2-really+dfsg-1+deb13u1 | Debian estable; Apache local bajo demanda |
 
 Python 3 de Debian ejecuta la barra y los refrescos con biblioteca estándar.
 El [volumen USB](audio-setup.md) usa libasound mediante ctypes en el tick
@@ -81,9 +83,9 @@ alternativas, pero no son procesos de inicio ni requisitos del lanzador Rofi.
 
 ## Debian packages
 
-El perfil opcional de PHP 8.4, Composer, MariaDB y phpMyAdmin usa únicamente
+El perfil opcional de Apache/PHP 8.4, Composer, MariaDB y phpMyAdmin usa únicamente
 paquetes Debian firmados. Dependencias directas, instalación bajo demanda y
-recuperación en [Laravel development](laravel-setup.md).
+recuperación en [Local Web Stack](laravel-setup.md).
 
 En una instalación nueva, revisar los repositorios Debian firmados y la sección
 `non-free-firmware` para los paquetes de firmware. Los siguientes grupos

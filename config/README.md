@@ -11,13 +11,16 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 |---|---|---|---|
 | `scripts/codex-launch.py` | `/home/jd/.local/bin/codex` | `755` | `symlink` |
 | `scripts/laravel-services.py` | `/home/jd/dotfiles-i3-2310m/scripts/laravel-services.py` | `755` | `in-place` |
+| `scripts/web-stack-control.py` | `/home/jd/dotfiles-i3-2310m/scripts/web-stack-control.py` | `644` | `in-place` |
+| `scripts/web-stack-window.py` | `/home/jd/dotfiles-i3-2310m/scripts/web-stack-window.py` | `644` | `in-place` |
 | `config/laravel/services.css` | `/home/jd/dotfiles-i3-2310m/config/laravel/services.css` | `644` | `in-place` |
 | `config/laravel/packages-debian.txt` | `/home/jd/dotfiles-i3-2310m/config/laravel/packages-debian.txt` | `644` | `in-place` |
 | `config/laravel/bgh-laravel-services.desktop` | `/home/jd/.local/share/applications/bgh-laravel-services.desktop` | `644` | `symlink` |
 | `config/laravel/mariadb.cnf` | `/etc/mysql/mariadb.conf.d/90-laravel-local.cnf` | `644` | `system-copy` |
 | `config/laravel/phpmyadmin.inc.php` | `/etc/phpmyadmin/conf.d/90-laravel-local.php` | `644` | `system-copy` |
-| `config/laravel/phpmyadmin.service` | `/etc/systemd/system/laravel-phpmyadmin.service` | `644` | `system-copy` |
-| `config/laravel/phpmyadmin-router.php` | `/usr/local/share/bgh-laravel/phpmyadmin-router.php` | `644` | `system-copy` |
+| `config/laravel/apache-ports.conf` | `/etc/apache2/ports.conf` | `644` | `system-copy` |
+| `config/laravel/apache-web-stack.conf` | `/etc/apache2/conf-available/bgh-web-stack.conf` | `644` | `system-copy` |
+| `config/laravel/web-stack.rules` | `/etc/polkit-1/rules.d/49-bgh-web-stack.rules` | `644` | `system-copy` |
 | `config/grub-lid.cfg` | `/etc/default/grub.d/60-bgh-lid.cfg` | `644` | `system-copy` |
 | `config/i3-config` | `/home/jd/.config/i3/config` | `644` | `symlink` |
 | `wallpapers/pixel-car.png` | `/home/jd/.local/share/wallpapers/pixel-car.png` | `644` | `symlink` |
