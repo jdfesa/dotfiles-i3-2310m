@@ -56,6 +56,12 @@
     "mode": 420
   },
   {
+    "source": "scripts/launch-helium.sh",
+    "destination": "/home/jd/.local/bin/helium",
+    "mode": 493,
+    "deployment": "symlink"
+  },
+  {
     "source": "config/helium.list",
     "destination": "/etc/apt/sources.list.d/helium.list",
     "mode": 420

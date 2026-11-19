@@ -258,6 +258,10 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   reiniciar i3 preservando ventanas si hace falta.
 - Helium es el navegador predeterminado. Super+Shift+B y Super+Shift+Enter lo
   abren directamente, sin resolver el navegador por XDG al pulsar el atajo.
+- La entrada de usuario `helium` aplica `Adwaita:dark` a sus selectores GTK;
+  i3 limita la geometría inicial de `GtkFileChooserDialog` para mantener Save y
+  Cancel visibles en la pantalla interna. Sin portales ni procesos adicionales;
+  operación y recuperación en docs/apps-setup.md.
 - Helium usa el repositorio APT stable oficial firmado; conservar el sandbox.
   Verificar compatibilidad GPU/CPU, sin ocultar límites mediante renderizado
   permanente por software.

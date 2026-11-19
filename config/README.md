@@ -28,6 +28,7 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 | `config/networkmanager.conf` | `/etc/NetworkManager/conf.d/20-network-ownership.conf` | `644` | `system-copy` |
 | `config/locale` | `/etc/locale.conf` | `644` | `system-copy` |
 | `config/helium.list` | `/etc/apt/sources.list.d/helium.list` | `644` | `system-copy` |
+| `scripts/launch-helium.sh` | `/home/jd/.local/bin/helium` | `755` | `symlink` |
 | `config/kitty.conf` | `/home/jd/.config/kitty/kitty.conf` | `644` | `symlink` |
 | `config/zsh/zshrc` | `/home/jd/.zshrc` | `644` | `symlink` |
 | `config/starship/starship.toml` | `/home/jd/.config/starship.toml` | `644` | `symlink` |

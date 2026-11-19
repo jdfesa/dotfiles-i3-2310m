@@ -5,6 +5,13 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-18
 
+### Browser file chooser
+
+- Helium hereda `Adwaita:dark` mediante su entrada de usuario; los selectores
+  nativos de archivos usan el tema oscuro sin modificar GTK global.
+- i3 abre `GtkFileChooserDialog` de Helium centrado a 1000×640 para mantener
+  Save y Cancel dentro de la pantalla interna de 1366×768.
+
 ### Laravel development
 
 - Añadido perfil nativo PHP 8.4/Composer/MariaDB/phpMyAdmin de Debian, con
