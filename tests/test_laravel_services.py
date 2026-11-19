@@ -1,7 +1,9 @@
 """Exercise fixed service actions and read-only state handling without root."""
 import importlib.util
+import io
 from pathlib import Path
 import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -16,11 +18,21 @@ def module(name, relative):
     return loaded
 
 
-panel = module("laravel_services", "scripts/laravel-services.py")
+panel = module("web_stack_control", "scripts/web-stack-control.py")
+entry = module("laravel_services", "scripts/laravel-services.py")
 installer = module("install_laravel", "tools/install-laravel-stack.py")
 
 
 class ServiceTests(unittest.TestCase):
+    def test_status_cli_is_headless_and_reports_unavailable_as_failure(self):
+        for state, expected in (("inactive", 0), ("Unavailable", 1)):
+            with self.subTest(state=state), patch.object(sys, "argv", ["panel", "--status"]), \
+                    patch.object(entry, "load_module", return_value=panel) as load, \
+                    patch.object(panel, "service_states", return_value={unit: state for unit in panel.SERVICES}), \
+                    patch.object(sys, "stdout", new_callable=io.StringIO):
+                self.assertEqual(entry.main(), expected)
+            load.assert_called_once_with("web-stack-control.py")
+
     def test_actions_cannot_target_other_units_or_interpolate_shell(self):
         for action, unit in (("reload", "mariadb.service"), ("start", "ssh.service"),
                              ("stop; true", "mariadb.service"), ("start", "mariadb.service; true")):
@@ -52,7 +64,7 @@ class ServiceTests(unittest.TestCase):
 
     def test_denied_action_is_not_reported_as_success(self):
         with patch.object(panel.subprocess, "run", return_value=
-                          subprocess.CompletedProcess([], 1)), patch.object(panel.sys.stdin, "isatty", return_value=False):
+                          subprocess.CompletedProcess([], 1)):
             self.assertEqual(panel.run_action("start", "mariadb.service"), 1)
 
     def test_log_tail_bounds_bytes_and_lines(self):
@@ -64,6 +76,15 @@ class ServiceTests(unittest.TestCase):
     def test_configuration_cannot_read_an_arbitrary_path(self):
         with self.assertRaises(ValueError):
             panel.configuration("/etc/shadow")
+
+    def test_listener_inspection_only_reads_the_stack_ports(self):
+        with patch.object(panel.subprocess, "run", return_value=
+                          subprocess.CompletedProcess([], 0, "listeners\n")) as run:
+            self.assertEqual(panel.listening_ports(), "listeners\n")
+        command = run.call_args.args[0]
+        self.assertEqual(command[0], "/usr/bin/ss")
+        self.assertIn("sport = :80 or sport = :8080 or sport = :3306", command[-1])
+        self.assertFalse(run.call_args.kwargs.get("shell", False))
 
 
 class InstallerTests(unittest.TestCase):
@@ -78,6 +99,7 @@ class InstallerTests(unittest.TestCase):
         self.assertNotIn("'root'@'%'", sql)
 
     def test_alternate_native_authentication_is_not_lost(self):
+        # MariaDB plugin identifiers, not passwords or account records.
         native = {"plugin": "mysql_native_password", "auth_or": [{}, {"plugin": "unix_socket"}]}
         self.assertEqual(installer.authentication_plugins(native), {"mysql_native_password", "unix_socket"})
 

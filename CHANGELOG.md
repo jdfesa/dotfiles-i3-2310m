@@ -3,6 +3,15 @@
 Cambios técnicos de la configuración. El estado vigente está en las guías y
 las versiones en [Dependencies and versions](docs/dependencies.md).
 
+## 2026-11-19
+
+### Local web stack modules
+
+- Separadas la entrada CLI, las operaciones sin GTK y la ventana por eventos;
+  el control asíncrono recoge stderr mediante Gio.
+- Añadidos Admin por servicio, estado activo coloreado, actividad limitada a 120
+  líneas en memoria, consulta manual de sockets y ayuda operativa en inglés.
+
 ## 2026-11-18
 
 ### Local web stack controls

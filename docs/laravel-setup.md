@@ -10,7 +10,7 @@ el código de cada aplicación se instalan por proyecto, fuera de estos dotfiles
 
 Apache escucha únicamente en `127.0.0.1:80`, `[::1]:80` y `127.0.0.1:8080`.
 Sirve `/var/www/html` en `http://127.0.0.1/` y phpMyAdmin en
-`http://127.0.0.1/phpmyadmin/`; el puerto8080 redirige al nuevo acceso.
+`http://127.0.0.1/phpmyadmin/`; el puerto 8080 redirige al nuevo acceso.
 MariaDB escucha en `127.0.0.1:3306` y conserva su socket administrativo.
 Ambos servicios quedan deshabilitados al arrancar. No hay autostart del panel,
 PHP-FPM, FTP, contenedores ni watchers del perfil.
@@ -29,6 +29,7 @@ MariaDB queda disponible para MySQL. `unzip` conserva permisos al extraer ZIP
 de Composer. Composer se ejecuta como `jd`, nunca con sudo.
 
 El panel reutiliza Python/GTK3, systemd, polkitd, Kitty y xdg-utils existentes.
+La consulta manual de sockets usa `ss`, del paquete Debian `iproute2`.
 `acl` permite lectura específica de los logs para jd, sin añadirlo al grupo
 administrativo `adm`. No se añade agente de autorización ni daemon propio.
 Node/npm y los procesos de frontend se revisan cuando un proyecto los requiera.
@@ -41,6 +42,47 @@ Referencias: [Debian Apache](https://packages.debian.org/trixie/apache2),
 [Debian MariaDB](https://packages.debian.org/trixie/mariadb-server),
 [Debian phpMyAdmin](https://packages.debian.org/trixie/phpmyadmin),
 [polkit rules](https://www.freedesktop.org/software/polkit/docs/latest/polkit.8.html).
+
+## XAMPP workflow
+
+El panel reproduce el flujo de desarrollo del núcleo Apache/PHP y MariaDB de
+XAMPP: controlar servicios, ver estado/PID/puertos, abrir la administración,
+consultar configuración y errores, y acceder a la carpeta web y una terminal.
+XAMPP también utiliza MariaDB en lugar de MySQL, como documenta
+[XAMPP for Linux](https://www.apachefriends.org/faq_linux.html).
+
+| Control de referencia | Local Web Stack |
+|---|---|
+| Apache Start/Stop | Start, Stop y Restart de Apache/PHP |
+| MySQL Start/Stop | Start, Stop y Restart de MariaDB |
+| Apache Admin | Sitio local en `http://127.0.0.1/` |
+| MySQL Admin | phpMyAdmin; requiere Apache y MariaDB activos |
+| Config / Logs | Lectura de configuración pública y errores por servicio |
+| Netstat | Ports: sockets reales de 80, 8080 y 3306, consultados al abrir/refrescar |
+| Shell / Explorer | Terminal con Kitty y Web root mediante el gestor XDG |
+| Help / Quit | Ayuda operativa en inglés y cierre sin detener servicios |
+| Registro del panel | Últimas 120 líneas de acciones/resultados en memoria |
+
+El perfil usa los paquetes mantenidos por Debian 13 y sus actualizaciones APT;
+no persigue la última versión mayor del proveedor ni instala el bundle XAMPP.
+No incluye FileZilla/FTP, Mercury, Tomcat ni un perfil Perl. No habilita servicios
+al arrancar ni ofrece edición privilegiada de configuración desde el panel.
+
+## Code structure
+
+| Fuente | Responsabilidad |
+|---|---|
+| [laravel-services.py](../scripts/laravel-services.py) | Entrada CLI, validación de cuenta y carga de módulos |
+| [web-stack-control.py](../scripts/web-stack-control.py) | Inventario fijo y operaciones de lectura/control sin GTK |
+| [web-stack-window.py](../scripts/web-stack-window.py) | Ventana GTK3, presentación y callbacks por eventos |
+| [install-laravel-stack.py](../tools/install-laravel-stack.py) | Instalación/migración autenticada y recuperación privada |
+| [config/laravel/](../config/laravel/) | Fuentes públicas de sistema, paquetes, lanzador y CSS |
+
+La CLI de estado no importa GTK ni abre ventanas. La interfaz usa Gio para
+recoger la salida del proceso de control de forma asíncrona y evitar bloquear
+el drenaje de stderr. No hay shell interpolado, sondeo periódico, registro en
+disco ni dependencias Python adicionales. Los nombres `laravel` existentes
+conservan las rutas instaladas y sus enlaces; el componente sirve PHP general.
 
 ## Installation
 
@@ -140,14 +182,17 @@ sin sondeo periódico. Otra invocación recupera la ventana existente.
   las variantes **all** controlan ambos. Apache puede seguir sirviendo PHP
   aunque MariaDB esté detenido. phpMyAdmin depende del servidor Apache y
   requiere MariaDB para entrar a las bases.
-- **Open localhost** abre el sitio; **Open phpMyAdmin**, la administración.
-  Se habilitan cuando Apache está activo.
-- **Logs** muestra hasta64KiB y las últimas120 líneas del log de errores elegido;
+- **Admin** de Apache abre el sitio cuando Apache está activo; el de MariaDB
+  abre phpMyAdmin cuando ambos servicios están activos.
+- **Logs** muestra hasta 64 KiB y las últimas 120 líneas del log de errores elegido;
   **Refresh** vuelve a leerlo, sin seguimiento continuo.
 - **Config** permite leer las fuentes públicas instaladas del perfil, sin
   editar archivos root ni mostrar contraseñas privadas.
 - **Web root** abre `/var/www/html`; **Terminal** abre Kitty allí únicamente
   cuando se solicita ese botón.
+- **Ports** consulta sockets reales de los tres puertos del perfil; **Help**
+  explica los controles. El registro de actividad conserva como máximo 120
+  líneas en memoria y muestra resultados y errores de las acciones.
 - Cerrar el panel conserva los servicios. Detenerlos al terminar de trabajar.
 
 Start/Stop/Restart usan systemd con `--no-ask-password`, sin terminal ni sudo.
@@ -196,13 +241,8 @@ Los recursos frontend se preparan según sus requisitos reales.
 ## Verification
 
 El inventario de versiones y procedencia está en
-[Dependencies and versions](dependencies.md). El 2026-11-18 se verificaron
-Apache/PHP con rewrite y PDO MySQL/SQLite, el login de phpMyAdmin y41 recursos
-CSS/JS, la redirección8080, los bloqueos403 y la lectura de ambos logs como jd.
-Los botones reales Start/Stop/Restart all actualizaron estados/PID sin abrir
-terminales; Logs/Config abrieron sus diálogos. Las acciones no autorizadas de
-reload de Apache e inicio del SSH ya activo fueron rechazadas, sin modificar
-ese servicio. Comprobar parsers, bindings y servicios con:
+[Dependencies and versions](dependencies.md). Comprobar parsers, bindings y
+servicios con:
 
 ```sh
 sudo apache2ctl configtest
@@ -215,16 +255,19 @@ systemctl is-enabled apache2.service mariadb.service
 ss -ltn
 ```
 
-Validar un PHP temporal con SAPI `apache2handler`, PDO MySQL y SQLite, el login
-real de phpMyAdmin y sus recursos CSS/JS, la redirección8080, y Start/Stop/Restart
-desde el panel de la sesión local. Setup/configuración/bibliotecas internas de
-phpMyAdmin deben responder403/404; archivos ocultos y `.git` también. No publicar
+Validar un PHP temporal con SAPI `apache2handler`, rewrite, PDO MySQL y SQLite,
+el login real de phpMyAdmin y sus recursos CSS/JS, y la redirección 8080.
+Start/Stop/Restart individuales y globales deben actualizar estado/PID desde
+el panel de la sesión local, sin terminales de autenticación. Comprobar Admin,
+Logs/Config, Ports y Help; los accesos Admin deben seguir las dependencias
+de cada servicio. La lectura de logs es como jd, sin sudo. Setup/configuración/bibliotecas internas de
+phpMyAdmin deben responder 403/404; archivos ocultos y `.git` también. No publicar
 cookies, tokens ni capturas con contraseñas. Los puertos80/8080/3306 deben
 escuchar solo en loopback y quedar cerrados al detener ambos servicios. El estado
 de arranque esperado de ambos es `disabled`.
 
 Las pruebas automatizadas no demuestran restauración limpia ni rendimiento
-sostenido. El perfil Laravel13 fue validado además con un proyecto temporal,
+sostenido. El perfil Laravel 13 fue validado además con un proyecto temporal,
 requisitos Composer y una tabla de prueba; frontend queda fuera de ese alcance.
 
 ## Recovery
@@ -249,7 +292,7 @@ y del directorio, incluida su entrada por defecto. No borrar logs ni datos.
 El estado anterior de servicios está en `services.json`. Para recuperar el
 servidor PHP CLI anterior, restaurar servicio/router del backup y ejecutar
 `sudo systemctl daemon-reload` antes de iniciarlo; detener antes Apache para
-liberar8080. No habilitar servicios al arrancar como parte de la reversión.
+liberar 8080. No habilitar servicios al arrancar como parte de la reversión.
 
 No eliminar `/var/lib/mysql`, credenciales ni bases para revertir configuración.
 Para revertir el login, usar `bgh-local-db-login-*`: restaurar `database.env`

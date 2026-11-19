@@ -458,6 +458,18 @@
     "deployment": "in-place"
   },
   {
+    "source": "scripts/web-stack-control.py",
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/web-stack-control.py",
+    "mode": 420,
+    "deployment": "in-place"
+  },
+  {
+    "source": "scripts/web-stack-window.py",
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/web-stack-window.py",
+    "mode": 420,
+    "deployment": "in-place"
+  },
+  {
     "source": "config/laravel/services.css",
     "destination": "/home/jd/dotfiles-i3-2310m/config/laravel/services.css",
     "mode": 420,

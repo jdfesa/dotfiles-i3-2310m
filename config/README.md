@@ -11,6 +11,8 @@ Mapa legible; la misma lista para verificaciones está en `manifest.json`, con f
 |---|---|---|---|
 | `scripts/codex-launch.py` | `/home/jd/.local/bin/codex` | `755` | `symlink` |
 | `scripts/laravel-services.py` | `/home/jd/dotfiles-i3-2310m/scripts/laravel-services.py` | `755` | `in-place` |
+| `scripts/web-stack-control.py` | `/home/jd/dotfiles-i3-2310m/scripts/web-stack-control.py` | `644` | `in-place` |
+| `scripts/web-stack-window.py` | `/home/jd/dotfiles-i3-2310m/scripts/web-stack-window.py` | `644` | `in-place` |
 | `config/laravel/services.css` | `/home/jd/dotfiles-i3-2310m/config/laravel/services.css` | `644` | `in-place` |
 | `config/laravel/packages-debian.txt` | `/home/jd/dotfiles-i3-2310m/config/laravel/packages-debian.txt` | `644` | `in-place` |
 | `config/laravel/bgh-laravel-services.desktop` | `/home/jd/.local/share/applications/bgh-laravel-services.desktop` | `644` | `symlink` |
