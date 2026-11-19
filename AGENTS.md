@@ -265,6 +265,11 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   reiniciar i3 preservando ventanas si hace falta.
 - Helium es el navegador predeterminado. Super+Shift+B y Super+Shift+Enter lo
   abren directamente, sin resolver el navegador por XDG al pulsar el atajo.
+- GTK3 usa la variante oscura de Adwaita por defecto en la cuenta para aplicaciones
+  y selectores que respetan sus ajustes, sin gestor de temas residente.
+  Open File/Open Folder de VS Code pertenecen a su selector GTK3, no a Thunar.
+  Conservar los ajustes explícitos de Thunar y Helium; operación y límites en
+  docs/apps-setup.md.
 - La entrada de usuario `helium` aplica `Adwaita:dark` a sus selectores GTK;
   i3 limita la geometría inicial de `GtkFileChooserDialog` para mantener Save y
   Cancel visibles en la pantalla interna. Sin portales ni procesos adicionales;
@@ -362,7 +367,7 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Thunar y Visual Studio Code son alternativas gráficas bajo demanda; no fijar
   asociaciones MIME ni cambiar los editores predeterminados. Thunar reutiliza GTK3
   con tema oscuro en su lanzador y en la activación D-Bus mediante su servicio
-  de usuario existente; sin cambiar el tema GTK global ni añadir autostart.
+  de usuario existente, además del valor predeterminado GTK3; sin añadir autostart.
   No instalar XFCE completo ni servicios opcionales por defecto.
   VS Code usa el repositorio oficial estable firmado
   limitado a `code`; mantener sandbox, sin autostart ni extensiones de oficio.

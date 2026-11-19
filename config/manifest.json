@@ -341,6 +341,12 @@
     "deployment": "symlink"
   },
   {
+    "source": "config/gtk/gtk-3-settings.ini",
+    "destination": "/home/jd/.config/gtk-3.0/settings.ini",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
     "source": "config/thunar/thunar.desktop",
     "destination": "/home/jd/.local/share/applications/thunar.desktop",
     "mode": 420,

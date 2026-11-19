@@ -5,6 +5,18 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-19
 
+### GTK3 dark theme
+
+- Establecida la variante oscura de Adwaita como tema GTK3 predeterminado para
+  aplicaciones y selectores nativos, incluidos Open File y Open Folder de
+  VS Code, mediante un archivo enlazado y sin procesos adicionales.
+
+### Markdown preview
+
+- Documentada la lectura y edición de Markdown con la vista previa integrada
+  de VS Code bajo demanda, incluidos sus atajos y límites con formatos de
+  Obsidian, sin paquetes ni extensiones adicionales.
+
 ### Local web stack modules
 
 - Separadas la entrada CLI, las operaciones sin GTK y la ventana por eventos;
