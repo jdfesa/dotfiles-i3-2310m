@@ -32,6 +32,75 @@ Un parser o paquete instalado no demuestra que una aplicación abra correctament
 Avisos de portales/notificaciones ausentes no justifican instalar un escritorio
 si la funcionalidad necesaria ya opera.
 
+## GTK3 dark theme
+
+Los diálogos nativos **Open File** y **Open Folder** de VS Code son selectores
+GTK3 del propio editor, no ventanas de Thunar. **Show in folder** sí abre el
+gestor de archivos. Cambiar el tema del editor o el lanzador de Thunar no
+configura los selectores de otras aplicaciones.
+
+`config/gtk/gtk-3-settings.ini` → `~/.config/gtk-3.0/settings.ini`, modo644,
+establece `gtk-theme-name=Adwaita` y
+`gtk-application-prefer-dark-theme=true` para la cuenta. Usa GTK3 y su tema
+Adwaita con su variante oscura incluidos en `libgtk-3-0t64` de Debian;
+no requiere otro paquete, servicio, portal ni gestor de temas. Es el valor
+común para las aplicaciones
+GTK3 que leen [GtkSettings](https://docs.gtk.org/gtk3/class.Settings.html),
+incluidos los selectores nativos de VS Code. Sus ajustes privados y el paquete
+oficial del editor se conservan; no se necesita otro lanzador por aplicación.
+
+Las aplicaciones pueden imponer sus propios valores y `GTK_THEME` tiene
+precedencia sobre este archivo. Se conservan los ajustes oscuros explícitos
+de [Thunar](editor-and-files.md#thunar) y [Helium](#native-file-chooser).
+Este ajuste no configura Qt, GTK4, libadwaita ni el contenido web; esos
+componentes requieren comprobar su mecanismo si aparece un caso concreto.
+
+### Installation and validation
+
+Como `jd`, revisar primero el destino: puede contener preferencias locales
+adicionales que deben reconciliarse siguiendo
+[User configuration links](user-config-links.md). El auxiliar rechaza
+conflictos y registra también un destino que antes no existía:
+
+```sh
+umask 022
+python3 tools/link-user-config.py --source config/gtk/gtk-3-settings.ini
+backup="$HOME/.local/state/bgh-config-backups/gtk-dark-$(date -u +%Y%m%dT%H%M%SZ)"
+python3 tools/link-user-config.py --source config/gtk/gtk-3-settings.ini \
+  --apply --backup-dir "$backup"
+python3 tools/link-user-config.py --source config/gtk/gtk-3-settings.ini
+readlink "$HOME/.config/gtk-3.0/settings.ini"
+stat -Lc '%U:%G %a' "$HOME/.config/gtk-3.0/settings.ini"
+```
+
+El enlace debe apuntar a la fuente de este checkout; su contenido debe
+coincidir y la fuente debe ser `jd:jd 644`. GTK lee estos ajustes al
+inicializarse: guardar el trabajo y cerrar normalmente VS Code antes de
+volver a abrirlo. Una ventana nueva puede reutilizar el proceso anterior.
+No hace falta recargar i3, cerrar la sesión ni reiniciar Debian.
+
+En VS Code recién iniciado, probar **File → Open File…** (**Ctrl+O**) y
+**File → Open Folder…** (**Ctrl+K**, después **Ctrl+O**). Ambos selectores
+deben verse oscuros, con **Open** y **Cancel** visibles. Comprobar la apertura
+de un archivo y una carpeta temporales y repetir con **Cancel**; no usar
+documentos personales como fixtures. Un `--user-data-dir` temporal separado
+permite validar un proceso nuevo sin cerrar el editor personal, manteniendo
+su sandbox. Cerrar sólo las ventanas de prueba. Versiones comprobadas en
+[Dependencies and versions](dependencies.md).
+
+### Recovery
+
+Revertir únicamente esta operación con su journal privado:
+
+```sh
+python3 tools/link-user-config.py --rollback "$backup/journal.json"
+```
+
+El auxiliar restaura el destino anterior o retira el enlace si antes no
+existía. Volver a abrir normalmente la aplicación afectada para que lea el
+estado restaurado; conservar los demás archivos de `gtk-3.0` y los ajustes
+explícitos de otras aplicaciones.
+
 ## Helium
 
 Repositorio APT oficial [helium-linux](https://github.com/imputnet/helium-linux#debianubuntu),
@@ -84,8 +153,9 @@ según el [manifest.json](../config/manifest.json). Exporta
 `GTK_THEME=Adwaita:dark` y ejecuta `/usr/bin/helium` con todos los argumentos
 originales; el paquete APT y su sandbox siguen intactos. La sesión i3 antepone
 `~/.local/bin` en `PATH`: sus dos atajos y las entradas `Exec=helium` del
-desktop oficial usan la misma entrada. No se cambia el tema GTK global, los
-handlers MIME ni las preferencias privadas del perfil. No necesita portales,
+desktop oficial usan la misma entrada. El ajuste explícito coincide con el
+[GTK3 dark theme](#gtk3-dark-theme); conserva los handlers MIME y las
+preferencias privadas del perfil. No necesita portales,
 paquetes nuevos ni procesos residentes.
 
 La regla de `config/i3-config` se limita a `class=Helium` y

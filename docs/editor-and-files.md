@@ -58,7 +58,7 @@ systemctl --user daemon-reload
 
 El lanzador de usuario reemplaza el ID `thunar.desktop`. En **Super+Space**,
 abrir **Thunar File Manager**: aplica `Adwaita:dark` sólo al proceso lanzado,
-sin modificar ajustes globales de GTK. En terminal usar
+además del [GTK3 dark theme](apps-setup.md#gtk3-dark-theme). En terminal usar
 `GTK_THEME=Adwaita:dark thunar "$HOME"`.
 
 **Show in folder** de Helium usa la interfaz D-Bus `org.freedesktop.FileManager1`,
@@ -145,6 +145,11 @@ No se configura inicio automático, cuenta, extensiones ni flags que desactiven
 el sandbox o la aceleración. Ajustes, proyectos y datos de extensión no forman
 parte del espejo. Para retirar el origen, restaurar o retirar sólo sus tres
 archivos según el respaldo; simular la retirada de `code` por separado.
+
+Los selectores **Open File** y **Open Folder** usan el
+[GTK3 dark theme](apps-setup.md#gtk3-dark-theme) común de la cuenta. Son
+diálogos del editor, no ventanas de Thunar. Tras instalar ese ajuste, volver
+a abrir normalmente VS Code para que lo lea; el tema del editor es independiente.
 
 #### Markdown preview
 
