@@ -55,6 +55,9 @@
   texto/enlaces. [PDF reader](docs/pdf-reader.md).
 - [ ] Definir perfiles de desarrollo según proyectos concretos, con dependencias
   directas, instalación y recuperación documentadas, sin autostart de servicios.
+- [x] Instalar el perfil nativo PHP 8.4/Composer/MariaDB/phpMyAdmin compatible
+  con Laravel 13, con cuenta por esquema y servicios locales bajo demanda.
+  [Laravel development](docs/laravel-setup.md).
 
 ## Publication and reproducibility
 

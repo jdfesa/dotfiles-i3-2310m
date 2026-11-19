@@ -51,12 +51,18 @@ def snapshot(path):
     return {"kind": "file", "sha256": digest(path), "mode": stat.S_IMODE(st.st_mode)}
 
 
-def plan(root, home, reviewed=None):
+def plan(root, home, reviewed=None, sources=None):
     root, home = root.resolve(), home.absolute()
     reviewed = {} if reviewed is None else reviewed
     if not isinstance(reviewed, dict):
         raise ValueError("Reviewed differences must map source names to prior file states")
     entries = json.loads((root / "config/manifest.json").read_text())
+    if sources is not None:
+        selected = set(sources)
+        available = {entry["source"] for entry in entries if entry.get("deployment") == "symlink"}
+        if not selected or selected - available:
+            raise ValueError("Selected sources must be symlink-managed manifest entries")
+        entries = [entry for entry in entries if entry["source"] in selected]
     result = []
     for entry in entries:
         if entry.get("deployment") != "symlink":
@@ -205,6 +211,8 @@ def main():
     parser.add_argument("--apply", action="store_true")
     parser.add_argument("--backup-dir", type=Path)
     parser.add_argument("--rollback", type=Path, metavar="JOURNAL")
+    parser.add_argument("--source", action="append", metavar="SOURCE",
+                        help="Deploy only this manifest source; repeat to select several")
     parser.add_argument("--reviewed-differences", type=Path,
                         help="Private JSON of explicitly reviewed prior file states")
     args = parser.parse_args()
@@ -212,13 +220,13 @@ def main():
         parser.error("Run as the target account, never root")
     try:
         if args.rollback:
-            if args.apply or args.backup_dir or args.reviewed_differences:
+            if args.apply or args.backup_dir or args.reviewed_differences or args.source:
                 parser.error("Rollback cannot be combined with deployment")
             rollback(args.rollback.absolute())
             print("Rollback complete; sources and unrelated files preserved")
             return
         reviewed = json.loads(args.reviewed_differences.read_text()) if args.reviewed_differences else None
-        entries = plan(ROOT, Path.home(), reviewed)
+        entries = plan(ROOT, Path.home(), reviewed, args.source)
         for entry in entries:
             print(f"{entry['action']}: {entry['destination']}")
         if args.apply:

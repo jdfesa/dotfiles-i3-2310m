@@ -9,6 +9,7 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | Fuente relativa al proyecto | Uso / ciclo de vida |
 |---|---|
 | `scripts/codex-launch.py` | Ejecuta el standalone oficial; recupera sólo su alias de socket obsoleto bajo lock; bajo demanda |
+| `scripts/laravel-services.py` | Panel GTK3 bajo demanda para MariaDB/phpMyAdmin, con sudo autenticado en Kitty y estados por eventos; [Laravel development](../docs/laravel-setup.md) |
 | `scripts/power-menu` | Rofi de energía, Super+Shift+P o entrada Power; bajo demanda |
 | `scripts/power-action.sh` | Auxiliar logind/Polkit en Kitty tras confirmar; bajo demanda |
 | `scripts/capture-screenshot.py` | Abre Flameshot bajo demanda; guarda y copia sólo el PNG aceptado; [Screen capture](../docs/screen-capture.md) |

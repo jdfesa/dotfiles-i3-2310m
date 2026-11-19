@@ -444,5 +444,49 @@
     "source": "config/yazi/apt/yazi-keyring.gpg",
     "destination": "/usr/share/keyrings/yazi-keyring.gpg",
     "mode": 420
+  },
+  {
+    "source": "scripts/laravel-services.py",
+    "destination": "/home/jd/dotfiles-i3-2310m/scripts/laravel-services.py",
+    "mode": 493,
+    "deployment": "in-place"
+  },
+  {
+    "source": "config/laravel/services.css",
+    "destination": "/home/jd/dotfiles-i3-2310m/config/laravel/services.css",
+    "mode": 420,
+    "deployment": "in-place"
+  },
+  {
+    "source": "config/laravel/packages-debian.txt",
+    "destination": "/home/jd/dotfiles-i3-2310m/config/laravel/packages-debian.txt",
+    "mode": 420,
+    "deployment": "in-place"
+  },
+  {
+    "source": "config/laravel/bgh-laravel-services.desktop",
+    "destination": "/home/jd/.local/share/applications/bgh-laravel-services.desktop",
+    "mode": 420,
+    "deployment": "symlink"
+  },
+  {
+    "source": "config/laravel/mariadb.cnf",
+    "destination": "/etc/mysql/mariadb.conf.d/90-laravel-local.cnf",
+    "mode": 420
+  },
+  {
+    "source": "config/laravel/phpmyadmin.inc.php",
+    "destination": "/etc/phpmyadmin/conf.d/90-laravel-local.php",
+    "mode": 420
+  },
+  {
+    "source": "config/laravel/phpmyadmin.service",
+    "destination": "/etc/systemd/system/laravel-phpmyadmin.service",
+    "mode": 420
+  },
+  {
+    "source": "config/laravel/phpmyadmin-router.php",
+    "destination": "/usr/local/share/bgh-laravel/phpmyadmin-router.php",
+    "mode": 420
   }
 ]
