@@ -1,0 +1,19 @@
+#bgh-laravel-services {
+    background-color: #1e1e2e;
+    color: #cdd6f4;
+    font-family: "JetBrainsMono Nerd Font Mono";
+    font-size: 10pt;
+}
+#bgh-laravel-services button {
+    background-image: none;
+    background-color: #313244;
+    color: #cdd6f4;
+    border: 1px solid #45475a;
+    box-shadow: none;
+    text-shadow: none;
+    transition: none;
+}
+#bgh-laravel-services button:hover,
+#bgh-laravel-services button:focus { border-color: #b4befe; }
+#laravel-title { color: #b4befe; font-weight: bold; }
+#laravel-hint { color: #a6adc8; font-size: 9pt; }

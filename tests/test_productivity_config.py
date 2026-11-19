@@ -65,6 +65,28 @@ class UserLinkTests(unittest.TestCase):
         self.assertFalse(self.target.parent.exists())
         self.assertFalse(self.backup.exists())
 
+    def test_source_selection_preserves_unrelated_conflicting_destination(self):
+        other_source = self.root / "config/unrelated.lua"
+        other_source.write_text("public baseline")
+        other_source.chmod(0o644)
+        other_target = self.home / "unrelated.lua"
+        other_target.write_text("existing unrelated preference")
+        self.entries.append(dict(source="config/unrelated.lua", destination=str(other_target),
+                                 mode=0o644, deployment="symlink"))
+        self.write_manifest()
+        with self.assertRaisesRegex(ValueError, "Conflict"):
+            self.plan()
+        selected = LINKS.plan(self.root, self.home, sources=["config/editor.lua"])
+        journal = LINKS.apply(selected, self.root, self.home, self.backup)
+        self.assertTrue(self.target.is_symlink())
+        self.assertEqual(other_target.read_text(), "existing unrelated preference")
+        LINKS.rollback(journal)
+        self.assertEqual(other_target.read_text(), "existing unrelated preference")
+
+    def test_unknown_source_selection_is_rejected(self):
+        with self.assertRaisesRegex(ValueError, "Selected sources"):
+            LINKS.plan(self.root, self.home, sources=["config/unknown.lua"])
+
     def test_apply_is_idempotent_and_rollback_keeps_unmanaged_files(self):
         journal = self.apply()
         self.assertEqual(self.target.resolve(), self.source)

@@ -77,6 +77,10 @@ alternativas, pero no son procesos de inicio ni requisitos del lanzador Rofi.
 
 ## Debian packages
 
+El perfil opcional de PHP 8.4, Composer, MariaDB y phpMyAdmin usa únicamente
+paquetes Debian firmados. Dependencias directas, instalación bajo demanda y
+recuperación en [Laravel development](laravel-setup.md).
+
 En una instalación nueva, revisar los repositorios Debian firmados y la sección
 `non-free-firmware` para los paquetes de firmware. Los siguientes grupos
 describen dependencias, **no un instalador automático del equipo**.

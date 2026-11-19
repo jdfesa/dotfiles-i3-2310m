@@ -1,6 +1,6 @@
 # dotfiles-i3-2310m
 
-Dotfiles, scripts, and configuration for a **Positivo BGH A470 (2011)** running
+Dotfiles, scripts, and configuration for **Positivo BGH A470 (2011)** running
 Debian 13 with i3 on Xorg.
 
 [![Debian 13](https://img.shields.io/badge/Debian-13-A81D33?style=flat&logo=debian&logoColor=white)](docs/dependencies.md)
@@ -65,6 +65,7 @@ Rofi launches applications; Yazi manages files, LazyVim edits code, Helium brows
 - [Dependencies and versions](docs/dependencies.md), [Restore and recovery](docs/restore-guide.md).
 - [Network setup](docs/wifi-setup.md), [Verification status](docs/mirror-status.md).
 - [Git workflow](docs/git-workflow.md), [Codex CLI](docs/codex-setup.md), [Development tools](docs/development-tools.md).
+- [Laravel development](docs/laravel-setup.md).
 - [CHANGELOG.md](CHANGELOG.md), [TODO.md](TODO.md).
 
 ## License

@@ -57,6 +57,9 @@ python3 tools/link-user-config.py  # Apply links using User configuration links.
   [USB audio](audio-setup.md); no depende de un servidor de audio.
 - Editor: instalar el [Neovim oficial](neovim-installation.md) y provisionar
   [LazyVim setup](lazyvim-setup.md) antes de activarlo como perfil predeterminado.
+- Desarrollo Laravel: restaurar el perfil opcional según
+  [Laravel development](laravel-setup.md); bases y credenciales requieren
+  recuperación privada independiente.
 - Fondo de i3: instalar `xwallpaper` y enlazar la imagen de
   [Wallpaper](i3-setup.md#wallpaper).
 - Brillo del panel interno: instalar el auxiliar y su integración i3 según

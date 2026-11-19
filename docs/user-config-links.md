@@ -69,6 +69,15 @@ en la segunda revisión es `unchanged` para todos los enlaces.
 
 ### Reviewed differences
 
+Para desplegar un componente sin modificar ni reconciliar destinos ajenos,
+usar `--source` con la ruta exacta del manifiesto; se puede repetir. La selección
+mantiene las mismas comprobaciones, backup y journal. Ejemplo del lanzador
+de [Laravel development](laravel-setup.md):
+
+```sh
+python3 tools/link-user-config.py --source config/laravel/bgh-laravel-services.desktop
+```
+
 Si un destino difiere, revisar su contenido y recuperar primero los ajustes
 públicos útiles en la fuente. Para una sustitución deliberada, un JSON privado
 puede registrar el estado exacto revisado, con el nombre `source` como clave.

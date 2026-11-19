@@ -5,6 +5,13 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-18
 
+### Laravel development
+
+- Añadido perfil nativo PHP 8.4/Composer/MariaDB/phpMyAdmin de Debian, con
+  instalación reproducible, servicios limitados a loopback y cuenta de estudio
+  por esquema. El panel GTK3 controla los servicios bajo demanda mediante sudo
+  autenticado, sin Apache, PHP-FPM ni inicio automático.
+
 ### Trackpad initial speed
 
 - El Magic Trackpad 2 Bluetooth inicia en Slightly faster (+0.25), mediante
