@@ -27,6 +27,7 @@ los proyectos iniciales y pruebas que lo usan por defecto; MariaDB queda
 disponible para los ejercicios de MySQL. `python3-gi`, GTK3, Kitty, systemd,
 sudo y xdg-utils reutilizan componentes de la sesión existente.
 
+`unzip` conserva permisos al extraer los paquetes ZIP descargados por Composer.
 Composer se ejecuta como `jd`, nunca con sudo. Proyectos, `vendor/`, caches,
 claves de aplicaciones, `.env`, bases y credenciales permanecen fuera del
 repositorio. Node/npm y los procesos de frontend se revisan cuando el proyecto
@@ -146,6 +147,18 @@ según los requisitos reales del proyecto; no son necesarias para verificar
 el intérprete, Composer y el acceso a MariaDB.
 
 ## Verification
+
+Comprobado el 2026-11-18 con PHP 8.4.27, Composer 2.8.8, MariaDB 11.8.6 y
+el paquete Debian phpMyAdmin 5.2.2. El inventario completo de versiones y
+procedencia está en [Dependencies and versions](dependencies.md).
+Un proyecto temporal con Laravel Framework 13.43.0 pasó los requisitos de
+plataforma de Composer, respondió HTTP200 y creó/insertó/leyó una tabla de
+verificación en MariaDB; se retiraron solo esa tabla y su servidor temporal.
+También se comprobaron la ventana GTK3, el inicio desde el panel, el login
+de phpMyAdmin con la cuenta de desarrollo, sus 39 recursos CSS/JS y el bloqueo
+HTTP404 de setup/configuración/bibliotecas internas. Los archivos desplegados
+coinciden con el manifiesto en contenido, propietario, modo y enlaces.
+No se compilaron recursos frontend ni se midió rendimiento sostenido.
 
 ```sh
 php --version

@@ -2,6 +2,7 @@
 import importlib.util
 from pathlib import Path
 import subprocess
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -83,6 +84,33 @@ class InstallerTests(unittest.TestCase):
                 installer.create_database(account)
             run.assert_not_called()
             self.assertEqual(credentials.read_text(), "synthetic credential fixture\n")
+
+
+@unittest.skipUnless(shutil.which("php"), "PHP is required for the real router parser")
+class RouterTests(unittest.TestCase):
+    def route(self, path):
+        code = '''
+$_SERVER['REQUEST_URI'] = $argv[1];
+register_shutdown_function(function() { echo 'STATUS:' . (http_response_code() ?: 200); });
+$r = include $argv[2];
+if ($r === false) { echo 'FORWARD:'; }
+'''
+        result = subprocess.run(["php", "-r", code, path,
+                                 str(ROOT / "config/laravel/phpmyadmin-router.php")],
+                                capture_output=True, text=True, check=True)
+        return result.stdout
+
+    def test_required_dynamic_entrypoints_are_forwarded(self):
+        for path in ("/", "/index.php?route=/", "/url.php", "/js/messages.php?lang=en"):
+            with self.subTest(path=path):
+                self.assertEqual(self.route(path), "FORWARD:STATUS:200")
+
+    def test_private_paths_setup_and_traversal_remain_inaccessible(self):
+        for path in ("/setup/index.php", "/libraries/classes/Config.php", "/vendor/autoload.php",
+                     "/config.inc.php", "/js/unknown.php", "/js/../config.inc.php",
+                     "/js/%2e%2e/config.inc.php", "/js/test%00.js", "/js/..%5cconfig.inc.php"):
+            with self.subTest(path=path):
+                self.assertEqual(self.route(path), "STATUS:404")
 
 
 if __name__ == "__main__":

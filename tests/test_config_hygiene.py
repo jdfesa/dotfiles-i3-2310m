@@ -48,6 +48,7 @@ class ConfigurationHygieneTests(unittest.TestCase):
                    "stats.sqlite-wal", "engram-export.json", ".config/gh/hosts.yml",
                    ".local/share/keyrings/login.keyring", ".git-credentials",
                    "private/local-only.json", "login.keyring", "user.keystore",
+                   "config/laravel/database.env",
                    "nested/.config/gh/hosts.yml", "nested/.git-credentials"]
         retained = ["README.md", "AGENTS.md", ".gitignore", "config/manifest.json",
                     "config/codex-config.toml", "config/codex-hooks.json",

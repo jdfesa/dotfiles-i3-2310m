@@ -6,6 +6,7 @@ php8.4-sqlite3
 php8.4-xml
 php8.4-zip
 composer
+unzip
 mariadb-server
 phpmyadmin
 python3-gi

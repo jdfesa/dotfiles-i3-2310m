@@ -6,7 +6,7 @@ if (str_contains($path, "\0") || str_contains($path, '\\') ||
     http_response_code(404);
     exit;
 }
-if (in_array($path, ['/', '/index.php', '/url.php'], true)) {
+if (in_array($path, ['/', '/index.php', '/url.php', '/js/messages.php'], true)) {
     return false;
 }
 $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));

@@ -10,6 +10,7 @@ __pycache__/
 core
 .env
 .env.*
+*.env
 *.nmconnection
 **/authorized_keys
 **/id_rsa*
