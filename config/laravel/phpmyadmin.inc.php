@@ -4,6 +4,6 @@ $cfg['Servers'][1]['auth_type'] = 'cookie';
 $cfg['Servers'][1]['host'] = '127.0.0.1';
 $cfg['Servers'][1]['port'] = '3306';
 $cfg['Servers'][1]['AllowNoPassword'] = false;
-$cfg['Servers'][1]['AllowRoot'] = false;
+$cfg['Servers'][1]['AllowRoot'] = true;
 $cfg['AllowArbitraryServer'] = false;
 $cfg['Lang'] = 'en';

@@ -323,11 +323,14 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 
 ## Productivity tools
 
-- Desarrollo Laravel usa PHP/Composer/MariaDB/phpMyAdmin de Debian, con servicios
-  locales bajo demanda y un panel GTK3 que conserva sudo autenticado. No añadir
-  Apache, PHP-FPM, contenedores, Node, watchers ni autostart por anticipado.
-  Mantener root de MariaDB por socket y cuentas por proyecto; credenciales y
-  bases quedan privadas. Operación en docs/laravel-setup.md.
+- Local Web Stack gestiona PHP/Composer/MariaDB/phpMyAdmin de Debian para
+  desarrollo PHP, con servicios locales bajo demanda y un panel GTK3 que conserva
+  sudo autenticado. El perfil permite root de base de datos por TCP solo en
+  loopback, con la contraseña local elegida para práctica; conservar por separado
+  root@localhost por socket y la autenticación del sistema. Credenciales y bases
+  quedan privadas, sin generación automática de claves ni diálogos temporales.
+  No añadir Apache, PHP-FPM, contenedores, Node, watchers ni autostart por
+  anticipado. Operación en docs/laravel-setup.md.
 
 - Kitty usa su barra nativa superior incluso con una pestaña, etiquetas del
   directorio activo y pestañas nuevas en ese directorio. Las terminales

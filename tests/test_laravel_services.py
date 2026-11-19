@@ -52,6 +52,30 @@ class ServiceTests(unittest.TestCase):
 
 
 class InstallerTests(unittest.TestCase):
+    def test_local_admin_sql_preserves_socket_authentication(self):
+        sql = installer.login_sql("synthetic'\\value")
+        self.assertIn("SET SESSION sql_mode='NO_BACKSLASH_ESCAPES'", sql)
+        self.assertIn("IDENTIFIED BY 'synthetic''\\value'", sql)
+        self.assertIn("'root'@'127.0.0.1'", sql)
+        self.assertIn("GRANT ALL PRIVILEGES ON *.*", sql)
+        self.assertIn("SET PASSWORD FOR 'root'@'localhost'", sql)
+        self.assertNotIn("ALTER USER 'root'@'localhost'", sql)
+        self.assertNotIn("'root'@'%'", sql)
+
+    def test_alternate_native_authentication_is_not_lost(self):
+        native = {"plugin": "mysql_native_password", "auth_or": [{}, {"plugin": "unix_socket"}]}
+        self.assertEqual(installer.authentication_plugins(native), {"mysql_native_password", "unix_socket"})
+
+    def test_password_file_must_be_private_and_external(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "password"
+            path.write_text("synthetic-local-password\n")
+            path.chmod(0o600)
+            self.assertEqual(installer.password_input(path), "synthetic-local-password")
+            path.chmod(0o644)
+            with self.assertRaisesRegex(ValueError, "private mode600"):
+                installer.password_input(path)
+
     def test_simulation_has_no_mutating_commands(self):
         with patch.object(installer, "run") as run, patch.object(installer, "regular_parents"):
             installer.plan()

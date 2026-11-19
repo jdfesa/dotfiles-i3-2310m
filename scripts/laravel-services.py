@@ -53,7 +53,7 @@ def gui():
         if windows:
             windows[0].present()
             return
-        window = Gtk.ApplicationWindow(application=application, title="Laravel Services")
+        window = Gtk.ApplicationWindow(application=application, title="Local Web Stack")
         window.set_name("bgh-laravel-services")
         window.set_type_hint(Gdk.WindowTypeHint.DIALOG)
         window.set_position(Gtk.WindowPosition.CENTER)
@@ -64,7 +64,7 @@ def gui():
         Gtk.StyleContext.add_provider_for_screen(
             window.get_screen(), css, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
         box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=14)
-        title = Gtk.Label(label="Laravel Services")
+        title = Gtk.Label(label="Local Web Stack")
         title.set_name("laravel-title")
         box.pack_start(title, False, False, 0)
         labels, controls = {}, []
@@ -92,7 +92,7 @@ def gui():
             try:
                 process = subprocess.Popen(
                     ["/usr/bin/kitty", "--class", "bgh-laravel-action",
-                     "--title", "Laravel Services", sys.executable, str(Path(__file__).resolve()),
+                     "--title", "Local Web Stack", sys.executable, str(Path(__file__).resolve()),
                      "--service-action", verb, unit])
             except OSError as error:
                 busy[0] = False

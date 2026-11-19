@@ -5,6 +5,14 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-18
 
+### Local web stack access
+
+- El panel y el lanzador se identifican como Local Web Stack, para proyectos
+  PHP independientes del framework. El acceso administrativo de práctica usa
+  root por TCP de loopback con contraseña elegida localmente; se conserva por
+  separado root@localhost por socket. El configurador respalda el acceso anterior
+  en privado y permite cambiarlo sin reinstalar paquetes ni reiniciar servicios.
+
 ### Browser file chooser
 
 - Helium hereda `Adwaita:dark` mediante su entrada de usuario; los selectores

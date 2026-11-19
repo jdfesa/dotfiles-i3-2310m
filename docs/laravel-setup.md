@@ -1,8 +1,8 @@
-# Laravel development
+# Local Web Stack
 
 ## Scope
 
-Perfil opcional de desarrollo local para Debian 13: PHP 8.4 CLI, Composer,
+Pila web opcional de desarrollo local para Debian 13, independiente del framework: PHP 8.4 CLI, Composer,
 MariaDB y phpMyAdmin desde los repositorios firmados de Debian. PHP 8.4
 cumple el requisito de PHP >=8.3 de [Laravel 13](https://laravel.com/framework/docs/13.x/releases).
 La versión del framework se elige por proyecto; no se instala globalmente ni
@@ -68,13 +68,31 @@ paquetes y retira solo su propia política al terminar. Desactiva el arranque
 automático de MariaDB y cualquier socket suministrado por el paquete.
 
 La configuración se instala como archivos regulares root:root644 según
-[manifest.json](../config/manifest.json). No se enlazan archivos del sistema
-a un home escribible. Se crean el esquema `laravel` y la cuenta
-`laravel`@`127.0.0.1`, con permisos solo sobre ese esquema. La contraseña
-aleatoria se guarda exclusivamente en
-`~/.local/state/laravel-development/database.env`, jd:jd600, dentro de un
-directorio700. No se imprime ni pasa por argumentos o historial. No se
-modifican credenciales existentes ni la autenticación de root.
+[manifest.json](../config/manifest.json). Se prepara el esquema inicial `laravel`
+y el acceso administrativo `root`@`127.0.0.1` para crear y gestionar bases de
+práctica desde phpMyAdmin. El nombre del esquema es solo un ejemplo; la pila
+sirve también para otros proyectos PHP. La contraseña se elige en la terminal,
+sin generación automática, y se conserva únicamente en
+`~/.local/state/laravel-development/database.env`, jd:jd600, en directorio700.
+No se guarda en las fuentes ni se imprime. El acceso administrativo nativo
+`root`@`localhost` conserva el método `unix_socket` y admite también la
+contraseña local elegida, sin cambiar la cuenta root de Debian ni sudo.
+
+Para cambiar explícitamente el acceso de una instalación existente, sin
+reinstalar paquetes ni reiniciar servicios:
+
+```sh
+sudo /usr/bin/python3 tools/install-laravel-stack.py --configure-login
+```
+
+Esta operación pide la contraseña de base de datos elegida y su confirmación;
+no cambia la contraseña de la cuenta Debian. La contraseña también se puede
+leer con `--password-file` desde un archivo externo privado600. Antes del
+cambio, guarda las credenciales/configuración anteriores y los metadatos de
+las cuentas root en `/var/backups/bgh-local-db-login-<UTC>/`, root:root700.
+Configura la contraseña en las identidades root locales, conserva los métodos
+nativos de autenticación por socket y los privilegios existentes de localhost,
+y comprueba ambos accesos. Otras cuentas y los datos se conservan.
 
 El instalador arranca los servicios para comprobar el acceso HTTP y vuelve
 a detenerlos. La configuración de dbconfig-common se omite: no hace falta
@@ -96,7 +114,7 @@ se leen directamente desde el checkout. No hace falta recargar i3.
 
 ## On-demand use
 
-Abrir **Laravel Services** desde Rofi o ejecutar:
+Abrir **Local Web Stack** desde Rofi o ejecutar:
 
 ```sh
 ./scripts/laravel-services.py
@@ -116,10 +134,12 @@ cancelar no se interpreta como éxito. El panel y el navegador siguen como
 - Cerrar el panel conserva el estado elegido de los servicios. Detenerlos
   con sus botones al terminar de trabajar.
 
-En phpMyAdmin, usar la cuenta `laravel` y la contraseña del archivo privado.
-No usar root ni permitir contraseñas vacías. Para otros proyectos, crear un
-esquema y cuenta específicos mediante `sudo mariadb`, sin ampliar la cuenta
-de estudio a permisos globales.
+En phpMyAdmin, usar `root` con la contraseña local elegida. Permite crear
+otras bases para los ejercicios desde la propia interfaz. El acceso TCP se
+limita a `127.0.0.1`; se mantiene deshabilitado el acceso sin contraseña.
+La administración del sistema sigue usando sudo autenticado. Las rutas
+internas que conservan el nombre `laravel` mantienen la compatibilidad del
+perfil instalado; el título de la aplicación es **Local Web Stack**.
 
 ## Laravel projects
 
@@ -194,8 +214,15 @@ restaurar solo los destinos que existían, con su modo anterior; retirar solo
 los archivos nuevos del perfil después de comprobar su identidad. Ejecutar
 `sudo systemctl daemon-reload`. No eliminar `/var/lib/mysql`, el archivo de
 credenciales ni bases de proyectos para revertir configuración. Si falló la
-creación de cuenta/base, conservar `database.env` y revisar el estado mediante
-`sudo mariadb` antes de repetir; el instalador no reemplaza cuentas existentes.
+configuración del acceso, conservar `database.env` y revisar el estado mediante
+`sudo mariadb` antes de repetir. Para revertir un cambio de login, usar el backup
+`bgh-local-db-login-*`: restaurar `database.env` como jd:jd600 y el fragmento PHP
+como root:root644. Si `root-loopback.json` está vacío, la cuenta TCP no existía
+antes del cambio y puede retirarse con `DROP USER 'root'@'127.0.0.1';`; si contiene
+una cuenta previa, revisar y reponer su autenticación/privilegios del backup.
+Para restaurar exactamente la autenticación anterior de localhost, revisar el
+registro privado `root-localhost.json`; conservar su método `unix_socket`.
+No borrar bases para revertir este acceso.
 
 El enlace de Rofi se revierte con el journal del auxiliar de enlaces. Antes
 de desinstalar paquetes, hacer un dump privado de las bases que interesen y
