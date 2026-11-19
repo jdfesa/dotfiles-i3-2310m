@@ -84,6 +84,17 @@ el drenaje de stderr. No hay shell interpolado, sondeo periódico, registro en
 disco ni dependencias Python adicionales. Los nombres `laravel` existentes
 conservan las rutas instaladas y sus enlaces; el componente sirve PHP general.
 
+### Maintenance
+
+Las correcciones de servicios/lecturas se concentran en el backend; los cambios
+de presentación, en la ventana. La instalación privilegiada permanece separada.
+Para añadir un servicio, revisar su coste y necesidad, ampliar el inventario del
+backend y sus dependencias en la interfaz, y actualizar paquetes, configuración,
+manifiesto y guía. La autorización de polkit se revisa por unidad y acción:
+añadir una entrada al backend no concede privilegios automáticamente.
+Comprobar controles individuales/globales, estados fallidos o no disponibles y
+errores de lectura, conservando las aplicaciones ajenas y el uso bajo demanda.
+
 ## Installation
 
 Desde el checkout canónico, revisar fuentes, destinos y simulación:
@@ -177,6 +188,8 @@ Abrir **Local Web Stack** desde Rofi o ejecutar:
 El panel muestra Apache/PHP y MariaDB con estado real, PID y puertos configurados
 cuando están activos. Consulta al abrir, después de cada acción y con **Refresh**,
 sin sondeo periódico. Otra invocación recupera la ventana existente.
+PHP se ejecuta con Apache; Composer es una herramienta de terminal por proyecto,
+por lo que no necesita un servicio adicional en el panel.
 
 - **Start**, **Stop** y **Restart** controlan cada servicio por separado;
   las variantes **all** controlan ambos. Apache puede seguir sirviendo PHP
@@ -216,12 +229,37 @@ por ejemplo `practice/index.php`, y abrir `http://127.0.0.1/practice/`.
 Apache interpreta `.htaccess`, tiene rewrite habilitado y desactiva los listados
 de directorios. Bloquea archivos ocultos y directorios `.git`.
 
-Para Laravel, crear el proyecto fuera de los dotfiles:
+### Laravel requirements
+
+Para [Laravel 13](https://laravel.com/framework/docs/13.x/deployment#server-requirements),
+el perfil proporciona PHP CLI >=8.3, Composer 2 y las extensiones `ctype`, `curl`,
+`dom`, `fileinfo`, `filter`, `hash`, `mbstring`, `openssl`, `pcre`, `PDO`, `session`,
+`tokenizer` y `xml`. Composer ya forma parte de la instalación APT descrita aquí;
+su versión comprobada está en [Dependencies and versions](dependencies.md).
+
+SQLite y PDO SQLite permiten comenzar sin iniciar servicios. Si el proyecto usa
+MariaDB, pulsar **Start** en su fila del panel; Apache se inicia para servir PHP
+por ese servidor o utilizar phpMyAdmin. `php artisan serve` ofrece por separado
+el servidor local del proyecto.
+
+La [instalación de Laravel](https://laravel.com/framework/docs/13.x/installation)
+utiliza Node/npm o Bun para compilar recursos frontend. Una vista que use Vite
+necesita sus recursos compilados o el servidor de desarrollo activo. Elegir la
+versión compatible con el proyecto al incorporar ese flujo; no se instala un
+runtime frontend en este perfil por anticipado. `npm run build` genera los
+recursos y termina; `npm run dev` mantiene Vite abierto mientras se trabaja.
+Revisar el script `composer run dev` de cada proyecto antes de usarlo, porque
+puede iniciar también workers y seguimiento de logs.
+
+Con [Composer create-project](https://getcomposer.org/doc/03-cli.md#create-project)
+no hace falta instalar globalmente el comando `laravel`. Crear el proyecto como
+jd, fuera de los dotfiles:
 
 ```sh
 mkdir -p "$HOME/projects"
 composer create-project laravel/laravel "$HOME/projects/laravel-study" '^13.0'
 cd "$HOME/projects/laravel-study"
+composer check-platform-reqs
 php artisan --version
 ```
 

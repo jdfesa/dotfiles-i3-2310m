@@ -11,6 +11,14 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
   el control asíncrono recoge stderr mediante Gio.
 - Añadidos Admin por servicio, estado activo coloreado, actividad limitada a 120
   líneas en memoria, consulta manual de sockets y ayuda operativa en inglés.
+- Documentados los puntos de extensión, la revisión explícita de privilegios y
+  los requisitos básicos y de frontend para iniciar proyectos Laravel.
+
+### Maintainability
+
+- Establecida la separación por responsabilidades como criterio para crear o
+  modificar herramientas y configuración, con puntos de extensión documentados
+  y sin capas o dependencias adicionales por anticipado.
 
 ## 2026-11-18
 

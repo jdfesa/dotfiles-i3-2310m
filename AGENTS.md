@@ -38,6 +38,13 @@
   ejecución en scripts/ y las herramientas manuales de desarrollo en tools/.
   Explicar los scripts y registrar rutas completas de origen, destinos reales
   y modos en config/manifest.json.
+- Mantener código y configuración modulares por responsabilidad: separar la
+  interfaz, las operaciones y la instalación/autorización cuando tengan ciclos
+  de cambio distintos. Reutilizar una única fuente para cada inventario y
+  documentar en la guía del componente cómo ampliarlo y comprobar sus fallos.
+  Aplicar este criterio al crear o modificar herramientas; evitar capas,
+  dependencias y fragmentación sin una necesidad concreta. Las ampliaciones
+  conservan los límites de recursos y privilegios del componente.
 - Agrupar las fuentes nuevas bajo config/<component>/, incluidos los metadatos
   APT del proveedor en su subdirectorio apt/; no añadir archivos de aplicaciones
   sueltos directamente en config/. Mantener allí los inventarios comunes.
