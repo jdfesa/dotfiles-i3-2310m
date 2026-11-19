@@ -146,6 +146,32 @@ el sandbox o la aceleración. Ajustes, proyectos y datos de extensión no forman
 parte del espejo. Para retirar el origen, restaurar o retirar sólo sus tres
 archivos según el respaldo; simular la retirada de `code` por separado.
 
+#### Markdown preview
+
+Para leer `.md` con formato de documento, usar la vista previa integrada de
+VS Code bajo demanda. Muestra títulos de distintos tamaños, tablas, imágenes
+locales, código resaltado, fórmulas KaTeX y diagramas Mermaid; no requiere
+instalar extensiones. La versión comprobada figura en
+[Dependencies and versions](dependencies.md).
+
+```sh
+code README.md
+```
+
+- **Ctrl+Shift+V** alterna entre el texto Markdown y su vista previa.
+- **Ctrl+K**, después **V**, abre la vista previa junto al texto para editar
+  y ver los cambios. Guardar el archivo con **Ctrl+S**.
+- **Ctrl+Shift+O** desde el editor permite saltar a un encabezado.
+
+La edición se hace en el texto fuente. Conservar la seguridad **Strict** de
+la vista previa. Cerrar su pestaña al terminar; no hay ajustes nuevos que
+revertir ni componentes que deban quedar al inicio de sesión.
+
+Esta vista sirve para documentos Markdown; los enlaces `[[nota]]`, las
+incrustaciones `![[archivo]]` y otras extensiones de Obsidian pueden no
+mostrarse igual. Consultar [Markdown and Visual Studio Code](https://code.visualstudio.com/docs/languages/markdown)
+para los formatos y controles integrados.
+
 ## Layout
 
 `config/lazyvim/` contiene el perfil predeterminado y su lockfile;

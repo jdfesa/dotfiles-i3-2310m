@@ -5,6 +5,12 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-19
 
+### Markdown preview
+
+- Documentada la lectura y edición de Markdown con la vista previa integrada
+  de VS Code bajo demanda, incluidos sus atajos y límites con formatos de
+  Obsidian, sin paquetes ni extensiones adicionales.
+
 ### Local web stack modules
 
 - Separadas la entrada CLI, las operaciones sin GTK y la ventana por eventos;
