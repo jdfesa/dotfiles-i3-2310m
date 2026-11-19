@@ -32,6 +32,10 @@ ante un alcance nuevo o hardware compatible.
 
 ### Thunar
 
+La ventana **Save File** de **Save image as…** pertenece al
+[Native file chooser](apps-setup.md#native-file-chooser) de Helium; allí se
+configuran su tema oscuro y el tamaño que mantiene visibles los botones.
+
 Thunar funciona bajo demanda en i3 con GTK3 existente. Se instala desde Debian
 sin GVfs, tumbler, gestor de volúmenes ni escritorio Xfce; integraciones de
 papelera y volúmenes no forman parte de esta instalación mínima.

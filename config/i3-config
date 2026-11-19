@@ -25,6 +25,9 @@ for_window [class="^BGH-Calendar$" instance="^bgh-calendar$"] floating enable, m
 for_window [class="^BGH-Trackpad-Speed$" instance="^bgh-trackpad-speed$"] floating enable
 for_window [class="^BGH-Resources$" instance="^bgh-resources$"] floating enable, resize set 960 560, move position center
 
+# Keep native browser file chooser buttons inside the 1366x768 laptop screen.
+for_window [class="^Helium$" window_role="^GtkFileChooserDialog$"] floating enable, resize set 1000 640, move position center
+
 # Preserve the installed static Kitty background transparency.
 exec --no-startup-id /usr/bin/xcompmgr -n
 

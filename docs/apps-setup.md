@@ -72,6 +72,83 @@ xdg-mime default helium.desktop x-scheme-handler/http x-scheme-handler/https
 Comprobar ventana real como cuenta de sesión, versión y navegador predeterminado.
 Respaldar `mimeapps.list` antes de restaurar: puede contener handlers adicionales.
 
+### Native file chooser
+
+**Save image as…**, **Save as…** y **Open File** usan el selector GTK3 del
+proceso Helium. La ventana **Save File** permite elegir carpeta y nombre;
+**Show in folder** abre [Thunar](editor-and-files.md#thunar) por otra ruta.
+El tema oscuro de las páginas o del navegador no configura ese selector.
+
+`scripts/launch-helium.sh` se enlaza como `~/.local/bin/helium`, modo755,
+según el [manifest.json](../config/manifest.json). Exporta
+`GTK_THEME=Adwaita:dark` y ejecuta `/usr/bin/helium` con todos los argumentos
+originales; el paquete APT y su sandbox siguen intactos. La sesión i3 antepone
+`~/.local/bin` en `PATH`: sus dos atajos y las entradas `Exec=helium` del
+desktop oficial usan la misma entrada. No se cambia el tema GTK global, los
+handlers MIME ni las preferencias privadas del perfil. No necesita portales,
+paquetes nuevos ni procesos residentes.
+
+La regla de `config/i3-config` se limita a `class=Helium` y
+`window_role=GtkFileChooserDialog`: abre el selector flotante, centrado y de
+1000×640 píxeles. Mantiene **Save** y **Cancel** visibles en la pantalla interna
+1366×768 con barra superior. El tamaño que GTK conserve en su estado privado
+no debe dejar esos botones fuera de pantalla. La regla sólo fija la geometría
+inicial; permite redimensionar manualmente después.
+
+#### Installation and validation
+
+Como `jd`, revisar el destino y respaldar la fuente i3 activa antes de editarla.
+Preparar el enlace, comprobar el plan y aplicarlo con respaldo privado externo:
+
+```sh
+umask 022
+sh -n scripts/launch-helium.sh
+i3 -C -c config/i3-config
+python3 tools/link-user-config.py --source scripts/launch-helium.sh
+backup="$HOME/.local/state/bgh-config-backups/helium-launcher-$(date -u +%Y%m%dT%H%M%SZ)"
+python3 tools/link-user-config.py --source scripts/launch-helium.sh \
+  --apply --backup-dir "$backup"
+command -v helium
+readlink "$HOME/.local/bin/helium"
+i3-msg reload
+```
+
+`command -v` debe resolver el enlace de usuario, no `/usr/bin/helium`.
+La recarga de i3 aplica la regla a selectores nuevos sin cerrar ventanas.
+Para corregir uno que ya quedó fuera de pantalla, sin confirmar ni cancelar
+su operación:
+
+```sh
+i3-msg '[class="^Helium$" window_role="^GtkFileChooserDialog$"] resize set 1000 640, move position center'
+```
+
+El color se hereda cuando inicia el proceso principal de Helium. Abrir otra
+ventana con un navegador anterior todavía en ejecución reutiliza ese proceso
+y no cambia su entorno. Guardar trabajo y coordinar un cierre normal completo
+antes de volver a abrirlo; no terminar procesos ni cerrar aplicaciones ajenas.
+
+Validación acotada: usar una imagen sintética desde un servidor HTTP local
+temporal y **Save image as…**. Comprobar el selector oscuro, ambos botones
+visibles, guardar en un directorio temporal nuevo y comparar el SHA256 con
+la imagen original. Reabrir y usar **Cancel**: no debe crear otro archivo.
+Un perfil temporal separado permite probar un arranque nuevo sin cerrar el
+navegador personal. Conservar el sandbox y no copiar el perfil personal a ese
+directorio. Cerrar sólo las ventanas de prueba y retirar el servidor temporal.
+Comprobado con Helium 0.19.2.1-1, GTK 3.24.49 y la pantalla interna.
+
+#### Recovery
+
+Revertir sólo el enlace mediante el journal de su operación:
+
+```sh
+python3 tools/link-user-config.py --rollback "$backup/journal.json"
+```
+
+Restaurar la fuente i3 revisada del respaldo, validar con `i3 -C` y recargar.
+No reemplazar todo el checkout ni retirar otras reglas. El tema anterior vuelve
+en el siguiente arranque normal de Helium; no es necesario reiniciar Debian,
+cambiar asociaciones ni modificar el perfil privado.
+
 ## Fonts
 
 JetBrains Mono Nerd Font Mono **Regular/Bold**, **Propo Regular** y `BGH Status Icons`.
