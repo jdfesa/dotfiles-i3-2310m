@@ -323,14 +323,16 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 
 ## Productivity tools
 
-- Local Web Stack gestiona PHP/Composer/MariaDB/phpMyAdmin de Debian para
-  desarrollo PHP, con servicios locales bajo demanda y un panel GTK3 que conserva
-  sudo autenticado. El perfil permite root de base de datos por TCP solo en
-  loopback, con la contraseña local elegida para práctica; conservar por separado
-  root@localhost por socket y la autenticación del sistema. Credenciales y bases
-  quedan privadas, sin generación automática de claves ni diálogos temporales.
-  No añadir Apache, PHP-FPM, contenedores, Node, watchers ni autostart por
-  anticipado. Operación en docs/laravel-setup.md.
+- Local Web Stack gestiona Apache/PHP/Composer/MariaDB/phpMyAdmin de Debian para
+  desarrollo local bajo demanda, sin arranque automático. El panel GTK3 usa
+  polkit existente: solo jd en sesión local activa y start/stop/restart de
+  apache2.service y mariadb.service; no ampliar a otras unidades, acciones ni
+  sudo sin contraseña. La instalación/configuración conserva sudo autenticado.
+  El perfil permite root de base de datos en loopback con contraseña elegida
+  localmente para práctica; conservar el método unix_socket de root@localhost
+  y la autenticación del sistema. Credenciales, bases y backups quedan privados.
+  No añadir PHP-FPM, FTP, contenedores, Node ni watchers por anticipado.
+  Operación en docs/laravel-setup.md.
 
 - Kitty usa su barra nativa superior incluso con una pestaña, etiquetas del
   directorio activo y pestañas nuevas en ese directorio. Las terminales

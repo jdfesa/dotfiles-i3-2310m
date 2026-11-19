@@ -5,6 +5,18 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 
 ## 2026-11-18
 
+### Local web stack controls
+
+- Apache con módulo PHP 8.4 sirve proyectos en loopback80 y phpMyAdmin en
+  `/phpmyadmin/`; el puerto8080 redirige al nuevo acceso. Se retiran el servicio
+  PHP CLI y su router, con migración validada por hash y backup privado.
+- El panel incorpora reinicio individual/global, PID/puertos, acceso al sitio,
+  carpeta/terminal y lectura acotada de logs/configuración. Polkit autoriza solo
+  start/stop/restart de Apache/MariaDB para jd en sesión local activa, sin
+  terminal ni contraseña por interacción; sudo sigue autenticado.
+- Los logs de ambos servicios admiten lectura por ACL específica de jd,
+  heredable tras rotación. Los servicios permanecen deshabilitados al arrancar.
+
 ### Local web stack access
 
 - El panel y el lanzador se identifican como Local Web Stack, para proyectos
@@ -23,9 +35,8 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
 ### Laravel development
 
 - Añadido perfil nativo PHP 8.4/Composer/MariaDB/phpMyAdmin de Debian, con
-  instalación reproducible, servicios limitados a loopback y cuenta de estudio
-  por esquema. El panel GTK3 controla los servicios bajo demanda mediante sudo
-  autenticado, sin Apache, PHP-FPM ni inicio automático.
+  instalación reproducible y servicios limitados a loopback bajo demanda.
+  PHP y extensiones admiten Laravel 13 instalado por proyecto.
 
 ### Trackpad initial speed
 

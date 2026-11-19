@@ -8,7 +8,7 @@ enlazan a i3 ni se habilitan en el arranque. No confundirlas con `scripts/`.
 | `tools/verify-mirror.py` | SHA256 de fuentes/destinos; `--remote --check` verifica contenido, enlaces, propietario/modo y ejecución desde el checkout; omite overlays privados |
 | `tools/verify-power-session.sh` | Terminal física: autorización y systemctl sólo --dry-run, con inhibidor block temporal 8 s; sin lock/energía real |
 | `tools/install-user-tools.py` | Instala RTK/Engram oficiales fijados, Linux amd64 sin root; no reemplaza binarios distintos |
-| `tools/install-laravel-stack.py` | Simula por defecto; `--apply` con sudo instala PHP 8.4/Composer/MariaDB/phpMyAdmin de Debian, respalda destinos en privado y conserva uso bajo demanda; [Local Web Stack](../docs/laravel-setup.md) |
+| `tools/install-laravel-stack.py` | Simula por defecto; `--apply` con sudo instala Apache/PHP 8.4/Composer/MariaDB/phpMyAdmin de Debian; `--complete-web-stack` migra el perfil previo, respalda destinos en privado y conserva uso bajo demanda; [Local Web Stack](../docs/laravel-setup.md) |
 | `tools/install-mini-files.py` | Dry-run por defecto; instala sólo módulo/ayuda/licencia fijados; `--check` sin red; no reemplaza diferencias |
 | `tools/link-user-config.py` | Enlaces por archivo, dry-run, reemplazo atómico, revisión exacta de diferencias y rollback privado; nunca root/sistema |
 | `tools/build-status-icons.py` | Genera cinco glifos Wi-Fi originales con fontTools; sólo entorno de desarrollo |

@@ -3,6 +3,8 @@
 import argparse
 import datetime
 import getpass
+import grp
+import hashlib
 import json
 import os
 from pathlib import Path
@@ -17,11 +19,16 @@ ROOT = Path(__file__).resolve().parents[1]
 FILES = {
     "config/laravel/mariadb.cnf": "/etc/mysql/mariadb.conf.d/90-laravel-local.cnf",
     "config/laravel/phpmyadmin.inc.php": "/etc/phpmyadmin/conf.d/90-laravel-local.php",
-    "config/laravel/phpmyadmin.service": "/etc/systemd/system/laravel-phpmyadmin.service",
-    "config/laravel/phpmyadmin-router.php": "/usr/local/share/bgh-laravel/phpmyadmin-router.php",
+    "config/laravel/apache-ports.conf": "/etc/apache2/ports.conf",
+    "config/laravel/apache-web-stack.conf": "/etc/apache2/conf-available/bgh-web-stack.conf",
+    "config/laravel/web-stack.rules": "/etc/polkit-1/rules.d/49-bgh-web-stack.rules",
+}
+LEGACY_FILES = {
+    "/etc/systemd/system/laravel-phpmyadmin.service": "29a926dfdbe382ca7558115706acde58cd33a80f5af5d4a9ea0059201b9bd921",
+    "/usr/local/share/bgh-laravel/phpmyadmin-router.php": "1a3700965153914177161bf23944317884f913012e5b1cb5b007476f5353c940",
 }
 POLICY = Path("/usr/sbin/policy-rc.d")
-POLICY_CONTENT = b"#!/bin/sh\n# Temporary guard for the reviewed Laravel package installation.\nexit 101\n"
+POLICY_CONTENT = b"#!/bin/sh\n# Temporary guard for the reviewed local web stack installation.\nexit 101\n"
 
 
 def run(args, **kwargs):
@@ -48,7 +55,12 @@ def regular_parents(path):
 def plan():
     run(["/usr/bin/apt-get", "-s", "--no-install-recommends", "--no-remove", "install", *packages()])
     for source, destination in FILES.items():
-        regular_parents(Path(destination))
+        try:
+            regular_parents(Path(destination))
+        except PermissionError:
+            if os.geteuid() == 0:
+                raise
+            print(f"Privileged destination requires administrator inspection: {destination}")
         print(f"Install root:root 644: {source} -> {destination}", flush=True)
     print("No boot activation. Preserve database root socket authentication.", flush=True)
 
@@ -194,7 +206,40 @@ try {
     run(["/usr/sbin/runuser", "-u", account.pw_name, "--", "/usr/bin/php8.4", "-r", code, str(credentials)])
 
 
-def apply():
+def active(unit):
+    return subprocess.run(["/usr/bin/systemctl", "is-active", "--quiet", unit],
+                          check=False).returncode == 0
+
+
+def prepare_logs(account, backup):
+    existing = [str(path) for directory in (Path('/var/log/apache2'), Path('/var/log/mysql'))
+                for path in (directory, directory / 'error.log') if path.exists()]
+    if existing:
+        saved = run(["/usr/bin/getfacl", "--absolute-names", *existing], capture_output=True).stdout
+        (backup / "logs.acl").write_bytes(saved)
+    for directory, owner, group in (("/var/log/apache2", "root", "adm"),
+                                    ("/var/log/mysql", "mysql", "mysql")):
+        path = Path(directory)
+        if path.is_symlink():
+            raise ValueError(f"Refusing a symlinked log directory: {path}")
+        uid, gid = pwd.getpwnam(owner).pw_uid, grp.getgrnam(group).gr_gid
+        if not path.exists():
+            path.mkdir(mode=0o750)
+            path.chmod(0o750)
+            os.chown(path, uid, gid)
+        log = path / "error.log"
+        regular_parents(log)
+        if not log.exists():
+            fd = os.open(log, os.O_WRONLY | os.O_CREAT | os.O_EXCL | os.O_NOFOLLOW, 0o640)
+            os.fchmod(fd, 0o640)
+            os.fchown(fd, uid, gid)
+            os.close(fd)
+        # Narrow read access; default ACL retains it after native log rotation.
+        run(["/usr/bin/setfacl", "-m", f"u:{account.pw_name}:r-x,d:u:{account.pw_name}:r-x", str(path)])
+        run(["/usr/bin/setfacl", "-m", f"u:{account.pw_name}:r--", str(log)])
+
+
+def apply(complete=False):
     if os.geteuid() != 0 or os.environ.get("SUDO_USER") != "jd":
         raise ValueError("Run --apply through authenticated sudo from the jd account")
     release = dict(line.split("=", 1) for line in Path("/etc/os-release").read_text().splitlines() if "=" in line)
@@ -202,12 +247,21 @@ def apply():
         raise ValueError("This profile requires Debian 13")
     if POLICY.exists() or POLICY.is_symlink():
         raise ValueError("An existing policy-rc.d needs review; it will not be replaced")
-    for unit in ("mariadb.service", "laravel-phpmyadmin.service"):
+    before = {unit: active(unit) for unit in ("mariadb.service", "apache2.service", "laravel-phpmyadmin.service")}
+    for unit in before:
         state = subprocess.run(["/usr/bin/systemctl", "is-active", unit],
                                capture_output=True, text=True, check=False).stdout.strip()
-        if state not in ("inactive", "failed", "unknown"):
+        if not complete and state not in ("inactive", "failed", "unknown"):
             raise ValueError(f"Stop and review the existing {unit} before installation")
-    for destination in FILES.values():
+    if complete and before["apache2.service"] and not Path(FILES["config/laravel/apache-web-stack.conf"]).exists():
+        raise ValueError("An existing Apache server needs review before this profile can replace its configuration")
+    for destination, expected in LEGACY_FILES.items():
+        path = Path(destination)
+        regular_parents(path)
+        if path.exists() and hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+            raise ValueError(f"Changed legacy configuration needs review: {path}")
+    had_webroot = Path("/var/www/html").exists()
+    for destination in [*FILES.values(), *LEGACY_FILES]:
         regular_parents(Path(destination))
     account = pwd.getpwnam("jd")
     os.umask(0o077)
@@ -215,7 +269,7 @@ def apply():
     backup = Path("/var/backups") / ("bgh-laravel-" + stamp)
     backup.mkdir(mode=0o700)
     records = []
-    for destination in FILES.values():
+    for destination in [*FILES.values(), *LEGACY_FILES]:
         path = Path(destination)
         item = {"destination": destination, "existed": path.exists()}
         if path.exists():
@@ -225,6 +279,7 @@ def apply():
             (backup / item["backup"]).chmod(0o600)
         records.append(item)
     (backup / "files.json").write_text(json.dumps(records, indent=2) + "\n")
+    (backup / "services.json").write_text(json.dumps(before, indent=2) + "\n")
     print(f"Private system rollback inventory: {backup}", flush=True)
     run(["/usr/bin/apt-get", "update"])
     plan()
@@ -257,9 +312,26 @@ def apply():
             target.parent.chmod(0o755)
         run(["/usr/bin/install", "-o", "root", "-g", "root", "-m", "644", str(ROOT / source), destination])
     run(["/usr/bin/php8.4", "-l", FILES["config/laravel/phpmyadmin.inc.php"]])
-    run(["/usr/bin/php8.4", "-l", FILES["config/laravel/phpmyadmin-router.php"]])
+    prepare_logs(account, backup)
+    webroot = Path("/var/www/html")
+    if not had_webroot:
+        os.chown(webroot, account.pw_uid, account.pw_gid)
+    if Path("/etc/apache2/mods-enabled/mpm_event.load").is_symlink():
+        run(["/usr/sbin/a2dismod", "mpm_event"])
+    run(["/usr/sbin/a2enmod", "mpm_prefork", "php8.4", "rewrite"])
+    run(["/usr/sbin/a2enconf", "bgh-web-stack"])
+    run(["/usr/sbin/apache2ctl", "configtest"])
+    run(["/usr/sbin/mariadbd", "--verbose", "--help"], stdout=subprocess.DEVNULL)
+    if Path("/etc/systemd/system/laravel-phpmyadmin.service").exists():
+        run(["/usr/bin/systemctl", "stop", "laravel-phpmyadmin.service"])
+    for destination, expected in LEGACY_FILES.items():
+        path = Path(destination)
+        if path.exists():
+            if hashlib.sha256(path.read_bytes()).hexdigest() != expected:
+                raise ValueError(f"Legacy file changed during installation: {path}")
+            path.unlink()
     run(["/usr/bin/systemctl", "daemon-reload"])
-    run(["/usr/bin/systemctl", "disable", "mariadb.service"])
+    run(["/usr/bin/systemctl", "disable", "mariadb.service", "apache2.service"])
     # Stop socket activation too if a future Debian package introduces it enabled.
     for unit in ("mariadb.socket", "mariadb-extra.socket"):
         loaded = subprocess.run(["/usr/bin/systemctl", "show", "--value", "--property=LoadState", unit],
@@ -267,23 +339,27 @@ def apply():
         if loaded == "loaded":
             run(["/usr/bin/systemctl", "disable", "--now", unit])
     try:
-        run(["/usr/bin/systemctl", "start", "mariadb.service"])
+        run(["/usr/bin/systemctl", "restart" if before["mariadb.service"] else "start", "mariadb.service"])
         create_database(account)
         verify_database(account)
-        run(["/usr/bin/systemctl", "start", "laravel-phpmyadmin.service"])
+        run(["/usr/bin/systemctl", "restart" if before["apache2.service"] else "start", "apache2.service"])
         run(["/usr/bin/mariadb", "--batch", "--skip-column-names", "-e",
              "SELECT VERSION(); SELECT @@bind_address;"])
         run(["/usr/bin/curl", "--fail", "--silent", "--retry", "6", "--retry-delay", "1",
-             "--retry-connrefused", "--output", "/dev/null", "http://127.0.0.1:8080/"])
+             "--retry-connrefused", "--output", "/dev/null", "http://127.0.0.1/phpmyadmin/"])
     finally:
-        run(["/usr/bin/systemctl", "stop", "laravel-phpmyadmin.service", "mariadb.service"])
-    print("Native Laravel stack installed. Both services are stopped and not enabled at boot.", flush=True)
+        if not (complete and (before["apache2.service"] or before["laravel-phpmyadmin.service"])):
+            run(["/usr/bin/systemctl", "stop", "apache2.service"])
+        if not (complete and before["mariadb.service"]):
+            run(["/usr/bin/systemctl", "stop", "mariadb.service"])
+    print("Local Web Stack configured. Apache and MariaDB remain disabled at boot.", flush=True)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     actions = parser.add_mutually_exclusive_group()
     actions.add_argument("--apply", action="store_true", help="Install with authenticated sudo; default is a read-only simulation")
+    actions.add_argument("--complete-web-stack", action="store_true", help="Install Apache and local session controls, preserving the previous running state")
     actions.add_argument("--configure-login", action="store_true", help="Configure local TCP root with an explicitly chosen database password")
     parser.add_argument("--password-file", type=Path, help="Read the chosen password from a private external mode600 file")
     args = parser.parse_args()
@@ -295,8 +371,8 @@ def main():
                 raise ValueError("Run --configure-login through authenticated sudo from jd")
             os.umask(0o077)
             configure_login(pwd.getpwnam("jd"), password_input(args.password_file))
-        elif args.apply:
-            apply()
+        elif args.apply or args.complete_web_stack:
+            apply(complete=args.complete_web_stack)
         else:
             plan()
     except subprocess.CalledProcessError as error:

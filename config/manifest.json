@@ -486,13 +486,18 @@
     "mode": 420
   },
   {
-    "source": "config/laravel/phpmyadmin.service",
-    "destination": "/etc/systemd/system/laravel-phpmyadmin.service",
+    "source": "config/laravel/apache-ports.conf",
+    "destination": "/etc/apache2/ports.conf",
     "mode": 420
   },
   {
-    "source": "config/laravel/phpmyadmin-router.php",
-    "destination": "/usr/local/share/bgh-laravel/phpmyadmin-router.php",
+    "source": "config/laravel/apache-web-stack.conf",
+    "destination": "/etc/apache2/conf-available/bgh-web-stack.conf",
+    "mode": 420
+  },
+  {
+    "source": "config/laravel/web-stack.rules",
+    "destination": "/etc/polkit-1/rules.d/49-bgh-web-stack.rules",
     "mode": 420
   }
 ]
