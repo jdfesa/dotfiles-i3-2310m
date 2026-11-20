@@ -3,6 +3,15 @@
 Cambios técnicos de la configuración. El estado vigente está en las guías y
 las versiones en [Dependencies and versions](docs/dependencies.md).
 
+## 2026-11-20
+
+### Wi-Fi startup radio
+
+- Añadido un auxiliar de activación de radio limitado al BIOS y la RTL8188CE
+  verificados, mediante una escritura EC acotada y recuperación del permiso.
+- Añadida una unidad oneshot sin proceso residente, con instalación regular
+  root, respaldo privado y validación de identidad, estado y resultado.
+
 ## 2026-11-19
 
 ### GTK3 dark theme

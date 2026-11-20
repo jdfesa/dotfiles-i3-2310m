@@ -102,7 +102,9 @@ Wi-Fi puede iniciar con **Soft blocked: no / Hard blocked: yes**. El procedimien
 actual es Fn+F11 del teclado integrado. `nmcli radio wifi on` o
 `rfkill unblock` no garantizan eliminar un bloqueo hardware.
 Autoconexión y reintentos ya están configurados; no añadir bucles o perfiles
-duplicados. [Diagnóstico y límites](boot-troubleshooting.md).
+duplicados. El auxiliar específico de [Wi-Fi startup radio](wifi-radio.md)
+activa la radio por software; su validación desde un encendido completo está
+pendiente. Fn+F11 sigue disponible como recuperación.
 
 Wi-Fi/DNS/SSH sin cable fueron verificados; la recuperación física por Ethernet
 sigue pendiente. No exponer SSH mediante el router como parte de esta instalación.

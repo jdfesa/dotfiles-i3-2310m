@@ -80,8 +80,9 @@
 ## Hardware and session
 
 - [ ] Wi-Fi al encender: hard block; procedimiento actual **Fn + F11 integrado**.
-  Diagnóstico acotado finalizado sin vía simple de activación automática.
-  No repetir ciclos ni ingeniería inversa sin nuevo alcance.
+  Activación puntual por software comprobada; validar el auxiliar desde un
+  encendido completo sin pulsar las teclas antes de integrar la rama.
+  [Wi-Fi startup radio](docs/wifi-radio.md).
 - [ ] Probar recuperación física por Ethernet.
 - [ ] Validar cierre/reapertura de tapa y bloqueo previo a suspensión automática.
 - [x] Verificar adaptador USB, salida Speaker, reproducción y volumen/mute;
