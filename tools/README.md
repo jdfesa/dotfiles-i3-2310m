@@ -14,6 +14,7 @@ enlazan a i3 ni se habilitan en el arranque. No confundirlas con `scripts/`.
 | `tools/build-status-icons.py` | Genera cinco glifos Wi-Fi originales con fontTools; sólo entorno de desarrollo |
 | `tools/capture-bar.py` | X11: PPM de los 32 píxeles superiores en stdout; guardar captura fuera del árbol |
 | `tools/probe-wifi-keys.py` | Captura acotada y filtrada Fn/F11/radio; requiere coordinación y acceso explícito a dispositivos; sin inyección |
+| `tools/install-wifi-radio.py` | Dry-run por defecto; con sudo y `--apply` respalda e instala el auxiliar de radio y habilita su oneshot sin iniciarlo ni reiniciar la red; [Wi-Fi startup radio](../docs/wifi-radio.md) |
 | `tools/relocate-user-home.py` | Mantenimiento específico joe→jd; inspección por defecto, allowlist y `--apply` protegido. No crea/renombra cuentas |
 
 Python usa biblioteca estándar salvo el generador de fuentes.

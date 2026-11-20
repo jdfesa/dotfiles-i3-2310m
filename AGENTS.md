@@ -280,9 +280,13 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
 - Los emoji usan Noto Color Emoji de Debian como fuente de sistema y el
   fallback de Fontconfig existente; no sustituir las fuentes de texto/barra ni
   añadir reglas globales propias. Operación en docs/apps-setup.md.
-- El hard block Wi-Fi sigue sin resolver; la captura final acotada está completa.
-  No repetir ciclos de arranque, eventos Fn, blacklist ni trabajos de EC/firmware
-  por defecto.
+- Wi-Fi al encender: auxiliar experimental de una sola ejecución para el BIOS
+  y la tarjeta exactos, con escritura EC limitada al estado comprobado y
+  restauración del permiso de escritura. Instalarlo como archivo regular root,
+  separado del checkout; sin daemon, blacklist, flasheo ni cambios de red.
+  Validar activación desde encendido completo y estabilidad posterior antes
+  de integrar. No ampliar los registros o identidades aceptados sin revisión
+  y prueba coordinada. Operación y recuperación en docs/wifi-radio.md.
 
 ## Security, tools and validation
 
