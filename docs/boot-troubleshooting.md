@@ -5,7 +5,7 @@
 | Tema | Resultado |
 |---|---|
 | Suspensión inicial con tapa abierta | Corregida; reinicio y encendido completo comprobados |
-| Wi-Fi en frío | Activación por software comprobada; falta validar el oneshot al encender |
+| Wi-Fi en frío | Auxiliar experimental; alcance y validación en [Wi-Fi startup radio](wifi-radio.md) |
 | Unidad temporal de diagnóstico | Retirada; no instalar al restaurar |
 | Cierre real de tapa / bloqueo automático | Prueba pendiente |
 
@@ -44,8 +44,8 @@ recovery. No restaurar un grub.cfg antiguo después de cambiar kernels.
 ## Wi-Fi radio
 
 La RTL8188CE inicia en algunos ciclos con soft unblocked/hard blocked antes de
-Fn+F11. Un reinicio reconectó automáticamente, pero los encendidos en frío no
-confirmaron persistencia. Hard block es un estado del controlador, no prueba
+Fn+F11. El auxiliar intenta activar la radio en cada arranque compatible; no establece
+persistencia en el BIOS. Hard block es un estado del controlador, no prueba
 de daño físico; comandos de desbloqueo software no garantizan resolverlo.
 
 - La unidad oneshot temporal capturó el hard block y fue retirada.
@@ -62,7 +62,7 @@ de daño físico; comandos de desbloqueo software no garantizan resolverlo.
   activarla mediante un auxiliar acotado. No requiere blacklists, emulación
   de teclas, otro controlador ni cambiar la pila RTC.
 
-Instalación, límites y prueba de encendido pendiente en
+Instalación, límites y validación de activación y estabilidad en
 [Wi-Fi startup radio](wifi-radio.md). No reinstalar la unidad diagnóstica
 retirada ni repetir capturas de teclado para activar la solución.
 

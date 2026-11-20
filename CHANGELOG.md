@@ -11,6 +11,8 @@ las versiones en [Dependencies and versions](docs/dependencies.md).
   verificados, mediante una escritura EC acotada y recuperación del permiso.
 - Añadida una unidad oneshot sin proceso residente, con instalación regular
   root, respaldo privado y validación de identidad, estado y resultado.
+- Documentada la comprobación separada de radio y enlace ante caídas posteriores
+  al arranque, con captura previa a la recuperación manual y uso sostenido.
 
 ## 2026-11-19
 

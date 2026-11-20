@@ -79,9 +79,10 @@
 
 ## Hardware and session
 
-- [ ] Wi-Fi al encender: hard block; procedimiento actual **Fn + F11 integrado**.
-  Activación puntual por software comprobada; validar el auxiliar desde un
-  encendido completo sin pulsar las teclas antes de integrar la rama.
+- [ ] Wi-Fi al encender: validar estabilidad posterior con uso normal desde
+  encendidos completos, sin recuperación manual, antes de integrar la rama.
+  Conservar **Fn + F11 integrado** como recuperación; capturar el estado de
+  radio y enlace antes de usarlo si reaparece una caída.
   [Wi-Fi startup radio](docs/wifi-radio.md).
 - [ ] Probar recuperación física por Ethernet.
 - [ ] Validar cierre/reapertura de tapa y bloqueo previo a suspensión automática.

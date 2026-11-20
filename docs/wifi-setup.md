@@ -99,12 +99,14 @@ otro resolvedor para ocultar un conflicto de propiedad.
 ## Startup limitation
 
 Wi-Fi puede iniciar con **Soft blocked: no / Hard blocked: yes**. El procedimiento
-actual es Fn+F11 del teclado integrado. `nmcli radio wifi on` o
+manual es Fn+F11 del teclado integrado. `nmcli radio wifi on` o
 `rfkill unblock` no garantizan eliminar un bloqueo hardware.
 Autoconexión y reintentos ya están configurados; no añadir bucles o perfiles
 duplicados. El auxiliar específico de [Wi-Fi startup radio](wifi-radio.md)
-activa la radio por software; su validación desde un encendido completo está
-pendiente. Fn+F11 sigue disponible como recuperación.
+activa la radio por software; su alcance y estado de validación se mantienen
+en esa guía. Fn+F11 sigue disponible como recuperación. Si se pierde la
+conexión después del arranque, seguir [Link loss after startup](wifi-radio.md#link-loss-after-startup)
+antes de cambiar el estado de la radio.
 
 Wi-Fi/DNS/SSH sin cable fueron verificados; la recuperación física por Ethernet
 sigue pendiente. No exponer SSH mediante el router como parte de esta instalación.

@@ -284,7 +284,7 @@ Validar las afirmaciones de rendimiento con medidas representativas en la portá
   y la tarjeta exactos, con escritura EC limitada al estado comprobado y
   restauración del permiso de escritura. Instalarlo como archivo regular root,
   separado del checkout; sin daemon, blacklist, flasheo ni cambios de red.
-  Activación manual por software comprobada; encendido completo pendiente antes
+  Validar activación desde encendido completo y estabilidad posterior antes
   de integrar. No ampliar los registros o identidades aceptados sin revisión
   y prueba coordinada. Operación y recuperación en docs/wifi-radio.md.
 

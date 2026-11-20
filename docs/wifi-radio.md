@@ -2,11 +2,16 @@
 
 ## Status and scope
 
-La activación por software de la RTL8188CE está comprobada en la BGH A470:
-el estado `soft=0 / hard=1` pasa a `soft=0 / hard=0`, NetworkManager
-reconecta y la interfaz Wi-Fi transporta tráfico HTTPS. **La ejecución desde
-un encendido completo sigue pendiente**; no dar por resuelto el TODO ni
-integrar la rama antes de comprobarla sin pulsar Fn+F11.
+La activación inicial de la RTL8188CE desde un encendido completo está
+comprobada en la BGH A470: el auxiliar pasa de `soft=0 / hard=1` a
+`soft=0 / hard=0`, termina y NetworkManager conecta sin pulsar Fn+F11.
+Esto verifica la activación en ese arranque; no demuestra que el BIOS
+conserve la radio encendida entre apagados ni la estabilidad posterior.
+
+**La estabilidad sigue pendiente**: se observó una pérdida posterior del
+enlace con la radio habilitada. Su causa no está determinada. Mantener el
+TODO abierto y la rama sin integrar hasta repetir la comprobación con uso
+normal sostenido, sin recuperación manual.
 
 El auxiliar es específico de Phoenix `1.04.00.BH` del `06/09/2011`, la tarjeta
 `10ec:8176` con subsistema `10ec:8181` y `rtl8192ce`. Comprueba además los
@@ -99,6 +104,43 @@ Exigir hard block eliminado, interfaz conectada, `write_support=N`, unidad
 terminada y HTTPS por `wlp2s0`. Una conexión USB o Ethernet no demuestra que
 funcione el Wi-Fi. Conservar una conexión alternativa durante las pruebas.
 
+Continuar con uso normal durante al menos 15 minutos, incluidos intervalos
+sin tráfico deliberado, y repetir las comprobaciones de radio y conexión.
+Repetir también desde otro encendido completo coordinado. Una petición HTTPS
+o unos pocos pings correctos no demuestran estabilidad sostenida.
+
+### Link loss after startup
+
+La X de la barra no distingue una radio bloqueada de una pérdida de enlace.
+Si reaparecen lentitud o desconexión, consultar el estado **antes de pulsar
+Fn+F11**, reiniciar servicios o modificar parámetros:
+
+```sh
+date --iso-8601=seconds
+/usr/sbin/rfkill --output ID,TYPE,SOFT,HARD
+nmcli -f GENERAL.STATE,GENERAL.REASON device show wlp2s0
+/usr/sbin/iw dev wlp2s0 link
+/usr/sbin/iw dev wlp2s0 get power_save
+sudo journalctl -b -o short-monotonic --no-pager \
+  -u bgh-wifi-radio.service -u NetworkManager.service -u wpa_supplicant.service
+sudo journalctl -b -k -o short-monotonic --no-pager
+```
+
+`iw` es la herramienta de diagnóstico de Debian; estas consultas no cambian
+la conexión. Los registros y la salida del enlace pueden incluir SSID y
+direcciones: conservarlos en privado fuera del repositorio.
+
+Con `hard=0 / soft=0`, revisar la pérdida de asociación y las respuestas del
+punto de acceso; no repetir la escritura EC para resolver ese estado. Con
+`hard=1`, revisar el momento del bloqueo respecto de las pulsaciones físicas.
+Un ciclo manual de apagado/encendido puede recuperar el enlace, pero cambia
+el estado que se necesita diagnosticar.
+
+El ahorro de energía activo por sí solo no identifica la causa. Cualquier
+prueba que lo cambie debe comparar una sola variable, conservar su valor
+anterior y coordinarse antes de alterar la conexión. No añadir un monitor
+permanente ni reinicios automáticos para ocultar la caída.
+
 ## Recovery and maintenance
 
 Si no se activa, usar Fn+F11 integrado y consultar el error de la unidad.
@@ -129,4 +171,5 @@ Las tablas completas, capturas y respaldos permanecen privados.
 
 Referencias: [Linux ec_sys](https://github.com/torvalds/linux/blob/v6.12/drivers/acpi/ec_sys.c),
 [RTL8192CE radio state](https://github.com/torvalds/linux/blob/v6.12/drivers/net/wireless/realtek/rtlwifi/rtl8192ce/hw.c),
+[iw diagnostics](https://wireless.docs.kernel.org/en/latest/en/users/documentation/iw.html),
 [systemd.service](https://www.freedesktop.org/software/systemd/man/257/systemd.service.html).
