@@ -78,7 +78,9 @@ python3 tools/link-user-config.py  # Apply links using User configuration links.
 - Polkitd: necesario para el menú de energía local sin contraseña. No crear reglas
   NOPASSWD ni políticas de autorización generales.
 - GRUB: instalar el drop-in sólo en hardware afectado, regenerar/validar GRUB;
-  no instalar la unidad Wi-Fi diagnóstica de referencia.
+  no instalar la unidad Wi-Fi diagnóstica de referencia. El auxiliar de
+  [Wi-Fi startup radio](wifi-radio.md) tiene instalación separada; consultar
+  su alcance y estado de validación antes de restaurarlo.
 
 Después de enlazar las unidades de usuario:
 

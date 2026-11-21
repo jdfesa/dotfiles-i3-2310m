@@ -517,5 +517,15 @@
     "source": "config/laravel/web-stack.rules",
     "destination": "/etc/polkit-1/rules.d/49-bgh-web-stack.rules",
     "mode": 420
+  },
+  {
+    "source": "scripts/enable-wifi-radio.py",
+    "destination": "/usr/local/libexec/bgh-wifi-radio",
+    "mode": 493
+  },
+  {
+    "source": "config/wifi-radio/bgh-wifi-radio.service",
+    "destination": "/etc/systemd/system/bgh-wifi-radio.service",
+    "mode": 420
   }
 ]

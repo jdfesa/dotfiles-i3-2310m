@@ -6,6 +6,8 @@ importados con modo644; este README se lee en el checkout.
 `~/.local/bin/codex` es un enlace al lanzador versionado. Las configuraciones de
 usuario se enlazan según [User configuration links](../docs/user-config-links.md).
 El [manifiesto](../config/manifest.json) define rutas completas y permisos.
+El auxiliar privilegiado de radio se instala como archivo regular root en
+`/usr/local/libexec/bgh-wifi-radio`, separado de los scripts de usuario.
 
 | Fuente relativa al proyecto | Uso / ciclo de vida |
 |---|---|
@@ -26,6 +28,7 @@ El [manifiesto](../config/manifest.json) define rutas completas y permisos.
 | `scripts/screen-brightness.py` | Lee la retroiluminación interna en el tick existente; aplica el brillo inicial con logind y abre el panel GTK3 bajo demanda |
 | `scripts/calendar-popup.py` | Calendario GTK3 de sólo lectura; vive sólo mientras está abierto |
 | `scripts/open-networks.sh` | Panel único de `nmtui-connect` en Kitty; clic, Super+N o Rofi. [Network panel](../docs/wifi-setup.md#network-panel) |
+| `scripts/enable-wifi-radio.py` | Activa una vez la radio del BIOS/tarjeta verificados; sólo inspecciona sin `--apply`. Unidad de sistema sin proceso residente; [Wi-Fi startup radio](../docs/wifi-radio.md) |
 | `scripts/open-mixer.sh` | Entrada Super+A al panel de volumen USB; sin terminal adicional |
 | `scripts/audio-control.py` | Módulo ALSA: lectura de salida USB en el tick existente y escrituras explícitas del panel; ejecución directa sólo lee |
 | `scripts/audio-volume.py` | Deslizador GTK3 de volumen/mute; vive sólo mientras está abierto |

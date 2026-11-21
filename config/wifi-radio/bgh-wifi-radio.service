@@ -1,0 +1,25 @@
+[Unit]
+Description=Enable the verified BGH WLAN radio once
+After=NetworkManager.service sys-kernel-debug.mount
+Requires=sys-kernel-debug.mount
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/libexec/bgh-wifi-radio --apply --wait 10
+ExecStopPost=/usr/local/libexec/bgh-wifi-radio --restore-guard
+TimeoutStartSec=25s
+TimeoutStopSec=5s
+Restart=no
+UMask=0077
+RuntimeDirectory=bgh-wifi-radio
+RuntimeDirectoryMode=0700
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectKernelTunables=yes
+ReadWritePaths=/sys/module/ec_sys/parameters/write_support /sys/kernel/debug/ec/ec0/io
+
+[Install]
+WantedBy=multi-user.target
