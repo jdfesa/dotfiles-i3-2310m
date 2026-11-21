@@ -5,7 +5,7 @@
 | Tema | Resultado |
 |---|---|
 | Suspensión inicial con tapa abierta | Corregida; reinicio y encendido completo comprobados |
-| Wi-Fi en frío | Auxiliar experimental; alcance y validación en [Wi-Fi startup radio](wifi-radio.md) |
+| Wi-Fi en frío | Auxiliar de arranque; alcance y validación en [Wi-Fi startup radio](wifi-radio.md) |
 | Unidad temporal de diagnóstico | Retirada; no instalar al restaurar |
 | Cierre real de tapa / bloqueo automático | Prueba pendiente |
 

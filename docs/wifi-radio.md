@@ -5,13 +5,15 @@
 La activación inicial de la RTL8188CE desde un encendido completo está
 comprobada en la BGH A470: el auxiliar pasa de `soft=0 / hard=1` a
 `soft=0 / hard=0`, termina y NetworkManager conecta sin pulsar Fn+F11.
-Esto verifica la activación en ese arranque; no demuestra que el BIOS
-conserve la radio encendida entre apagados ni la estabilidad posterior.
+La comprobación manual de uso normal en días distintos confirma conexión
+estable, sin recuperación manual. La unidad queda habilitada para actuar
+en cada arranque compatible; esto no implica que el BIOS conserve la radio
+encendida entre apagados. Fn+F11 integrado sigue disponible como recuperación.
 
-**La estabilidad sigue pendiente**: se observó una pérdida posterior del
-enlace con la radio habilitada. Su causa no está determinada. Mantener el
-TODO abierto y la rama sin integrar hasta repetir la comprobación con uso
-normal sostenido, sin recuperación manual.
+La activación automática reutiliza el controlador `rtl8192ce` de Debian y
+el acceso `ec_sys` del kernel; no instala un driver nuevo. Si reaparecen
+lentitud o desconexiones, seguir [Link loss after startup](#link-loss-after-startup)
+para distinguir el estado de la radio del enlace antes de modificarlo.
 
 El auxiliar es específico de Phoenix `1.04.00.BH` del `06/09/2011`, la tarjeta
 `10ec:8176` con subsistema `10ec:8181` y `rtl8192ce`. Comprueba además los

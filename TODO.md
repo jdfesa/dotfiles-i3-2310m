@@ -79,10 +79,9 @@
 
 ## Hardware and session
 
-- [ ] Wi-Fi al encender: validar estabilidad posterior con uso normal desde
-  encendidos completos, sin recuperación manual, antes de integrar la rama.
-  Conservar **Fn + F11 integrado** como recuperación; capturar el estado de
-  radio y enlace antes de usarlo si reaparece una caída.
+- [x] Activar Wi-Fi desde el encendido completo sin pulsar teclas y comprobar
+  conexión estable en uso normal en días distintos, sin recuperación manual.
+  Conservar **Fn + F11 integrado** como recuperación.
   [Wi-Fi startup radio](docs/wifi-radio.md).
 - [ ] Probar recuperación física por Ethernet.
 - [ ] Validar cierre/reapertura de tapa y bloqueo previo a suspensión automática.
